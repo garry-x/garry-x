@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/bollnh/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+
+
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/>
+
+
+
+    <link rel="dns-prefetch" href="https://hm.baidu.com"/>
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            阿里云SIGCOMM22论文阅读 | 
+        
+        Garry&#39;s Blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.svg">
+    <link rel="icon" href="/img/favicon.svg">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Garry&#39;s Blog">
+    <meta name="msapplication-starturl" content="https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Garry&#39;s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.svg">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="阿里云SIGCOMM22论文阅读 | Garry&#39;s Blog">
+    <meta property="og:image" content="/img/favicon.svg">
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="Wed Aug 31 2022 15:30:09 GMT+0800">
+        <meta property="article:modified_time" content="Thu Nov 17 2022 11:34:13 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/index.html",
+    "headline": "阿里云SIGCOMM22论文阅读",
+    "datePublished": "Wed Aug 31 2022 15:30:09 GMT+0800",
+    "dateModified": "Thu Nov 17 2022 11:34:13 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Garry Xu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/person.jpg"
+        },
+        "description": "写作使人精确"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Garry&#39;s Blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.svg"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?11c4725b193a666d23428aa1f1005776';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D%EF%BC%9AEBS%E7%BD%91%E7%BB%9C"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景介绍：EBS网络</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#EBS%E5%89%8D%E7%AB%AF%E7%BD%91%E7%BB%9C%E7%9A%84%E7%89%B9%E7%82%B9"><span class="post-toc-number">2.</span> <span class="post-toc-text">EBS前端网络的特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LUNA"><span class="post-toc-number">3.</span> <span class="post-toc-text">LUNA</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SOLAR"><span class="post-toc-number">4.</span> <span class="post-toc-text">SOLAR</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SOLAR%E7%9A%84%E8%AF%BB%E5%86%99%E6%B5%81%E7%A8%8B"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">SOLAR的读写流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%86%99%E6%B5%81%E7%A8%8B"><span class="post-toc-number">4.1.1.</span> <span class="post-toc-text">写流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%AF%BB%E6%B5%81%E7%A8%8B"><span class="post-toc-number">4.1.2.</span> <span class="post-toc-text">读流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SOLAR%E7%9A%84%E5%BA%94%E7%94%A8"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">SOLAR的应用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#SOLAR%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%8F%E9%AA%8C"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">SOLAR的一些经验</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                阿里云SIGCOMM22论文阅读
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/person.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Garry Xu</strong>
+        <span>8月 31, 2022</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=阿里云SIGCOMM22论文阅读&url=https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/index.html&pic=https://garryx.com/img/favicon.svg&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=阿里云SIGCOMM22论文阅读&url=https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/index.html&via=Garry Xu" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>阿里云在今年的网络顶会SIGCOMM上发表了一篇论文：”From Luna to Solar: The Evolutions of the Compute-to-Storage Networks in Alibaba Cloud”。  </p>
+<p>该文章介绍了阿里云在EBS存储的应用背景下，计算节点和存储节点间网络通信的演进过程。由于文中介绍的网络架构已经在阿里云内部大范围应用，对于同样提供EBS服务的云厂商来说，有很好的指引性。  </p>
+<h2 id="背景介绍：EBS网络"><a href="#背景介绍：EBS网络" class="headerlink" title="背景介绍：EBS网络"></a>背景介绍：EBS网络</h2><p>弹性块存储（EBS）是云厂商提供的标准服务，以云主机或者裸金属可见的虚拟磁盘的形式被用户使用。有按需分配磁盘数量、按需分配磁盘容量的特点。  </p>
+<p>阿里云EBS的总体架构如下图所示：<br><img src="/images/ebs-overall.png" alt="">  </p>
+<p>虚拟机磁盘的I/O数据传输到计算节点服务器上的存储客户端（SA），SA通过RPC与存储集群的Block Server交互，最终数据经由Block Server写入Chunk Server的磁盘。因此可对EBS网络做如下切分：  </p>
+<ul>
+<li><strong>前端网络（FN）</strong>：连接计算节点和Block Server的网络，也是这篇论文关注的部分。    </li>
+<li><strong>后端网络（BN）</strong>：连接存储节点间的网络。      </li>
+</ul>
+<p>具体到SA的处理流程，一次写请求的处理流程如下：  </p>
+<ol>
+<li>SA接收到虚拟磁盘的写请求。  </li>
+<li>查询<strong>QoS Table</strong>，获取虚拟磁盘的服务等级和当前用量信息，酌情进行限速。  </li>
+<li>生成CRC校验。  </li>
+<li>进行数据加密（可选）; 同时查询<strong>Segment Table</strong>，获取的目标Data Segment及对应的Block Server。  </li>
+<li>将元数据和数据写入Buffer。  </li>
+<li>发送一个或多个RPC将数据和元数据发送给Block Server。 </li>
+<li>Block Server 收到写请求。   </li>
+<li>Block Server将请求发送给对应的后端Chunk Server。  </li>
+<li>完成三副本写入后，Block Server发送回应。  </li>
+</ol>
+<p>下图是图形化的展示 ：<br><img src="/images/ebs-sa-workflow.png" alt="">   </p>
+<p>可以看到在整个I/O处理中，<strong>SA</strong>扮演了很重要的角色。I/O过程中，SA的查表、校验、加解密及数据传输，都将消耗计算节点的资源。  </p>
+<h2 id="EBS前端网络的特点"><a href="#EBS前端网络的特点" class="headerlink" title="EBS前端网络的特点"></a>EBS前端网络的特点</h2><p>阿里云分析了其线上10W台服务器，有如下总结：  </p>
+<ol>
+<li><strong>EBS以写I/O为主，其流量占服务器流量的大部分</strong>：EBS流量占到发送流量的63%，占总流量的51%。结合下图能看出来EBS流量超过70%都是发送流量（写I/O）。同时文章也提到了，单台线上物理服务器的平均IOPS在<strong>20W</strong>左右。<br><img src="/images/ebs-bandwidth.png" alt="">  </li>
+<li><p><strong>I/O不大</strong>： I/O请求均小于128K，40%的I/O小于4K。由于小I/O对延时更加敏感，因此阿里判断其EBS流量主要为延时敏感型。下图是I/O大小分布情况：<br><img src="/images/ebs-iosize.png" alt="">  </p>
+</li>
+<li><p><strong>I/O延时LUNA和SOLAR优化明显</strong>： I/O延时对比如下图所示，可以看到使用内核TCP的FN和BN均有较高的延时，远大于SSD设备本身的写入和读取延时。而LUNA使用用户态TCP实现后，对读写I/O场景FN和BN的延时都有大幅度的降低。而LUNA应用后，可以发现SA在读写延时中成为瓶颈，SOLAR则一定程度上解决了这个问题。SOLAR在4KB写I延时上优化效果十分明显。             </p>
+</li>
+</ol>
+<p><img src="/images/ebs-iolatency.png" alt="">  </p>
+<blockquote>
+<p>这里补充下SSD硬件设备的延时作为参照，如Intel P4510 4TB SSD磁盘，其4KB随即读取延时为95us，随机写入延时为25us。  </p>
+</blockquote>
+<h2 id="LUNA"><a href="#LUNA" class="headerlink" title="LUNA"></a>LUNA</h2><p>由于内核协议栈在延时层面有较大开销（几百微妙到毫秒级），因此，实现低延时有两种主流方案，一种是基于软件bypass 内核的方案，如Intel DPDK等； 另一种使用基于硬件的bypass内核方案，比如RDMA。LUNA 是阿里为了低延时，为FN实现的软件用户态网络方案，和腾讯云的zTcp类似。  </p>
+<p>阿里在BN端使用了RDMA，在FN侧为什么要使用软件方案，其基于如下考虑：  </p>
+<ul>
+<li><strong>扩展性</strong>：由于FN负责连接计算节点到存储集群，考虑到计算节点的数量，FN需要将扩展性作为重要的设计因素。另外在保持大量连接的同时，FN还需要保障其高性能和高可靠性。相比之下，BN需要连接的节点数量要少得多。    </li>
+<li><strong>互操作性</strong>：由于不同存储集群的部署时间不同，其所用网卡硬件可能存在差异。FN需要保持对不同硬件配置的兼容性。而单个存储集群内，则硬件配置可以保持一致。  </li>
+</ul>
+<p>文中也提到，在LUNA开始开发的2017年，RoCEv2并不成熟，有连接数目到达一定规模总体网络带宽急促下降，及不同厂商、不同型号网卡间不兼容的问题。因此基于前述两点及RDMA应用的问题，阿里选择使用软件方案，也就是LUNA。   </p>
+<p>从2019年发布之后，LUNA几乎已经部署到所有的阿里云EBS集群，2021年Q1全量部署之后，相对于2019年Q1，EBS的整体延时下降了64%，IOPS增大180%。延时及IOPS的进化如下图所示：<br><img src="/images/ebs-luna-latency.png" alt="">  </p>
+<p>下表则展示了，LUNA和内核TCP在性能和开销上的对比。在2x25G下，LUNA相对于内核协议栈，延时降低了80%，仅需要1个CPU 核即可打满50G带宽。<br><img src="/images/ebs-luna-resourse.png" alt=""></p>
+<p>LUNA有前面所说的突出优势，在大面积应用LUNA之后，一些问题凸显出来：       </p>
+<ul>
+<li><strong>SA成为性能瓶颈</strong>： 在应用LUNA之后，端到端延时的瓶颈变为SA。SA有复杂的计算逻辑，比如CRC、加密、查表等。能不能将这部分交由硬件处理？  </li>
+<li><strong>随着网路能力的进一步提升，软件方案难以持续</strong>：尽管LUNA不在是瓶颈，但是在实际应用中，其占用了很多的CPU资源。对于2x100G网络，其需要4个CPU核心，对于后续的2x200G，2x400G来说，将必须吧这部分网络处理放到硬件上。  </li>
+<li><strong>网络故障对存储的影响是灾难性的</strong>： 当发生网络故障，LUNA只能等待网络恢复，而网络恢复时间需要较长的时间，可以达到分钟级，在这个过程中，EBS I/O将夯住。下图展示了在网络故障下，大量的虚拟机I/O无法完成。<br><img src="/images/ebs-luna-failure.png" alt="">    </li>
+<li><strong>应用DPU后遇到的内部PCIe带宽问题</strong>：在使用DPU（神龙）后，LUNA运行于DPU卡上的CPU，，数据需要在卡上的FPGA和卡上的CPU间通过内部PCIe连传输。这个内部PCIe连接， 也成为了网络带宽和延时的瓶颈。    </li>
+</ul>
+<h2 id="SOLAR"><a href="#SOLAR" class="headerlink" title="SOLAR"></a>SOLAR</h2><p>2018年开始，阿里开始研发SOLAR系统。SOLAR有两个设计目标：一个是降低DPU上的CPU开销并解决CPU和FPGA间的PCIe带宽瓶颈问题；另一个是通过主动的路径切换来发现并规避网络故障。   </p>
+<p>SOLAR和LUNA及RDMA架构的对比，如下图所示：<br><img src="/images/solar-architecture.png" alt="">  </p>
+<p>SOLAR的实现有三个挑战： </p>
+<ul>
+<li>网络栈和SA都是复杂的、有状态的软件系统，要想在FPGA的有限资源上实现是比较难的。  </li>
+<li>实现的可扩展性。  </li>
+<li>FPGA 硬件是易出错的。阿里的实际观测，37%的线上数据损坏，由FPGA硬件导致。分布如下图所示：<br><img src="/images/fpga-error.png" alt="">  </li>
+</ul>
+<p>SOLAR的实现思路是将存储实现和网络栈融合起来，消除FN中的数据包缓存、以及数据包到存储系统数据块的转换。具体来说，就是“一个数据块一个数据包”。这样的设计有如下的好处：  </p>
+<ul>
+<li>不再需要数据包缓存，用于将数据包拼成数据块。  </li>
+<li>不再需要CPU处理。DPU内网络处理和存储处理直接衔接。   </li>
+<li>更少的状态维护。不需要维护数据包到存储数据块的映射。  </li>
+<li>对多路径的兼容。由于所有的数据包都相互独立，其对数据包重排不敏感，这也简化了多路径的实现。  </li>
+<li>易于实现。“一个数据块一个数据包”的设计和当前的系统实现吻合，实现对当前系统修改不大。</li>
+</ul>
+<p>下面来看看SOLAR 具体的读写流程。  </p>
+<h3 id="SOLAR的读写流程"><a href="#SOLAR的读写流程" class="headerlink" title="SOLAR的读写流程"></a>SOLAR的读写流程</h3><h4 id="写流程"><a href="#写流程" class="headerlink" title="写流程"></a>写流程</h4><p>如下图所示：<br><img src="/images/solar-write.png" alt="">  </p>
+<ol>
+<li>Guest 通过NVMe命令向DPU发起写请求。  </li>
+<li>QoS 模块对写请求进行带宽控制，Block模块将VD的逻辑地址翻译为远端Block Server 物理磁盘的具体Segment地址。（这里涉及到对QoS和Block映射两个表的查询）    </li>
+<li>DPU上的CPU 通过Polling发现了该写请求，并对每个I/O准备RPC和UDP Header。 </li>
+<li>FPGA同时通过DMA获取该次请求的数据，通过CRC模块计算CRC，如果需要通过SEC模块进行加密。  </li>
+<li>最终，由PktGen模块发送数据包。  </li>
+</ol>
+<h4 id="读流程"><a href="#读流程" class="headerlink" title="读流程"></a>读流程</h4><p>为记录数据块，读流程涉及到如下图所示：<br><img src="/images/solar-read.png" alt="">  </p>
+<ol>
+<li>Guest 通过NVMe命令向DPU发起读请求。  </li>
+<li>与写请求类似，QoS模块和Block模块进行处理。  </li>
+<li>RPC模块在ADDR表中增加一项，ADDR表记录了RPC ID、I/O请求ID 和对应的Guest内存地址。  </li>
+<li>DPU上的CPU发送RPC请求。  </li>
+<li>DPU上的FPGA收到请求的返回信息，并根据ADDR表的记录进行处理，处理后，清除该表项。  </li>
+<li>DPU上的FPGA完成CRC和DMA处理，并将头部和包元数据信息发送至DPU上的CPU进行数据完整性校验。</li>
+<li>最终，DPU上的CPU通知Guest I/O处理完成。  </li>
+</ol>
+<p>通过上面的两个流程，可以看到SOLAR将数据面卸载到了FPGA上，但是每次I/O仍需要DPU上CPU的介入处理。  </p>
+<h3 id="SOLAR的应用"><a href="#SOLAR的应用" class="headerlink" title="SOLAR的应用"></a>SOLAR的应用</h3><p>2020年起，SOLAR在阿里部署了超过10W台服务器，有如下的优势：  </p>
+<ul>
+<li>SOLAR 提升了I/O性能：由于部署了SOLAR，EBS整体延时降低25%，对于4KB写请求，延时降低69%。同时SOLAR相对于LUNA也提高了资源利用效率，单核心的带宽和IOPS分别提高了78%和46%。并且论文也提到，虽然SOLAR降低了SA的平均延时，但是依然有较高的长尾延迟存在。该延时是因为目前SOLAR依赖DPU上CPU来进行拥塞控制，在I/O压力较大的情况下，CPU的负载比较高。  </li>
+<li>SOLAR避免了因为网络故障导致的I/O夯死：在线上环境，Guest 虚拟机每年因为网路故障，几十起I/O夯死，在SOLAR部署的两年间，这个数字降为0。</li>
+<li>硬件资源消耗较少，如下图所示：<br><img src="/images/solar-resource.png" alt="">  </li>
+</ul>
+<h3 id="SOLAR的一些经验"><a href="#SOLAR的一些经验" class="headerlink" title="SOLAR的一些经验"></a>SOLAR的一些经验</h3><ol>
+<li>网络速度正变得越来越快，越发接近PCIe速度。再这样的背景下，SOLAR这种bypass PCIe通道的实现就能避免其性能瓶颈，阿里认为bypass PCIe是高性能网路协议的长期需求。在这种实现下，SOLAR单CPU 核心可达成150K IOPS的性能。  </li>
+<li>使用jumbo frame的优缺点： 使用大包传输，有因网络拥塞增大延时的风险。这里阿里做了一些优化，比如交换机为SOLAR使用单独的队列，并使用更细粒度的拥塞控制算法，选取适中的包大小（4K而不是8K）等。</li>
+<li>将EBS与DPU结合：存算分离的架构在一些资源受限的场景（比如：边缘计算或者私有云）会带来较高的网络通信开销，这时候可以考虑将Block Server整合到DPU中。  </li>
+</ol>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style='padding:10px;' class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' === 'true';
+    var verify = 'false' === 'true';
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "s2eHqXywwedp3daCPBNbPuh1-gzGzoHsz",
+        appKey: "pGeyqGOCCeFFrOlUwGveRpL4",
+        placeholder: "来聊聊吧",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn',
+        guest_info: guest_info
+    });
+</script>
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2022/05/23/KVM-API-%E7%AE%80%E4%BB%8B/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/person.jpg" alt="Garry Xu's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        garry.x@outlook.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: garry.x@outlook.com" target="_blank" title="联系">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        联系
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2022/08/">八月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/05/">五月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/03/">三月 2022<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/02/">二月 2022<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/02/">二月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87/">会议论文<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E7%AE%97%E6%B3%95/">算法<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化<span class="sidebar_archives-count">6</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/garry-x" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;Garry's Blog
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/bollnh/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<!-- <script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script> -->
+
+<!-- Import prettify js  -->
+
+
+    
+        <script>lsloader.load("hanabi","/js/hanabi-browser-bundle.js?Pki5+pzkluqu53g+ouMWpA==", true)</script>
+    
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+        
+        
+        HanabiBrowser.start('pre code',true);
+    
+</script>
+
+<!-- MathJax Load-->
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2015;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/bollnh/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

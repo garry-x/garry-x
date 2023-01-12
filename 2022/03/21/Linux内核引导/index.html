@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/bollnh/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+
+
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/>
+
+
+
+    <link rel="dns-prefetch" href="https://hm.baidu.com"/>
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            Linux内核引导 | 
+        
+        Garry&#39;s Blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.svg">
+    <link rel="icon" href="/img/favicon.svg">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content=",Kernel">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Garry&#39;s Blog">
+    <meta name="msapplication-starturl" content="https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Garry&#39;s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.svg">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Linux内核引导 | Garry&#39;s Blog">
+    <meta property="og:image" content="/img/favicon.svg">
+    <meta property="og:description" content="">
+    <meta property="og:article:tag" content="Kernel"> 
+
+    
+        <meta property="article:published_time" content="Mon Mar 21 2022 10:24:05 GMT+0800">
+        <meta property="article:modified_time" content="Fri Apr 01 2022 18:39:48 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/index.html",
+    "headline": "Linux内核引导",
+    "datePublished": "Mon Mar 21 2022 10:24:05 GMT+0800",
+    "dateModified": "Fri Apr 01 2022 18:39:48 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Garry Xu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/person.jpg"
+        },
+        "description": "写作使人精确"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Garry&#39;s Blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.svg"
+        }
+    },
+    "keywords": ",Kernel",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?11c4725b193a666d23428aa1f1005776';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#linuxx86-%E5%BC%95%E5%AF%BC%E5%8D%8F%E8%AE%AE"><span class="post-toc-number">1.</span> <span class="post-toc-text">Linux&#x2F;x86 引导协议</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="post-toc-number">2.</span> <span class="post-toc-text">内存布局</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%86%85%E6%A0%B8%E5%A4%B4%E9%83%A8%E4%BF%A1%E6%81%AF"><span class="post-toc-number">3.</span> <span class="post-toc-text">实模式内核头部信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%86%85%E6%A0%B8%E7%9A%84%E4%BD%99%E4%B8%8B%E9%83%A8%E5%88%86"><span class="post-toc-number">4.</span> <span class="post-toc-text">加载内核的余下部分</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%BF%90%E8%A1%8C%E5%86%85%E6%A0%B8"><span class="post-toc-number">5.</span> <span class="post-toc-text">运行内核</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%8D%E5%BC%95%E5%AF%BC%E5%8D%8F%E8%AE%AE"><span class="post-toc-number">6.</span> <span class="post-toc-text">32位引导协议</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%8D%E5%BC%95%E5%AF%BC%E5%8D%8F%E8%AE%AE-1"><span class="post-toc-number">7.</span> <span class="post-toc-text">64位引导协议</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Linux内核引导
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/person.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Garry Xu</strong>
+        <span>3月 21, 2022</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-none-link" href="/tags/Kernel/" rel="tag">Kernel</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Linux内核引导&url=https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/index.html&pic=https://garryx.com/img/favicon.svg&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Linux内核引导&url=https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/index.html&via=Garry Xu" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p>以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html</p>
+</blockquote>
+<hr />
+<h3 id="linuxx86-引导协议">Linux/x86 引导协议</h3>
+<p>    在x86平台上，Linux使用一个很复杂的引导协议。形成这种状况的原因有很多，包括：各种历史原因、早期期望内核本身就是一个可以启动的
+<em>image</em>、复杂的PC内存模型、以及实模式消亡后PC工业界的变化等等。</p>
+<p>    目前，存在如下版本的 <em>Linux/x86</em> 引导协议：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>老内核</td>
+<td>只支持 <em>zImage/Imgge</em>。有些早期内核甚至不支持命令行。</td>
+</tr>
+<tr class="even">
+<td>2.00</td>
+<td>（内核 1.3.73）增加 <em>bzImage</em> 和 <em>initrd</em>
+支持；<em>bootloader</em>
+可以和内核通过形式化的方式通信；<em>setup.S</em> 可以重定向，原有的
+<em>setup</em> 区域依然支持写入。</td>
+</tr>
+<tr class="odd">
+<td>2.01</td>
+<td>（内核 1.3.76）增加堆溢出警告。</td>
+</tr>
+<tr class="even">
+<td>2.02</td>
+<td>（内核
+2.4.0-tet3-pre3）新的命令行协议；降低引导程序可以使用的内存上限；不覆盖传统
+<em>setup</em> 区域，因此可以支持使用 <em>SMM EBDA</em>
+或者使用32比特BIOS入口。</td>
+</tr>
+<tr class="odd">
+<td>2.03</td>
+<td>（内核 2.4.18-pre1）<em>initrd</em> 可以访问的最高地址对
+<em>bootloader</em> 显式可见。</td>
+</tr>
+<tr class="even">
+<td>2.04</td>
+<td>（内核 2.6.14）拓展 <em>syssize</em> 字段到4字节。</td>
+</tr>
+<tr class="odd">
+<td>2.05</td>
+<td>（内核 2.6.20）保护模式内核支持重定位；添加
+<em>relocatable_kernel</em> 和 <em>kernel_alignment</em> 字段。</td>
+</tr>
+<tr class="even">
+<td>2.06</td>
+<td>（内核 2.6.22）添加包含启动命令行大小的字段。</td>
+</tr>
+<tr class="odd">
+<td>2.07</td>
+<td>（内核 2.6.24）增加半虚拟化引导协议。在 <em>load_flags</em> 增加
+<em>hardware_subarch</em>、<em>hardware_subarch_data</em> 和
+<em>KEEP_SEGMENTS</em> 三个标志。</td>
+</tr>
+<tr class="even">
+<td>2.08</td>
+<td>（内核 2.6.26）增加 <em>crc32</em> 校验码和 <em>ELF</em> 格式
+<em>payload</em> 支持；增加 <em>payload_offset</em> 和
+<em>payload_length</em> 字段以方便定位 <em>payload</em>。</td>
+</tr>
+<tr class="odd">
+<td>2.09</td>
+<td>（内核 2.6.31）在 <em>kernel_alignment</em>
+之外增加宽松对齐协议；增加 <em>init_size</em> 和 <em>pref_address</em>
+字段。增加扩展的 <em>bootloader</em> ID。</td>
+</tr>
+<tr class="even">
+<td>2.11</td>
+<td>（内核 3.6）增加描述<a
+target="_blank" rel="noopener" href="https://www.phoronix.com/scan.php?page=news_item&amp;px=MTE0NzU#:~:text=The%20in-development%20Linux%203.6%20kernel%20introduces%20an%20EFI,setup%20an%20EFI%20machine%20for%20booting%20the%20kernel."><em>EFI
+handover</em> 协议</a> 入口偏移地址的字段</td>
+</tr>
+<tr class="odd">
+<td>2.12</td>
+<td>（内核 3.8）<em>boot_params</em> 结构增加 <em>xloadflags</em>
+和其他扩展字段，用以支持在64位系统4G以上地址加载 <em>bzImage</em> 或者
+<em>ramdisk</em>。</td>
+</tr>
+<tr class="even">
+<td>2.13</td>
+<td>（内核 3.14）为支持从32位 EFI启动64位内核，支持在
+<em>xloadflags</em> 中设置32位和64位标志。</td>
+</tr>
+<tr class="odd">
+<td>2.15</td>
+<td>（内核 5.5）增加 <em>kernel_info</em> 和
+<em>kernel_info.setup_type_max</em> 字段。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>协议版本号只在<em>setup header</em>发生变化时增加。如果
+<em>boot_params</em> 或者 <em>kernel_info</em>
+没有变化，没有必要更新版本号。另外，推荐使用 <em>xloadflags</em> 和
+<em>kernel_info</em> 来和 <em>bootloader</em>
+交互内核支持的特性信息。以为在最初的 <em>setup header</em>
+中，空间十分受限，从协议2.15开始，最主要的和 <em>bootloader</em>
+通信的方式就是通过 <em>kernel_info</em>。</li>
+</ul>
+<hr />
+<h3 id="内存布局">内存布局</h3>
+<p>    传统加载 <em>Image</em> 和 <em>bzImage</em> 的内核
+<em>loader</em>，其内存布局如下：<br />
+<img src="/images/boot-mem-old.png" /></p>
+<p>    当使用bzImage时，保护模式内核将被重定向到 <em>0x100000</em>
+（高端内存），而内核实模式部分（引导扇区,、配置、堆栈等）则可以重定向到
+<em>0x10000</em>
+到低端内存结束间的任何地址。不幸的是，在引导协议2.00和2.01版本中，内核内部仍使用<em>0x90000+</em>
+内存空间，直到引导协议版本2.02修复了这个问题。</p>
+<p>    实际中， <em>memory ceiling</em> （在低端内存中
+<em>bootloader</em>
+可以使用的最高内存位置）越低越好，因为一些新的BIOS开始在低端内存的头部分配大量的内存（扩展BIOS数据区域EBDA）。<em>bootloder</em>
+应该使用 <em>INT 12h</em> BIOS调用来确认还有多少低端内存可以使用。</p>
+<p>    不幸的是，如果 <em>INT 12h</em> 报告的内存太少，通常
+<em>bootloader</em> 除了向用户报错其他什么也做不了。因此
+<em>bootloader</em> 应该设计成占用尽量少的低端内存。对于 <em>zImage</em>
+或者老的 <em>bzImage</em> 内核而言，它们需要写到
+<em>0x90000</em>。因此，<em>bootloader</em> 应该保证不要使用超过
+<em>0x9A000</em>的内存，如果超过，很多BIOS将崩溃。</p>
+<p>    对于现在使用
+<em>bzImage</em>、引导协议大于等于2.02的内核，建议如下的内存布局： <img
+src="/images/boot-mem-new.png" /></p>
+<hr />
+<h3 id="实模式内核头部信息">实模式内核头部信息</h3>
+<p>    在后面的文本以及内核启动的流程中，“一个扇区”指代512字节，这独立于物理介质的实际扇区大小。</p>
+<p>    加载Linux内核的第一步是加载实模式的代码（引导扇区和
+<em>setup</em> 代码），之后检查如下在偏移 <em>0x01f1</em>
+位置的头部信息。实模式代码最大可以占到32K，然而 <em>bootloader</em>
+可能只选择加载前两个扇区（1K），之后检查需要的启动扇区大小。</p>
+<p>    头部信息如下：</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>偏移/大小</th>
+<th>协议</th>
+<th>名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>01F1/1</td>
+<td>ALL(1)</td>
+<td><em>setup_sects</em></td>
+<td>以扇区数衡量的 <em>setup</em> 区域大小</td>
+</tr>
+<tr class="even">
+<td>01F2/2</td>
+<td>ALL</td>
+<td><em>root_flags</em></td>
+<td>如果设置，<em>root</em> 将以只读挂载</td>
+</tr>
+<tr class="odd">
+<td>01F4/4</td>
+<td>2.04+(2)</td>
+<td><em>syssize</em></td>
+<td>保护模式（32bit）代码的大小，单位为16个字节</td>
+</tr>
+<tr class="even">
+<td>01F8/2</td>
+<td>ALL</td>
+<td><em>ram_size</em></td>
+<td>不要使用</td>
+</tr>
+<tr class="odd">
+<td>01FA/2</td>
+<td>ALL</td>
+<td><em>vid_mode</em></td>
+<td>视频模式控制</td>
+</tr>
+<tr class="even">
+<td>01FC/2</td>
+<td>ALL</td>
+<td><em>root_dev</em></td>
+<td>默认的根设备号</td>
+</tr>
+<tr class="odd">
+<td>01FE/2</td>
+<td>ALL</td>
+<td><em>boot_flag</em></td>
+<td>魔数 (0xAA55)</td>
+</tr>
+<tr class="even">
+<td>0200/2</td>
+<td>2.00+</td>
+<td><em>jump</em></td>
+<td>跳转指令</td>
+</tr>
+<tr class="odd">
+<td>0202/4</td>
+<td>2.00+</td>
+<td><em>header</em></td>
+<td>魔数（HdrS 0x53726448）</td>
+</tr>
+<tr class="even">
+<td>0206/2</td>
+<td>2.00+</td>
+<td><em>version</em></td>
+<td>支持的引导协议版本</td>
+</tr>
+<tr class="odd">
+<td>0208/4</td>
+<td>2.00+</td>
+<td><em>realmode_swtch</em></td>
+<td><em>bootloader hook</em>（见后续描述）</td>
+</tr>
+<tr class="even">
+<td>020C/2</td>
+<td>2.00+</td>
+<td><em>start_sys_seg</em></td>
+<td>已废弃</td>
+</tr>
+<tr class="odd">
+<td>020E/2</td>
+<td>2.00+</td>
+<td><em>kernel_version</em></td>
+<td>指向内核版本号字符串的指针</td>
+</tr>
+<tr class="even">
+<td>0210/1</td>
+<td>2.00+</td>
+<td><em>type_of_loader</em></td>
+<td><em>bootloader</em> 标识</td>
+</tr>
+<tr class="odd">
+<td>0211/1</td>
+<td>2.00+</td>
+<td><em>loadflags</em></td>
+<td>引导协议的可选标志</td>
+</tr>
+<tr class="even">
+<td>0212/2</td>
+<td>2.00+</td>
+<td><em>setup_move_size</em></td>
+<td>移动到高端内存的大小</td>
+</tr>
+<tr class="odd">
+<td>0214/4</td>
+<td>2.00+</td>
+<td><em>code32_start</em></td>
+<td><em>bootloader hook</em></td>
+</tr>
+<tr class="even">
+<td>0218/4</td>
+<td>2.00+</td>
+<td><em>ramdisk_image</em></td>
+<td><em>initrd</em> 的加载地址（由 <em>bootloader</em> 设置）</td>
+</tr>
+<tr class="odd">
+<td>021C/4</td>
+<td>2.00+</td>
+<td><em>ramdisk_size</em></td>
+<td><em>initrd</em> 的大小（由 <em>bootloader</em> 设置）</td>
+</tr>
+<tr class="even">
+<td>0220/4</td>
+<td>2.00+</td>
+<td><em>bootsect_kludge</em></td>
+<td>不要使用</td>
+</tr>
+<tr class="odd">
+<td>0224/2</td>
+<td>2.00+</td>
+<td><em>heap_end_ptr</em></td>
+<td><em>setup</em> 结束之后的空余内存</td>
+</tr>
+<tr class="even">
+<td>0226/1</td>
+<td>2.02+(3)</td>
+<td><em>ext_loader_ver</em></td>
+<td>扩展的 <em>bootloader</em> 版本号</td>
+</tr>
+<tr class="odd">
+<td>0227/1</td>
+<td>2.02+(3)</td>
+<td><em>ext_loader_type</em></td>
+<td>扩展的 <em>bootloader ID</em></td>
+</tr>
+<tr class="even">
+<td>0228/4</td>
+<td>2.02+</td>
+<td><em>cmd_line_ptr</em></td>
+<td>32比特指针指向内核命令行</td>
+</tr>
+<tr class="odd">
+<td>022C/4</td>
+<td>2.03+</td>
+<td><em>initrd_addr_max</em></td>
+<td>最高的合法 <em>initrd</em> 地址</td>
+</tr>
+<tr class="even">
+<td>0230/4</td>
+<td>2.05+</td>
+<td><em>kernel_alignment</em></td>
+<td>内核需要的物理地址对齐</td>
+</tr>
+<tr class="odd">
+<td>0234/1</td>
+<td>2.05+</td>
+<td><em>relocatable_kernel</em></td>
+<td>内核是否支持重定向</td>
+</tr>
+<tr class="even">
+<td>0235/1</td>
+<td>2.10+</td>
+<td><em>min_alignment</em></td>
+<td>最小对齐(<em>1 &lt;&lt; min_alignment</em>)</td>
+</tr>
+<tr class="odd">
+<td>0236/2</td>
+<td>2.12+</td>
+<td><em>xloadflags</em></td>
+<td>引导协议可选标志</td>
+</tr>
+<tr class="even">
+<td>0238/4</td>
+<td>2.06+</td>
+<td><em>cmdline_size</em></td>
+<td>内核命令行的最大大小</td>
+</tr>
+<tr class="odd">
+<td>023C/4</td>
+<td>2.07+</td>
+<td><em>hardware_subarch</em></td>
+<td>硬件子架构（半虚拟化使用，比如 <em>0x00000002</em> 代表Xen）</td>
+</tr>
+<tr class="even">
+<td>0240/8</td>
+<td>2.07+</td>
+<td><em>hardware_subarch_data</em></td>
+<td>子架构数据</td>
+</tr>
+<tr class="odd">
+<td>0248/4</td>
+<td>2.08+</td>
+<td><em>payload_offset</em></td>
+<td>内核 <em>payload</em> 偏移</td>
+</tr>
+<tr class="even">
+<td>024C/4</td>
+<td>2.08+</td>
+<td><em>payload_length</em></td>
+<td>内核 <em>payload</em> 大小</td>
+</tr>
+<tr class="odd">
+<td>0250/8</td>
+<td>2.09+</td>
+<td><em>setup_data</em></td>
+<td>64比特指针，指向 <em>struct setup_data</em> 链表</td>
+</tr>
+<tr class="even">
+<td>0258/8</td>
+<td>2.10+</td>
+<td><em>pref_address</em></td>
+<td>首选加载位置</td>
+</tr>
+<tr class="odd">
+<td>0260/4</td>
+<td>2.10+</td>
+<td><em>init_size</em></td>
+<td>初始化时需要的连续内存大小</td>
+</tr>
+<tr class="even">
+<td>0264/4</td>
+<td>2.11+</td>
+<td><em>handover_offset</em></td>
+<td><em>handover</em> 入口偏移地址</td>
+</tr>
+<tr class="odd">
+<td>0268/4</td>
+<td>2.15+</td>
+<td><em>kernel_info_offset</em></td>
+<td><em>kernel_info</em> 偏移地址</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>为了向后兼容，如果 <em>setup_sects</em> 字段是0， 真实的值是4</li>
+<li>在2.04之前的引导协议，<em>syssize</em>
+的前两个字节没有用，这也意味着 <em>bzImage</em> 内核的大小
+无法确定。</li>
+<li>对于协议版本2.02-2.09，设置是安全的，但是会被忽略。</li>
+</ol>
+<p>    如果 <em>HdrS</em>（0x53726448）在 <em>0x202</em>
+没有找到，引导协议就是老版本的，加载旧版本内核，并且假设如下参数：Image类型为zImage；不支持initrd；实模式内核必须加载到地址
+<em>0x90000</em>。其他情况，<em>version</em>
+字段将包含引导协议版本，例如：使用引导协议2.01，这个值会是0x0201。当设置头部信息的字段时，必须保证只设置当前协议支持的字段。</p>
+<hr />
+<h3 id="加载内核的余下部分">加载内核的余下部分</h3>
+<p>    32比特（非实模式）内核开始于内核文件<em>(setup_sects+1) x
+512</em> 的位置，对于<em>Image/zImage</em>它将被加载在 <em>0x10000</em>
+地址，对于 <em>bzImage</em> 则是 <em>0x100000</em>。</p>
+<p>    如果引导协议大于2.00、<em>loadflags</em> 中标记了
+<em>0x01(LOAD_HIGH)</em> ，就可以判定是 <em>bzImage</em> 内核。</p>
+<p>    需要注意，<em>Image/zImage</em> 内核最大能到512K，因此使用
+<em>0x10000 - 0x90000</em>
+整个地址范围的内存空间，因而也要求实模式部分在 <em>0x90000</em>
+加载。<em>bzImage</em> 内核要相对灵活。</p>
+<hr />
+<h3 id="运行内核">运行内核</h3>
+<p>    内核通过 <em>jump</em>
+到内核入口启动，内核入口在内核实模式代码的段偏移 <em>0x20</em>
+处。也就是说，如果你加载实模式代码到 <em>0x90000</em>, 内核入口在
+<em>9020:0000</em>。</p>
+<blockquote>
+<p>这里插入一个小贴士： 实模式下的物理地址 = 段基址(16位) &lt;&lt; 4 +
+偏移（16位）</p>
+</blockquote>
+<p>    在内核入口，<em>ds=es=ss</em>
+指向实模式内核的开始地址（如果实模式内核加载于
+<em>0x90000</em>，值应为0x9000）,<em>sp</em>
+需要正确设置，一般指向堆的顶部，并且屏蔽中断。另外，为了避免内核中的bug，推荐
+<em>bootloader</em> 设置 <em>fs=gs=ds=es=ss</em>。</p>
+<p>以下是示例代码： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Note: in the case of the &quot;old&quot; kernel protocol, base_ptr must</span></span><br><span class="line"><span class="comment">   be == 0x90000 at this point; see the previous sample code */</span></span><br><span class="line"></span><br><span class="line">seg = base_ptr &gt;&gt; <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">cli();  <span class="comment">/* Enter with interrupts disabled! */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Set up the real-mode kernel stack */</span></span><br><span class="line">_SS = seg;</span><br><span class="line">_SP = heap_end;</span><br><span class="line"></span><br><span class="line">_DS = _ES = _FS = _GS = seg;</span><br><span class="line">jmp_far(seg+<span class="number">0x20</span>, <span class="number">0</span>);   <span class="comment">/* Run the kernel */</span></span><br></pre></td></tr></table></figure></p>
+<hr />
+<h3 id="位引导协议">32位引导协议</h3>
+<p>    对于有新BIOS（比如EFI、LinuxBIOS、kexec等等）的机器，基于老BIOS的内核16比特实模式代码就不能使用了。因此需要定义基于32比特的引导协议。</p>
+<p>    在32比特引导协议中，加载内核的第一步是配置启动参数（<em>struct
+boot_params</em>，也就是一般指的 <em>Zero Page</em>）。<em>struct
+boot_params</em> 使用的内存空间需要分配并初始化为0。之后内核镜像位于
+<em>0x1F1</em> 位置的头部信息将加载到 <em>struct boot_params</em>
+并进行检查。头部信息的结束位置可以通过如下计算得到：<br />
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x0202 + byte value at offset 0x0201</span><br></pre></td></tr></table></figure>     除了要读写、修改 <em>struct boot_params</em>
+中16比特实模式使用的头部信息，还需要填写更多的字段，这些字段参考：<a
+target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/latest/x86/zero-page.html">Zero
+Page</a>。</p>
+<p>    在设置好<em>struct boot_params</em> 之后，<em>bootloader</em>
+可以像16比特实模式协议那样，加载32/64比特内核。</p>
+<p>    在32比特引导协议中，内核通过跳转到32比特入口地址开始执行。</p>
+<p>    在内核入口，CPU必须配置为32位保护模式，并且关闭分页；必须加载正确的GDT，GDT中包含__BOOT_CS(0x10)和__BOOT_DS(0x18)选择子的描述符；这两个描述符都必须是4G平坦分段；__BOOT_CS(0x10)必须有读和执行的权限，__BOOT_DS(0x18)必须有读写权限；CS必须是__BOOT_CS,
+而DS、ES、SS必须是__BOOT_DS； 中断需要禁用； <em>%esi</em> 必须存储
+<em>struct boot_params</em> 的基地址； <em>%ebp、%edi、%ebi</em>
+必须为0。</p>
+<hr />
+<h3 id="位引导协议-1">64位引导协议</h3>
+<p>    配置 <em>struct boot_params</em>
+及加载头部信息的过程与32比特协议一致。</p>
+<p>    配置 <em>struct boot_params</em>
+后，<em>bootloader</em>可以像16比特实模式协议那样加载64比特内核，但是内核将加载至4G以上地址。</p>
+<p>    在64位引导协议中，内核通过跳转到64比特入口地址执行，这个地址是64比特的跳转地址加上
+<em>0x200</em>。</p>
+<p>    在内核入口，CPU必须在64位模式下，并且开启分页；<em>zero
+page</em>、命令行缓存、以及从内核加载地址到
+<em>setup_header.init_size</em>
+都映射到同一个内存区域；必须加载正确的GDT，GDT中包含__BOOT_CS(0x10)和__BOOT_DS(0x18)选择子的描述符；这两个描述符都必须是4G平坦分段；__BOOT_CS(0x10)必须有读和执行的权限，__BOOT_DS(0x18)必须有读写权限；CS必须是__BOOT_CS，
+而DS、ES、SS必须是__BOOT_DS； 中断需要禁用；<em>%rsi</em> 必须存储
+<em>struct boot_params</em> 的基地址。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style='padding:10px;' class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' === 'true';
+    var verify = 'false' === 'true';
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "s2eHqXywwedp3daCPBNbPuh1-gzGzoHsz",
+        appKey: "pGeyqGOCCeFFrOlUwGveRpL4",
+        placeholder: "来聊聊吧",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn',
+        guest_info: guest_info
+    });
+</script>
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/person.jpg" alt="Garry Xu's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        garry.x@outlook.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: garry.x@outlook.com" target="_blank" title="联系">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        联系
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2022/08/">八月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/05/">五月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/03/">三月 2022<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/02/">二月 2022<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/02/">二月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87/">会议论文<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E7%AE%97%E6%B3%95/">算法<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化<span class="sidebar_archives-count">6</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/garry-x" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;Garry's Blog
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/bollnh/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<!-- <script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script> -->
+
+<!-- Import prettify js  -->
+
+
+    
+        <script>lsloader.load("hanabi","/js/hanabi-browser-bundle.js?Pki5+pzkluqu53g+ouMWpA==", true)</script>
+    
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+        
+        
+        HanabiBrowser.start('pre code',true);
+    
+</script>
+
+<!-- MathJax Load-->
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2015;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/bollnh/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

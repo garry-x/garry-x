@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/bollnh/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+
+
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/>
+
+
+
+    <link rel="dns-prefetch" href="https://hm.baidu.com"/>
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            指令集架构 | 
+        
+        Garry&#39;s Blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.svg">
+    <link rel="icon" href="/img/favicon.svg">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Garry&#39;s Blog">
+    <meta name="msapplication-starturl" content="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Garry&#39;s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.svg">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="指令集架构 | Garry&#39;s Blog">
+    <meta property="og:image" content="/img/favicon.svg">
+    <meta property="og:description" content="">
+    
+
+    
+        <meta property="article:published_time" content="Mon Mar 14 2022 11:57:01 GMT+0800">
+        <meta property="article:modified_time" content="Fri Apr 01 2022 18:39:48 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html",
+    "headline": "指令集架构",
+    "datePublished": "Mon Mar 14 2022 11:57:01 GMT+0800",
+    "dateModified": "Fri Apr 01 2022 18:39:48 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Garry Xu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/person.jpg"
+        },
+        "description": "写作使人精确"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Garry&#39;s Blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.svg"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?11c4725b193a666d23428aa1f1005776';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                指令集架构
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/person.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Garry Xu</strong>
+        <span>3月 14, 2022</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=指令集架构&url=https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html&pic=https://garryx.com/img/favicon.svg&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=指令集架构&url=https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html&via=Garry Xu" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <div class="line-block">以下笔记 来自阅读：Hennessy J L, Patterson D A.
+Computer Architecture: A Quantitative Approach 6th Edition. 2019.</div>
+<p>指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面：<br />
+-
+<strong>指令集架构的分类</strong>：几乎所有今天的ISA都被归类为通用寄存器架构，其操作数不是寄存器就是内存位置。80x86有16个通用寄存器、16个保存浮点数据的寄存器；RISC-V有32个通用和浮点寄存器；
+从通用寄存器架构向下划分，可以再分为两类。一类是 <em>register-memory
+ISA</em> ，比如80x86，可以在很多指令中直接访问内存；一类是
+<em>load-store ISA</em>，比如 <em>ARMv8</em> 和 <em>RISC-V</em>
+，只能通过 <em>load</em> 和 <em>store</em>
+指令访问内存。所有从1985年之后发布的ISA都是 <em>load-store</em>
+ISA。下表是 <em>RISC-V</em> ISA的寄存器示例：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">寄存器</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x0</td>
+<td style="text-align: left;">zero</td>
+<td style="text-align: left;">常量 '0'</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x1</td>
+<td style="text-align: left;">ra</td>
+<td style="text-align: left;">返回地址</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x2</td>
+<td style="text-align: left;">sp</td>
+<td style="text-align: left;">栈指针（指向栈下一个空闲区域）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x3</td>
+<td style="text-align: left;">gp</td>
+<td style="text-align: left;">全局指针（指向全局变量区域）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x4</td>
+<td style="text-align: left;">tp</td>
+<td style="text-align: left;">线程指针（指向线程局部变量区域）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x5-x7</td>
+<td style="text-align: left;">t0-t2</td>
+<td style="text-align: left;">临时存储</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x8</td>
+<td style="text-align: left;">s0/fp</td>
+<td style="text-align: left;">保存的寄存器/栈帧指针（指向栈帧基址）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x9</td>
+<td style="text-align: left;">s1</td>
+<td style="text-align: left;">保存的寄存器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x10-x11</td>
+<td style="text-align: left;">a0-a1</td>
+<td style="text-align: left;">函数参数/返回值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x12-x17</td>
+<td style="text-align: left;">a2-a7</td>
+<td style="text-align: left;">函数参数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x18-x27</td>
+<td style="text-align: left;">s2-s11</td>
+<td style="text-align: left;">保存的寄存器</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x28-x31</td>
+<td style="text-align: left;">t3-t6</td>
+<td style="text-align: left;">临时存储</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f0-f7</td>
+<td style="text-align: left;">ft0-ft7</td>
+<td style="text-align: left;">浮点 临时存储</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f8-f9</td>
+<td style="text-align: left;">fs0-fs1</td>
+<td style="text-align: left;">浮点 保存的寄存器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f10-f11</td>
+<td style="text-align: left;">fa0-fa1</td>
+<td style="text-align: left;">浮点 函数参数/返回值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f12-f17</td>
+<td style="text-align: left;">fa2-fa7</td>
+<td style="text-align: left;">浮点 函数参数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f18-f27</td>
+<td style="text-align: left;">fs2-fs11</td>
+<td style="text-align: left;">浮点 保存的寄存器</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f28-f31</td>
+<td style="text-align: left;">ft8-ft11</td>
+<td style="text-align: left;">浮点 临时存储</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>内存寻址</strong>：基本上所有的台式机和服务器，包括
+<em>80x86</em> 、<em>ARMv8</em> 和 <em>RSIC-V</em>
+，使用字节编址来访问内存操作数。某些架构，比如 <em>ARMv8</em>，
+要求访存对象必须对齐。而 <em>80x86</em> 和 <em>RISC-V</em>
+不需要对齐，但是如果对齐，访问速度会更快。</li>
+<li><strong>寻址模式</strong>：寻址模式描述了寄存器操作数、立即数（常量）操作数和内存对象的地址。<em>RISC-V</em>
+寻址包括：寄存器、立即数（常量）和位移（<em>displacement</em>，
+寄存器的值加上一个常量的偏移构成了内存地址）。80x86支持上述三种模式，另外加上三种位移的变种：1）无寄存器（绝对地址）
+2）两寄存器（基地址+索引+位移）3）两寄存器（基地址+索引*操作数大小+位移）。</li>
+<li><strong>操作数类型和大小</strong>：和大多数ISA一样，80x86、ARMv8和RISC-V支持8比特、16比特、32比特、64比特的操作数大小，也支持IEEE
+754 32位（单精度）和64位（双精度）浮点数。80x86
+也支持80比特的浮点数（扩展双精度）。</li>
+<li><strong>操作</strong>：
+操作一般可分为：数据传输、算术逻辑、控制和浮点几类。下表是RISC-V的数据传输和算术指令示例：</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">指令类型/操作码</th>
+<th style="text-align: left;">指令含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>数据传输</strong></td>
+<td
+style="text-align: left;"><strong>在寄存器和内存，或者整数寄存器和浮点寄存器、特殊寄存器间搬移数据。只有内存地址是由12比特的偏移加上通用寄存器的值构成</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lb, lbu, sb</td>
+<td style="text-align: left;">加载字节（byte
+8比特）、加载无符号字节、存储字节</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lh, lhu, sh</td>
+<td style="text-align: left;">加载半字（half word
+16比特）、加载无符号半字、存储半字</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lw, lhw, sw</td>
+<td style="text-align: left;">加载字（word
+32比特）、加载无符号字、存储字</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ld, sd</td>
+<td style="text-align: left;">加载双字（double word
+64比特）、存储双字</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">flw, fld, fsw, fsd</td>
+<td
+style="text-align: left;">记载单精度浮点，加载双精度浮点、存储单精度浮点、存储双精度浮点</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fmv.S.X, fmv.D.X, fmv.X.S, fmv.X.D</td>
+<td
+style="text-align: left;">从整数寄存器拷贝到浮点寄存器，或从浮点寄存器拷贝到整数寄存器。S代表单精度，D代表双精度</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">csrrw, csrrwi, csrrs, csrrsi, csrrc,
+csrrci</td>
+<td
+style="text-align: left;">读取计数器并写入状态寄存器，计数器包括：时钟周期数、时间、退役指令数量等。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>算术/逻辑</strong></td>
+<td
+style="text-align: left;"><strong>通用寄存器数据上的整型或逻辑数据运算</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">add, addi, addw, addiw</td>
+<td style="text-align: left;">加, 加立即数(12比特),
+有符号加32比特并扩展至64比特, 加立即数(32比特)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sub, subw</td>
+<td style="text-align: left;">减, 减32比特</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mul, mulw, mulh, mulhsu, mulhu</td>
+<td style="text-align: left;">乘, 乘32比特, 乘上半部(16比特),
+无符号乘有符号上半部, 无符号乘上半部</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">div, divu, rem, remu</td>
+<td style="text-align: left;">除, 无符号除, 余数, 无符号余数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">divw, divuw, remw, remuw</td>
+<td style="text-align: left;">除余低32位, 有符号扩展</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">and, andi</td>
+<td style="text-align: left;">与, 与立即数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">or, ori, xor, xori</td>
+<td style="text-align: left;">或, 或立即数, 异或, 异或立即数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lui</td>
+<td style="text-align: left;">加载立即数到寄存器上半部
+(31-12比特位)并进行符号扩展</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">auipc</td>
+<td style="text-align: left;">加立即数的上半部 (31-12位,余下低12位为0)
+到PC; 和JALR 配合使用转移控制到任何32位地址</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sll, slli, srl, srli, sra, srai</td>
+<td style="text-align: left;">移位; 逻辑左移, 逻辑右移;
+使用立即数或者变量</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sllw, slliw, srlw, srliw, sraw, sraiw</td>
+<td style="text-align: left;">移位低32位, 有符号扩展</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">slt, slti, sltu, sltiu</td>
+<td style="text-align: left;">小于情况下设置; 小于情况下设置;
+有符号和无符号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>控制流指令</strong>：实际上所有的ISA，都支持有条件分支、无条件的跳转、函数调用和返回。80x86、ARM、RISC-V
+均使用PC相对寻址，分支地址是通过PC加上地址字段构成的。但也有也许的不同，RISC-V
+有条件分支（BE，BNE，etc）是检查寄存器的内容，而80x86和ARM检查的是算术或者逻辑运算副作用设置的比特位。ARM和RISC-V将返回地址放到寄存器中，而80x86调用（CALLF）将返回地址放到内存栈里。下表是RISC-V的控制指令示例：</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">指令类型/操作码</th>
+<th style="text-align: left;">指令含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>控制</strong></td>
+<td
+style="text-align: left;"><strong>有条件分支和跳转；PC相对寻址或者通过寄存器</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">beq, bne, blt, bge, bltu, bgeu</td>
+<td
+style="text-align: left;">通用寄存器相等/不相等/小于/大于或等于时分支；有符号或无符号</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jal, jalr</td>
+<td
+style="text-align: left;">跳转并链接；保存返回地址，目标相对PC寻址或者使用寄存器；如果x0是目标寄存器，则按照跳转来运行</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ecall</td>
+<td style="text-align: left;">向执行环境（一般为OS）下发请求</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ebreak</td>
+<td style="text-align: left;">调试软件用来将控制交回调试环境</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fence, fence.i</td>
+<td
+style="text-align: left;">线程间同步用以保证内存访问的顺序；同步指令及store使用的数据到指令内存</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>编码ISA</strong>：
+在编码时有两种选择：定长和变长。所有的ARMv8和RISC-V指令的长度都是32比特，这样的定义方便了指令的解码过程。80x86是变长编码，指令长度1到18个字节。变长指令相对于定长指令可以占用更少的内存空间，因此为80x86编译的程序一般比RISC-V编译后的程序要小。指的注意的是，我们前述提到的ISA在设计上的选择都将影响指令在二进制形式下的编码方式。例如，由于在一个指令中，寄存器字段和寻址模式字段都可能反复出现，因此，寄存器数量和寻址模式都对指令大小有着重要的影响。（ARMv8和RISC-V后面都增加了支持变长的扩展：<em>Thumb-2</em>
+和
+<em>RV64IC</em>，支持16比特和32比特指令混合使用。通过这种方式降低程序大小。通过这种压缩方式编译的程序要比80x86要小）下图是RISC-V指令编码的示例：
+<img src="/images/isa-encoding.png" /></li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style='padding:10px;' class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' === 'true';
+    var verify = 'false' === 'true';
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "s2eHqXywwedp3daCPBNbPuh1-gzGzoHsz",
+        appKey: "pGeyqGOCCeFFrOlUwGveRpL4",
+        placeholder: "来聊聊吧",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn',
+        guest_info: guest_info
+    });
+</script>
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2022/03/07/KMP%E7%AE%97%E6%B3%95/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/person.jpg" alt="Garry Xu's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        garry.x@outlook.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: garry.x@outlook.com" target="_blank" title="联系">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        联系
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2022/08/">八月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/05/">五月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/03/">三月 2022<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/02/">二月 2022<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/02/">二月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87/">会议论文<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E7%AE%97%E6%B3%95/">算法<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化<span class="sidebar_archives-count">6</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/garry-x" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;Garry's Blog
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/bollnh/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<!-- <script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script> -->
+
+<!-- Import prettify js  -->
+
+
+    
+        <script>lsloader.load("hanabi","/js/hanabi-browser-bundle.js?Pki5+pzkluqu53g+ouMWpA==", true)</script>
+    
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+        
+        
+        HanabiBrowser.start('pre code',true);
+    
+</script>
+
+<!-- MathJax Load-->
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2015;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/bollnh/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

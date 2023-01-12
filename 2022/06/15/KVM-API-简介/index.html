@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/bollnh/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+
+
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/>
+
+
+
+    <link rel="dns-prefetch" href="https://hm.baidu.com"/>
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            KVM API 简介 | 
+        
+        Garry&#39;s Blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.svg">
+    <link rel="icon" href="/img/favicon.svg">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content=",KVM">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Garry&#39;s Blog">
+    <meta name="msapplication-starturl" content="https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Garry&#39;s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.svg">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="KVM API 简介 | Garry&#39;s Blog">
+    <meta property="og:image" content="/img/favicon.svg">
+    <meta property="og:description" content="">
+    <meta property="og:article:tag" content="KVM"> 
+
+    
+        <meta property="article:published_time" content="Wed Jun 15 2022 16:04:10 GMT+0800">
+        <meta property="article:modified_time" content="Wed Jun 15 2022 16:04:10 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/index.html",
+    "headline": "KVM API 简介",
+    "datePublished": "Wed Jun 15 2022 16:04:10 GMT+0800",
+    "dateModified": "Wed Jun 15 2022 16:04:10 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Garry Xu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/person.jpg"
+        },
+        "description": "写作使人精确"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Garry&#39;s Blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.svg"
+        }
+    },
+    "keywords": ",KVM",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?11c4725b193a666d23428aa1f1005776';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">1.</span> <span class="post-toc-text">1. 基本描述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 文件描述符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%89%A9%E5%B1%95"><span class="post-toc-number">3.</span> <span class="post-toc-text">3. 扩展</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#api-%E6%8F%8F%E8%BF%B0"><span class="post-toc-number">4.</span> <span class="post-toc-text">4. API 描述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#system-ioctl"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">System Ioctl</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vm-ioctl"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">VM Ioctl</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vcpu-ioctl"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">VCPU Ioctl</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                KVM API 简介
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/person.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Garry Xu</strong>
+        <span>6月 15, 2022</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-none-link" href="/tags/KVM/" rel="tag">KVM</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=KVM API 简介&url=https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/index.html&pic=https://garryx.com/img/favicon.svg&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=KVM API 简介&url=https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/index.html&via=Garry Xu" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://garryx.com/2022/06/15/KVM-API-%E7%AE%80%E4%BB%8B/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p>以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt</p>
+</blockquote>
+<h2 id="基本描述">1. 基本描述</h2>
+<p>KVM API 本质上是为了控制虚拟机的方方面面而下发的一组ioctl，这些ioctl可以划分为四类：<br />
+- <strong>system ioctl</strong>： 对影响整个KVM系统的属性进行查询或设置。创建虚拟机就是其中的一个系统ioctl。<br />
+- <strong>vm ioctl</strong>: 对影响整个虚拟机的属性进行查询或设置，比如虚拟机内存布局。vm ioctl创建了虚拟机的虚拟机CPU(vcpu)和其他设备。<br />
+vm ioctl必须由创建虚拟机的进程下发。<br />
+- <strong>vcpu ioctl</strong>: 对控制单个虚拟CPU（vcpu）的属性进行查询或设置。<br />
+除了在文档中特别标注的异步vcpu ioctl，vcpu ioctl应该由创建虚拟CPU的线程下发。否则，在切换线程后的第一次ioctl调用将对性能产生影响。<br />
+- <strong>device ioctl</strong>: 对控制单个设备的属性进行查询或设置。<br />
+设备ioctl必须由创建虚拟机的进程下发。</p>
+<h2 id="文件描述符">2. 文件描述符</h2>
+<p>文件描述符是整个KVM API的核心。打开"/dev/kvm"设备后会得到一个文件描述符，该文件描述符可以用来下发system ioctl。通过这个文件描述符下发KVM_CREATE_VM ioctl将创建一个虚拟机的文件描述符。这个虚拟机的文件描述符可以用来下发vm ioctl。通过虚拟机文件描述符下发KVM_CREATE_VCPU 和 KVM_CREATE_DEVICE ioctl将创建对应的虚拟机CPU和设备，并返回对应CPU和设备的文件描述符。最后，通过虚拟CPU或者设备文件描述符下发的ioctl可以用来控制对应虚拟机CPU或者设备。对于虚拟CPU而言，这包含了其重要的工作：运行Guest代码。</p>
+<p>一般文件描述符可以通过fork()或者Unix Domain Socket的SCM_RIGHTS特性在进程间迁移，但是KVM并不显式支持这些方式。对操作系统而言，这些行为是无害的，但是KVM API的行为将无法保证。KVM 支持的 ioctl 使用模式参考“1. 基本描述"部分。</p>
+<p>需要重点注意的是，尽管vm ioctl只能由创建虚拟机的进程下发，VM的生命周期是和其文件描述符关联的，而不是创建这个虚拟机的进程。换句话说，虚拟机和它使用的资源，包括关联的地址空间，在虚拟机对应的文件描述符的所有引用释放之前都不会回收。例如，在ioctl(KVM_CREATE_VM)之后如果调用了fork()，那么虚拟机在父进程和它的子进程都释放虚拟机文件描述符之后才能回收资源。</p>
+<p>因为虚拟机资源在其文件描述符的引用都释放之前不能回收，在没有考虑清楚之前，非常不推荐使用 fork(), dup()等方式增加新的描述符引用。这些方式可能带来意料之外的副作用，比如在虚拟机关机之后，虚拟机使用的内存资源并没有回收。</p>
+<h2 id="扩展">3. 扩展</h2>
+<p>在Linux内核版本2.6.22之后，KVM的ABI已经稳定，破坏向后兼容的改动也不被允许。但是，KVM支持对使用的API添加向后兼容的扩展。</p>
+<p>扩展机制并不基于Linux版本号，KVM定义了扩展标识，并提供功能查询特定扩展标识是否存在。如果存在，应用程序就可以使用该扩展对应的一组ioctl。</p>
+<h2 id="api-描述">4. API 描述</h2>
+<p>本节描述了能够控制KVM虚拟机的ioctl。对于每个ioctl，提供如下的信息：<br />
+- <strong>能力：</strong> 该ioctl对应的KVM扩展。'basic'表明任何支持API 版本12(参考4.1)的内核都可以提供该ioctl; 'KVM_CAP_xyz'意味着需要使用KVM_CHECK_EXTENSION检查该扩展是否可用; 'none'意味着不是所有的内核都支持该ioctl，并且也没有对应的检查方式，如果不支持，ioctl会返回错误-ENOTTY。<br />
+- <strong>架构：</strong> 包含该ioctl的指令集架构。x86即包含i386也包含x86_64。<br />
+- <strong>类型：</strong> system、vm、vcpu或者device ioctl。<br />
+- <strong>参数：</strong> ioctl的调用参数。<br />
+- <strong>返回值：</strong> ioctl返回值。一般错误如EBADF、ENOMEM、EINVAL等没有详细错误信息，但是有特定含义的错误有详细信息。</p>
+<h3 id="system-ioctl">System Ioctl</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">序号</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">能力</th>
+<th style="text-align: left;">架构</th>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">返回值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">4.1</td>
+<td style="text-align: left;">KVM_GET_API_VERSION</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">KVM_API_VERSION(12)常量</td>
+<td style="text-align: left;">表明当前使用的是稳定的KVM API版本。如果返回值不是12应用程序应拒绝运行。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.2</td>
+<td style="text-align: left;"><strong>KVM_CREATE_VM</strong></td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">机器类型标识（KVM_VM_*）</td>
+<td style="text-align: left;">可以控制虚拟机的vm fd</td>
+<td style="text-align: left;">新创建的虚拟机没有vcpu也没有内存。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.3</td>
+<td style="text-align: left;">KVM_GET_MSR_INDEX_LIST</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_msr_list (in/out)</td>
+<td style="text-align: left;">成功返回0，错误返回-1</td>
+<td style="text-align: left;">获取guest支持的msr列表</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">KVM_GET_MSR_FEATURE_INDEX_LIST</td>
+<td style="text-align: left;">KVM_CAP_GET_MSR_FEATURES</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_msr_list (in/out)</td>
+<td style="text-align: left;">成功返回0，错误返回-1</td>
+<td style="text-align: left;">列出可以传给KVM_GET_MSRS的msr列表</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.4</td>
+<td style="text-align: left;">KVM_CHECK_EXTENSION</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">扩展标识（KVM_CAP_*）</td>
+<td style="text-align: left;">不支持返回0，1或其他正值表示支持</td>
+<td style="text-align: left;">查询KVM API扩展</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.5</td>
+<td style="text-align: left;">KVM_GET_VCPU_MMAP_SIZE</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">vcpu mmap区域的大小</td>
+<td style="text-align: left;">KVM_RUN ioctl 使用一个共享内存区域与用户态通信，KVM_GET_VCPU_MMAP_SIZE 返回该区域大小</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.18</td>
+<td style="text-align: left;">KVM_GET_MSRS</td>
+<td style="text-align: left;">KVM_CAP_GET_MSR_FEATURES</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_msrs (in/out)</td>
+<td style="text-align: left;">成功返回msr 数量, 失败返回-1</td>
+<td style="text-align: left;">读取虚拟机可使用的MSR 特性的值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.46</td>
+<td style="text-align: left;">KVM_GET_SUPPORTED_CPUID</td>
+<td style="text-align: left;">KVM_CAP_EXT_CPUID</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_cpuid2 (in/out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">返回x86平台和kvm默认支持的cpuid信息</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.88</td>
+<td style="text-align: left;">KVM_GET_EMULATED_CPUID</td>
+<td style="text-align: left;">KVM_CAP_EXT_EMUL_CPUID</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_cpuid2 (in/out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">返回由KVM模拟的CPUID feature</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.104</td>
+<td style="text-align: left;">KVM_X86_GET_MCE_CAP_SUPPORTED</td>
+<td style="text-align: left;">KVM_CAP_MCE</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">u64 mce_cap (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">返回支持的MCE capability</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.110</td>
+<td style="text-align: left;">KVM_MEMORY_ENCRYPT_OP</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">平台相关输入（in/out）</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">下发内存加密命令，目前用于下发SEV命令（AMD SEV）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.111</td>
+<td style="text-align: left;">KVM_MEMORY_ENCRYPT_REG_REGION</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_enc_region (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">注册guest加密内存区域（AMD SEV）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.112</td>
+<td style="text-align: left;">KVM_MEMORY_ENCRYPT_UNREG_REGION</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_enc_region (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">取消注册guest加密内存区域（AMD SEV）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vm-ioctl">VM Ioctl</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">序号</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">能力</th>
+<th style="text-align: left;">架构</th>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">返回值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">4.4</td>
+<td style="text-align: left;">KVM_CHECK_EXTENSION</td>
+<td style="text-align: left;">KVM_CAP_CHECK_EXTENSION_VM</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">扩展标识（KVM_CAP_*）</td>
+<td style="text-align: left;">不支持返回0，1或其他正值表示支持</td>
+<td style="text-align: left;">查询VM支持的KVM API扩展</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.6</td>
+<td style="text-align: left;">KVM_SET_MEMORY_REGION</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_memory_region (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">该API已废弃</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.7</td>
+<td style="text-align: left;"><strong>KVM_CREATE_VCPU</strong></td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">vcpu id (apic id on x86)</td>
+<td style="text-align: left;">成功返回vcpu fd，失败返回-1</td>
+<td style="text-align: left;">创建vcpu</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.8</td>
+<td style="text-align: left;">KVM_GET_DIRTY_LOG</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_dirty_log (in/out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">返回从上一次调用该ioctl以来，memory slot页面的dirty bitmap</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.9</td>
+<td style="text-align: left;">KVM_SET_MEMORY_ALIAS</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_memory_alias (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">该API已废弃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.24</td>
+<td style="text-align: left;">KVM_CREATE_IRQCHIP</td>
+<td style="text-align: left;">KVM_CAP_IRQCHIP</td>
+<td style="text-align: left;">x86, arm, arm64</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">在内核中创建虚拟机对应的中断控制器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.25</td>
+<td style="text-align: left;">KVM_IRQ_LINE</td>
+<td style="text-align: left;">KVM_CAP_IRQCHIP</td>
+<td style="text-align: left;">x86, arm, arm64</td>
+<td style="text-align: left;">struct kvm_irq_level</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置中断控制器指定中断的电位（1/0）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.26</td>
+<td style="text-align: left;">KVM_GET_IRQCHIP</td>
+<td style="text-align: left;">KVM_CAP_IRQCHIP</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_irqchip (in/out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">读取中断控制器状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.27</td>
+<td style="text-align: left;">KVM_SET_IRQCHIP</td>
+<td style="text-align: left;">KVM_CAP_IRQCHIP</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_irqchip (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置中断控制器状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.28</td>
+<td style="text-align: left;">KVM_XEN_HVM_CONFIG</td>
+<td style="text-align: left;">KVM_CAP_XEN_HVM</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_xen_hvm_config (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置Xen HVM Guest用来初始化hypercall所使用的msr寄存器状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.29</td>
+<td style="text-align: left;">KVM_GET_CLOCK</td>
+<td style="text-align: left;">KVM_CAP_ADJUST_CLOCK</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_clock_data (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取当前guest看到的kvmclock时间戳</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.30</td>
+<td style="text-align: left;">KVM_SET_CLOCK</td>
+<td style="text-align: left;">KVM_CAP_ADJUST_CLOCK</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_clock_data (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置当前guest的kvmclock为指定值</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.33</td>
+<td style="text-align: left;">KVM_GET_DEBUGREGS</td>
+<td style="text-align: left;">KVM_CAP_DEBUGREGS</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_debugregs (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">读取vcpu debug寄存器</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.34</td>
+<td style="text-align: left;">KVM_SET_DEBUGREGS</td>
+<td style="text-align: left;">KVM_CAP_DEBUGREGS</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_debugregs (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置vcpu debug寄存器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.35</td>
+<td style="text-align: left;"><strong>KVM_SET_USER_MEMORY_REGION</strong></td>
+<td style="text-align: left;">KVM_CAP_USER_MEMORY</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_userspace_memory_region (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">该API允许创建、修改、删除guest虚拟机的物理内存槽（physical memory slot）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.36</td>
+<td style="text-align: left;">KVM_SET_TSS_ADDR</td>
+<td style="text-align: left;">KVM_CAP_SET_TSS_ADDR</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">unsigned long tss_address (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置VM86模式TSS所使用的地址</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.40</td>
+<td style="text-align: left;">KVM_SET_IDENTITY_MAP_ADDR</td>
+<td style="text-align: left;">KVM_CAP_SET_IDENTITY_MAP_ADDR</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">unsigned long identity (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置VM86模式下Guest页表的物理地址</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.41</td>
+<td style="text-align: left;">KVM_SET_BOOT_CPU_ID</td>
+<td style="text-align: left;">KVM_SET_BOOT_CPU_ID</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">unsigned long vcpu_id</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">定义哪个vcpu是BSP（默认是0号vcpu）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.52</td>
+<td style="text-align: left;">KVM_SET_GSI_ROUTING</td>
+<td style="text-align: left;">KVM_CAP_IRQ_ROUTING</td>
+<td style="text-align: left;">x86, s390, arm, arm64</td>
+<td style="text-align: left;">struct kvm_irq_routing (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置GSI路由项</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.59</td>
+<td style="text-align: left;">KVM_IOEVENTFD</td>
+<td style="text-align: left;">KVM_CAP_IOEVENTFD</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_ioeventfd (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回非0</td>
+<td style="text-align: left;">挂载/卸载ioeventfd到虚拟机内的PIO和MMIO地址</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.71</td>
+<td style="text-align: left;">KVM_SIGNAL_MSI</td>
+<td style="text-align: left;">KVM_CAP_SIGNAL_MSI</td>
+<td style="text-align: left;">x86, arm, arm64</td>
+<td style="text-align: left;">struct kvm_msi (in)</td>
+<td style="text-align: left;">成功下发返回&gt;0, 虚拟机已经屏蔽该MSI返回0, 错误返回-1</td>
+<td style="text-align: left;">注入MSI中断信息</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.71</td>
+<td style="text-align: left;">KVM_CREATE_PIT2</td>
+<td style="text-align: left;">KVM_CAP_PIT2</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_pit_config (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">创建i8254PIT(该API 序号在KVM文档中有误)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.72</td>
+<td style="text-align: left;">KVM_GET_PIT2</td>
+<td style="text-align: left;">KVM_CAP_PIT_STATE2</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_pit_state2 (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">返回内核内PIT设备状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.73</td>
+<td style="text-align: left;">KVM_SET_PIT2</td>
+<td style="text-align: left;">KVM_CAP_PIT_STATE2</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_pit_state2 (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置内核PIT设备状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.75</td>
+<td style="text-align: left;">KVM_IRQFD</td>
+<td style="text-align: left;">KVM_CAP_IRQFD</td>
+<td style="text-align: left;">x86, s390, arm, arm64</td>
+<td style="text-align: left;">struct kvm_irqfd (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置用于触发中断的eventfd</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.99</td>
+<td style="text-align: left;">KVM_REINJECT_CONTROL</td>
+<td style="text-align: left;">KVM_CAP_REINJECT_CONTROL</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_reinject_control (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回负值（-EFAULT/-ENXIO）</td>
+<td style="text-align: left;">设置i8254 PIT的reinject或!reinject模式</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.113</td>
+<td style="text-align: left;">KVM_HYPERV_EVENTFD</td>
+<td style="text-align: left;">KVM_CAP_HYPERV_EVENTFD</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_hyperv_eventfd (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回负值（-EINVAL/-ENOENT/-EEXIST）</td>
+<td style="text-align: left;">注册监听Hyper-V hypercall的eventfd</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.116</td>
+<td style="text-align: left;">KVM_REGISTER_COALESCED_MMIO</td>
+<td style="text-align: left;">KVM_CAP_COALESCED_MMIO 或 KVM_CAP_COALESCED_PIO</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_coalesced_mmio_zone</td>
+<td style="text-align: left;">成功返回0, 失败返回负值</td>
+<td style="text-align: left;">注册coalesed mmio/pio 内存区域</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">KVM_UNREGISTER_COALESCED_MMIO</td>
+<td style="text-align: left;">KVM_CAP_COALESCED_MMIO 或 KVM_CAP_COALESCED_PIO</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_coalesced_mmio_zone</td>
+<td style="text-align: left;">成功返回0, 失败返回负值</td>
+<td style="text-align: left;">取消注册coalesed mmio/pio 内存区域</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.117</td>
+<td style="text-align: left;">KVM_CLEAR_DIRTY_LOG</td>
+<td style="text-align: left;">KVM_CAP_MANUAL_DIRTY_LOG_PROTECT2</td>
+<td style="text-align: left;">x86, arm, arm64, mips</td>
+<td style="text-align: left;">struct kvm_dirty_log (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">清除内存页的dirty标记</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.120</td>
+<td style="text-align: left;">KVM_SET_PMU_EVENT_FILTER</td>
+<td style="text-align: left;">KVM_CAP_PMU_EVENT_FILTER</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_pmu_event_filter (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">限制guest可以设置的PMU事件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vcpu-ioctl">VCPU Ioctl</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">序号</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">能力</th>
+<th style="text-align: left;">架构</th>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">返回值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">4.10</td>
+<td style="text-align: left;"><strong>KVM_RUN</strong></td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">该API负责运行一个vcpu。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.11</td>
+<td style="text-align: left;">KVM_GET_REGS</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">除了arm和arm64以外的架构</td>
+<td style="text-align: left;">struct kvm_regs (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取vcpu 通用寄存器(GPR)的值</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.12</td>
+<td style="text-align: left;">KVM_SET_REGS</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">除了arm和arm64以外的架构</td>
+<td style="text-align: left;">struct kvm_regs (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置vcpu的通用寄存器（GPR）的值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.13</td>
+<td style="text-align: left;">KVM_GET_SREGS</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86, ppc</td>
+<td style="text-align: left;">struct kvm_sregs (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取vcpu的特殊寄存器的值</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.14</td>
+<td style="text-align: left;">KVM_SET_SREGS</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86, ppc</td>
+<td style="text-align: left;">struct kvm_sregs (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置vcpu的特殊寄存器的值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.15</td>
+<td style="text-align: left;">KVM_TRANSLATE</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_translation (in/out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">根据当前vcpu的寻址模式，将虚拟地址转换为物理地址</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.16</td>
+<td style="text-align: left;">KVM_INTERRUPT</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86, ppc, mips</td>
+<td style="text-align: left;">struct kvm_interrupt (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回负值</td>
+<td style="text-align: left;">添加需要注入的中断，该中断会被保存在队列中</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.17</td>
+<td style="text-align: left;">KVM_DEBUG_GUEST</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">失败返回-1</td>
+<td style="text-align: left;">该API已删除，使用KVM_SET_GUEST_DEBUG</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.18</td>
+<td style="text-align: left;">KVM_GET_MSRS</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_msrs (in/out)</td>
+<td style="text-align: left;">成功返回msr 数量, 失败返回-1</td>
+<td style="text-align: left;">读取vcpu的msr寄存器，支持的msr 索引可以通过KVM_GET_MSR_INDEX_LIST 获取</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.19</td>
+<td style="text-align: left;">KVM_SET_MSRS</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_msrs (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置msr寄存器的值</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.20</td>
+<td style="text-align: left;">KVM_SET_CPUID</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_cpuid (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">定义vcpu cpuid指令的返回值，如果可行，使用KVM_SET_CPUID2而不是该API</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.21</td>
+<td style="text-align: left;">KVM_SET_SIGNAL_MASK</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_signal_mask (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">定义在KVM_RUN过程中需要屏蔽的中断</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.22</td>
+<td style="text-align: left;">KVM_GET_FPU</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_fpu (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">读取vcpu 浮点运算状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.23</td>
+<td style="text-align: left;">KVM_SET_FPU</td>
+<td style="text-align: left;">basic</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_fpu (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置vcpu 浮点运算状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.31</td>
+<td style="text-align: left;">KVM_GET_VCPU_EVENTS</td>
+<td style="text-align: left;">KVM_CAP_VCPU_EVENTS</td>
+<td style="text-align: left;">x86, arm , arm64</td>
+<td style="text-align: left;">struct kvm_vcpu_event (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取当前处于等待状态的异常、中断、nmi、smi及对应vcpu状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.32</td>
+<td style="text-align: left;">KVM_SET_VCPU_EVENTS</td>
+<td style="text-align: left;">KVM_CAP_VCPU_EVENTS</td>
+<td style="text-align: left;">x86, arm , arm64</td>
+<td style="text-align: left;">struct kvm_vcpu_event (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置当前处于等待状态的异常、中断、nmi、smi及对应vcpu状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.37</td>
+<td style="text-align: left;">KVM_ENABLE_CAP</td>
+<td style="text-align: left;">KVM_CAP_ENABLE_CAP_VM</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_enable_cap (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">启用扩展</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.38</td>
+<td style="text-align: left;">KVM_GET_MP_STATE</td>
+<td style="text-align: left;">KVM_CAP_MP_STATE</td>
+<td style="text-align: left;">x86, s390, arm, arm64</td>
+<td style="text-align: left;">struct kvm_mp_state (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取vcpu的处理器状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.39</td>
+<td style="text-align: left;">KVM_SET_MP_STATE</td>
+<td style="text-align: left;">KVM_CAP_MP_STATE</td>
+<td style="text-align: left;">x86, s390, arm, arm64</td>
+<td style="text-align: left;">struct kvm_mp_state (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置vcpu的处理器状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.42</td>
+<td style="text-align: left;">KVM_GET_XSAVE</td>
+<td style="text-align: left;">KVM_CAP_XSAVE</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_xsave (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取vcpu xsave状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.43</td>
+<td style="text-align: left;">KVM_SET_XSAVE</td>
+<td style="text-align: left;">KVM_CAP_XSAVE</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_xsave (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置vcpu xsave状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.44</td>
+<td style="text-align: left;">KVM_GET_XCRS</td>
+<td style="text-align: left;">KVM_CAP_XCRS</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_xcrs (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取vcpu xcr寄存器状态</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.45</td>
+<td style="text-align: left;">KVM_SET_XCRS</td>
+<td style="text-align: left;">KVM_CAP_XCRS</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_xcrs (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置vcpu xcr寄存器状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.55</td>
+<td style="text-align: left;">KVM_SET_TSC_KHZ</td>
+<td style="text-align: left;">KVM_CAP_TSC_CONTROL</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">virtual tsc_khz</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置虚拟机的tsc频率</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.56</td>
+<td style="text-align: left;">KVM_GET_TSC_KHZ</td>
+<td style="text-align: left;">KVM_CAP_GET_TSC_KHZ</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">成功返回virtual tsc-khz, 失败返回负值</td>
+<td style="text-align: left;">返回虚拟机的TSC频率</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.57</td>
+<td style="text-align: left;">KVM_GET_LAPIC</td>
+<td style="text-align: left;">KVM_CAP_IRQCHIP</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_lapic_state (out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">返回虚拟机LAPIC寄存器内容</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.58</td>
+<td style="text-align: left;">KVM_SET_LAPIC</td>
+<td style="text-align: left;">KVM_CAP_IRQCHIP</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_lapic_state (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置虚拟机LAPIC寄存器内容</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.64</td>
+<td style="text-align: left;">KVM_NMI</td>
+<td style="text-align: left;">KVM_CAP_USER_NMI</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">将NMI中断加入vcpu队列</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.68</td>
+<td style="text-align: left;">KVM_SET_ONE_REG</td>
+<td style="text-align: left;">KVM_CAP_ONE_REG</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_one_reg (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回负值</td>
+<td style="text-align: left;">设置vcpu某个寄存器的值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.69</td>
+<td style="text-align: left;">KVM_GET_ONE_REG</td>
+<td style="text-align: left;">KVM_CAP_ONE_REG</td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">struct kvm_one_reg (in and out)</td>
+<td style="text-align: left;">成功返回0, 失败返回负值</td>
+<td style="text-align: left;">获取虚拟机某个寄存器的值</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.70</td>
+<td style="text-align: left;">KVM_KVMCLOCK_CTRL</td>
+<td style="text-align: left;">KVM_CAP_KVMCLOCK_CTRL</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">通知内核guest已经暂停，内核会标记pvclock对应的标志位</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.80</td>
+<td style="text-align: left;">KVM_GET_DEVICE_ATTR</td>
+<td style="text-align: left;">KVM_CAP_VCPU_ATTRIBUTES</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_device_attr</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取设备状态（x86用于获取tsc offset）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">KVM_SET_DEVICE_ATTR</td>
+<td style="text-align: left;">KVM_CAP_VCPU_ATTRIBUTES</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_device_attr</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">设置设备状态（x86用于设置tsc offset）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.81</td>
+<td style="text-align: left;">KVM_HAS_DEVICE_ATTR</td>
+<td style="text-align: left;">KVM_CAP_VCPU_ATTRIBUTES</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_device_attr</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">检查设备是否具有某特性（x86检查vcpu是否支持tsc offset）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.87</td>
+<td style="text-align: left;">KVM_SET_GUEST_DEBUG</td>
+<td style="text-align: left;">KVM_CAP_SET_GUEST_DEBUG</td>
+<td style="text-align: left;">x86, s390, ppc, arm64</td>
+<td style="text-align: left;">struct kvm_guest_debug (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">配置vcpu debug寄存器和vcpu对应的debug事件处理逻辑</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.96</td>
+<td style="text-align: left;">KVM_SMI</td>
+<td style="text-align: left;">KVM_CAP_X86_SMM</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">none</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">将SMI加入vcpu 队列</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.105</td>
+<td style="text-align: left;">KVM_X86_SETUP_MCE</td>
+<td style="text-align: left;">KVM_CAP_MCE</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">u64 mcg_cap (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回负值（-EFAULT/-EINVAL）</td>
+<td style="text-align: left;">初始化MCE功能</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.106</td>
+<td style="text-align: left;">KVM_X86_SET_MCE</td>
+<td style="text-align: left;">KVM_CAP_MCE</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_x86_mce (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回负值（-EFAULT/-EINVAL）</td>
+<td style="text-align: left;">为Guest注入MCE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.114</td>
+<td style="text-align: left;">KVM_GET_NESTED_STATE</td>
+<td style="text-align: left;">KVM_CAP_NESTED_STATE</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_nested_state (in/out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">获取vcpu嵌套虚拟化状态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.115</td>
+<td style="text-align: left;">KVM_SET_NESTED_STATE</td>
+<td style="text-align: left;">KVM_CAP_NESTED_STATE</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">vcpu iostl</td>
+<td style="text-align: left;">struct kvm_nested_state (in)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.118</td>
+<td style="text-align: left;">KVM_GET_SUPPORTED_HV_CPUID</td>
+<td style="text-align: left;">KVM_CAP_HYPERV_CPUID</td>
+<td style="text-align: left;">x86</td>
+<td style="text-align: left;">struct kvm_cpuid2 (in/out)</td>
+<td style="text-align: left;">成功返回0, 失败返回-1</td>
+<td style="text-align: left;">返回KVM模拟的与Hyper-V相关的CPUID信息</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>只展示了x86支持的KVM API</li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style='padding:10px;' class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' === 'true';
+    var verify = 'false' === 'true';
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "s2eHqXywwedp3daCPBNbPuh1-gzGzoHsz",
+        appKey: "pGeyqGOCCeFFrOlUwGveRpL4",
+        placeholder: "来聊聊吧",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn',
+        guest_info: guest_info
+    });
+</script>
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/person.jpg" alt="Garry Xu's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        garry.x@outlook.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: garry.x@outlook.com" target="_blank" title="联系">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        联系
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2022/06/">六月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/03/">三月 2022<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/02/">二月 2022<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E7%AE%97%E6%B3%95/">算法<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化<span class="sidebar_archives-count">5</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/garry-x" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;Garry's Blog
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/bollnh/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<!-- <script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script> -->
+
+<!-- Import prettify js  -->
+
+
+    
+        <script>lsloader.load("hanabi","/js/hanabi-browser-bundle.js?Pki5+pzkluqu53g+ouMWpA==", true)</script>
+    
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+        
+        
+        HanabiBrowser.start('pre code',true);
+    
+</script>
+
+<!-- MathJax Load-->
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2015;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/bollnh/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

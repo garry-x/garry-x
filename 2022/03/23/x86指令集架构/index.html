@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/bollnh/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+
+
+
+
+    <link rel="dns-prefetch" href="https://cdn1.lncld.net"/>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net"/>
+
+
+
+    <link rel="dns-prefetch" href="https://hm.baidu.com"/>
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            x86指令集架构 | 
+        
+        Garry&#39;s Blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.svg">
+    <link rel="icon" href="/img/favicon.svg">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="">
+    <meta name="keywords" content=",x86">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Garry&#39;s Blog">
+    <meta name="msapplication-starturl" content="https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Garry&#39;s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.svg">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="x86指令集架构 | Garry&#39;s Blog">
+    <meta property="og:image" content="/img/favicon.svg">
+    <meta property="og:description" content="">
+    <meta property="og:article:tag" content="x86"> 
+
+    
+        <meta property="article:published_time" content="Wed Mar 23 2022 09:59:05 GMT+0800">
+        <meta property="article:modified_time" content="Tue Jul 05 2022 23:00:54 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html",
+    "headline": "x86指令集架构",
+    "datePublished": "Wed Mar 23 2022 09:59:05 GMT+0800",
+    "dateModified": "Tue Jul 05 2022 23:00:54 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Garry Xu",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/person.jpg"
+        },
+        "description": "写作使人精确"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Garry&#39;s Blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.svg"
+        }
+    },
+    "keywords": ",x86",
+    "description": "",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+        <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?11c4725b193a666d23428aa1f1005776';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本概念</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%B8%A4%E7%A7%8Dx86%E6%9E%B6%E6%9E%84"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">两种x86架构</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%80%BB%E8%BE%91%E5%A4%84%E7%90%86%E5%99%A8"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">逻辑处理器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ia-%E6%8C%87%E4%BB%A4%E5%92%8C%E5%BE%AE%E6%93%8D%E4%BD%9C"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">IA 指令和微操作</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%89%B9%E6%9D%83%E7%BA%A7"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">特权级</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2"><span class="post-toc-number">2.</span> <span class="post-toc-text">模式和模式切换</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2ia-32-%E5%88%B0-ia-32e"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">模式切换：IA-32 到 IA-32e</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ia32e%E5%AD%90%E6%A8%A1%E5%BC%8F%E9%80%89%E5%8F%96"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">IA32e子模式选取</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%87%8D%E7%BD%AE%E4%B9%8B%E5%90%8E%E7%9A%84%E7%8A%B6%E6%80%81"><span class="post-toc-number">3.</span> <span class="post-toc-text">重置之后的状态</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E7%A1%AC%E9%87%8D%E7%BD%AE"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">硬重置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E8%BD%AF%E9%87%8D%E7%BD%AE"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">软重置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E9%80%89%E6%8B%A9%E5%BC%95%E5%AF%BCcpubspbootstrap-cpu"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">选择引导CPU（BSP，Bootstrap
+CPU）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ap%E7%9A%84%E5%8F%91%E7%8E%B0%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">AP的发现和配置</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%88%9D%E5%A7%8B%E9%98%B6%E6%AE%B5%E7%9A%84%E5%86%85%E5%AD%98%E8%AF%BB%E5%8F%96"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">初始阶段的内存读取</span></a></li></ol></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                x86指令集架构
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/person.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Garry Xu</strong>
+        <span>3月 23, 2022</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-none-link" href="/tags/x86/" rel="tag">x86</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=x86指令集架构&url=https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html&pic=https://garryx.com/img/favicon.svg&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=x86指令集架构&url=https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html&via=Garry Xu" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p>以下笔记来自阅读：x86 Instruction Set Architecture - MindShare</p>
+</blockquote>
+<blockquote>
+<p>本文以Intel处理器作为阐述目标。AMD处理器差异点可以参考: <a
+target="_blank" rel="noopener" href="https://www.agner.org/optimize/microarchitecture.pdf">Agner Fog
+Microarchitecture</a></p>
+</blockquote>
+<p>    在“<a
+href="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">指令集架构</a>
+"一文中，我们粗略介绍了指令集架构的分类、寻址、操作、编码等7个方面的内容。下面我们对服务器及PC中使用最广泛的x86指令集架构做详细介绍。</p>
+<hr />
+<h3 id="基本概念">基本概念</h3>
+<h4 id="两种x86架构">两种x86架构</h4>
+<p>    x86指令集架构实际上包含两种架构：</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>IA32 架构</td>
+<td>不能执行64位代码</td>
+</tr>
+<tr class="even">
+<td>Intel 64 架构</td>
+<td>可以执行64位代码、其是 IA32 架构的超集</td>
+</tr>
+</tbody>
+</table>
+<p>    其对应的处理器也分为两类：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>IA32 处理器</td>
+<td>只实现了IA-32 ISA，支持执行16位或者32位指令</td>
+</tr>
+<tr class="even">
+<td>Intel 64 处理器</td>
+<td>实现了Intel 64 ISA：<br>若执行于 <strong>IA-32</strong>
+模式，支持执行16位或者32位代码；<br>若执行于 <strong>IA-32e</strong>
+模式，支持执行16位、32位和64位代码</td>
+</tr>
+</tbody>
+</table>
+<h4 id="逻辑处理器">逻辑处理器</h4>
+<p>    物理处理器、核心、逻辑处理器的关系见下图：<br />
+<img src="/images/logical-processor.png" /></p>
+<h4 id="ia-指令和微操作">IA 指令和微操作</h4>
+<p>    x86
+ISA是复杂指令集（CISC）架构，其指令集复杂、指令长度可变（1到18个字节）。而精简指令集（RISC）架构则使用定长、简单的指令集，并具有如下的优势：<br />
+- 简化了处理器的指令取出逻辑<br />
+- 简化了指令流的解析逻辑<br />
+- 简化了指令解码器的设计<br />
+- 简化了指令分发相关的逻辑<br />
+- 标准化了处理器执行单元间的内部总线宽度</p>
+<p>    为了在保证兼容性的情况下尽可能的提高处理器速度，Die
+内的指令集翻译被引入到了处理器中。x86指令首先从内存读取到处理器缓存中，之后一组译码器将每个x86指令翻译成一组简单的、定长指令（微操作）。之后这些微操作执行后将完成原来x86指令同样的功能。Intel在1995发布的
+<em>Pentium Pro</em> 首次使用了指令集翻译，可以说，从 <em>Pentium
+Pro</em> 之后，所有的Intel处理器实际上是RISC机器。</p>
+<h4 id="特权级">特权级</h4>
+<p>    当处于IA-32
+保护模式、或者IA-32e的的兼容或64比特模式下时，x86处理器支持特权级。每时每刻、处理器都在从内存区域中获取执行代码，这些内存区域的特性由一个特殊的描述符定义（代码段描述符）。处理器根据代码段描述符的2比特
+<em>DPL(Descriptor Privilege
+Level)</em>字段确定当前执行程序的特权级（<em>CPL Current Privilege
+Level</em> ）。共有4个特权级：<br />
+- <strong>0</strong>：
+最高特权级。一般只有操作系统内核运行于特权级0，并可以执行任何操作。<br />
+- <strong>1</strong>：
+一般由高特权级的设备驱动和操作系统服务使用。调试程序也可以使用该特权级避免低特权级设备驱动和程序的干扰。<br />
+- <strong>2</strong>： 一般由低特权级设备驱动使用。<br />
+- <strong>3</strong>：
+是最低的特权级，一般由应用程序使用，这阻止了应用程序对操作系统、驱动等的破坏性操作。</p>
+<hr />
+<h3 id="模式和模式切换">模式和模式切换</h3>
+<p>    x86各子模式和模式切换参考下图：</p>
+<p><img src="/images/x86mode.png" /></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>子模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>IA-32 模式</strong></td>
+<td>实模式</td>
+<td>- 逻辑处理器在硬重置之后将总是从实模式开始执行。<br/>- 在实模式，逻辑处理器会模拟
+<em>Intel 8088/8086</em>
+处理器的行为。<br/>- 内存地址划分为64KB大小的段：<br/>  <strong>CS</strong>：代码段包含需要执行的代码。<br/>  <strong>SS</strong>：栈段定义了可以临时保存或恢复寄存器信息的内存区域<br/>  <strong>DS</strong>：数据段定义了当前执行程序操作的默认数据内存区域<br/>  <strong>ES，FS和GS</strong>：可用来定义当前执行程序操作的额外数据内存区域<br/>- 没有机制可以阻止对特定区域内存的未授权访问。<br/>- 当前执行程序可访问任何I/O端口、因此可以不通过操作系统或者其他程序直接更改I/O设备状态。<br/>- 没有特权级的概念。对当前执行程序的指令和寄存器使用、包括内存访问区域没有任何限制。<br/>- 软件被限制只能访问前1MB内存空间。</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>保护模式</td>
+<td>保护模式实现了多任务处理，在特定时间内允许逻辑处理器执行操作系统调度的任务、而其他任务则需要暂停。保护模式提供了解决多任务环境问题的诸多方案：<br/>- 全面的内存保护<br/>- 允许操作系统内核优雅访问I/O端口。<br/>- 阻止对操作系统服务和资源的未授权访问。<br/>- 拦截未授权的开/关外部中断处理操作。<br/>- 拦截未授权的通过软中断对BIOS和MSDOS服务的访问。<br/><br/>为了很好的处理上述的问题，x86架构引入了新的功能：<br/>- 操作系统调度器<strong>为程序赋予特权级的能力</strong>，以此来限制程序对逻辑处理器功能的使用。<br/>- 支持16位、286、以及32位代码。<br/>- <strong>增加了段描述符结构</strong>，允许操作系统内存管理为内存段指定如下描述信息：<br/>  32位基地址。<br/>  32位段长度。<br/>  为访问该段，需要的最低特权级。<br/>  读写访问权限。<br/>- <strong>基于硬件的任务切换机制</strong><br/>- 虚拟地址到物理地址转换服务。<br/>- 中断描述符</td>
+</tr>
+<tr class="odd">
+<td>-</td>
+<td>虚拟8086模式（VM86）</td>
+<td>由于8086代码在保护模式下可能引起破坏性行为，操作系统任务调度首先切换逻辑处理器至虚拟8080模式，再初始化或者恢复实模式程序的运行。当处于虚拟8086模式时，逻辑处理器将激活执行如下指令的硬件：<br/>- 它暂停违法程序的运行。<br/>- 调用特定的操作系统程序，虚拟机监视器（VMM）。<br/>- VMM检查违法指令并执行如下操作：<br/>  允许指令运行。<br/>  以软件的形式模拟指令，防止对整体软件环境的方式进行破坏。<br/>  禁止操作并关闭违法任务。<br/><br/>当在虚拟8086模式运行时，逻辑处理器仿佛运行在实模式下。（但是打开了如上的拦截逻辑）</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>系统管理模式（SMM）</td>
+<td>SMM用来处理特定设计过的系统事件（比如平台相关的电源或者温度管理事件）。逻辑处理器当收到系统管理中断（SMI）时，进入SMM模式。当收到SMI，逻辑处理器：<br/>- 自动保存当前的机器状态（比如逻辑处理器的整组寄存器状态）。<br/>- 进入SMM。<br/>- 执行事件处理程序。<br/>- 恢复寄存器组到之前的状态。<br/>- 恢复被中断程序的执行。</td>
+</tr>
+<tr class="odd">
+<td><strong>IA-33e 模式</strong></td>
+<td>64位模式</td>
+<td>假设逻辑处理器：<br/>- 正运行于IA-32e模式，<br/>- 正在从16位或者32位代码段获取/执行代码，因此处于IA32-e的兼容子模式。<br/>- 一条指令导致了向另一个代码段的跳转，该代码段的描述符设置了<em>L</em>位（长模式比特位;长模式是AMD对IA-33e模式的命名）。<br/>- 因此，逻辑处理器自动从兼容模式切换至64比特模式。<br/><br/>逻辑处理器保持在64位模式，直到：<br/>- 一个SMI导致临时切换至SMM模式以处理平台事件。<br/>- 
+一条指令导致了向另一个代码段的跳转，该代码段的段描述符<em>L</em>位清零。因此，逻辑处理器自动从64位模式切换到了兼容模式。<br/><br/>当处于64位模式时，以下描述都是正确的：<br/>- 逻辑处理器支持相当大的逻辑和物理地址空间:<br/>  ·理论上支持64位虚拟地址空间。当前Inel处理器支持48位虚拟地址空间。<br/>  ·理论上支持52位物理地址空间。目前Intel处理器实现了40位物理空间，部分AMD处理器实现了41或者48位物理地址空间。<br/>- 允许软件使用更多高位宽寄存器：<br/>  ·通用寄存器从32位扩展至64位。<br/>  ·控制和调试寄存器从32位扩展至64位。<br/>  ·8个额外的64位通用寄存器（R8-R15）。<br/>  ·8个额外的64位控制寄存器（CR8-CR15）。<br/>  ·8个额外的调试寄存器（DR8-DR15）。<br/>  ·8个额外的128位
+SIMD寄存器（XMM8-XMM15）。<br/>- 关闭当前操作系统不使用的老旧机制（分段、基于硬件的任务切换辅助逻辑等）。<br/>- 硬件增强的平台内存模式。</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>兼容模式</td>
+<td><strong>子模式</strong>：兼容模式包含两个子模式：<br/>- 16位兼容子模式。当逻辑处理器运行位于286兼容的16位代码段的代码时，其运行于16位兼容子模式。<br/>- 32位兼容子模式。当逻辑处理器运行位于32位代码段的代码时，其运行于32位兼容子模式。<br/><br/><strong>进入的时机</strong>：逻辑处理器在如下场景下进入IA-32e兼容模式：<br/>- 初始时进入。由保护模式切换至IA-32e模式时进入。<br/>- 任务切换时。逻辑处理器正处于64位模式，一条指令触发了向另一代码段位置的跳转，且该代码段清除了段描述符的<em>L</em>位。<br/><br/><strong>与保护模式有差异</strong>：当位于兼容模式时，逻辑处理仿佛处于保护模式，但是有如下的差异：<br/>- 不支持执行VM86任务。<br/>- 虽然限制了32位虚拟地址空间，但是并没有对32位物理空间的限制。<br/>- 中断和异常时间将导致逻辑处理器切换至64位模式（处理程序必须位于64位代码段）。当中断处理程序处理完，逻辑处理器返回兼容模式恢复执行被中断的任务。<br/>- 控制寄存器是64位宽。<br/>- GDT中TSS描述符是16字节，而不是8字节。<br/>- GDT中的LDT描述符是16字节而不是8字节。<br/>- 调用门(Call
+Gate)描述符在GDT和LDT中都是16字节，而不是8字节。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="模式切换ia-32-到-ia-32e">模式切换：IA-32 到 IA-32e</h4>
+<p>    想要进入IA-32e模式，只能先从旧的保护模式切换到IA-32e兼容模式。切换通过如下的步骤完成：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>1a</td>
+<td>如果在保护模式开启了分页，在准备切换到IA-32e之前，需要关闭。</td>
+</tr>
+<tr class="even">
+<td>1b</td>
+<td>IA-32e
+操作系统内核使用的数据结构和保护模式下使用的有差别，软件需要在内存中创建对应的数据结构，这包含IA-32e使用的地址转换表。</td>
+</tr>
+<tr class="odd">
+<td>2a</td>
+<td>设置<em>CR4[PAE]</em>为1（IA-32e使用一种重新设计的PAE模式用于地址转换）</td>
+</tr>
+<tr class="even">
+<td>2b</td>
+<td>置位EPER寄存器中的<em>LME(Long Mode
+Enable)</em>比特位（AMD称IA-32e为长模式，这里Intel使用了和AM同样的命名）。需要注意的是，虽然<em>LME
+= 1</em>，此时还没有进入IA-32e模式</td>
+</tr>
+<tr class="odd">
+<td>2c</td>
+<td>将CR3指向IA-32e模式地址转换表的最高层（页表中的PML4）。以为CR3在保护模式只有32位，因此开始的PML4物理地址需要在4GB以下</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>设置<em>CR0[PG] =
+1</em>，开启分页，同时也开启了IA-32e模式。逻辑处理器，此时进入IA-32e兼容子模式，并设置<em>EFER[LMA]
+= 1</em>（Long Mode Active），表明目前IA-32e模式已经开启。</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>软件现在将逻辑处理器的寄存器指向1b中创建的内核数据结构：<br/>- <strong>GDTR</strong>：加载全局描述符表的基地址和长度到GDTR。<br/>- <strong>LDRT</strong>：加载局部描述符表的基地址和长度到LDTR。<br/>- <strong>IDTR</strong>：加载中断描述符表的基地址和长度到IDTR。<br/>- <strong>TR</strong>：加载内核TSS(<em>Task
+State Segment</em>)结构的地址和长度到TR</td>
+</tr>
+</tbody>
+</table>
+<p>    一个简化的转化图如下：<br />
+<img src="/images/ia32-ia32e.png" /></p>
+<h4 id="ia32e子模式选取">IA32e子模式选取</h4>
+<p>    当逻辑处理器处于保护模式或者IA-32e模式，<em>CS</em>
+寄存器的内容定义了当前程序的：<br />
+- 代码段的内存基地址。<br />
+- 代码段的大小。<br />
+- 代码段的特权级。<br />
+- 代码段的类型：<br />
+ 16位，286代码段。<br />
+ 32位，386代码段。<br />
+ 64位代码段。<br />
+- 其他代码段特性：<br />
+ 仅包含代码或者包含代码和只读数据。<br />
+ 是否为 <em>conforming</em> 代码段（参考<a
+target="_blank" rel="noopener" href="http://www.logix.cz/michal/doc/i386/chp06-03.htm">段级别保护机制</a>）</p>
+<p>    当逻辑处理器在IA-32e模式下，不同类型的代码段定义了当前逻辑处理器处于哪个子模式。<em>CS</em>
+寄存器的 <em>L</em> 和 <em>D</em> 比特位决定了当前的代码段类型：<br />
+- <strong>L=0,
+D=0</strong>：逻辑处理器正在从16位，286代码段执行代码，因此处于IA-32e的16位兼容子模式。<br />
+- <strong>L=0,
+D=1</strong>：逻辑处理器正在从32位，386代码段执行代码，因此处于IA-32e的32位兼容子模式。<br />
+- <strong>L=1,
+D=0</strong>：逻辑处理器正在从64位代码段执行代码，因此处于IA-32e的64位子模式。<br />
+- <strong>L=1, D=1</strong>：保留。</p>
+<p>    当切换到IA-32e模式的时刻，逻辑处理器处于兼容子模式。
+需要注意的是，此时逻辑处理器仍在从保护模式代码段获取代码，因此，其正运行在IA-32e的16位或者32位兼容子模式下。</p>
+<hr />
+<h3 id="重置之后的状态">重置之后的状态</h3>
+<p>    IA-32 寄存器如下图所示：<br />
+<img src="/images/ia32-regs.png" /></p>
+<h4 id="硬重置">硬重置</h4>
+<p>    下表列出了硬重启之后的寄存器和资源状态：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>寄存器/资源</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>指令流水线</td>
+<td>目前没有从内存中读取的指令</td>
+</tr>
+<tr class="even">
+<td>ROB（Reorder Buffer）</td>
+<td>由于并没有从内存中读取指令，ROB为空，且指令分发逻辑也处于空闲</td>
+</tr>
+<tr class="odd">
+<td>BTB（Branch Target Buffer） Cache</td>
+<td>BTB记录u了分支执行的历史，当前为空</td>
+</tr>
+<tr class="even">
+<td>CR0 寄存器</td>
+<td>重置后内容为
+<em>60000010h</em>：<br/>- CR0[PE]=0，关闭保护模式。<br/>- CR0[PG]=0，关闭分页。<br/>- CR0[CD&amp;NW]=11b，关闭缓存逻辑。<br/>- CR0[EM&amp;MP]=11b，表明当前不存在x87
+FPU。<br/>- CR0[TS]=0，表明没有发生任务切换。<br/>- CR0[ET]=1，表明内置x87
+FPU与387 FPU兼容。<br/>- CR0[NE]=0，FP异常发生时，逻辑处理器不再抛出
+<em>16</em>
+异常。逻辑处理器转而使用DOS兼容的方式触发信号。<br/>- CR0[WP]=0，目前由于关闭了分页，该配置无效。当分页开启时，<em>CR0[WP]=1</em>会阻止
+<em>0</em>
+特权级软件写入只读内存页。<br/>- CR0[AM]=0，逻辑处理器当检测到对多个字节的不对齐访问时，不会产生对齐检查异常。</td>
+</tr>
+<tr class="odd">
+<td>CR4 寄存器</td>
+<td>新特性的控制寄存器，重置后内容为 <em>00000000h</em> :
+<br/>- VME：禁用VM86模式。<br/>- PVI：禁用保护模式下的虚拟中断特性。<br/>- TSD：不限制RDTSC调用方的特权级。<br/>- DE：禁用调试扩展。<br/>- PSE：禁用内存页大小扩展。<br/>- PAE:禁用物理地址扩展。<br/>- MCE：禁用机器检查扩展。<br/>- PGE：禁用全局页功能。<br/>- PCE：禁用性能计数器。<br/>- VMXE：禁用虚拟化功能。<br/>- SMXE：禁用
+<em>Safer Mode</em>。</td>
+</tr>
+<tr class="even">
+<td>Eflags 寄存器</td>
+<td>重置后，内容为
+<em>00000002h</em>：<br/>- Eflags[TF]=0，关闭单步调试模式。<br/>- Eflags[IF]=0，关闭对外部中断的响应。<br/>- Eflags[DF]=0，字节串指令从开始地址，以递增方式访问。<br/>- Eflags[VM]=0，禁用VM86模式。<br/>- Eflags[ID]=0，没有任何对外部的影响。<br/>- Eflags剩下的比特位是状态比特位，反映当前指令执行状态</td>
+</tr>
+<tr class="odd">
+<td>MTRR 寄存器组</td>
+<td><em>MTRRdefType</em>
+寄存器内容为0：<br>- 所有内存均设置为不可缓存（UC）<br>- 禁用固定区域的MTRR寄存器。<br>- 禁用可变区域的MTRR寄存器。</td>
+</tr>
+<tr class="even">
+<td>缓存（Cache）</td>
+<td>所有逻辑处理器的缓存都为空。另外缓存被禁用，所有的内存也标记为不可缓存。</td>
+</tr>
+<tr class="odd">
+<td><strong>CS和EIP寄存器</strong></td>
+<td><strong>CS=F000h</strong>：因此，代码段在地址 <em>000F000h</em>
+开始。实际上它开始于
+<em>FFFFFF0000h</em>。CS寄存器的不可见部分（CS缓存寄存器，参考：<a
+target="_blank" rel="noopener" href="https://www.byclb.com/TR/Tutorials/microprocessors/ch2_1.htm">Program-Invisible
+Registers</a>）则加载了如下的代码段描述信息：<br/>- 段基地址为
+<em>FFFF0000h</em> 。<br/>- 段大小为<em>0FFFFh</em>
+（64KB）<br/>- <em>P=1</em>，段在内存中存在。<br/>- <em>RW=1</em>，可读写段。<br/>- <em>A=1</em>，段被访问过。<br/><strong>EIP=0000FFF0h</strong>。第一个指令指向代码段
+<em>0000FFF0h</em> 的位置，代码段位于 <em>FFFF0000h</em>（即指向
+<em>FFFFFFF0h</em>，4GB - 16）</td>
+</tr>
+<tr class="even">
+<td>DS、ES、FS和GS寄存器</td>
+<td>所有的数据段寄存器的内容都为
+<em>0000h</em>。数据段寄存器的不可见部分有如下的描述：<br/>- 段基地址为
+<em>00000000h</em> 。<br/>- 段大小为<em>0FFFFh</em>
+（64KB）<br/>- <em>P=1</em>，段在内存中存在。<br/>- <em>RW=1</em>，可读写段。<br/>- <em>A=1</em>，段被访问过。</td>
+</tr>
+<tr class="odd">
+<td>SS和ESP寄存器</td>
+<td><strong>SS=0000h</strong>。<em>SS</em>的不可见部分，对栈段有如下描述：<br/>- 段基地址为
+<em>00000000h</em> 。<br/>- 段大小为<em>0FFFFh</em>
+（64KB）<br/>- <em>P=1</em>，段在内存中存在。<br/>- <em>RW=1</em>，可读写段。<br/>- <em>A=1</em>，段被访问过。<br/>- 这是一个向上生长的栈段。<br/><strong>ESP=00000000h</strong>。</td>
+</tr>
+<tr class="even">
+<td>EBX，ECX，EBP，ESI，EDI</td>
+<td>这些通用寄存器内容都为 <em>00000000h</em></td>
+</tr>
+<tr class="odd">
+<td>EAX</td>
+<td>- 如果 <em>BIST</em>（内置自测）没有运行或运行后没有错误，EAX内容为
+<em>00000000h</em>。<br/>- 如果 <em>BIST</em>
+运行遇到错误，EAX的内容将是一个非零的处理器相关的错误码。</td>
+</tr>
+<tr class="even">
+<td>EDX</td>
+<td>在重置触发后，代码获取之前，逻辑处理器自动的将处理器的 <em>type,
+family, model, stepping</em> 信息储存到EDX中。</td>
+</tr>
+<tr class="odd">
+<td>IDTR</td>
+<td><strong>IDTR=0000h</strong>， 中断表有如下特性：<br/>- 段基地址为
+<em>00000000h</em> 。<br/>- 段大小为<em>0FFFFh</em>
+（64KB）<br/>- <em>P=1</em>，段在内存中存在。<br/>- <em>RW=1</em>，可读写段。<br/>实模式中断表在物理地址
+<em>00000000h</em></td>
+</tr>
+<tr class="even">
+<td>GDTR</td>
+<td>48位的全局描述符寄存器在重置之后：<br/>- 基地址为
+<em>00000000h</em><br/>- 大小为<em>FFFFh</em>（64KB）<br/>由于GDTR和GDT只能在保护模式使用，因此当前阶段没有作用</td>
+</tr>
+<tr class="odd">
+<td>LDTR</td>
+<td>16位的局部描述符寄存器在重置之后：<br/>- 基地址为
+<em>00000000h</em><br/>- 大小为<em>FFFFh</em>（64KB）<br/>由于LDTR和LDT只能在保护模式使用，因此当前阶段没有作用</td>
+</tr>
+<tr class="even">
+<td>TR寄存器</td>
+<td>16位的任务寄存器在重置之后：<br/>- 基地址为
+<em>00000000h</em><br/>- 大小为<em>FFFFh</em>（64KB）<br/>由于任务寄存器只能在保护模式使用，因此当前阶段没有作用</td>
+</tr>
+<tr class="odd">
+<td>CR2和CR3寄存器</td>
+<td>CR2（缺页地址寄存器）和CR3（页目录基地址寄存器）的内容都为<em>00000000h</em>。由于CR2和CR3都只在保护模式使用，因此当前阶段没有作用</td>
+</tr>
+<tr class="even">
+<td>TLBs</td>
+<td>重置后所有TLB项均标记为失效。由于TLB只在保护模式下并开启分页的场景有用，当前阶段没有作用</td>
+</tr>
+<tr class="odd">
+<td>XCR0（XFEM）寄存器</td>
+<td>只有比特1也就是SSE比特位当前实现了，该比特位置为0</td>
+</tr>
+<tr class="even">
+<td>调试寄存器</td>
+<td>DR7（调试控制寄存器）内容为
+<em>00000400h</em>，关闭逻辑处理器的断点逻辑。因此DR0-DR6
+不用关心。</td>
+</tr>
+<tr class="odd">
+<td>LAPIC寄存器</td>
+<td>在BIST运行之后（如果BIST执行），高级可编程中断控制器就被赋予了唯一的APIC
+ID。该控制器随后和其他逻辑处理器的LAPIC进行协商，最后选择负责引导（<em>bootstrap</em>）的逻辑处理器。所有对外部中断的响应都会关闭，当前LAPIC处于虚拟线模式（<em>Virtual
+Wire or 8259A mode</em>）。</td>
+</tr>
+<tr class="even">
+<td>SSE 寄存器组</td>
+<td>XMM0-7 数据寄存器都为0。MXCSR 寄存器的内容为
+<em>1F80h</em>：<br/>- 禁用 <em>Flush-to-Zero</em> 模式。<br/>- 禁用
+<em>Denormals As Zero</em> 模式。<br/>- 取整控制标志位
+<em>=00b</em>，取整到最近的偶数。<br/>- 禁用所有的SSE异常。<br/>- 清楚所有的SSE错误状态位。</td>
+</tr>
+<tr class="odd">
+<td>x87 寄存器组</td>
+<td>- 控制寄存器的内容是 <em>0040h</em>：<br/>  禁用所有的x87
+FPU异常。<br/>  取整到最近的偶数。<br/>  精度为单精度。<br/>- 状态寄存器是
+<em>0000h</em>。<br/>  清空所有的状态位。<br/>  栈顶指针指向数据寄存器0。<br/>- 数据寄存器都为0。<br/>- 数据操作数段：偏移寄存器=<em>0:0</em>。<br/>- 指令段：偏移寄存器=<em>0:0</em></td>
+</tr>
+<tr class="even">
+<td>MCA 寄存器组</td>
+<td>没有记录的硬件错误</td>
+</tr>
+<tr class="odd">
+<td>性能监控寄存器组</td>
+<td>所有逻辑寄存器的性能监控计数器都已经关闭，因此没有任何类型的事件可以记录</td>
+</tr>
+<tr class="even">
+<td>温度监控</td>
+<td>逻辑处理器的温度监控和控制功能都已经关闭</td>
+</tr>
+<tr class="odd">
+<td>调试控制寄存器</td>
+<td>调试功能都已关闭</td>
+</tr>
+<tr class="even">
+<td>VMX能力</td>
+<td>CR4[VMXe]=0，关闭了逻辑处理器的虚拟化相关功能</td>
+</tr>
+<tr class="odd">
+<td>TSC</td>
+<td>64位 TSC MSR寄存器置为0,
+在重置之后，寄存器开始记录逻辑处理器的时钟周期</td>
+</tr>
+</tbody>
+</table>
+<p>    总结来说：<br />
+- 逻辑处理器处于实模式。<br />
+- 缓存已经清空，并且缓存已经禁止。<br />
+- 所有的CR4个功能标志位都已清空，禁用386之后的大部分新功能。 -
+关闭对外部中断的响应。 - 没有从内存中获取的指令。<br />
+- x87 FPU已禁用。<br />
+- 所有的x87 FPU和SSE异常都已经禁用。<br />
+- 机器检查（Machine Check）和对齐检查（Alignment Check）异常都已经禁用。
+- <strong>第一条指令会从FFFFFFF0h获取并执行</strong>。</p>
+<h4 id="软重置">软重置</h4>
+<p>    正如上文的描述，一次硬重置将完全重新初始化逻辑处理器和其对应的LAPIC并清理它的缓存。而一次软重置（也称为
+<em>INIT</em>），有同样的效果，但是软重置将保留缓存、MSR、MTRR和x87
+FPU状态等内容（BTB和TLB的内容会被清空）。</p>
+<p>    软重置通过如下两种方式发送到逻辑处理器：<br />
+- 可以命令芯片组为处理器设置 <em>INIT#</em> 信号。<br />
+- 逻辑处理器上运行的软件（通常是内核代码）可以命令LAPIC发送 <em>INIT
+IPI</em> 到一个或者多个逻辑处理器的LAPIC。</p>
+<h4 id="选择引导cpubspbootstrap-cpu">选择引导CPU（BSP，Bootstrap
+CPU）</h4>
+<p>    在重置发起之后，启动ROM中的代码被获取之前。所有系统中的逻辑处理器必须协商并决定谁来充当引导处理器（BSP）。BSP负责发现并配置系统拓扑，也负责启动操作系统。除BSP外的其他逻辑处理器称为应用处理器（<em>AP,
+Application
+Processor</em>），AP处于休眠状态，直到BSP向其发送了启动中断消息（<em>SIPI,
+Startup Interrupt
+Message</em>）。BSP的选取方式是和处理器设计强相关的：<br />
+- <strong>基于前端总线的系统</strong>。其选取流程如下图所示：<br />
+<img src="/images/pentium4-bsp.png" /></p>
+<ul>
+<li><strong>基于Intel
+QPI的系统</strong>。处理器之间使用QPI通信的系统使用不同的BSP选取方式。在重置开始之后，从引导ROM读取初始代码之前，每个物理处理器需要执行内部微码，用以：<br />
+  1）
+配置内部内存控制器和事务路由设备，确定到芯片组、引导ROM、以及系统其他部分的路径。<br />
+  2）
+确定可用的逻辑处理器数目。配置QPI路径以便逻辑处理器间互相通信。<br />
+  3） 选取需要充当BSP的逻辑处理器。</li>
+</ul>
+<h4 id="ap的发现和配置">AP的发现和配置</h4>
+<p>    除了BSP外的其他逻辑处理器叫做应用处理器（AP）。当BSP从引导ROM获取代码进行系统拓扑发现和配置、引导操作系统的时候，应用处理器保持在休眠和低功耗状态。BSP的任务之一就是发现并初步配置AP。引导ROM通过如下过程完成这一任务：引导ROM将配置程序加载到内存，通过LAPIC向系统所有AP的LAPIC发送一个包含该程序内存地址的特殊消息。AP接收到这条消息（<em>SIPI，Startup
+Inter-Processor
+Interrupt</em>）后退出休眠状态，开始执行引导ROM放到内存里的配置程序。</p>
+<h4 id="初始阶段的内存读取">初始阶段的内存读取</h4>
+<p>    x86
+处理器总是从实模式开始执行。在实模式下，内存地址由16位段寄存器构成的20位段基地址（段寄存器左移4位）和16位偏移相加构成。偏移包含：<br />
+- 16位IP（指令指针）寄存器，用于构成代码的内存地址。<br />
+- 16位SP（栈指针）寄存器，用于构成需要读写的栈内存地址。<br />
+- 为了数据访问构建的访存指令。</p>
+<p>    由于偏移是16位，所有段的大小就被限制在了64KB。</p>
+<p>    当重置触发后，CS寄存器的内容为
+<em>F000h</em>、EIP寄存器包含的偏移地址为
+<em>0000FFF0h</em>。自然而然的，第一个执行的指令地址应该位于
+<em>0000FFFF0h</em>。然后在重置上电之后，逻辑处理器第一次访存构建内存地址的方式和一般的实模式访问不同。段基地址为
+<em>FFFF0000h</em> ，而不是 <em>F0000h</em>。当EIP偏移为
+<em>00000FF0h</em>时，加到段基地址，得到的地址是
+<em>FFFFFFF0h</em>。逻辑处理器在读取初始指令时使用该地址。内存指令的地址持续使用这种构建方式，直到程序加载任何值到CS段寄存器（即使加载的是
+<em>F000h</em>，也就是其目前的值）。也就是说，直到执行一个 <em>far
+jump</em> （或者 <em>far
+call</em>）。一般，在<em>power-on-restart</em>地址（<em>FFFFFFF0h</em>）上发现的第一条指令是到ROM上
+<em>Power-On Self-Test（POST）</em>程序的<em>far
+jump</em>。从这个时刻开始直到进入保护模式，地址将按照常规的方式构建，因此也限制在前1MB的内存空间。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <div id="comment" style='padding:10px;' class="vcomment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' === 'true';
+    var verify = 'false' === 'true';
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "s2eHqXywwedp3daCPBNbPuh1-gzGzoHsz",
+        appKey: "pGeyqGOCCeFFrOlUwGveRpL4",
+        placeholder: "来聊聊吧",
+        pageSize:'10',
+        avatar:'identicon',
+        lang:'zh-cn',
+        guest_info: guest_info
+    });
+</script>
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2022/05/23/KVM-API-%E7%AE%80%E4%BB%8B/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/person.jpg" alt="Garry Xu's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        garry.x@outlook.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: garry.x@outlook.com" target="_blank" title="联系">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        联系
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2022/08/">八月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/05/">五月 2022<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/03/">三月 2022<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2022/02/">二月 2022<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/02/">二月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">九月 2017<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87/">会议论文<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E7%AE%97%E6%B3%95/">算法<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化<span class="sidebar_archives-count">6</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/about" title="关于我">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                关于我
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/garry-x" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;Garry's Blog
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/bollnh/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+
+
+   
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<!-- <script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script> -->
+
+<!-- Import prettify js  -->
+
+
+    
+        <script>lsloader.load("hanabi","/js/hanabi-browser-bundle.js?Pki5+pzkluqu53g+ouMWpA==", true)</script>
+    
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+        
+        
+        HanabiBrowser.start('pre code',true);
+    
+</script>
+
+<!-- MathJax Load-->
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"], linebreaks: { automatic:true }, EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
+        tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno",skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']},
+        TeX: {  noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } }, Macros: { href: "{}" } },
+        messageStyle: "none"
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 2015;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/bollnh/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
