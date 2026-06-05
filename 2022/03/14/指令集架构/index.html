@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>指令集架构 | Garry&#39;s Blog</title>
+<meta name="description" content="以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI, technology, blog, Garry">
+
+<!-- Open Graph -->
+<meta property="og:title" content="指令集架构 | Garry&#39;s Blog">
+<meta property="og:description" content="以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
+<meta property="og:image" content="https://garryx.com/covers/cover-%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="指令集架构 | Garry&#39;s Blog">
+<meta name="twitter:description" content="以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84.png">
+
+<link rel="canonical" href="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "指令集架构 | Garry&#39;s Blog",
+  "description": "以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集",
+  "url": "https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/",
+  
+  "datePublished": "2022-03-14T03:57:01.000Z",
+  "dateModified": "2026-06-05T07:09:54.285Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/covers/cover-%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=14">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a>
+                
+            </div>
+            
+            <h1 class="post-title">指令集架构</h1>
+            <div class="post-header-meta">
+                <time datetime="2022-03-14T03:57:01.000Z">
+                    2022年3月14日
+                </time>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <div class="line-block">以下笔记 来自阅读：Hennessy J L, Patterson D A.
+Computer Architecture: A Quantitative Approach 6th Edition. 2019.</div>
+<p>指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面：<br />
+-
+<strong>指令集架构的分类</strong>：几乎所有今天的ISA都被归类为通用寄存器架构，其操作数不是寄存器就是内存位置。80x86有16个通用寄存器、16个保存浮点数据的寄存器；RISC-V有32个通用和浮点寄存器；
+从通用寄存器架构向下划分，可以再分为两类。一类是 <em>register-memory
+ISA</em> ，比如80x86，可以在很多指令中直接访问内存；一类是
+<em>load-store ISA</em>，比如 <em>ARMv8</em> 和 <em>RISC-V</em>
+，只能通过 <em>load</em> 和 <em>store</em>
+指令访问内存。所有从1985年之后发布的ISA都是 <em>load-store</em>
+ISA。下表是 <em>RISC-V</em> ISA的寄存器示例：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">寄存器</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x0</td>
+<td style="text-align: left;">zero</td>
+<td style="text-align: left;">常量 '0'</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x1</td>
+<td style="text-align: left;">ra</td>
+<td style="text-align: left;">返回地址</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x2</td>
+<td style="text-align: left;">sp</td>
+<td style="text-align: left;">栈指针（指向栈下一个空闲区域）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x3</td>
+<td style="text-align: left;">gp</td>
+<td style="text-align: left;">全局指针（指向全局变量区域）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x4</td>
+<td style="text-align: left;">tp</td>
+<td style="text-align: left;">线程指针（指向线程局部变量区域）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x5-x7</td>
+<td style="text-align: left;">t0-t2</td>
+<td style="text-align: left;">临时存储</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x8</td>
+<td style="text-align: left;">s0/fp</td>
+<td style="text-align: left;">保存的寄存器/栈帧指针（指向栈帧基址）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x9</td>
+<td style="text-align: left;">s1</td>
+<td style="text-align: left;">保存的寄存器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x10-x11</td>
+<td style="text-align: left;">a0-a1</td>
+<td style="text-align: left;">函数参数/返回值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x12-x17</td>
+<td style="text-align: left;">a2-a7</td>
+<td style="text-align: left;">函数参数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x18-x27</td>
+<td style="text-align: left;">s2-s11</td>
+<td style="text-align: left;">保存的寄存器</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x28-x31</td>
+<td style="text-align: left;">t3-t6</td>
+<td style="text-align: left;">临时存储</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f0-f7</td>
+<td style="text-align: left;">ft0-ft7</td>
+<td style="text-align: left;">浮点 临时存储</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f8-f9</td>
+<td style="text-align: left;">fs0-fs1</td>
+<td style="text-align: left;">浮点 保存的寄存器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f10-f11</td>
+<td style="text-align: left;">fa0-fa1</td>
+<td style="text-align: left;">浮点 函数参数/返回值</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f12-f17</td>
+<td style="text-align: left;">fa2-fa7</td>
+<td style="text-align: left;">浮点 函数参数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">f18-f27</td>
+<td style="text-align: left;">fs2-fs11</td>
+<td style="text-align: left;">浮点 保存的寄存器</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">f28-f31</td>
+<td style="text-align: left;">ft8-ft11</td>
+<td style="text-align: left;">浮点 临时存储</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>内存寻址</strong>：基本上所有的台式机和服务器，包括
+<em>80x86</em> 、<em>ARMv8</em> 和 <em>RSIC-V</em>
+，使用字节编址来访问内存操作数。某些架构，比如 <em>ARMv8</em>，
+要求访存对象必须对齐。而 <em>80x86</em> 和 <em>RISC-V</em>
+不需要对齐，但是如果对齐，访问速度会更快。</li>
+<li><strong>寻址模式</strong>：寻址模式描述了寄存器操作数、立即数（常量）操作数和内存对象的地址。<em>RISC-V</em>
+寻址包括：寄存器、立即数（常量）和位移（<em>displacement</em>，
+寄存器的值加上一个常量的偏移构成了内存地址）。80x86支持上述三种模式，另外加上三种位移的变种：1）无寄存器（绝对地址）
+2）两寄存器（基地址+索引+位移）3）两寄存器（基地址+索引*操作数大小+位移）。</li>
+<li><strong>操作数类型和大小</strong>：和大多数ISA一样，80x86、ARMv8和RISC-V支持8比特、16比特、32比特、64比特的操作数大小，也支持IEEE
+754 32位（单精度）和64位（双精度）浮点数。80x86
+也支持80比特的浮点数（扩展双精度）。</li>
+<li><strong>操作</strong>：
+操作一般可分为：数据传输、算术逻辑、控制和浮点几类。下表是RISC-V的数据传输和算术指令示例：</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">指令类型/操作码</th>
+<th style="text-align: left;">指令含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>数据传输</strong></td>
+<td
+style="text-align: left;"><strong>在寄存器和内存，或者整数寄存器和浮点寄存器、特殊寄存器间搬移数据。只有内存地址是由12比特的偏移加上通用寄存器的值构成</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lb, lbu, sb</td>
+<td style="text-align: left;">加载字节（byte
+8比特）、加载无符号字节、存储字节</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lh, lhu, sh</td>
+<td style="text-align: left;">加载半字（half word
+16比特）、加载无符号半字、存储半字</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lw, lhw, sw</td>
+<td style="text-align: left;">加载字（word
+32比特）、加载无符号字、存储字</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ld, sd</td>
+<td style="text-align: left;">加载双字（double word
+64比特）、存储双字</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">flw, fld, fsw, fsd</td>
+<td
+style="text-align: left;">记载单精度浮点，加载双精度浮点、存储单精度浮点、存储双精度浮点</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fmv.S.X, fmv.D.X, fmv.X.S, fmv.X.D</td>
+<td
+style="text-align: left;">从整数寄存器拷贝到浮点寄存器，或从浮点寄存器拷贝到整数寄存器。S代表单精度，D代表双精度</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">csrrw, csrrwi, csrrs, csrrsi, csrrc,
+csrrci</td>
+<td
+style="text-align: left;">读取计数器并写入状态寄存器，计数器包括：时钟周期数、时间、退役指令数量等。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>算术/逻辑</strong></td>
+<td
+style="text-align: left;"><strong>通用寄存器数据上的整型或逻辑数据运算</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">add, addi, addw, addiw</td>
+<td style="text-align: left;">加, 加立即数(12比特),
+有符号加32比特并扩展至64比特, 加立即数(32比特)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sub, subw</td>
+<td style="text-align: left;">减, 减32比特</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mul, mulw, mulh, mulhsu, mulhu</td>
+<td style="text-align: left;">乘, 乘32比特, 乘上半部(16比特),
+无符号乘有符号上半部, 无符号乘上半部</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">div, divu, rem, remu</td>
+<td style="text-align: left;">除, 无符号除, 余数, 无符号余数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">divw, divuw, remw, remuw</td>
+<td style="text-align: left;">除余低32位, 有符号扩展</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">and, andi</td>
+<td style="text-align: left;">与, 与立即数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">or, ori, xor, xori</td>
+<td style="text-align: left;">或, 或立即数, 异或, 异或立即数</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lui</td>
+<td style="text-align: left;">加载立即数到寄存器上半部
+(31-12比特位)并进行符号扩展</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">auipc</td>
+<td style="text-align: left;">加立即数的上半部 (31-12位,余下低12位为0)
+到PC; 和JALR 配合使用转移控制到任何32位地址</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sll, slli, srl, srli, sra, srai</td>
+<td style="text-align: left;">移位; 逻辑左移, 逻辑右移;
+使用立即数或者变量</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sllw, slliw, srlw, srliw, sraw, sraiw</td>
+<td style="text-align: left;">移位低32位, 有符号扩展</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">slt, slti, sltu, sltiu</td>
+<td style="text-align: left;">小于情况下设置; 小于情况下设置;
+有符号和无符号</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>控制流指令</strong>：实际上所有的ISA，都支持有条件分支、无条件的跳转、函数调用和返回。80x86、ARM、RISC-V
+均使用PC相对寻址，分支地址是通过PC加上地址字段构成的。但也有也许的不同，RISC-V
+有条件分支（BE，BNE，etc）是检查寄存器的内容，而80x86和ARM检查的是算术或者逻辑运算副作用设置的比特位。ARM和RISC-V将返回地址放到寄存器中，而80x86调用（CALLF）将返回地址放到内存栈里。下表是RISC-V的控制指令示例：</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">指令类型/操作码</th>
+<th style="text-align: left;">指令含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>控制</strong></td>
+<td
+style="text-align: left;"><strong>有条件分支和跳转；PC相对寻址或者通过寄存器</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">beq, bne, blt, bge, bltu, bgeu</td>
+<td
+style="text-align: left;">通用寄存器相等/不相等/小于/大于或等于时分支；有符号或无符号</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jal, jalr</td>
+<td
+style="text-align: left;">跳转并链接；保存返回地址，目标相对PC寻址或者使用寄存器；如果x0是目标寄存器，则按照跳转来运行</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ecall</td>
+<td style="text-align: left;">向执行环境（一般为OS）下发请求</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ebreak</td>
+<td style="text-align: left;">调试软件用来将控制交回调试环境</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fence, fence.i</td>
+<td
+style="text-align: left;">线程间同步用以保证内存访问的顺序；同步指令及store使用的数据到指令内存</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>编码ISA</strong>：
+在编码时有两种选择：定长和变长。所有的ARMv8和RISC-V指令的长度都是32比特，这样的定义方便了指令的解码过程。80x86是变长编码，指令长度1到18个字节。变长指令相对于定长指令可以占用更少的内存空间，因此为80x86编译的程序一般比RISC-V编译后的程序要小。指的注意的是，我们前述提到的ISA在设计上的选择都将影响指令在二进制形式下的编码方式。例如，由于在一个指令中，寄存器字段和寻址模式字段都可能反复出现，因此，寄存器数量和寻址模式都对指令大小有着重要的影响。（ARMv8和RISC-V后面都增加了支持变长的扩展：<em>Thumb-2</em>
+和
+<em>RV64IC</em>，支持16比特和32比特指令混合使用。通过这种方式降低程序大小。通过这种压缩方式编译的程序要比80x86要小）下图是RISC-V指令编码的示例：
+<img src="/images/isa-encoding.png" /></li>
+</ul>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">Linux内核引导</span>
+                </a>
+                
+                
+                <a href="/2022/03/07/KMP%E7%AE%97%E6%B3%95/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">KMP算法</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

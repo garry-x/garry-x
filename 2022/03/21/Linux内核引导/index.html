@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>Linux内核引导 | Garry&#39;s Blog</title>
+<meta name="description" content="以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html Linux/x86 引导协议 在x86平台上，Linux使用一个很复杂的引导协议。形成这种状况的原因有很多，包括：各种历史原因、早期期望内核本身就是一个可以启动的 image、复杂的PC内存模型、">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="Kernel">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Linux内核引导 | Garry&#39;s Blog">
+<meta property="og:description" content="以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html Linux/x86 引导协议 在x86平台上，Linux使用一个很复杂的引导协议。形成这种状况的原因有很多，包括：各种历史原因、早期期望内核本身就是一个可以启动的 image、复杂的PC内存模型、">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">
+<meta property="og:image" content="https://garryx.com/covers/cover-Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Linux内核引导 | Garry&#39;s Blog">
+<meta name="twitter:description" content="以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html Linux/x86 引导协议 在x86平台上，Linux使用一个很复杂的引导协议。形成这种状况的原因有很多，包括：各种历史原因、早期期望内核本身就是一个可以启动的 image、复杂的PC内存模型、">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC.png">
+
+<link rel="canonical" href="https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux内核引导 | Garry&#39;s Blog",
+  "description": "以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html Linux/x86 引导协议 在x86平台上，Linux使用一个很复杂的引导协议。形成这种状况的原因有很多，包括：各种历史原因、早期期望内核本身就是一个可以启动的 image、复杂的PC内存模型、",
+  "url": "https://garryx.com/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/",
+  
+  "datePublished": "2022-03-21T02:24:05.000Z",
+  "dateModified": "2026-06-05T07:09:54.159Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/covers/cover-Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=14">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                
+            </div>
+            
+            <h1 class="post-title">Linux内核引导</h1>
+            <div class="post-header-meta">
+                <time datetime="2022-03-21T02:24:05.000Z">
+                    2022年3月21日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/Kernel/">#Kernel</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <blockquote>
+<p>以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html</p>
+</blockquote>
+<hr />
+<h3 id="linuxx86-引导协议">Linux/x86 引导协议</h3>
+<p>    在x86平台上，Linux使用一个很复杂的引导协议。形成这种状况的原因有很多，包括：各种历史原因、早期期望内核本身就是一个可以启动的
+<em>image</em>、复杂的PC内存模型、以及实模式消亡后PC工业界的变化等等。</p>
+<p>    目前，存在如下版本的 <em>Linux/x86</em> 引导协议：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>版本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>老内核</td>
+<td>只支持 <em>zImage/Imgge</em>。有些早期内核甚至不支持命令行。</td>
+</tr>
+<tr class="even">
+<td>2.00</td>
+<td>（内核 1.3.73）增加 <em>bzImage</em> 和 <em>initrd</em>
+支持；<em>bootloader</em>
+可以和内核通过形式化的方式通信；<em>setup.S</em> 可以重定向，原有的
+<em>setup</em> 区域依然支持写入。</td>
+</tr>
+<tr class="odd">
+<td>2.01</td>
+<td>（内核 1.3.76）增加堆溢出警告。</td>
+</tr>
+<tr class="even">
+<td>2.02</td>
+<td>（内核
+2.4.0-tet3-pre3）新的命令行协议；降低引导程序可以使用的内存上限；不覆盖传统
+<em>setup</em> 区域，因此可以支持使用 <em>SMM EBDA</em>
+或者使用32比特BIOS入口。</td>
+</tr>
+<tr class="odd">
+<td>2.03</td>
+<td>（内核 2.4.18-pre1）<em>initrd</em> 可以访问的最高地址对
+<em>bootloader</em> 显式可见。</td>
+</tr>
+<tr class="even">
+<td>2.04</td>
+<td>（内核 2.6.14）拓展 <em>syssize</em> 字段到4字节。</td>
+</tr>
+<tr class="odd">
+<td>2.05</td>
+<td>（内核 2.6.20）保护模式内核支持重定位；添加
+<em>relocatable_kernel</em> 和 <em>kernel_alignment</em> 字段。</td>
+</tr>
+<tr class="even">
+<td>2.06</td>
+<td>（内核 2.6.22）添加包含启动命令行大小的字段。</td>
+</tr>
+<tr class="odd">
+<td>2.07</td>
+<td>（内核 2.6.24）增加半虚拟化引导协议。在 <em>load_flags</em> 增加
+<em>hardware_subarch</em>、<em>hardware_subarch_data</em> 和
+<em>KEEP_SEGMENTS</em> 三个标志。</td>
+</tr>
+<tr class="even">
+<td>2.08</td>
+<td>（内核 2.6.26）增加 <em>crc32</em> 校验码和 <em>ELF</em> 格式
+<em>payload</em> 支持；增加 <em>payload_offset</em> 和
+<em>payload_length</em> 字段以方便定位 <em>payload</em>。</td>
+</tr>
+<tr class="odd">
+<td>2.09</td>
+<td>（内核 2.6.31）在 <em>kernel_alignment</em>
+之外增加宽松对齐协议；增加 <em>init_size</em> 和 <em>pref_address</em>
+字段。增加扩展的 <em>bootloader</em> ID。</td>
+</tr>
+<tr class="even">
+<td>2.11</td>
+<td>（内核 3.6）增加描述<a
+target="_blank" rel="noopener" href="https://www.phoronix.com/scan.php?page=news_item&amp;px=MTE0NzU#:~:text=The%20in-development%20Linux%203.6%20kernel%20introduces%20an%20EFI,setup%20an%20EFI%20machine%20for%20booting%20the%20kernel."><em>EFI
+handover</em> 协议</a> 入口偏移地址的字段</td>
+</tr>
+<tr class="odd">
+<td>2.12</td>
+<td>（内核 3.8）<em>boot_params</em> 结构增加 <em>xloadflags</em>
+和其他扩展字段，用以支持在64位系统4G以上地址加载 <em>bzImage</em> 或者
+<em>ramdisk</em>。</td>
+</tr>
+<tr class="even">
+<td>2.13</td>
+<td>（内核 3.14）为支持从32位 EFI启动64位内核，支持在
+<em>xloadflags</em> 中设置32位和64位标志。</td>
+</tr>
+<tr class="odd">
+<td>2.15</td>
+<td>（内核 5.5）增加 <em>kernel_info</em> 和
+<em>kernel_info.setup_type_max</em> 字段。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>协议版本号只在<em>setup header</em>发生变化时增加。如果
+<em>boot_params</em> 或者 <em>kernel_info</em>
+没有变化，没有必要更新版本号。另外，推荐使用 <em>xloadflags</em> 和
+<em>kernel_info</em> 来和 <em>bootloader</em>
+交互内核支持的特性信息。以为在最初的 <em>setup header</em>
+中，空间十分受限，从协议2.15开始，最主要的和 <em>bootloader</em>
+通信的方式就是通过 <em>kernel_info</em>。</li>
+</ul>
+<hr />
+<h3 id="内存布局">内存布局</h3>
+<p>    传统加载 <em>Image</em> 和 <em>bzImage</em> 的内核
+<em>loader</em>，其内存布局如下：<br />
+<img src="/images/boot-mem-old.png" /></p>
+<p>    当使用bzImage时，保护模式内核将被重定向到 <em>0x100000</em>
+（高端内存），而内核实模式部分（引导扇区,、配置、堆栈等）则可以重定向到
+<em>0x10000</em>
+到低端内存结束间的任何地址。不幸的是，在引导协议2.00和2.01版本中，内核内部仍使用<em>0x90000+</em>
+内存空间，直到引导协议版本2.02修复了这个问题。</p>
+<p>    实际中， <em>memory ceiling</em> （在低端内存中
+<em>bootloader</em>
+可以使用的最高内存位置）越低越好，因为一些新的BIOS开始在低端内存的头部分配大量的内存（扩展BIOS数据区域EBDA）。<em>bootloder</em>
+应该使用 <em>INT 12h</em> BIOS调用来确认还有多少低端内存可以使用。</p>
+<p>    不幸的是，如果 <em>INT 12h</em> 报告的内存太少，通常
+<em>bootloader</em> 除了向用户报错其他什么也做不了。因此
+<em>bootloader</em> 应该设计成占用尽量少的低端内存。对于 <em>zImage</em>
+或者老的 <em>bzImage</em> 内核而言，它们需要写到
+<em>0x90000</em>。因此，<em>bootloader</em> 应该保证不要使用超过
+<em>0x9A000</em>的内存，如果超过，很多BIOS将崩溃。</p>
+<p>    对于现在使用
+<em>bzImage</em>、引导协议大于等于2.02的内核，建议如下的内存布局： <img
+src="/images/boot-mem-new.png" /></p>
+<hr />
+<h3 id="实模式内核头部信息">实模式内核头部信息</h3>
+<p>    在后面的文本以及内核启动的流程中，“一个扇区”指代512字节，这独立于物理介质的实际扇区大小。</p>
+<p>    加载Linux内核的第一步是加载实模式的代码（引导扇区和
+<em>setup</em> 代码），之后检查如下在偏移 <em>0x01f1</em>
+位置的头部信息。实模式代码最大可以占到32K，然而 <em>bootloader</em>
+可能只选择加载前两个扇区（1K），之后检查需要的启动扇区大小。</p>
+<p>    头部信息如下：</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>偏移/大小</th>
+<th>协议</th>
+<th>名称</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>01F1/1</td>
+<td>ALL(1)</td>
+<td><em>setup_sects</em></td>
+<td>以扇区数衡量的 <em>setup</em> 区域大小</td>
+</tr>
+<tr class="even">
+<td>01F2/2</td>
+<td>ALL</td>
+<td><em>root_flags</em></td>
+<td>如果设置，<em>root</em> 将以只读挂载</td>
+</tr>
+<tr class="odd">
+<td>01F4/4</td>
+<td>2.04+(2)</td>
+<td><em>syssize</em></td>
+<td>保护模式（32bit）代码的大小，单位为16个字节</td>
+</tr>
+<tr class="even">
+<td>01F8/2</td>
+<td>ALL</td>
+<td><em>ram_size</em></td>
+<td>不要使用</td>
+</tr>
+<tr class="odd">
+<td>01FA/2</td>
+<td>ALL</td>
+<td><em>vid_mode</em></td>
+<td>视频模式控制</td>
+</tr>
+<tr class="even">
+<td>01FC/2</td>
+<td>ALL</td>
+<td><em>root_dev</em></td>
+<td>默认的根设备号</td>
+</tr>
+<tr class="odd">
+<td>01FE/2</td>
+<td>ALL</td>
+<td><em>boot_flag</em></td>
+<td>魔数 (0xAA55)</td>
+</tr>
+<tr class="even">
+<td>0200/2</td>
+<td>2.00+</td>
+<td><em>jump</em></td>
+<td>跳转指令</td>
+</tr>
+<tr class="odd">
+<td>0202/4</td>
+<td>2.00+</td>
+<td><em>header</em></td>
+<td>魔数（HdrS 0x53726448）</td>
+</tr>
+<tr class="even">
+<td>0206/2</td>
+<td>2.00+</td>
+<td><em>version</em></td>
+<td>支持的引导协议版本</td>
+</tr>
+<tr class="odd">
+<td>0208/4</td>
+<td>2.00+</td>
+<td><em>realmode_swtch</em></td>
+<td><em>bootloader hook</em>（见后续描述）</td>
+</tr>
+<tr class="even">
+<td>020C/2</td>
+<td>2.00+</td>
+<td><em>start_sys_seg</em></td>
+<td>已废弃</td>
+</tr>
+<tr class="odd">
+<td>020E/2</td>
+<td>2.00+</td>
+<td><em>kernel_version</em></td>
+<td>指向内核版本号字符串的指针</td>
+</tr>
+<tr class="even">
+<td>0210/1</td>
+<td>2.00+</td>
+<td><em>type_of_loader</em></td>
+<td><em>bootloader</em> 标识</td>
+</tr>
+<tr class="odd">
+<td>0211/1</td>
+<td>2.00+</td>
+<td><em>loadflags</em></td>
+<td>引导协议的可选标志</td>
+</tr>
+<tr class="even">
+<td>0212/2</td>
+<td>2.00+</td>
+<td><em>setup_move_size</em></td>
+<td>移动到高端内存的大小</td>
+</tr>
+<tr class="odd">
+<td>0214/4</td>
+<td>2.00+</td>
+<td><em>code32_start</em></td>
+<td><em>bootloader hook</em></td>
+</tr>
+<tr class="even">
+<td>0218/4</td>
+<td>2.00+</td>
+<td><em>ramdisk_image</em></td>
+<td><em>initrd</em> 的加载地址（由 <em>bootloader</em> 设置）</td>
+</tr>
+<tr class="odd">
+<td>021C/4</td>
+<td>2.00+</td>
+<td><em>ramdisk_size</em></td>
+<td><em>initrd</em> 的大小（由 <em>bootloader</em> 设置）</td>
+</tr>
+<tr class="even">
+<td>0220/4</td>
+<td>2.00+</td>
+<td><em>bootsect_kludge</em></td>
+<td>不要使用</td>
+</tr>
+<tr class="odd">
+<td>0224/2</td>
+<td>2.00+</td>
+<td><em>heap_end_ptr</em></td>
+<td><em>setup</em> 结束之后的空余内存</td>
+</tr>
+<tr class="even">
+<td>0226/1</td>
+<td>2.02+(3)</td>
+<td><em>ext_loader_ver</em></td>
+<td>扩展的 <em>bootloader</em> 版本号</td>
+</tr>
+<tr class="odd">
+<td>0227/1</td>
+<td>2.02+(3)</td>
+<td><em>ext_loader_type</em></td>
+<td>扩展的 <em>bootloader ID</em></td>
+</tr>
+<tr class="even">
+<td>0228/4</td>
+<td>2.02+</td>
+<td><em>cmd_line_ptr</em></td>
+<td>32比特指针指向内核命令行</td>
+</tr>
+<tr class="odd">
+<td>022C/4</td>
+<td>2.03+</td>
+<td><em>initrd_addr_max</em></td>
+<td>最高的合法 <em>initrd</em> 地址</td>
+</tr>
+<tr class="even">
+<td>0230/4</td>
+<td>2.05+</td>
+<td><em>kernel_alignment</em></td>
+<td>内核需要的物理地址对齐</td>
+</tr>
+<tr class="odd">
+<td>0234/1</td>
+<td>2.05+</td>
+<td><em>relocatable_kernel</em></td>
+<td>内核是否支持重定向</td>
+</tr>
+<tr class="even">
+<td>0235/1</td>
+<td>2.10+</td>
+<td><em>min_alignment</em></td>
+<td>最小对齐(<em>1 &lt;&lt; min_alignment</em>)</td>
+</tr>
+<tr class="odd">
+<td>0236/2</td>
+<td>2.12+</td>
+<td><em>xloadflags</em></td>
+<td>引导协议可选标志</td>
+</tr>
+<tr class="even">
+<td>0238/4</td>
+<td>2.06+</td>
+<td><em>cmdline_size</em></td>
+<td>内核命令行的最大大小</td>
+</tr>
+<tr class="odd">
+<td>023C/4</td>
+<td>2.07+</td>
+<td><em>hardware_subarch</em></td>
+<td>硬件子架构（半虚拟化使用，比如 <em>0x00000002</em> 代表Xen）</td>
+</tr>
+<tr class="even">
+<td>0240/8</td>
+<td>2.07+</td>
+<td><em>hardware_subarch_data</em></td>
+<td>子架构数据</td>
+</tr>
+<tr class="odd">
+<td>0248/4</td>
+<td>2.08+</td>
+<td><em>payload_offset</em></td>
+<td>内核 <em>payload</em> 偏移</td>
+</tr>
+<tr class="even">
+<td>024C/4</td>
+<td>2.08+</td>
+<td><em>payload_length</em></td>
+<td>内核 <em>payload</em> 大小</td>
+</tr>
+<tr class="odd">
+<td>0250/8</td>
+<td>2.09+</td>
+<td><em>setup_data</em></td>
+<td>64比特指针，指向 <em>struct setup_data</em> 链表</td>
+</tr>
+<tr class="even">
+<td>0258/8</td>
+<td>2.10+</td>
+<td><em>pref_address</em></td>
+<td>首选加载位置</td>
+</tr>
+<tr class="odd">
+<td>0260/4</td>
+<td>2.10+</td>
+<td><em>init_size</em></td>
+<td>初始化时需要的连续内存大小</td>
+</tr>
+<tr class="even">
+<td>0264/4</td>
+<td>2.11+</td>
+<td><em>handover_offset</em></td>
+<td><em>handover</em> 入口偏移地址</td>
+</tr>
+<tr class="odd">
+<td>0268/4</td>
+<td>2.15+</td>
+<td><em>kernel_info_offset</em></td>
+<td><em>kernel_info</em> 偏移地址</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>为了向后兼容，如果 <em>setup_sects</em> 字段是0， 真实的值是4</li>
+<li>在2.04之前的引导协议，<em>syssize</em>
+的前两个字节没有用，这也意味着 <em>bzImage</em> 内核的大小
+无法确定。</li>
+<li>对于协议版本2.02-2.09，设置是安全的，但是会被忽略。</li>
+</ol>
+<p>    如果 <em>HdrS</em>（0x53726448）在 <em>0x202</em>
+没有找到，引导协议就是老版本的，加载旧版本内核，并且假设如下参数：Image类型为zImage；不支持initrd；实模式内核必须加载到地址
+<em>0x90000</em>。其他情况，<em>version</em>
+字段将包含引导协议版本，例如：使用引导协议2.01，这个值会是0x0201。当设置头部信息的字段时，必须保证只设置当前协议支持的字段。</p>
+<hr />
+<h3 id="加载内核的余下部分">加载内核的余下部分</h3>
+<p>    32比特（非实模式）内核开始于内核文件<em>(setup_sects+1) x
+512</em> 的位置，对于<em>Image/zImage</em>它将被加载在 <em>0x10000</em>
+地址，对于 <em>bzImage</em> 则是 <em>0x100000</em>。</p>
+<p>    如果引导协议大于2.00、<em>loadflags</em> 中标记了
+<em>0x01(LOAD_HIGH)</em> ，就可以判定是 <em>bzImage</em> 内核。</p>
+<p>    需要注意，<em>Image/zImage</em> 内核最大能到512K，因此使用
+<em>0x10000 - 0x90000</em>
+整个地址范围的内存空间，因而也要求实模式部分在 <em>0x90000</em>
+加载。<em>bzImage</em> 内核要相对灵活。</p>
+<hr />
+<h3 id="运行内核">运行内核</h3>
+<p>    内核通过 <em>jump</em>
+到内核入口启动，内核入口在内核实模式代码的段偏移 <em>0x20</em>
+处。也就是说，如果你加载实模式代码到 <em>0x90000</em>, 内核入口在
+<em>9020:0000</em>。</p>
+<blockquote>
+<p>这里插入一个小贴士： 实模式下的物理地址 = 段基址(16位) &lt;&lt; 4 +
+偏移（16位）</p>
+</blockquote>
+<p>    在内核入口，<em>ds=es=ss</em>
+指向实模式内核的开始地址（如果实模式内核加载于
+<em>0x90000</em>，值应为0x9000）,<em>sp</em>
+需要正确设置，一般指向堆的顶部，并且屏蔽中断。另外，为了避免内核中的bug，推荐
+<em>bootloader</em> 设置 <em>fs=gs=ds=es=ss</em>。</p>
+<p>以下是示例代码： <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Note: in the case of the &quot;old&quot; kernel protocol, base_ptr must</span></span><br><span class="line"><span class="comment">   be == 0x90000 at this point; see the previous sample code */</span></span><br><span class="line"></span><br><span class="line">seg = base_ptr &gt;&gt; <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">cli();  <span class="comment">/* Enter with interrupts disabled! */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Set up the real-mode kernel stack */</span></span><br><span class="line">_SS = seg;</span><br><span class="line">_SP = heap_end;</span><br><span class="line"></span><br><span class="line">_DS = _ES = _FS = _GS = seg;</span><br><span class="line">jmp_far(seg+<span class="number">0x20</span>, <span class="number">0</span>);   <span class="comment">/* Run the kernel */</span></span><br></pre></td></tr></table></figure></p>
+<hr />
+<h3 id="位引导协议">32位引导协议</h3>
+<p>    对于有新BIOS（比如EFI、LinuxBIOS、kexec等等）的机器，基于老BIOS的内核16比特实模式代码就不能使用了。因此需要定义基于32比特的引导协议。</p>
+<p>    在32比特引导协议中，加载内核的第一步是配置启动参数（<em>struct
+boot_params</em>，也就是一般指的 <em>Zero Page</em>）。<em>struct
+boot_params</em> 使用的内存空间需要分配并初始化为0。之后内核镜像位于
+<em>0x1F1</em> 位置的头部信息将加载到 <em>struct boot_params</em>
+并进行检查。头部信息的结束位置可以通过如下计算得到：<br />
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x0202 + byte value at offset 0x0201</span><br></pre></td></tr></table></figure>     除了要读写、修改 <em>struct boot_params</em>
+中16比特实模式使用的头部信息，还需要填写更多的字段，这些字段参考：<a
+target="_blank" rel="noopener" href="https://www.kernel.org/doc/html/latest/x86/zero-page.html">Zero
+Page</a>。</p>
+<p>    在设置好<em>struct boot_params</em> 之后，<em>bootloader</em>
+可以像16比特实模式协议那样，加载32/64比特内核。</p>
+<p>    在32比特引导协议中，内核通过跳转到32比特入口地址开始执行。</p>
+<p>    在内核入口，CPU必须配置为32位保护模式，并且关闭分页；必须加载正确的GDT，GDT中包含__BOOT_CS(0x10)和__BOOT_DS(0x18)选择子的描述符；这两个描述符都必须是4G平坦分段；__BOOT_CS(0x10)必须有读和执行的权限，__BOOT_DS(0x18)必须有读写权限；CS必须是__BOOT_CS,
+而DS、ES、SS必须是__BOOT_DS； 中断需要禁用； <em>%esi</em> 必须存储
+<em>struct boot_params</em> 的基地址； <em>%ebp、%edi、%ebi</em>
+必须为0。</p>
+<hr />
+<h3 id="位引导协议-1">64位引导协议</h3>
+<p>    配置 <em>struct boot_params</em>
+及加载头部信息的过程与32比特协议一致。</p>
+<p>    配置 <em>struct boot_params</em>
+后，<em>bootloader</em>可以像16比特实模式协议那样加载64比特内核，但是内核将加载至4G以上地址。</p>
+<p>    在64位引导协议中，内核通过跳转到64比特入口地址执行，这个地址是64比特的跳转地址加上
+<em>0x200</em>。</p>
+<p>    在内核入口，CPU必须在64位模式下，并且开启分页；<em>zero
+page</em>、命令行缓存、以及从内核加载地址到
+<em>setup_header.init_size</em>
+都映射到同一个内存区域；必须加载正确的GDT，GDT中包含__BOOT_CS(0x10)和__BOOT_DS(0x18)选择子的描述符；这两个描述符都必须是4G平坦分段；__BOOT_CS(0x10)必须有读和执行的权限，__BOOT_DS(0x18)必须有读写权限；CS必须是__BOOT_CS，
+而DS、ES、SS必须是__BOOT_DS； 中断需要禁用；<em>%rsi</em> 必须存储
+<em>struct boot_params</em> 的基地址。</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">x86指令集架构</span>
+                </a>
+                
+                
+                <a href="/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">指令集架构</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

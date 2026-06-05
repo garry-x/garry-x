@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>Garry&#39;s Blog</title>
+<meta name="description" content="Garry&#39;s Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI, technology, blog, Garry">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Garry&#39;s Blog">
+<meta property="og:description" content="Garry&#39;s Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://garryx.com/index.html">
+<meta property="og:image" content="https://garryx.com/images/Green_Field.jpg">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Garry&#39;s Blog">
+<meta name="twitter:description" content="Garry&#39;s Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析">
+<meta name="twitter:image" content="https://garryx.com/images/Green_Field.jpg">
+
+<link rel="canonical" href="https://garryx.com/index.html">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "headline": "Garry&#39;s Blog",
+  "description": "Garry&#39;s Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析",
+  "url": "https://garryx.com/index.html",
+  
+  "name": "Garry&#39;s Blog",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  
+  "image": "https://garryx.com/images/Green_Field.jpg"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=14">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link active" href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-inner">
+            <div class="hero-avatar">
+                <img src="/images/avatar.png" alt="Garry&#39;s Blog">
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Thoughts &amp; Notes</h1>
+                
+                <p class="hero-subtitle">记录技术与生活的碎片</p>
+                
+                
+                <div class="hero-social">
+                    
+                        <a href="https://github.com/garry-x" class="social-link" target="_blank" rel="noopener" title="GitHub">
+                            
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            
+                            <span>GitHub</span>
+                        </a>
+                    
+                        <a href="mailto:garry.x@outlook.com" class="social-link" target="_blank" rel="noopener" title="Email">
+                            
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            
+                            <span>Email</span>
+                        </a>
+                    
+                        <a href="/atom.xml" class="social-link" target="_blank" rel="noopener" title="RSS">
+                            
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                            
+                            <span>RSS</span>
+                        </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="home-layout">
+    <div class="container home-grid">
+        <!-- Left: Archive Index -->
+        <aside class="archive-sidebar">
+            <div class="archive-sidebar-inner">
+                <div class="archive-header">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>归档</span>
+                </div>
+                <div class="archive-tree" id="archive-tree">
+                    
+                    <div class="archive-year">
+                        <button class="year-toggle" data-year="2026">
+                            <span class="toggle-icon">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </span>
+                            <span class="year-label">2026</span>
+                            <span class="year-count">3</span>
+                        </button>
+                        <div class="year-content">
+                            
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2026/06/" class="month-link">
+                                    <span class="month-name">6月</span>
+                                    <span class="month-count">3</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="archive-year">
+                        <button class="year-toggle" data-year="2023">
+                            <span class="toggle-icon">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </span>
+                            <span class="year-label">2023</span>
+                            <span class="year-count">1</span>
+                        </button>
+                        <div class="year-content">
+                            
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2023/01/" class="month-link">
+                                    <span class="month-name">1月</span>
+                                    <span class="month-count">1</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="archive-year">
+                        <button class="year-toggle" data-year="2022">
+                            <span class="toggle-icon">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </span>
+                            <span class="year-label">2022</span>
+                            <span class="year-count">7</span>
+                        </button>
+                        <div class="year-content">
+                            
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2022/08/" class="month-link">
+                                    <span class="month-name">8月</span>
+                                    <span class="month-count">1</span>
+                                </a>
+                            </div>
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2022/03/" class="month-link">
+                                    <span class="month-name">3月</span>
+                                    <span class="month-count">4</span>
+                                </a>
+                            </div>
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2022/02/" class="month-link">
+                                    <span class="month-name">2月</span>
+                                    <span class="month-count">2</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="archive-year">
+                        <button class="year-toggle" data-year="2020">
+                            <span class="toggle-icon">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </span>
+                            <span class="year-label">2020</span>
+                            <span class="year-count">1</span>
+                        </button>
+                        <div class="year-content">
+                            
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2020/02/" class="month-link">
+                                    <span class="month-name">2月</span>
+                                    <span class="month-count">1</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="archive-year">
+                        <button class="year-toggle" data-year="2017">
+                            <span class="toggle-icon">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </span>
+                            <span class="year-label">2017</span>
+                            <span class="year-count">2</span>
+                        </button>
+                        <div class="year-content">
+                            
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2017/10/" class="month-link">
+                                    <span class="month-name">10月</span>
+                                    <span class="month-count">1</span>
+                                </a>
+                            </div>
+                            
+                            <div class="archive-month">
+                                <a href="/archives/2017/09/" class="month-link">
+                                    <span class="month-name">9月</span>
+                                    <span class="month-count">1</span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right: Content -->
+        <div class="home-main">
+            
+            <section class="featured-section">
+                <div class="section-header">
+                    <span class="section-badge">Latest</span>
+                    <h2 class="section-title">最新文章</h2>
+                </div>
+                <article class="featured-card">
+                    <div class="featured-meta">
+                        <time datetime="2026-06-05T00:00:00.000Z">2026-06-05</time>
+                        <span class="featured-arrow">→</span>
+                    </div>
+                    <h3 class="featured-title">
+                        <a href="/2026/06/05/ai-daily-2026-06-05/">【AI 日报】OpenAI发布Dreaming V3，ChatGPT记忆能力全面升级</a>
+                    </h3>
+                    
+                    <p class="featured-excerpt">🔦 今日速览
+OpenAI于6月4日推出Dreaming
+V3自动记忆系统，彻底取代旧版"手动保存记忆"，ChatGPT首次实现跨对话自动
+synthesize
+用户偏好与上下文。同日，SpaceX定档IPO发行价$135，将以$1.75万亿估值创下全球最大IPO纪录，为AI公司公开市场融资树立新标杆。此外，Deep...</p>
+                    
+                    
+                    <div class="featured-tags">
+                        
+                            <a href="/tags/AI/" class="tag">#AI</a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="tag">#人工智能</a>
+                        
+                            <a href="/tags/%E6%97%A5%E6%8A%A5/" class="tag">#日报</a>
+                        
+                    </div>
+                    
+                </article>
+            </section>
+            
+
+            <section class="post-list">
+                <div class="section-header">
+                    <h2 class="section-title">其他文章</h2>
+                </div>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2026-06-04T00:00:00.000Z">2026-06-04</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2026/06/04/ai-daily-2026-06-04/">【AI 日报】GitHub Copilot按量计费暴涨60倍，开发者补贴时代终结</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">🔦 今日速览
+GitHub Copilot
+6月1日起全面切换按量计费，重度用户月费从39美元暴涨至750-3000美元，涨10-60倍。开发者社区炸锅，Cursor等替代品快速分流用户。同日，Anthropic秘密提交IPO申请、OpenAI
+Stargate密歇根数据中心破土动工，AI基础设施赛全面开打。
+趋势1：AI编程补贴时代结束，计算即资本
+趋势2：中国具身智能模型首登世界第一，产业落...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/AI/" class="tag">#AI</a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="tag">#人工智能</a>
+                        
+                            <a href="/tags/%E6%97%A5%E6%8A%A5/" class="tag">#日报</a>
+                        
+                    </div>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2026-06-03T00:00:00.000Z">2026-06-03</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2026/06/03/ai-daily-2026-06-03/">【AI 日报】微软Build发布自研推理模型MAI-Thinking-1，Windows全面Agent化</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">🔦 今日速览
+微软Build 2026 Day 2 发布自研推理模型
+MAI-Thinking-1、端侧模型 Aion
+1.0、Windows Agent
+Framework，将Windows重新定义为"智能体操作系统"。腾讯微信AI智能体进入测试引爆港股，单日市值增超4100亿港元。阿里Qwen3.7-Plus登顶Vision
+Arena中国第一。
+趋势1：操作系统级Agent成为新战场。
+趋...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/AI/" class="tag">#AI</a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="tag">#人工智能</a>
+                        
+                            <a href="/tags/%E6%97%A5%E6%8A%A5/" class="tag">#日报</a>
+                        
+                    </div>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2023-01-12T09:18:52.000Z">2023-01-12</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2023/01/12/KVM-API-%E7%AE%80%E4%BB%8B/">KVM API 简介</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">
+以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt
+
+1. 基本描述
+KVM API
+本质上是为了控制虚拟机的方方面面而下发的一组ioctl，这些ioctl可以划分为四类：
+- system ioctl：
+对影响整个KVM系统的属性进行查询或设置。创建虚拟机就是其中的一个系统ioctl。
+- vm ioctl...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/KVM/" class="tag">#KVM</a>
+                        
+                    </div>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-08-31T07:30:09.000Z">2022-08-31</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87/">会议论文</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/">阿里云SIGCOMM22论文阅读</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">阿里云在今年的网络顶会SIGCOMM上发表了一篇论文："From Luna to Solar:
+The Evolutions of the Compute-to-Storage Networks in Alibaba
+Cloud"。
+该文章介绍了阿里云在EBS存储的应用背景下，计算节点和存储节点间网络通信的演进过程。由于文中介绍的网络架构已经在阿里云内部大范围应用，对于同样提供EBS服务的云厂商来...</div>
+                    
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-03-23T01:59:05.000Z">2022-03-23</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">x86指令集架构</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">
+以下笔记来自阅读：x86 Instruction Set Architecture - MindShare
+
+
+本文以Intel处理器作为阐述目标。AMD处理器差异点可以参考: Agner Fog
+Microarchitecture
+
+    在“指令集架构
+"一文中，我们粗略介绍了指令集架构的分类、寻址、操作、编码等7个方面的内容。下面我们对服务器及PC中使用最广泛的x86指令集架构做详细介绍...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/x86/" class="tag">#x86</a>
+                        
+                    </div>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-03-21T02:24:05.000Z">2022-03-21</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">Linux内核引导</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">
+以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html
+
+
+Linux/x86 引导协议
+    在x86平台上，Linux使用一个很复杂的引导协议。形成这种状况的原因有很多，包括：各种历史原因、早期期望内核本身就是一个可以启动的
+image、复杂的PC内存模型、以及实模式消亡后PC工业界的变化等等。
+    目前，存在如下版本...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/Kernel/" class="tag">#Kernel</a>
+                        
+                    </div>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-03-14T03:57:01.000Z">2022-03-14</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">指令集架构</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">以下笔记 来自阅读：Hennessy J L, Patterson D A.
+Computer Architecture: A Quantitative Approach 6th Edition. 2019.
+指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面：
+-
+指令集架构的分类：几乎所有今天的ISA都被归类为通用寄存器架构，其操作数不是寄存器...</div>
+                    
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-03-07T07:38:42.000Z">2022-03-07</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/03/07/KMP%E7%AE%97%E6%B3%95/">KMP算法</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">
+以下笔记来自阅读：Knuth D E , Morris J H , Pratt V R . Fast Pattern
+Matching in Strings[J]. Siam Journal on Computing, 1977,
+6(2):323-350.
+
+    文本编辑器软件经常需要在一串字符中查找以匹配特定的模式，这些模式也是一串字符，我们有时需要查找到所有匹配的位置，也有时候，仅仅需...</div>
+                    
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-02-22T03:52:17.000Z">2022-02-22</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/">硬件虚拟化</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">在“虚拟化技术概念及分类
+”一文中，从应用程序的角度，将虚拟化技术分为：
+硬件虚拟化、操作系统级虚拟化和程序库级虚拟化三类。本文将对硬件虚拟化的概念、发展历史做展开描述。
+硬件虚拟化是对计算机硬件环境的虚拟，其上支持多种操作系统并发执行。在描述硬件虚拟化之前，先来了解一下计算机的硬件环境。
+
+计算机硬件环境
+当前服务器均基于Modified Harvard架构，其简化结构如下：
+中央处理器：执行特...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%AE%80%E4%BB%8B/" class="tag">#虚拟化简介</a>
+                        
+                    </div>
+                    
+                </article>
+                
+
+                
+<nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next →</a>
+</nav>
+
+
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var tree = document.getElementById('archive-tree');
+    if (!tree) return;
+    var toggles = tree.querySelectorAll('.year-toggle');
+    // Collapse all except first year by default
+    toggles.forEach(function(btn, idx) {
+        var content = btn.nextElementSibling;
+        if (idx > 0) {
+            content.style.display = 'none';
+            btn.classList.add('collapsed');
+        }
+        btn.addEventListener('click', function() {
+            var isCollapsed = btn.classList.contains('collapsed');
+            if (isCollapsed) {
+                content.style.display = 'block';
+                btn.classList.remove('collapsed');
+            } else {
+                content.style.display = 'none';
+                btn.classList.add('collapsed');
+            }
+        });
+    });
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
