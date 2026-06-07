@@ -1972,3 +1972,27 @@ img {
     margin: 0 20px;
   }
 }
+
+/* ===== About page hero image ===== */
+.post-content > p > img[src*="about-hero"] {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin: 32px 0 8px;
+  border: 1px solid rgba(99, 102, 241, 0.08);
+  box-shadow: 0 20px 60px -15px rgba(99, 102, 241, 0.45),
+              0 8px 20px -5px rgba(31, 41, 55, 0.12);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+.post-content > p > img[src*="about-hero"]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 70px -15px rgba(99, 102, 241, 0.55),
+              0 12px 28px -5px rgba(31, 41, 55, 0.18);
+}
+@media (prefers-color-scheme: dark) {
+  .post-content > p > img[src*="about-hero"] {
+    border-color: rgba(139, 141, 240, 0.15);
+    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.6),
+                0 8px 20px -5px rgba(0, 0, 0, 0.4);
+  }
+}
