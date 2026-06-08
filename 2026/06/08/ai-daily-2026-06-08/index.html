@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS 27首次允许用户在 ChatGPT、Google Gemini、Anthropic Claude 间自由选择AI引擎，Gemini为默认选项。Apple每年向Google支付约 $10亿 使用Gemini重">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS 27首次允许用户在 ChatGPT、Google Gemini、Anthropic Claude 间自由选择AI引擎，Gemini为默认选项。Apple每年向Google支付约 $10亿 使用Gemini重">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/08/ai-daily-2026-06-08/">
+<meta property="og:image" content="https://garryx.com/images/og-default.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS 27首次允许用户在 ChatGPT、Google Gemini、Anthropic Claude 间自由选择AI引擎，Gemini为默认选项。Apple每年向Google支付约 $10亿 使用Gemini重">
+<meta name="twitter:image" content="https://garryx.com/images/og-default.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/08/ai-daily-2026-06-08/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权 | Garry&#39;s Blog",
+  "description": "🔦 今日速览Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS 27首次允许用户在 ChatGPT、Google Gemini、Anthropic Claude 间自由选择AI引擎，Gemini为默认选项。Apple每年向Google支付约 $10亿 使用Gemini重",
+  "url": "https://garryx.com/2026/06/08/ai-daily-2026-06-08/",
+  
+  "datePublished": "2026-06-08T00:00:00.000Z",
+  "dateModified": "2026-06-08T04:08:06.357Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/images/og-default.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=15">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-08T00:00:00.000Z">
+                    2026年6月8日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS 27首次允许用户在 <strong>ChatGPT、Google Gemini、Anthropic Claude</strong> 间自由选择AI引擎，Gemini为默认选项。Apple每年向Google支付约 <strong>$10亿</strong> 使用Gemini重建Siri。同期，Claude季度流量暴涨 <strong>306%</strong>，Pentagon正测试用OpenAI/Google模型替换Claude用于机密系统。国内方面，腾讯云6月5日首发效率智能体工具集，覆盖 <strong>20+垂直场景</strong>。</p>
+<p><strong>趋势1</strong>：操作系统级AI模型选择成为新战场<br><strong>趋势2</strong>：Claude进入2.2亿设备，冲击chatbot格局<br><strong>趋势3</strong>：Agent工具集商业化全面提速</p>
+<hr>
+<h2 id="🌍-国际动态"><a href="#🌍-国际动态" class="headerlink" title="🌍 国际动态"></a>🌍 国际动态</h2><h3 id="1-Apple-WWDC-2026：Tim-Cook最后一次主题演讲，iOS-27开放AI模型选择"><a href="#1-Apple-WWDC-2026：Tim-Cook最后一次主题演讲，iOS-27开放AI模型选择" class="headerlink" title="1. Apple WWDC 2026：Tim Cook最后一次主题演讲，iOS 27开放AI模型选择"></a>1. Apple WWDC 2026：Tim Cook最后一次主题演讲，iOS 27开放AI模型选择</h3><p><strong>事件简述</strong>：6月8日，Apple正式发布iOS 27、macOS 27、iPadOS 27等全系统更新。最关键的AI变化是：用户可在设置中选择为Apple Intelligence提供动力的模型—— <strong>Gemini（默认）、ChatGPT或Anthropic Claude</strong> ——每个模型都有独特的回复声音。这是Apple十年来最重要的AI平台策略转向。<br><strong>关键数据</strong>：Siri基于定制版 <strong>1.2万亿参数Gemini</strong> 重建，运行于Apple私有云计算（PCC）而非Google基础设施。Apple每年向Google支付约 <strong>$10亿</strong> 获取Gemini授权。iOS 27 Beta 1当天发布，支持iPhone 12及更新机型，Apple Intelligence功能需iPhone 15 Pro以上。Tim Cook将于9月1日交棒给硬件负责人John Ternus。<br><strong>影响分析</strong>：Apple选择不自研前沿模型，而是成为AI战争中的”瑞士”——用隐私计算和多提供商灵活性作为差异化。对Anthropic而言，进入 <strong>2.2亿台Apple设备</strong> 意味着潜在用户超 <strong>1亿</strong>。<br>📅6月8日</p>
+<h3 id="2-Claude季度流量暴涨306-，Pentagon测试替代方案"><a href="#2-Claude季度流量暴涨306-，Pentagon测试替代方案" class="headerlink" title="2. Claude季度流量暴涨306%，Pentagon测试替代方案"></a>2. Claude季度流量暴涨306%，Pentagon测试替代方案</h3><p><strong>事件简述</strong>：据Momentic/Similarweb数据，Claude全球网页访问量市场份额达 <strong>8.2%</strong>，美国达 <strong>12.5%</strong>，单季度增长 <strong>306%</strong>（203M→824M）。同时，Pentagon确认正在测试OpenAI和Google模型，以替代机密系统中原先使用的Anthropic Claude。测试针对国防部 <strong>25名“重度用户”</strong> 进行偏好评估。<br><strong>关键数据</strong>：ChatGPT占比下降至 <strong>54.7%</strong>（从2025年2月76.5%）；Gemini占 <strong>27.4%</strong>，半年增长约104%；DeepSeek <strong>4.1%</strong>；Grok <strong>2.8%</strong>。Claude Partner Hub正式启动 <strong>$1亿</strong> 企业服务计划。<br><strong>影响分析</strong>：Claude的306%增长是ChatGPT发布以来chatbot市场最大的竞争格局变化。Pentagon替代测试则反映了政府对AI公司“道德拖鞋”与安全需求之间的紧张关系。<br>📅6月8日</p>
+<h3 id="3-特朗普-桑德斯提案：美联邦政府拥有AI公司股份"><a href="#3-特朗普-桑德斯提案：美联邦政府拥有AI公司股份" class="headerlink" title="3. 特朗普/桑德斯提案：美联邦政府拥有AI公司股份"></a>3. 特朗普/桑德斯提案：美联邦政府拥有AI公司股份</h3><p><strong>事件简述</strong>：6月6日，总统特朗普表示美国政府可能直接持有顶级AI公司股权。此前，参议员Bernie Sanders提出《美国AI主权财富基金法案》，建议对OpenAI、Anthropic、xAI征收 <strong>50%股权</strong>以肄政府主权财富基金。OpenAI CEO Sam Altman自2025年初便私下向特朗普提出该构想。<br><strong>关键数据</strong>：SpaceX、OpenAI、Anthropic均不符合S&amp;P 500上市标准（需GAAP盈利+至少12个月交易期），上市初期无法吸引约 <strong>$7.5万亿</strong> 被动资金。<br><strong>影响分析</strong>：美国AI治理从”纯市场化”转向”国家资本参与”，与欧盟AI法案、中国国有资本主导形成三足鼎立。<br>📅6月6日</p>
+<h3 id="4-SpaceX与Google签署-300亿算力协议"><a href="#4-SpaceX与Google签署-300亿算力协议" class="headerlink" title="4. SpaceX与Google签署$300亿算力协议"></a>4. SpaceX与Google签署$300亿算力协议</h3><p><strong>事件简述</strong>：SpaceX与Google达成价值约 <strong>$300亿</strong> 的算力租赁协议，Google每月支付$9.2亿，租用SpaceX数据中心约 <strong>11万张NVIDIA GPU</strong>，支持Gemini Enterprise平台至2029年6月。此前SpaceX已与Anthropic签署类似协议（月付$12.5亿），两份合同合计超 <strong>$700亿</strong>。<br><strong>关键数据</strong>：协议在SpaceX <strong>6月12日IPO</strong> 前签署，显著增强其财务吸引力。四大云厂商2026年AI资本支出合计预计超 <strong>$7,000亿</strong>。<br><strong>影响分析</strong>：算力正成为AI时代的“石油”，数据中心运营商从芯片租赁中获得的稳定现金流，可能比航天业务本身更受资本市场看重。<br>📅6月6日</p>
+<h3 id="5-Meta考虑大规模股权融资"><a href="#5-Meta考虑大规模股权融资" class="headerlink" title="5. Meta考虑大规模股权融资"></a>5. Meta考虑大规模股权融资</h3><p><strong>事件简述</strong>：Meta将上调2026年资本支出指引至 <strong>$1.25万亿–1.45万亿</strong>，较2025年的$7,200亿几乎翻倍。消息公布后股价大跌，投资者对AI投资回报担忧加剧。<br><strong>关键数据</strong>：Meta正探索出售 <strong>数千亿美元</strong> 新股以融资AI基础设施扩张。<br><strong>影响分析</strong>：当AI基础设施投入进入“万亿级军备竞赛”，股东对“烧钱换增长”的耐心正在耗尽。<br>📅6月6日</p>
+<hr>
+<h2 id="🇨🇳-国内动态"><a href="#🇨🇳-国内动态" class="headerlink" title="🇨🇳 国内动态"></a>🇨🇳 国内动态</h2><h3 id="1-腾讯云首发效率智能体工具集，覆盖20多个垂直场景"><a href="#1-腾讯云首发效率智能体工具集，覆盖20多个垂直场景" class="headerlink" title="1. 腾讯云首发效率智能体工具集，覆盖20多个垂直场景"></a>1. 腾讯云首发效率智能体工具集，覆盖20多个垂直场景</h3><p><strong>事件简述</strong>：6月5日，腾讯云AI产业应用大会上首发覆盖20多个垂直场景的“效率智能体工具集”。面向个人用户升级QClaw、WorkBuddy、元宝、ima、腾讯文档等AI工具；面向企业发布WorkBuddy企业版AI工作台。目前已在医疗、金融、游戏、零售、教育等20多个行业落地。<br><strong>关键数据</strong>：WorkBuddy个人版发布3个月累计迭代 <strong>43个版本</strong>，按日活跃用户计已是国内最受欢迎的效率智能体工具。腾讯目前联合近 <strong>2000家合作伙伴</strong>，服务超过 <strong>20万家客户</strong>。<br><strong>影响分析</strong>：腾讯选择从场景入手而非单纯参数军备竞赛，“Agent工具集”模式反映了AI下半场从“模型”向“应用”转变的明确趋势。<br>📅6月5日</p>
+<h3 id="2-汤道生回应“腾讯AI慢了”，姚顺雨首次公开站台"><a href="#2-汤道生回应“腾讯AI慢了”，姚顺雨首次公开站台" class="headerlink" title="2. 汤道生回应“腾讯AI慢了”，姚顺雨首次公开站台"></a>2. 汤道生回应“腾讯AI慢了”，姚顺雨首次公开站台</h3><p><strong>事件简述</strong>：腾讯集团高级执行副总裁汤道生在大会上首次回应外界质疑：“腾讯正在AI长跑中。”同时，前OpenAI高级研究员、现腾讯首席AI科学家姚顺雨首次公开站台，与汤道生展开对谈。姚顺雨推动混元大模型研发体系与前端产品的co-design（协同设计），将评估体系从外部benchmark转向用户体验作为北极星指标。<br><strong>关键数据</strong>：姚顺雨加入后，混元Hy3 preview在同等参数规模模型中性能领先。约 <strong>80%的元宝用户</strong> 已切换至Hy3 preview，产品留存率明显提升。腾讯一季度研发开支约 <strong>225.42亿元</strong>，同比增长19%。<br><strong>影响分析</strong>：姚顺雨的“化繁为简”策略（码掉低质量数据）与“以用户体验为北极星”的理念，是对行业“盲目追求参数和Token量”趋势的有力纠偏。<br>📅6月5日</p>
+<h3 id="3-豆包付费后月活骤减610万"><a href="#3-豆包付费后月活骤减610万" class="headerlink" title="3. 豆包付费后月活骤减610万"></a>3. 豆包付费后月活骤减610万</h3><p><strong>事件简述</strong>：字节跳动豆包推出付费方案后，月活用户从约 <strong>3.36亿</strong> 降至 <strong>3.30亿</strong>，减少 <strong>610万</strong>，系2023年上线以来首次用户下滑。付费档位从68元到500元/月不等。字节回应称日常功能永久免费，2026暂不以付费渗透率作为KPI。<br><strong>关键数据</strong>：日均Token调用超 <strong>120万亿</strong>，年推理成本约 <strong>80亿元</strong>人民币。豆包仍以3.3亿月活稳居国内AI应用第一。<br><strong>影响分析</strong>：中国AI“免费时代”远未结束，商业化可能为时尚早。这也提醒行业：在用户习惯了免费后，付费转换需要更长的周期和更明确的价值主张。<br>📅6月6日</p>
+<h3 id="4-上海AI实验室发布“书安”智能体操作系统"><a href="#4-上海AI实验室发布“书安”智能体操作系统" class="headerlink" title="4. 上海AI实验室发布“书安”智能体操作系统"></a>4. 上海AI实验室发布“书安”智能体操作系统</h3><p><strong>事件简述</strong>：上海AI实验室发布国产智能体操作系统“书安”，定位为“智能体的操作系统层”，提供多智能体调度、资源管理和安全隔离等核心能力，为大规模Agent部署提供基础设施级支撑。<br><strong>关键数据</strong>：领军科学家胡侠将在AICon上海分享实践。<br><strong>影响分析</strong>：随着Agent数量爆发式增长，专门的Agent OS层将成为新的基础设施竞争点，类似于智能手机时代的Android/iOS分野。<br>📅6月6日</p>
+<hr>
+<h2 id="📄-今日论文"><a href="#📄-今日论文" class="headerlink" title="📄 今日论文"></a>📄 今日论文</h2><h3 id="1-How-AI-Agents-Reshape-Knowledge-Work-Autonomy-Efficiency-and-Scope"><a href="#1-How-AI-Agents-Reshape-Knowledge-Work-Autonomy-Efficiency-and-Scope" class="headerlink" title="1. How AI Agents Reshape Knowledge Work: Autonomy, Efficiency, and Scope"></a>1. How AI Agents Reshape Knowledge Work: Autonomy, Efficiency, and Scope</h3><p><strong>作者</strong>：Jeremy Yang, Kate Zyskowski, Noah Yonack et al. | 机构：MIT/Stanford等<br><strong>核心贡献</strong>：通过分析真实企业工作流数据，量化了AI Agent从“对话助手”向“端到端自主执行者”转变带来的效率提升。研究发现Agent在信息梳理、文档生成、跨系统协调等任务中展现出显著的自主性和范围扩张，但同时也揭示了责任边界模糊化的新风险。<br><strong>为什么重要</strong>：这是首个基于大规模企业实践数据的Agent经济学分析，为2026年Agent商业化提供了可量化的效率基准。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.07489">arXiv:2606.07489</a> 📅6月5日</p>
+<h3 id="2-MemDreamer-Decoupling-Perception-and-Reasoning-for-Long-Video-Understanding"><a href="#2-MemDreamer-Decoupling-Perception-and-Reasoning-for-Long-Video-Understanding" class="headerlink" title="2. MemDreamer: Decoupling Perception and Reasoning for Long Video Understanding"></a>2. MemDreamer: Decoupling Perception and Reasoning for Long Video Understanding</h3><p><strong>作者</strong>：Cong Chen, Guo Gan, Kaixiang Ji et al.<br><strong>核心贡献</strong>：提出分层图记忆网络与Agentic检索机制，将视觉感知与推理解耦，解决了现有多模态模型在小时级视频理解中面临的token爆炸和注意力稀释问题。<br><strong>为什么重要</strong>：长视频理解是多模态AI的下一个黄金场景，MemDreamer的架构可能影响下一代视频大模型的设计。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.07512">arXiv:2606.07512</a> 📅6月5日</p>
+<h3 id="3-Whisper-Hallucination-Detection-and-Mitigation-via-Hidden-Representation-Steering"><a href="#3-Whisper-Hallucination-Detection-and-Mitigation-via-Hidden-Representation-Steering" class="headerlink" title="3. Whisper Hallucination Detection and Mitigation via Hidden Representation Steering"></a>3. Whisper Hallucination Detection and Mitigation via Hidden Representation Steering</h3><p><strong>作者</strong>：Georgii Aparin, Vadim Popov, Tasnima Sadekova et al.<br><strong>核心贡献</strong>：通过隐藏层表征操控和稀疏自编码器检测Whisper幻觉，能够在非语音输入下识别并抵消幻觉输出，显著降低了“幻觉录音”风险。<br><strong>为什么重要</strong>：ASR幻觉是AI安全中被低估的隐形风险，本文方法为语音交互系统的可靠性提供了可落地的技术路径。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.07473">arXiv:2606.07473</a> 📅6月5日</p>
+<hr>
+<h2 id="💡-今日趋势"><a href="#💡-今日趋势" class="headerlink" title="💡 今日趋势"></a>💡 今日趋势</h2><p><strong>1. 操作系统成为AI模型“选票机”</strong>：Apple让iOS 27支持多模型选择，意味着操作系统层正成为AI模型竞争的新制高点。未来Windows、Android、汽车OS可能都将面临“接入哪家模型”的战略决策。</p>
+<p><strong>2. 算力成为“新石油”，数据中心成为“新油井”</strong>：SpaceX凭借租赁合同获得超$700亿确定性收入，证明AI基础设施已从“战略投入”进入“现金牛”阶段。数据中心运营商的商业地位正在快速上升。</p>
+<p><strong>3. Agent基础设施国产化加速</strong>：从腾讯效率智能体工具集到上海AI实验室“书安”OS，中国正在构建独立于模型层的Agent中间件生态。这与美国的“模型+工具”双轮驱动形成鲜明对比。</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                
+                <a href="/2026/06/05/ai-daily-2026-06-05/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】OpenAI发布Dreaming V3，ChatGPT记忆能力全面升级</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
