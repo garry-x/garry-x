@@ -8,14 +8,14 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<title>向量减法的几何意义 | Garry&#39;s Blog</title>
-<meta name="description" content="向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,">
+<title>向量的几何：减法、点积与距离 | Garry&#39;s Blog</title>
+<meta name="description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
 <meta name="author" content="Garry Xu">
-<meta name="keywords" content="向量,线性代数,几何">
+<meta name="keywords" content="向量,线性代数,几何,点积,相似度">
 
 <!-- Open Graph -->
-<meta property="og:title" content="向量减法的几何意义 | Garry&#39;s Blog">
-<meta property="og:description" content="向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,">
+<meta property="og:title" content="向量的几何：减法、点积与距离 | Garry&#39;s Blog">
+<meta property="og:description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
 <meta property="og:image" content="https://garryx.com/images/og-default.png">
@@ -24,8 +24,8 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="向量减法的几何意义 | Garry&#39;s Blog">
-<meta name="twitter:description" content="向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,">
+<meta name="twitter:title" content="向量的几何：减法、点积与距离 | Garry&#39;s Blog">
+<meta name="twitter:description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
 <meta name="twitter:image" content="https://garryx.com/images/og-default.png">
 
 <link rel="canonical" href="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
@@ -35,12 +35,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "向量减法的几何意义 | Garry&#39;s Blog",
-  "description": "向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,",
+  "headline": "向量的几何：减法、点积与距离 | Garry&#39;s Blog",
+  "description": "向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代",
   "url": "https://garryx.com/2026/06/08/vector-subtraction-geometry/",
   
   "datePublished": "2026-06-08T07:30:00.000Z",
-  "dateModified": "2026-06-08T07:22:33.277Z",
+  "dateModified": "2026-06-08T07:49:38.467Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -111,7 +111,7 @@
                 
             </div>
             
-            <h1 class="post-title">向量减法的几何意义</h1>
+            <h1 class="post-title">向量的几何：减法、点积与距离</h1>
             <div class="post-header-meta">
                 <time datetime="2026-06-08T07:30:00.000Z">
                     2026年6月8日
@@ -126,72 +126,295 @@
                     
                         <a href="/tags/%E5%87%A0%E4%BD%95/">#几何</a>
                     
+                        <a href="/tags/%E7%82%B9%E7%A7%AF/">#点积</a>
+                    
+                        <a href="/tags/%E7%9B%B8%E4%BC%BC%E5%BA%A6/">#相似度</a>
+                    
                 </div>
                 
             </div>
         </header>
 
         <div class="post-content" id="post-content">
-            <p>向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} - \vec{b}$ 究竟代表什么。</p>
-<hr>
-<h2 id="一、从代数到几何"><a href="#一、从代数到几何" class="headerlink" title="一、从代数到几何"></a>一、从代数到几何</h2><p>设平面向量</p>
-<script type="math/tex; mode=display">
-\vec{a} = (a_x,\ a_y), \quad \vec{b} = (b_x,\ b_y)</script><p>则减法的代数定义很直接：</p>
-<script type="math/tex; mode=display">
-\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y)</script><p>但这个“分量相减”的规则，背后的几何意义是什么？</p>
-<hr>
-<h2 id="二、三角形法则"><a href="#二、三角形法则" class="headerlink" title="二、三角形法则"></a>二、三角形法则</h2><p>将 $\vec{a}$ 与 $\vec{b}$ 的<strong>起点放在同一点</strong> $O$，分别达到终点 $A$ 和 $B$：</p>
-<script type="math/tex; mode=display">
-\vec{a} = \overrightarrow{OA}, \quad \vec{b} = \overrightarrow{OB}</script><p>那么从 $B$ 指向 $A$ 的向量 $\overrightarrow{BA}$ 就等于 $\vec{a} - \vec{b}$：</p>
-<script type="math/tex; mode=display">
-\boxed{\vec{a} - \vec{b} = \overrightarrow{BA}}</script><p><img src="/images/vector-subtraction-geom.png" alt="向量减法的三角形法则"></p>
-<p>&gt;<br><strong>核心观察</strong>：三个向量 $\vec{a}$ (紫色)、$\vec{b}$ (靛蓝) 和 $\vec{a}-\vec{b}$ (品红) 构成一个三角形。减法结果的方向总是指向<strong>被减向量的终点</strong>。</p>
-<hr>
-<h2 id="三、平行四边形法则"><a href="#三、平行四边形法则" class="headerlink" title="三、平行四边形法则"></a>三、平行四边形法则</h2><p>如果将 $\vec{a} - \vec{b}$ 的起点也放在 $O$，得到点 $C$，则 $OACB$ 构成平行四边形。这与向量加法的平行囻边形法则形成对称：</p>
+            <p>向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。</p>
+<hr />
+<h2 id="一从代数到几何">一、从代数到几何</h2>
+<p>设平面向量</p>
+<p><span class="math display">\[
+\vec{a} = (a_x,\ a_y), \quad \vec{b} = (b_x,\ b_y)
+\]</span></p>
+<p>则减法的代数定义很直接：</p>
+<p><span class="math display">\[
+\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y)
+\]</span></p>
+<p>但这个“分量相减”的规则，背后的几何意义是什么？</p>
+<hr />
+<h2 id="二三角形法则">二、三角形法则</h2>
+<p>将 <span class="math inline">\(\vec{a}\)</span> 与 <span
+class="math inline">\(\vec{b}\)</span> 的<strong>起点放在同一点</strong>
+<span class="math inline">\(O\)</span>，分别达到终点 <span
+class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>：</p>
+<p><span class="math display">\[
+\vec{a} = \overrightarrow{OA}, \quad \vec{b} = \overrightarrow{OB}
+\]</span></p>
+<p>那么从 <span class="math inline">\(B\)</span> 指向 <span
+class="math inline">\(A\)</span> 的向量 <span
+class="math inline">\(\overrightarrow{BA}\)</span> 就等于 <span
+class="math inline">\(\vec{a} - \vec{b}\)</span>：</p>
+<p><span class="math display">\[
+\boxed{\vec{a} - \vec{b} = \overrightarrow{BA}}
+\]</span></p>
+<figure>
+<img src="/images/vector-subtraction-geom.png"
+alt="向量减法的三角形法则" />
+<figcaption aria-hidden="true">向量减法的三角形法则</figcaption>
+</figure>
+<blockquote>
+<p><strong>核心观察</strong>：三个向量 <span
+class="math inline">\(\vec{a}\)</span> (紫色)、<span
+class="math inline">\(\vec{b}\)</span> (靛蓝) 和 <span
+class="math inline">\(\vec{a}-\vec{b}\)</span> (品红)
+构成一个三角形。减法结果的方向总是指向<strong>被减向量的终点</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="三平行四边形法则">三、平行四边形法则</h2>
+<p>如果将 <span class="math inline">\(\vec{a} - \vec{b}\)</span>
+的起点也放在 <span class="math inline">\(O\)</span>，得到点 <span
+class="math inline">\(C\)</span>，则 <span
+class="math inline">\(OACB\)</span>
+构成平行四边形。这与向量加法的平行四边形法则形成对称：</p>
 <ul>
-<li><strong>加法</strong>：$\vec{a} + \vec{b}$ 是平行四边形的对角线 $\overrightarrow{OC}$</li>
-<li><strong>减法</strong>：$\vec{a} - \vec{b}$ 是另一条对角线 $\overrightarrow{BA}$（从 $\vec{b}$ 终点指向 $\vec{a}$ 终点）</li>
+<li><strong>加法</strong>：<span class="math inline">\(\vec{a} +
+\vec{b}\)</span> 是平行四边形的对角线 <span
+class="math inline">\(\overrightarrow{OC}\)</span></li>
+<li><strong>减法</strong>：<span class="math inline">\(\vec{a} -
+\vec{b}\)</span> 是另一条对角线 <span
+class="math inline">\(\overrightarrow{BA}\)</span>（从 <span
+class="math inline">\(\vec{b}\)</span> 终点指向 <span
+class="math inline">\(\vec{a}\)</span> 终点）</li>
 </ul>
 <p>这说明向量加法与减法在几何上是同一结构的两个视角。</p>
-<hr>
-<h2 id="四、坐标视角的另一种理解"><a href="#四、坐标视角的另一种理解" class="headerlink" title="四、坐标视角的另一种理解"></a>四、坐标视角的另一种理解</h2><p><img src="/images/vector-subtraction-formula.png" alt="向量减法的坐标表示"></p>
+<hr />
+<h2 id="四坐标视角的另一种理解">四、坐标视角的另一种理解</h2>
+<figure>
+<img src="/images/vector-subtraction-formula.png"
+alt="向量减法的坐标表示" />
+<figcaption aria-hidden="true">向量减法的坐标表示</figcaption>
+</figure>
 <p>从坐标视角看，减法可以理解为：</p>
-<script type="math/tex; mode=display">
-\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y) = \vec{a} + (-\vec{b})</script><p>即<strong>先取 $\vec{b}$ 的相反向量</strong>（方向反转），<strong>再与 $\vec{a}$ 相加</strong>。这也是“减法即加法的逆运算”的几何体现。</p>
-<hr>
-<h2 id="五、为什么这个观察很重要"><a href="#五、为什么这个观察很重要" class="headerlink" title="五、为什么这个观察很重要"></a>五、为什么这个观察很重要</h2><p>向量减法的几何意义在实际应用中无处不在：</p>
-<div class="table-container">
+<p><span class="math display">\[
+\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y) = \vec{a} + (-\vec{b})
+\]</span></p>
+<p>即<strong>先取 <span class="math inline">\(\vec{b}\)</span>
+的相反向量</strong>（方向反转），<strong>再与 <span
+class="math inline">\(\vec{a}\)</span>
+相加</strong>。这也是“减法即加法的逆运算”的几何体现。</p>
+<hr />
+<h2 id="五从减法到点积">五、从减法到点积</h2>
+<p>减法回答了“两个向量相差多少”，点积则回答“两个向量有多像”。</p>
+<p>点积的代数定义：</p>
+<p><span class="math display">\[
+\vec{a} \cdot \vec{b} = a_x b_x + a_y b_y
+\]</span></p>
+<p>但它还有更深刻的几何定义：</p>
+<p><span class="math display">\[
+\boxed{\vec{a} \cdot \vec{b} = |\vec{a}|\ |\vec{b}|\ \cos\theta}
+\]</span></p>
+<p>其中 <span class="math inline">\(\theta\)</span>
+是两向量之间的夹角。</p>
+<hr />
+<h2 id="六点积的几何意义投影">六、点积的几何意义：投影</h2>
+<p>将 <span class="math inline">\(\vec{a}\)</span> 投影到 <span
+class="math inline">\(\vec{b}\)</span> 方向上，投影长度正是 <span
+class="math inline">\(|\vec{a}|\cos\theta\)</span>：</p>
+<p><span class="math display">\[
+\text{proj}_{\vec{b}}(\vec{a}) = \frac{\vec{a} \cdot \vec{b}}{|\vec{b}|}
+\]</span></p>
+<p>点积本质上度量了<strong>一个向量在另一个向量方向上的“分量”</strong>。</p>
+<figure>
+<img src="/images/vector-mermaid/dot-product-projection.png"
+alt="点积的投影意义" />
+<figcaption aria-hidden="true">点积的投影意义</figcaption>
+</figure>
+<blockquote>
+<p><strong>投影分解</strong>：<span
+class="math inline">\(\vec{a}\)</span> 可以分解为沿 <span
+class="math inline">\(\vec{b}\)</span> 方向的分量（投影，粉色）和垂直于
+<span class="math inline">\(\vec{b}\)</span> 的分量（<span
+class="math inline">\(\vec{a}_\perp\)</span>）。点积只关心“同向”的那部分。</p>
+</blockquote>
+<hr />
+<h2
+id="七余弦相似度角度作为相似度量">七、余弦相似度：角度作为相似度量</h2>
+<p>从点积的几何公式出发，可以定义余弦相似度：</p>
+<p><span class="math display">\[
+\cos\theta = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}|\ |\vec{b}|}
+\]</span></p>
+<p>它将点积归一化到 <span class="math inline">\([-1, 1]\)</span>
+区间，纯粹反映<strong>方向的一致性</strong>，与向量长度无关：</p>
+<figure>
+<img src="/images/vector-mermaid/cosine-similarity.png"
+alt="余弦相似度的三种典型情况" />
+<figcaption aria-hidden="true">余弦相似度的三种典型情况</figcaption>
+</figure>
 <table>
 <thead>
-<tr>
-<th>场景</th>
+<tr class="header">
+<th>夹角 <span class="math inline">\(\theta\)</span></th>
+<th><span class="math inline">\(\cos\theta\)</span></th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0°\)</span>（同向）</td>
+<td><span class="math inline">\(+1\)</span></td>
+<td>方向完全一致，最相似</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(90°\)</span>（垂直）</td>
+<td><span class="math inline">\(0\)</span></td>
+<td>方向无关，无相似性</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(180°\)</span>（反向）</td>
+<td><span class="math inline">\(-1\)</span></td>
+<td>方向完全相反</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>关键洞察</strong>：余弦相似度忽略向量长度，只关心“指向哪里”。在自然语言处理中，这对应“语义相似但篇幅不同”的文本；在推荐系统中，对应“偏好方向一致但活跃度不同”的用户。</p>
+</blockquote>
+<hr />
+<h2
+id="八向量距离欧氏距离与点积的关系">八、向量距离：欧氏距离与点积的关系</h2>
+<p>减法给出了两个向量的“差向量” <span class="math inline">\(\vec{a} -
+\vec{b}\)</span>。它的长度——<strong>欧氏距离</strong>——是衡量向量差异的最直接方式：</p>
+<p><span class="math display">\[
+\|\vec{a} - \vec{b}\| = \sqrt{(a_x - b_x)^2 + (a_y - b_y)^2}
+\]</span></p>
+<p>有趣的是，欧氏距离的平方可以直接用点积表示：</p>
+<p><span class="math display">\[
+\|\vec{a} - \vec{b}\|^2 = |\vec{a}|^2 + |\vec{b}|^2 -
+2\,\vec{a}\cdot\vec{b}
+\]</span></p>
+<p>这就是<strong>余弦定理的向量形式</strong>。它揭示了深刻的事实：</p>
+<blockquote>
+<p><strong>距离与相似度是一枚硬币的两面</strong>——点积越大（越相似），欧氏距离越小（越接近）。</p>
+</blockquote>
+<figure>
+<img src="/images/vector-mermaid/distance-relation.png"
+alt="距离与点积的关系" />
+<figcaption aria-hidden="true">距离与点积的关系</figcaption>
+</figure>
+<hr />
+<h2 id="九统一视角内积空间中的几何">九、统一视角：内积空间中的几何</h2>
+<p>将以上概念放入统一的框架——<strong>内积空间</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 28%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>概念</th>
+<th>公式</th>
 <th>几何意义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>物理中的相对速度</td>
-<td>$\vec{v}_{\text{相对}} = \vec{v}_A - \vec{v}_B$ 即从 $B$ 指向 $A$ 的速度变化</td>
+<tr class="odd">
+<td>长度（范数）</td>
+<td><span class="math inline">\(\|\vec{a}\| =
+\sqrt{\vec{a}\cdot\vec{a}}\)</span></td>
+<td>向量到原点的距离</td>
 </tr>
-<tr>
-<td>计算机图形学</td>
-<td>两点之间的方向向量</td>
+<tr class="even">
+<td>距离</td>
+<td><span class="math inline">\(\|\vec{a} - \vec{b}\|\)</span></td>
+<td>两点间的直线距离</td>
 </tr>
-<tr>
-<td>机器学习</td>
-<td>特征向量差异、梯度方向</td>
+<tr class="odd">
+<td>相似度</td>
+<td><span class="math inline">\(\cos\theta =
+\frac{\vec{a}\cdot\vec{b}}{\|\vec{a}\|\|\vec{b}\|}\)</span></td>
+<td>方向一致性</td>
 </tr>
-<tr>
-<td>游戏开发</td>
-<td>角色 A 到角色 B 的朝向向量</td>
+<tr class="even">
+<td>投影</td>
+<td><span class="math inline">\(\text{proj}_{\vec{b}}(\vec{a}) =
+\frac{\vec{a}\cdot\vec{b}}{\|\vec{b}\|}\)</span></td>
+<td>沿某方向的分量</td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>掌握了“减法 = 终点指向终点”这个几何直觉，很多算法和物理公式就不再是抽象符号，而是可以在脑海中直接“看见”的图形。</p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><script type="math/tex; mode=display">
-\vec{a} - \vec{b} = \overrightarrow{BA}</script><p><strong>将两向量起点重合，减法结果从 $\vec{b}$ 的终点指向 $\vec{a}$ 的终点。</strong>这就是向量减法最简洁也最强大的几何意义。</p>
+<p>所有概念都源于同一个操作——<strong>内积（点积）</strong>。在内积空间中，几何直觉与代数计算完美融合。</p>
+<hr />
+<h2 id="十为什么这套直觉很重要">十、为什么这套直觉很重要</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 37%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th>所用概念</th>
+<th>具体含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>物理中的相对速度</td>
+<td>减法</td>
+<td><span class="math inline">\(\vec{v}_{\text{相对}} = \vec{v}_A -
+\vec{v}_B\)</span></td>
+</tr>
+<tr class="even">
+<td>文本语义搜索</td>
+<td>余弦相似度</td>
+<td>查询与文档的语义方向一致性</td>
+</tr>
+<tr class="odd">
+<td>推荐系统</td>
+<td>点积 + 距离</td>
+<td>用户偏好向量的匹配程度</td>
+</tr>
+<tr class="even">
+<td>计算机图形学</td>
+<td>投影</td>
+<td>光照计算中表面法线与光源方向的夹角</td>
+</tr>
+<tr class="odd">
+<td>机器学习（SVM/感知机）</td>
+<td>点积符号</td>
+<td>决定分类边界的哪一侧</td>
+</tr>
+<tr class="even">
+<td>PCA 降维</td>
+<td>投影长度</td>
+<td>数据在主轴方向上的方差</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="总结">总结</h2>
+<p>向量运算构成了现代计算的几何基础：</p>
+<p><span class="math display">\[
+\vec{a} - \vec{b} = \overrightarrow{BA}
+\]</span></p>
+<p><span class="math display">\[
+\vec{a} \cdot \vec{b} = |\vec{a}|\ |\vec{b}|\ \cos\theta
+\]</span></p>
+<p><span class="math display">\[
+\|\vec{a} - \vec{b}\|^2 = |\vec{a}|^2 + |\vec{b}|^2 -
+2\,\vec{a}\cdot\vec{b}
+\]</span></p>
+<p><strong>减法描述差异，点积描述相似，距离将二者统一。</strong>掌握了这三者的几何联系，线性代数中大量抽象概念都将变得直观可见。</p>
 
         </div>
 

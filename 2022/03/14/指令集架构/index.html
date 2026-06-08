@@ -9,13 +9,13 @@
 <meta http-equiv="Expires" content="0">
 
 <title>指令集架构 | Garry&#39;s Blog</title>
-<meta name="description" content="| 以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指">
+<meta name="description" content="以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集">
 <meta name="author" content="Garry Xu">
 <meta name="keywords" content="AI, technology, blog, Garry">
 
 <!-- Open Graph -->
 <meta property="og:title" content="指令集架构 | Garry&#39;s Blog">
-<meta property="og:description" content="| 以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指">
+<meta property="og:description" content="以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
 <meta property="og:image" content="https://garryx.com/covers/cover-%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84.png">
@@ -25,7 +25,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="指令集架构 | Garry&#39;s Blog">
-<meta name="twitter:description" content="| 以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指">
+<meta name="twitter:description" content="以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集">
 <meta name="twitter:image" content="https://garryx.com/covers/cover-%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84.png">
 
 <link rel="canonical" href="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">
@@ -36,7 +36,7 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "指令集架构 | Garry&#39;s Blog",
-  "description": "| 以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指",
+  "description": "以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面： 指令集",
   "url": "https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/",
   
   "datePublished": "2022-03-14T03:57:01.000Z",
@@ -121,257 +121,301 @@
         </header>
 
         <div class="post-content" id="post-content">
-            <p>| 以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition.  2019. </p>
-<p>指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面：    </p>
-<ul>
-<li><strong>指令集架构的分类</strong>：几乎所有今天的ISA都被归类为通用寄存器架构，其操作数不是寄存器就是内存位置。80x86有16个通用寄存器、16个保存浮点数据的寄存器；RISC-V有32个通用和浮点寄存器； 从通用寄存器架构向下划分，可以再分为两类。一类是 <em>register-memory ISA</em> ，比如80x86，可以在很多指令中直接访问内存；一类是 <em>load-store ISA</em>，比如 <em>ARMv8</em> 和 <em>RISC-V</em> ，只能通过 <em>load</em> 和  <em>store</em> 指令访问内存。所有从1985年之后发布的ISA都是 <em>load-store</em> ISA。下表是 <em>RISC-V</em> ISA的寄存器示例：</li>
-</ul>
-<div class="table-container">
+            <div class="line-block">以下笔记 来自阅读：Hennessy J L, Patterson D A.
+Computer Architecture: A Quantitative Approach 6th Edition. 2019.</div>
+<p>指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面：<br />
+-
+<strong>指令集架构的分类</strong>：几乎所有今天的ISA都被归类为通用寄存器架构，其操作数不是寄存器就是内存位置。80x86有16个通用寄存器、16个保存浮点数据的寄存器；RISC-V有32个通用和浮点寄存器；
+从通用寄存器架构向下划分，可以再分为两类。一类是 <em>register-memory
+ISA</em> ，比如80x86，可以在很多指令中直接访问内存；一类是
+<em>load-store ISA</em>，比如 <em>ARMv8</em> 和 <em>RISC-V</em>
+，只能通过 <em>load</em> 和 <em>store</em>
+指令访问内存。所有从1985年之后发布的ISA都是 <em>load-store</em>
+ISA。下表是 <em>RISC-V</em> ISA的寄存器示例：</p>
 <table>
 <thead>
-<tr>
-<th style="text-align:left">寄存器</th>
-<th style="text-align:left">名称</th>
-<th style="text-align:left">用途</th>
+<tr class="header">
+<th style="text-align: left;">寄存器</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">用途</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">x0</td>
-<td style="text-align:left">zero</td>
-<td style="text-align:left">常量 ‘0’</td>
+<tr class="odd">
+<td style="text-align: left;">x0</td>
+<td style="text-align: left;">zero</td>
+<td style="text-align: left;">常量 '0'</td>
 </tr>
-<tr>
-<td style="text-align:left">x1</td>
-<td style="text-align:left">ra</td>
-<td style="text-align:left">返回地址</td>
+<tr class="even">
+<td style="text-align: left;">x1</td>
+<td style="text-align: left;">ra</td>
+<td style="text-align: left;">返回地址</td>
 </tr>
-<tr>
-<td style="text-align:left">x2</td>
-<td style="text-align:left">sp</td>
-<td style="text-align:left">栈指针（指向栈下一个空闲区域）</td>
+<tr class="odd">
+<td style="text-align: left;">x2</td>
+<td style="text-align: left;">sp</td>
+<td style="text-align: left;">栈指针（指向栈下一个空闲区域）</td>
 </tr>
-<tr>
-<td style="text-align:left">x3</td>
-<td style="text-align:left">gp</td>
-<td style="text-align:left">全局指针（指向全局变量区域）</td>
+<tr class="even">
+<td style="text-align: left;">x3</td>
+<td style="text-align: left;">gp</td>
+<td style="text-align: left;">全局指针（指向全局变量区域）</td>
 </tr>
-<tr>
-<td style="text-align:left">x4</td>
-<td style="text-align:left">tp</td>
-<td style="text-align:left">线程指针（指向线程局部变量区域）</td>
+<tr class="odd">
+<td style="text-align: left;">x4</td>
+<td style="text-align: left;">tp</td>
+<td style="text-align: left;">线程指针（指向线程局部变量区域）</td>
 </tr>
-<tr>
-<td style="text-align:left">x5-x7</td>
-<td style="text-align:left">t0-t2</td>
-<td style="text-align:left">临时存储</td>
+<tr class="even">
+<td style="text-align: left;">x5-x7</td>
+<td style="text-align: left;">t0-t2</td>
+<td style="text-align: left;">临时存储</td>
 </tr>
-<tr>
-<td style="text-align:left">x8</td>
-<td style="text-align:left">s0/fp</td>
-<td style="text-align:left">保存的寄存器/栈帧指针（指向栈帧基址）</td>
+<tr class="odd">
+<td style="text-align: left;">x8</td>
+<td style="text-align: left;">s0/fp</td>
+<td style="text-align: left;">保存的寄存器/栈帧指针（指向栈帧基址）</td>
 </tr>
-<tr>
-<td style="text-align:left">x9</td>
-<td style="text-align:left">s1</td>
-<td style="text-align:left">保存的寄存器</td>
+<tr class="even">
+<td style="text-align: left;">x9</td>
+<td style="text-align: left;">s1</td>
+<td style="text-align: left;">保存的寄存器</td>
 </tr>
-<tr>
-<td style="text-align:left">x10-x11</td>
-<td style="text-align:left">a0-a1</td>
-<td style="text-align:left">函数参数/返回值</td>
+<tr class="odd">
+<td style="text-align: left;">x10-x11</td>
+<td style="text-align: left;">a0-a1</td>
+<td style="text-align: left;">函数参数/返回值</td>
 </tr>
-<tr>
-<td style="text-align:left">x12-x17</td>
-<td style="text-align:left">a2-a7</td>
-<td style="text-align:left">函数参数</td>
+<tr class="even">
+<td style="text-align: left;">x12-x17</td>
+<td style="text-align: left;">a2-a7</td>
+<td style="text-align: left;">函数参数</td>
 </tr>
-<tr>
-<td style="text-align:left">x18-x27</td>
-<td style="text-align:left">s2-s11</td>
-<td style="text-align:left">保存的寄存器</td>
+<tr class="odd">
+<td style="text-align: left;">x18-x27</td>
+<td style="text-align: left;">s2-s11</td>
+<td style="text-align: left;">保存的寄存器</td>
 </tr>
-<tr>
-<td style="text-align:left">x28-x31</td>
-<td style="text-align:left">t3-t6</td>
-<td style="text-align:left">临时存储</td>
+<tr class="even">
+<td style="text-align: left;">x28-x31</td>
+<td style="text-align: left;">t3-t6</td>
+<td style="text-align: left;">临时存储</td>
 </tr>
-<tr>
-<td style="text-align:left">f0-f7</td>
-<td style="text-align:left">ft0-ft7</td>
-<td style="text-align:left">浮点 临时存储</td>
+<tr class="odd">
+<td style="text-align: left;">f0-f7</td>
+<td style="text-align: left;">ft0-ft7</td>
+<td style="text-align: left;">浮点 临时存储</td>
 </tr>
-<tr>
-<td style="text-align:left">f8-f9</td>
-<td style="text-align:left">fs0-fs1</td>
-<td style="text-align:left">浮点 保存的寄存器</td>
+<tr class="even">
+<td style="text-align: left;">f8-f9</td>
+<td style="text-align: left;">fs0-fs1</td>
+<td style="text-align: left;">浮点 保存的寄存器</td>
 </tr>
-<tr>
-<td style="text-align:left">f10-f11</td>
-<td style="text-align:left">fa0-fa1</td>
-<td style="text-align:left">浮点 函数参数/返回值</td>
+<tr class="odd">
+<td style="text-align: left;">f10-f11</td>
+<td style="text-align: left;">fa0-fa1</td>
+<td style="text-align: left;">浮点 函数参数/返回值</td>
 </tr>
-<tr>
-<td style="text-align:left">f12-f17</td>
-<td style="text-align:left">fa2-fa7</td>
-<td style="text-align:left">浮点 函数参数</td>
+<tr class="even">
+<td style="text-align: left;">f12-f17</td>
+<td style="text-align: left;">fa2-fa7</td>
+<td style="text-align: left;">浮点 函数参数</td>
 </tr>
-<tr>
-<td style="text-align:left">f18-f27</td>
-<td style="text-align:left">fs2-fs11</td>
-<td style="text-align:left">浮点 保存的寄存器</td>
+<tr class="odd">
+<td style="text-align: left;">f18-f27</td>
+<td style="text-align: left;">fs2-fs11</td>
+<td style="text-align: left;">浮点 保存的寄存器</td>
 </tr>
-<tr>
-<td style="text-align:left">f28-f31</td>
-<td style="text-align:left">ft8-ft11</td>
-<td style="text-align:left">浮点 临时存储</td>
+<tr class="even">
+<td style="text-align: left;">f28-f31</td>
+<td style="text-align: left;">ft8-ft11</td>
+<td style="text-align: left;">浮点 临时存储</td>
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
-<li><strong>内存寻址</strong>：基本上所有的台式机和服务器，包括 <em>80x86</em> 、<em>ARMv8</em> 和 <em>RSIC-V</em> ，使用字节编址来访问内存操作数。某些架构，比如 <em>ARMv8</em>， 要求访存对象必须对齐。而 <em>80x86</em> 和 <em>RISC-V</em> 不需要对齐，但是如果对齐，访问速度会更快。</li>
-<li><strong>寻址模式</strong>：寻址模式描述了寄存器操作数、立即数（常量）操作数和内存对象的地址。<em>RISC-V</em> 寻址包括：寄存器、立即数（常量）和位移（<em>displacement</em>， 寄存器的值加上一个常量的偏移构成了内存地址）。80x86支持上述三种模式，另外加上三种位移的变种：1）无寄存器（绝对地址）  2）两寄存器（基地址+索引+位移）3）两寄存器（基地址+索引*操作数大小+位移）。</li>
-<li><strong>操作数类型和大小</strong>：和大多数ISA一样，80x86、ARMv8和RISC-V支持8比特、16比特、32比特、64比特的操作数大小，也支持IEEE 754 32位（单精度）和64位（双精度）浮点数。80x86 也支持80比特的浮点数（扩展双精度）。</li>
-<li><strong>操作</strong>： 操作一般可分为：数据传输、算术逻辑、控制和浮点几类。下表是RISC-V的数据传输和算术指令示例：</li>
+<li><strong>内存寻址</strong>：基本上所有的台式机和服务器，包括
+<em>80x86</em> 、<em>ARMv8</em> 和 <em>RSIC-V</em>
+，使用字节编址来访问内存操作数。某些架构，比如 <em>ARMv8</em>，
+要求访存对象必须对齐。而 <em>80x86</em> 和 <em>RISC-V</em>
+不需要对齐，但是如果对齐，访问速度会更快。</li>
+<li><strong>寻址模式</strong>：寻址模式描述了寄存器操作数、立即数（常量）操作数和内存对象的地址。<em>RISC-V</em>
+寻址包括：寄存器、立即数（常量）和位移（<em>displacement</em>，
+寄存器的值加上一个常量的偏移构成了内存地址）。80x86支持上述三种模式，另外加上三种位移的变种：1）无寄存器（绝对地址）
+2）两寄存器（基地址+索引+位移）3）两寄存器（基地址+索引*操作数大小+位移）。</li>
+<li><strong>操作数类型和大小</strong>：和大多数ISA一样，80x86、ARMv8和RISC-V支持8比特、16比特、32比特、64比特的操作数大小，也支持IEEE
+754 32位（单精度）和64位（双精度）浮点数。80x86
+也支持80比特的浮点数（扩展双精度）。</li>
+<li><strong>操作</strong>：
+操作一般可分为：数据传输、算术逻辑、控制和浮点几类。下表是RISC-V的数据传输和算术指令示例：</li>
 </ul>
-<div class="table-container">
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left">指令类型/操作码</th>
-<th style="text-align:left">指令含义</th>
+<tr class="header">
+<th style="text-align: left;">指令类型/操作码</th>
+<th style="text-align: left;">指令含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left"><strong>数据传输</strong></td>
-<td style="text-align:left"><strong>在寄存器和内存，或者整数寄存器和浮点寄存器、特殊寄存器间搬移数据。只有内存地址是由12比特的偏移加上通用寄存器的值构成</strong></td>
+<tr class="odd">
+<td style="text-align: left;"><strong>数据传输</strong></td>
+<td
+style="text-align: left;"><strong>在寄存器和内存，或者整数寄存器和浮点寄存器、特殊寄存器间搬移数据。只有内存地址是由12比特的偏移加上通用寄存器的值构成</strong></td>
 </tr>
-<tr>
-<td style="text-align:left">lb, lbu, sb</td>
-<td style="text-align:left">加载字节（byte 8比特）、加载无符号字节、存储字节</td>
+<tr class="even">
+<td style="text-align: left;">lb, lbu, sb</td>
+<td style="text-align: left;">加载字节（byte
+8比特）、加载无符号字节、存储字节</td>
 </tr>
-<tr>
-<td style="text-align:left">lh, lhu, sh</td>
-<td style="text-align:left">加载半字（half word 16比特）、加载无符号半字、存储半字</td>
+<tr class="odd">
+<td style="text-align: left;">lh, lhu, sh</td>
+<td style="text-align: left;">加载半字（half word
+16比特）、加载无符号半字、存储半字</td>
 </tr>
-<tr>
-<td style="text-align:left">lw, lhw, sw</td>
-<td style="text-align:left">加载字（word 32比特）、加载无符号字、存储字</td>
+<tr class="even">
+<td style="text-align: left;">lw, lhw, sw</td>
+<td style="text-align: left;">加载字（word
+32比特）、加载无符号字、存储字</td>
 </tr>
-<tr>
-<td style="text-align:left">ld, sd</td>
-<td style="text-align:left">加载双字（double word 64比特）、存储双字</td>
+<tr class="odd">
+<td style="text-align: left;">ld, sd</td>
+<td style="text-align: left;">加载双字（double word
+64比特）、存储双字</td>
 </tr>
-<tr>
-<td style="text-align:left">flw, fld, fsw, fsd</td>
-<td style="text-align:left">记载单精度浮点，加载双精度浮点、存储单精度浮点、存储双精度浮点</td>
+<tr class="even">
+<td style="text-align: left;">flw, fld, fsw, fsd</td>
+<td
+style="text-align: left;">记载单精度浮点，加载双精度浮点、存储单精度浮点、存储双精度浮点</td>
 </tr>
-<tr>
-<td style="text-align:left">fmv.S.X, fmv.D.X, fmv.X.S, fmv.X.D</td>
-<td style="text-align:left">从整数寄存器拷贝到浮点寄存器，或从浮点寄存器拷贝到整数寄存器。S代表单精度，D代表双精度</td>
+<tr class="odd">
+<td style="text-align: left;">fmv.S.X, fmv.D.X, fmv.X.S, fmv.X.D</td>
+<td
+style="text-align: left;">从整数寄存器拷贝到浮点寄存器，或从浮点寄存器拷贝到整数寄存器。S代表单精度，D代表双精度</td>
 </tr>
-<tr>
-<td style="text-align:left">csrrw, csrrwi, csrrs, csrrsi, csrrc, csrrci</td>
-<td style="text-align:left">读取计数器并写入状态寄存器，计数器包括：时钟周期数、时间、退役指令数量等。</td>
+<tr class="even">
+<td style="text-align: left;">csrrw, csrrwi, csrrs, csrrsi, csrrc,
+csrrci</td>
+<td
+style="text-align: left;">读取计数器并写入状态寄存器，计数器包括：时钟周期数、时间、退役指令数量等。</td>
 </tr>
-<tr>
-<td style="text-align:left"><strong>算术/逻辑</strong></td>
-<td style="text-align:left"><strong>通用寄存器数据上的整型或逻辑数据运算</strong></td>
+<tr class="odd">
+<td style="text-align: left;"><strong>算术/逻辑</strong></td>
+<td
+style="text-align: left;"><strong>通用寄存器数据上的整型或逻辑数据运算</strong></td>
 </tr>
-<tr>
-<td style="text-align:left">add, addi, addw, addiw</td>
-<td style="text-align:left">加, 加立即数(12比特), 有符号加32比特并扩展至64比特, 加立即数(32比特)</td>
+<tr class="even">
+<td style="text-align: left;">add, addi, addw, addiw</td>
+<td style="text-align: left;">加, 加立即数(12比特),
+有符号加32比特并扩展至64比特, 加立即数(32比特)</td>
 </tr>
-<tr>
-<td style="text-align:left">sub, subw</td>
-<td style="text-align:left">减, 减32比特</td>
+<tr class="odd">
+<td style="text-align: left;">sub, subw</td>
+<td style="text-align: left;">减, 减32比特</td>
 </tr>
-<tr>
-<td style="text-align:left">mul, mulw, mulh, mulhsu, mulhu</td>
-<td style="text-align:left">乘, 乘32比特, 乘上半部(16比特), 无符号乘有符号上半部, 无符号乘上半部</td>
+<tr class="even">
+<td style="text-align: left;">mul, mulw, mulh, mulhsu, mulhu</td>
+<td style="text-align: left;">乘, 乘32比特, 乘上半部(16比特),
+无符号乘有符号上半部, 无符号乘上半部</td>
 </tr>
-<tr>
-<td style="text-align:left">div, divu, rem, remu</td>
-<td style="text-align:left">除, 无符号除, 余数, 无符号余数</td>
+<tr class="odd">
+<td style="text-align: left;">div, divu, rem, remu</td>
+<td style="text-align: left;">除, 无符号除, 余数, 无符号余数</td>
 </tr>
-<tr>
-<td style="text-align:left">divw, divuw, remw, remuw</td>
-<td style="text-align:left">除余低32位, 有符号扩展</td>
+<tr class="even">
+<td style="text-align: left;">divw, divuw, remw, remuw</td>
+<td style="text-align: left;">除余低32位, 有符号扩展</td>
 </tr>
-<tr>
-<td style="text-align:left">and, andi</td>
-<td style="text-align:left">与, 与立即数</td>
+<tr class="odd">
+<td style="text-align: left;">and, andi</td>
+<td style="text-align: left;">与, 与立即数</td>
 </tr>
-<tr>
-<td style="text-align:left">or, ori, xor, xori</td>
-<td style="text-align:left">或, 或立即数, 异或, 异或立即数</td>
+<tr class="even">
+<td style="text-align: left;">or, ori, xor, xori</td>
+<td style="text-align: left;">或, 或立即数, 异或, 异或立即数</td>
 </tr>
-<tr>
-<td style="text-align:left">lui</td>
-<td style="text-align:left">加载立即数到寄存器上半部 (31-12比特位)并进行符号扩展</td>
+<tr class="odd">
+<td style="text-align: left;">lui</td>
+<td style="text-align: left;">加载立即数到寄存器上半部
+(31-12比特位)并进行符号扩展</td>
 </tr>
-<tr>
-<td style="text-align:left">auipc</td>
-<td style="text-align:left">加立即数的上半部 (31-12位,余下低12位为0) 到PC; 和JALR 配合使用转移控制到任何32位地址</td>
+<tr class="even">
+<td style="text-align: left;">auipc</td>
+<td style="text-align: left;">加立即数的上半部 (31-12位,余下低12位为0)
+到PC; 和JALR 配合使用转移控制到任何32位地址</td>
 </tr>
-<tr>
-<td style="text-align:left">sll, slli, srl, srli, sra, srai</td>
-<td style="text-align:left">移位; 逻辑左移, 逻辑右移; 使用立即数或者变量</td>
+<tr class="odd">
+<td style="text-align: left;">sll, slli, srl, srli, sra, srai</td>
+<td style="text-align: left;">移位; 逻辑左移, 逻辑右移;
+使用立即数或者变量</td>
 </tr>
-<tr>
-<td style="text-align:left">sllw, slliw, srlw, srliw, sraw, sraiw</td>
-<td style="text-align:left">移位低32位, 有符号扩展</td>
+<tr class="even">
+<td style="text-align: left;">sllw, slliw, srlw, srliw, sraw, sraiw</td>
+<td style="text-align: left;">移位低32位, 有符号扩展</td>
 </tr>
-<tr>
-<td style="text-align:left">slt, slti, sltu, sltiu</td>
-<td style="text-align:left">小于情况下设置; 小于情况下设置; 有符号和无符号</td>
+<tr class="odd">
+<td style="text-align: left;">slt, slti, sltu, sltiu</td>
+<td style="text-align: left;">小于情况下设置; 小于情况下设置;
+有符号和无符号</td>
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
-<li><strong>控制流指令</strong>：实际上所有的ISA，都支持有条件分支、无条件的跳转、函数调用和返回。80x86、ARM、RISC-V 均使用PC相对寻址，分支地址是通过PC加上地址字段构成的。但也有也许的不同，RISC-V 有条件分支（BE，BNE，etc）是检查寄存器的内容，而80x86和ARM检查的是算术或者逻辑运算副作用设置的比特位。ARM和RISC-V将返回地址放到寄存器中，而80x86调用（CALLF）将返回地址放到内存栈里。下表是RISC-V的控制指令示例：</li>
+<li><strong>控制流指令</strong>：实际上所有的ISA，都支持有条件分支、无条件的跳转、函数调用和返回。80x86、ARM、RISC-V
+均使用PC相对寻址，分支地址是通过PC加上地址字段构成的。但也有也许的不同，RISC-V
+有条件分支（BE，BNE，etc）是检查寄存器的内容，而80x86和ARM检查的是算术或者逻辑运算副作用设置的比特位。ARM和RISC-V将返回地址放到寄存器中，而80x86调用（CALLF）将返回地址放到内存栈里。下表是RISC-V的控制指令示例：</li>
 </ul>
-<div class="table-container">
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left">指令类型/操作码</th>
-<th style="text-align:left">指令含义</th>
+<tr class="header">
+<th style="text-align: left;">指令类型/操作码</th>
+<th style="text-align: left;">指令含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left"><strong>控制</strong></td>
-<td style="text-align:left"><strong>有条件分支和跳转；PC相对寻址或者通过寄存器</strong></td>
+<tr class="odd">
+<td style="text-align: left;"><strong>控制</strong></td>
+<td
+style="text-align: left;"><strong>有条件分支和跳转；PC相对寻址或者通过寄存器</strong></td>
 </tr>
-<tr>
-<td style="text-align:left">beq, bne, blt, bge, bltu, bgeu</td>
-<td style="text-align:left">通用寄存器相等/不相等/小于/大于或等于时分支；有符号或无符号</td>
+<tr class="even">
+<td style="text-align: left;">beq, bne, blt, bge, bltu, bgeu</td>
+<td
+style="text-align: left;">通用寄存器相等/不相等/小于/大于或等于时分支；有符号或无符号</td>
 </tr>
-<tr>
-<td style="text-align:left">jal, jalr</td>
-<td style="text-align:left">跳转并链接；保存返回地址，目标相对PC寻址或者使用寄存器；如果x0是目标寄存器，则按照跳转来运行</td>
+<tr class="odd">
+<td style="text-align: left;">jal, jalr</td>
+<td
+style="text-align: left;">跳转并链接；保存返回地址，目标相对PC寻址或者使用寄存器；如果x0是目标寄存器，则按照跳转来运行</td>
 </tr>
-<tr>
-<td style="text-align:left">ecall</td>
-<td style="text-align:left">向执行环境（一般为OS）下发请求</td>
+<tr class="even">
+<td style="text-align: left;">ecall</td>
+<td style="text-align: left;">向执行环境（一般为OS）下发请求</td>
 </tr>
-<tr>
-<td style="text-align:left">ebreak</td>
-<td style="text-align:left">调试软件用来将控制交回调试环境</td>
+<tr class="odd">
+<td style="text-align: left;">ebreak</td>
+<td style="text-align: left;">调试软件用来将控制交回调试环境</td>
 </tr>
-<tr>
-<td style="text-align:left">fence, fence.i</td>
-<td style="text-align:left">线程间同步用以保证内存访问的顺序；同步指令及store使用的数据到指令内存</td>
+<tr class="even">
+<td style="text-align: left;">fence, fence.i</td>
+<td
+style="text-align: left;">线程间同步用以保证内存访问的顺序；同步指令及store使用的数据到指令内存</td>
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
-<li><strong>编码ISA</strong>： 在编码时有两种选择：定长和变长。所有的ARMv8和RISC-V指令的长度都是32比特，这样的定义方便了指令的解码过程。80x86是变长编码，指令长度1到18个字节。变长指令相对于定长指令可以占用更少的内存空间，因此为80x86编译的程序一般比RISC-V编译后的程序要小。指的注意的是，我们前述提到的ISA在设计上的选择都将影响指令在二进制形式下的编码方式。例如，由于在一个指令中，寄存器字段和寻址模式字段都可能反复出现，因此，寄存器数量和寻址模式都对指令大小有着重要的影响。（ARMv8和RISC-V后面都增加了支持变长的扩展：<em>Thumb-2</em> 和 <em>RV64IC</em>，支持16比特和32比特指令混合使用。通过这种方式降低程序大小。通过这种压缩方式编译的程序要比80x86要小）下图是RISC-V指令编码的示例：<br><img src="/images/isa-encoding.png" alt=""></li>
+<li><strong>编码ISA</strong>：
+在编码时有两种选择：定长和变长。所有的ARMv8和RISC-V指令的长度都是32比特，这样的定义方便了指令的解码过程。80x86是变长编码，指令长度1到18个字节。变长指令相对于定长指令可以占用更少的内存空间，因此为80x86编译的程序一般比RISC-V编译后的程序要小。指的注意的是，我们前述提到的ISA在设计上的选择都将影响指令在二进制形式下的编码方式。例如，由于在一个指令中，寄存器字段和寻址模式字段都可能反复出现，因此，寄存器数量和寻址模式都对指令大小有着重要的影响。（ARMv8和RISC-V后面都增加了支持变长的扩展：<em>Thumb-2</em>
+和
+<em>RV64IC</em>，支持16比特和32比特指令混合使用。通过这种方式降低程序大小。通过这种压缩方式编译的程序要比80x86要小）下图是RISC-V指令编码的示例：
+<img src="/images/isa-encoding.png" /></li>
 </ul>
 
         </div>
