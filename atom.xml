@@ -11,7 +11,7 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-08T07:49:38.467Z</updated>
+  <updated>2026-06-08T08:34:48.883Z</updated>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -27,11 +27,10 @@
     <published>2026-06-08T07:30:00.000Z</published>
     <summary>
       <![CDATA[<p>向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。</p>
-<hr />
 <h2]]>
     </summary>
     <title>向量的几何：减法、点积与距离</title>
-    <updated>2026-06-08T07:49:38.467Z</updated>
+    <updated>2026-06-08T08:34:48.883Z</updated>
   </entry>
   <entry>
     <author>
