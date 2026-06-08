@@ -842,9 +842,23 @@ img {
   max-width: 100%;
 }
 
+.post-content img[src*="vector-"] {
+  max-width: min(620px, 100%);
+  box-shadow: none;
+  border-radius: 10px;
+}
+
+.post-content img[src*="distance-relation"] {
+  max-width: min(680px, 100%);
+}
+
 .post-content img:hover {
   transform: scale(1.01);
   box-shadow: var(--shadow-lg);
+}
+
+.post-content img[src*="vector-"]:hover {
+  box-shadow: none;
 }
 
 .post-content figure {
