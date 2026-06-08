@@ -128,21 +128,19 @@
         </header>
 
         <div class="post-content" id="post-content">
-            <p>提供虚拟机服务的过程中，遇到了如下问题：</p>
+            <p>提供虚拟机服务的过程中，遇到了如下问题：  </p>
 <ul>
-<li>现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。<br />
-</li>
-<li>现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。<br />
-</li>
-<li>现象3：冷启动虚拟后，启动程序，问题消失。</li>
+<li>现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。  </li>
+<li>现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。  </li>
+<li>现象3：冷启动虚拟后，启动程序，问题消失。  </li>
 </ul>
-<p>该问题多次出现，升级宿主机到高版本内核问题消失，最终通过缩小范围，发现打入如下内核Patch后问题解决。</p>
+<p>该问题多次出现，升级宿主机到高版本内核问题消失，最终通过缩小范围，发现打入如下内核Patch后问题解决。  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d1fe9219551e914f26219afaca1063b280f25963 KVM: x86: reintroduce kvm_is_mmio_pfn</span><br></pre></td></tr></table></figure>
-<p>该Patch修复了在设置EPT 页表项时，将 "Zero Page" 当做MMIO
-Page处理导致页面无法缓存的问题：</p>
+<p>该Patch修复了在设置EPT 页表项时，将 “Zero Page” 当做MMIO Page处理导致页面无法缓存的问题：</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>Zero PFN</th>
 <th>EPT PTE</th>
@@ -151,14 +149,14 @@ Page处理导致页面无法缓存的问题：</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>修复前</td>
 <td>0x1c2a</td>
 <td>0x1c2a105</td>
 <td>UC</td>
 <td>uncacheable</td>
 </tr>
-<tr class="even">
+<tr>
 <td>修复后</td>
 <td>0x1c2a</td>
 <td>0x1c2a075</td>
@@ -167,44 +165,34 @@ Page处理导致页面无法缓存的问题：</p>
 </tr>
 </tbody>
 </table>
+</div>
 <ul>
-<li>注意不同内核”Zero Page”的PFN可能不同，上表中仅为示例</li>
+<li>注意不同内核”Zero Page”的PFN可能不同，上表中仅为示例  </li>
 </ul>
-<p>可以看到未修复前，"Zero Page"
-不能被缓存，为何这会导致迁移场景的问题，下面进行详细的分析。</p>
-<h3 id="什么是-zero-page">什么是 "Zero Page"</h3>
-<p>"Zero Page" 是内容全部为0的特殊只读页面。在x86体系结构下，"Zero Page"
-存储在内核BSS段中并在内核启动时清零。"Zero PFN" 是 "Zero Page"
-对应的物理页帧号。</p>
+<p>可以看到未修复前，”Zero Page” 不能被缓存，为何这会导致迁移场景的问题，下面进行详细的分析。</p>
+<h3 id="什么是-“Zero-Page”"><a href="#什么是-“Zero-Page”" class="headerlink" title="什么是 “Zero Page”"></a>什么是 “Zero Page”</h3><p>“Zero Page” 是内容全部为0的特殊只读页面。在x86体系结构下，”Zero Page” 存储在内核BSS段中并在内核启动时清零。”Zero PFN” 是 “Zero Page” 对应的物理页帧号。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__PAGE_ALIGNED_BSS NEXT_PAGE(empty_zero_page) .skip PAGE_SIZE EXPORT_SYMBOL(empty_zero_page)</span><br></pre></td></tr></table></figure>
-<h3 id="什么场景下会使用-zero-page">什么场景下会使用 "Zero Page"</h3>
-<p>最典型的场景：当读取未分配的匿名页时，会映射 "Zero Page"
-到访问地址，如下图所示：</p>
-<p><img src="/images/alloc_zero.png" /></p>
-<p>如果写入映射 "Zero Page" 的虚拟地址，会触发COW，分配新的页面。</p>
-<h3 id="虚拟机在线迁移和-zero-page-有什么关联">虚拟机在线迁移和 "Zero
-Page" 有什么关联？</h3>
-<p>虚拟机在线迁移过程中，会持续传输内存修改数据至目的端虚拟机，其中有如下判断。</p>
-<p><img src="/images/mig_zero.png" /></p>
-<p>在线迁移过程中，不传输内容为0的内存页。这可能造成 "Zero Page"
-变多，如下所示: * 在线迁移前，虚拟机存在内容为0的内存页。</p>
-<p><img src="/images/zero_before_mig.png" /></p>
+<h3 id="什么场景下会使用-“Zero-Page”"><a href="#什么场景下会使用-“Zero-Page”" class="headerlink" title="什么场景下会使用 “Zero Page”"></a>什么场景下会使用 “Zero Page”</h3><p>最典型的场景：当读取未分配的匿名页时，会映射 “Zero Page” 到访问地址，如下图所示：</p>
+<p><img src="/images/alloc_zero.png" alt=""></p>
+<p>如果写入映射 “Zero Page” 的虚拟地址，会触发COW，分配新的页面。</p>
+<h3 id="虚拟机在线迁移和-“Zero-Page”-有什么关联？"><a href="#虚拟机在线迁移和-“Zero-Page”-有什么关联？" class="headerlink" title="虚拟机在线迁移和 “Zero Page” 有什么关联？"></a>虚拟机在线迁移和 “Zero Page” 有什么关联？</h3><p>虚拟机在线迁移过程中，会持续传输内存修改数据至目的端虚拟机，其中有如下判断。</p>
+<p><img src="/images/mig_zero.png" alt=""></p>
+<p>在线迁移过程中，不传输内容为0的内存页。这可能造成 “Zero Page” 变多，如下所示:</p>
 <ul>
-<li>在线迁移后，由于未传输内容为0的内存页，对这些页面的读访问将映射到
-"Zero Page"</li>
+<li>在线迁移前，虚拟机存在内容为0的内存页。</li>
 </ul>
-<p><img src="/images/zero_after_mig.png" /></p>
+<p><img src="/images/zero_before_mig.png" alt=""></p>
 <ul>
-<li>如果 "Zero Page"
-无法缓存，对其的读访问会有较大开销，实际测试结果(仅供参考)。</li>
+<li>在线迁移后，由于未传输内容为0的内存页，对这些页面的读访问将映射到 “Zero Page”</li>
 </ul>
-<p><img src="/images/read_test.png" /></p>
+<p><img src="/images/zero_after_mig.png" alt=""></p>
+<ul>
+<li>如果 “Zero Page” 无法缓存，对其的读访问会有较大开销，实际测试结果(仅供参考)。</li>
+</ul>
+<p><img src="/images/read_test.png" alt=""></p>
 <p>（分配6GB内存空间并清零，顺序遍历读取整个6GB空间并统计完成时间）</p>
-<h3 id="总结">总结</h3>
-<p>该问题出现的根本原因是在线迁移之后，对 "Zero Page"
-的缓存类型设置有误，导致用户态程序访存能力下降，从而导致问题。</p>
-<p>需要注意的是，如果开启了透明大页，该问题的出现概率将大幅降低，具体原因和THP的
-"Zero Page" 实现有关，这里不做分析了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>该问题出现的根本原因是在线迁移之后，对 “Zero Page” 的缓存类型设置有误，导致用户态程序访存能力下降，从而导致问题。</p>
+<p>需要注意的是，如果开启了透明大页，该问题的出现概率将大幅降低，具体原因和THP的 “Zero Page” 实现有关，这里不做分析了。</p>
 
         </div>
 

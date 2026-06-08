@@ -8,39 +8,39 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<title>x86分页模式 | Garry&#39;s Blog</title>
-<meta name="description" content="x86体系结构下对于4K Page支持三种分页模式：4级64bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。 1 4级64bit：IA32e （long mode 模式下使用该paging mode 每级页表项均为64bit，CR3存储PML4 Table基地址 2">
+<title>向量减法的几何意义 | Garry&#39;s Blog</title>
+<meta name="description" content="向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,">
 <meta name="author" content="Garry Xu">
-<meta name="keywords" content="x86">
+<meta name="keywords" content="向量,线性代数,几何">
 
 <!-- Open Graph -->
-<meta property="og:title" content="x86分页模式 | Garry&#39;s Blog">
-<meta property="og:description" content="x86体系结构下对于4K Page支持三种分页模式：4级64bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。 1 4级64bit：IA32e （long mode 模式下使用该paging mode 每级页表项均为64bit，CR3存储PML4 Table基地址 2">
+<meta property="og:title" content="向量减法的几何意义 | Garry&#39;s Blog">
+<meta property="og:description" content="向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://garryx.com/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/">
-<meta property="og:image" content="https://garryx.com/covers/cover-x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:url" content="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
+<meta property="og:image" content="https://garryx.com/images/og-default.png">
 <meta property="og:site_name" content="Garry&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="x86分页模式 | Garry&#39;s Blog">
-<meta name="twitter:description" content="x86体系结构下对于4K Page支持三种分页模式：4级64bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。 1 4级64bit：IA32e （long mode 模式下使用该paging mode 每级页表项均为64bit，CR3存储PML4 Table基地址 2">
-<meta name="twitter:image" content="https://garryx.com/covers/cover-x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F.png">
+<meta name="twitter:title" content="向量减法的几何意义 | Garry&#39;s Blog">
+<meta name="twitter:description" content="向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,">
+<meta name="twitter:image" content="https://garryx.com/images/og-default.png">
 
-<link rel="canonical" href="https://garryx.com/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/">
+<link rel="canonical" href="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "x86分页模式 | Garry&#39;s Blog",
-  "description": "x86体系结构下对于4K Page支持三种分页模式：4级64bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。 1 4级64bit：IA32e （long mode 模式下使用该paging mode 每级页表项均为64bit，CR3存储PML4 Table基地址 2",
-  "url": "https://garryx.com/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/",
+  "headline": "向量减法的几何意义 | Garry&#39;s Blog",
+  "description": "向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} \vec{b}$ 究竟代表什么。 一、从代数到几何设平面向量 \vec{a} = ax,\ ay, \quad \vec{b} = bx,",
+  "url": "https://garryx.com/2026/06/08/vector-subtraction-geometry/",
   
-  "datePublished": "2017-09-11T16:00:00.000Z",
-  "dateModified": "2026-06-05T22:50:46.160Z",
+  "datePublished": "2026-06-08T07:30:00.000Z",
+  "dateModified": "2026-06-08T07:22:33.277Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -54,7 +54,7 @@
     }
   },
   
-  "image": "https://garryx.com/covers/cover-x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F.png"
+  "image": "https://garryx.com/images/og-default.png"
 }
 </script>
 
@@ -107,20 +107,24 @@
             
             <div class="post-header-category">
                 
-                    <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a>
+                    <a href="/categories/%E6%95%B0%E5%AD%A6/">数学</a>
                 
             </div>
             
-            <h1 class="post-title">x86分页模式</h1>
+            <h1 class="post-title">向量减法的几何意义</h1>
             <div class="post-header-meta">
-                <time datetime="2017-09-11T16:00:00.000Z">
-                    2017年9月12日
+                <time datetime="2026-06-08T07:30:00.000Z">
+                    2026年6月8日
                 </time>
                 
                 <span class="sep"></span>
                 <div class="post-header-tags">
                     
-                        <a href="/tags/x86/">#x86</a>
+                        <a href="/tags/%E5%90%91%E9%87%8F/">#向量</a>
+                    
+                        <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">#线性代数</a>
+                    
+                        <a href="/tags/%E5%87%A0%E4%BD%95/">#几何</a>
                     
                 </div>
                 
@@ -128,23 +132,66 @@
         </header>
 
         <div class="post-content" id="post-content">
-            <p>x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。</p>
-<p><strong>1) 4级64-bit：IA-32e （long mode) 模式下使用该paging mode</strong></p>
+            <p>向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} - \vec{b}$ 究竟代表什么。</p>
+<hr>
+<h2 id="一、从代数到几何"><a href="#一、从代数到几何" class="headerlink" title="一、从代数到几何"></a>一、从代数到几何</h2><p>设平面向量</p>
+<script type="math/tex; mode=display">
+\vec{a} = (a_x,\ a_y), \quad \vec{b} = (b_x,\ b_y)</script><p>则减法的代数定义很直接：</p>
+<script type="math/tex; mode=display">
+\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y)</script><p>但这个“分量相减”的规则，背后的几何意义是什么？</p>
+<hr>
+<h2 id="二、三角形法则"><a href="#二、三角形法则" class="headerlink" title="二、三角形法则"></a>二、三角形法则</h2><p>将 $\vec{a}$ 与 $\vec{b}$ 的<strong>起点放在同一点</strong> $O$，分别达到终点 $A$ 和 $B$：</p>
+<script type="math/tex; mode=display">
+\vec{a} = \overrightarrow{OA}, \quad \vec{b} = \overrightarrow{OB}</script><p>那么从 $B$ 指向 $A$ 的向量 $\overrightarrow{BA}$ 就等于 $\vec{a} - \vec{b}$：</p>
+<script type="math/tex; mode=display">
+\boxed{\vec{a} - \vec{b} = \overrightarrow{BA}}</script><p><img src="/images/vector-subtraction-geom.png" alt="向量减法的三角形法则"></p>
+<p>&gt;<br><strong>核心观察</strong>：三个向量 $\vec{a}$ (紫色)、$\vec{b}$ (靛蓝) 和 $\vec{a}-\vec{b}$ (品红) 构成一个三角形。减法结果的方向总是指向<strong>被减向量的终点</strong>。</p>
+<hr>
+<h2 id="三、平行四边形法则"><a href="#三、平行四边形法则" class="headerlink" title="三、平行四边形法则"></a>三、平行四边形法则</h2><p>如果将 $\vec{a} - \vec{b}$ 的起点也放在 $O$，得到点 $C$，则 $OACB$ 构成平行四边形。这与向量加法的平行囻边形法则形成对称：</p>
 <ul>
-<li>每级页表项均为64bit，CR3存储PML4 Table基地址</li>
+<li><strong>加法</strong>：$\vec{a} + \vec{b}$ 是平行四边形的对角线 $\overrightarrow{OC}$</li>
+<li><strong>减法</strong>：$\vec{a} - \vec{b}$ 是另一条对角线 $\overrightarrow{BA}$（从 $\vec{b}$ 终点指向 $\vec{a}$ 终点）</li>
 </ul>
-<p><img src="/images/paging_64_4.png" alt=""></p>
-<p><strong>2) 3级64-bit：IA-32模式下，开启PAE 关闭PSE，使用该paging mode</strong></p>
-<ul>
-<li>每级页表项均为64bit，CR3存储PDPT Table基地址</li>
-<li>每个逻辑处理器维护四个PDPTE寄存器，寄存器的值由CR3指向的地址读取</li>
-</ul>
-<p><img src="/images/paging_64_3.png" alt=""></p>
-<p><strong>3) 2级32bit：IA-32模式下，关闭PAE，关闭PSE，使用该paging mode</strong></p>
-<ul>
-<li>每级页表项均为32bit，CR3存储PD Table基地址</li>
-</ul>
-<p><img src="/images/paging_32_2.png" alt=""></p>
+<p>这说明向量加法与减法在几何上是同一结构的两个视角。</p>
+<hr>
+<h2 id="四、坐标视角的另一种理解"><a href="#四、坐标视角的另一种理解" class="headerlink" title="四、坐标视角的另一种理解"></a>四、坐标视角的另一种理解</h2><p><img src="/images/vector-subtraction-formula.png" alt="向量减法的坐标表示"></p>
+<p>从坐标视角看，减法可以理解为：</p>
+<script type="math/tex; mode=display">
+\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y) = \vec{a} + (-\vec{b})</script><p>即<strong>先取 $\vec{b}$ 的相反向量</strong>（方向反转），<strong>再与 $\vec{a}$ 相加</strong>。这也是“减法即加法的逆运算”的几何体现。</p>
+<hr>
+<h2 id="五、为什么这个观察很重要"><a href="#五、为什么这个观察很重要" class="headerlink" title="五、为什么这个观察很重要"></a>五、为什么这个观察很重要</h2><p>向量减法的几何意义在实际应用中无处不在：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>几何意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理中的相对速度</td>
+<td>$\vec{v}_{\text{相对}} = \vec{v}_A - \vec{v}_B$ 即从 $B$ 指向 $A$ 的速度变化</td>
+</tr>
+<tr>
+<td>计算机图形学</td>
+<td>两点之间的方向向量</td>
+</tr>
+<tr>
+<td>机器学习</td>
+<td>特征向量差异、梯度方向</td>
+</tr>
+<tr>
+<td>游戏开发</td>
+<td>角色 A 到角色 B 的朝向向量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>掌握了“减法 = 终点指向终点”这个几何直觉，很多算法和物理公式就不再是抽象符号，而是可以在脑海中直接“看见”的图形。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><script type="math/tex; mode=display">
+\vec{a} - \vec{b} = \overrightarrow{BA}</script><p><strong>将两向量起点重合，减法结果从 $\vec{b}$ 的终点指向 $\vec{a}$ 的终点。</strong>这就是向量减法最简洁也最强大的几何意义。</p>
 
         </div>
 
@@ -178,11 +225,11 @@
         <nav class="post-nav">
             <div class="post-nav-inner">
                 
-                <a href="/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/" class="post-nav-link post-nav-prev">
-                    <span class="nav-dir">← 上一篇</span>
-                    <span class="nav-title">页表项详解</span>
-                </a>
                 
+                <a href="/2026/06/08/ai-daily-2026-06-08/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权</span>
+                </a>
                 
             </div>
         </nav>

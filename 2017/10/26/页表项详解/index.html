@@ -129,85 +129,68 @@
 
         <div class="post-content" id="post-content">
             <blockquote>
-<p>以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
-Software Developer’s Manual”</p>
+<p>以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures Software Developer’s Manual”</p>
 </blockquote>
-<p>页表是实现地址翻译的重要结构，其中，Page Table Entry
-(PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控制、缺页处理等机制都有着重要的意义。</p>
-<h3 id="pte的内部结构如下图所示">PTE的内部结构如下图所示：</h3>
-<p><img src="/images/ptev2.png" /></p>
-<h3 id="关键控制位的详细解释">关键控制位的详细解释</h3>
+<p>页表是实现地址翻译的重要结构，其中，Page Table Entry (PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控制、缺页处理等机制都有着重要的意义。</p>
+<h3 id="PTE的内部结构如下图所示："><a href="#PTE的内部结构如下图所示：" class="headerlink" title="PTE的内部结构如下图所示："></a>PTE的内部结构如下图所示：</h3><p><img src="/images/ptev2.png" alt=""></p>
+<h3 id="关键控制位的详细解释"><a href="#关键控制位的详细解释" class="headerlink" title="关键控制位的详细解释"></a>关键控制位的详细解释</h3><div class="table-container">
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th style="text-align: left;">比特位</th>
-<th style="text-align: left;">简称</th>
-<th style="text-align: left;">说明</th>
+<tr>
+<th style="text-align:left">比特位</th>
+<th style="text-align:left">简称</th>
+<th style="text-align:left">说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">P</td>
-<td
-style="text-align: left;">表示页帧是否存在；如果P值为0，访问该页帧将触发
-Page Fault</td>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">P</td>
+<td style="text-align:left">表示页帧是否存在；如果P值为0，访问该页帧将触发 Page Fault</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">R/W</td>
-<td
-style="text-align: left;">表示页帧的读写权限；如果值为0，表示页帧不能被修改（R/W生效，依赖CR0
-Write Protect比特置位</td>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">R/W</td>
+<td style="text-align:left">表示页帧的读写权限；如果值为0，表示页帧不能被修改（R/W生效，依赖CR0 Write Protect比特置位</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">U/S</td>
-<td
-style="text-align: left;">表示页帧对用户态和内核态访问的限制；如果值为0，
-不允许用户态访问</td>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">U/S</td>
+<td style="text-align:left">表示页帧对用户态和内核态访问的限制；如果值为0， 不允许用户态访问</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">PWT</td>
-<td style="text-align: left;">PAT，PCD和PWT位组成Page Attribute
-Table的索引，表示页帧的缓存模式</td>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">PWT</td>
+<td style="text-align:left">PAT，PCD和PWT位组成Page Attribute Table的索引，表示页帧的缓存模式</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">PCD</td>
-<td style="text-align: left;">见PWT说明</td>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">PCD</td>
+<td style="text-align:left">见PWT说明</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">A</td>
-<td
-style="text-align: left;">表示PTE是否被访问过；若处理器在地址翻译的过程中使用了该PTE，则置位该PTE的A位</td>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">A</td>
+<td style="text-align:left">表示PTE是否被访问过；若处理器在地址翻译的过程中使用了该PTE，则置位该PTE的A位</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">D</td>
-<td
-style="text-align: left;">表示页帧被修改过；若处理器发现对线性地址的写操作，置位对应PTE的D位</td>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">D</td>
+<td style="text-align:left">表示页帧被修改过；若处理器发现对线性地址的写操作，置位对应PTE的D位</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">PAT</td>
-<td style="text-align: left;">见PWT说明</td>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">PAT</td>
+<td style="text-align:left">见PWT说明</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">G</td>
-<td
-style="text-align: left;">表示页帧为全局页，TLB中该页帧对应的地址转换，不会在进程切换时清空</td>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">G</td>
+<td style="text-align:left">表示页帧为全局页，TLB中该页帧对应的地址转换，不会在进程切换时清空</td>
 </tr>
 </tbody>
 </table>
+</div>
 <ul>
 <li>A位和D位只能由软件清除</li>
 </ul>

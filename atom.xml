@@ -11,7 +11,26 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-08T05:52:10.745Z</updated>
+  <updated>2026-06-08T07:22:33.277Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="数学" scheme="https://garryx.com/categories/%E6%95%B0%E5%AD%A6/"/>
+    <category term="向量" scheme="https://garryx.com/tags/%E5%90%91%E9%87%8F/"/>
+    <category term="线性代数" scheme="https://garryx.com/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
+    <category term="几何" scheme="https://garryx.com/tags/%E5%87%A0%E4%BD%95/"/>
+    <id>https://garryx.com/2026/06/08/vector-subtraction-geometry/</id>
+    <link href="https://garryx.com/2026/06/08/vector-subtraction-geometry/"/>
+    <published>2026-06-08T07:30:00.000Z</published>
+    <summary>
+      <![CDATA[<p>向量减法是线性代数中最基础也最容易被忽视的操作之一。很多人熟悉向量加法的平行四边形法则，却对减法的几何意义感到模糊。本文用几何图解和代数公式两种视角，帮你彻底理解 $\vec{a} - \vec{b}$ 究竟代表什么。</p>
+<hr>
+<h2]]>
+    </summary>
+    <title>向量减法的几何意义</title>
+    <updated>2026-06-08T07:22:33.277Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -24,9 +43,7 @@
     <link href="https://garryx.com/2026/06/08/ai-daily-2026-06-08/"/>
     <published>2026-06-08T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS
-27首次允许用户在 <strong>ChatGPT、Google]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS]]>
     </summary>
     <title>【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权</title>
     <updated>2026-06-08T05:52:10.745Z</updated>
@@ -43,7 +60,7 @@
     <link href="https://garryx.com/2026/06/05/ai-daily-2026-06-05/"/>
     <published>2026-06-05T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>OpenAI于6月4日推出<strong>Dreaming]]>
     </summary>
     <title>【AI 日报】OpenAI发布Dreaming V3，ChatGPT记忆能力全面升级</title>
     <updated>2026-06-05T07:13:55.012Z</updated>
@@ -60,8 +77,7 @@
     <link href="https://garryx.com/2026/06/04/ai-daily-2026-06-04/"/>
     <published>2026-06-04T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>GitHub]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>GitHub Copilot]]>
     </summary>
     <title>【AI 日报】GitHub Copilot按量计费暴涨60倍，开发者补贴时代终结</title>
     <updated>2026-06-05T07:13:34.971Z</updated>
@@ -78,10 +94,7 @@
     <link href="https://garryx.com/2026/06/03/ai-daily-2026-06-03/"/>
     <published>2026-06-03T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>微软Build 2026 Day 2 发布自研推理模型
-<strong>MAI-Thinking-1</strong>、端侧模型 <strong>Aion
-1.0</strong>、<strong>Windows]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>微软Build 2026 Day 2 发布自研推理模型]]>
     </summary>
     <title>【AI 日报】微软Build发布自研推理模型MAI-Thinking-1，Windows全面Agent化</title>
     <updated>2026-06-05T07:13:14.930Z</updated>
@@ -97,10 +110,7 @@
     <published>2023-01-12T09:18:52.000Z</published>
     <summary>
       <![CDATA[<blockquote>
-<p>以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt</p>
-</blockquote>
-<h2 id="基本描述">1. 基本描述</h2>
-<p>KVM]]>
+<p>以下笔记来自阅读：<a]]>
     </summary>
     <title>KVM API 简介</title>
     <updated>2026-06-05T07:09:54.123Z</updated>
@@ -114,8 +124,7 @@
     <link href="https://garryx.com/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/"/>
     <published>2022-08-31T07:30:09.000Z</published>
     <summary>
-      <![CDATA[<p>阿里云在今年的网络顶会SIGCOMM上发表了一篇论文："From Luna to Solar:
-The Evolutions of the Compute-to-Storage Networks in]]>
+      <![CDATA[<p>阿里云在今年的网络顶会SIGCOMM上发表了一篇论文：”From Luna to Solar: The Evolutions of the Compute-to-Storage Networks in Alibaba Cloud”。]]>
     </summary>
     <title>阿里云SIGCOMM22论文阅读</title>
     <updated>2026-06-05T07:09:54.370Z</updated>
@@ -131,10 +140,8 @@ The Evolutions of the Compute-to-Storage Networks in]]>
     <published>2022-03-23T01:59:05.000Z</published>
     <summary>
       <![CDATA[<blockquote>
-<p>以下笔记来自阅读：x86 Instruction Set Architecture - MindShare</p>
-</blockquote>
-<blockquote>
-<p>本文以Intel处理器作为阐述目标。AMD处理器差异点可以参考:]]>
+<p>以下笔记来自阅读：x86 Instruction Set Architecture - MindShare  </p>
+<p>本文以Intel处理器作为阐述目标。AMD处理器差异点可以参考: <a]]>
     </summary>
     <title>x86指令集架构</title>
     <updated>2026-06-05T07:09:54.214Z</updated>
@@ -150,10 +157,7 @@ The Evolutions of the Compute-to-Storage Networks in]]>
     <published>2022-03-21T02:24:05.000Z</published>
     <summary>
       <![CDATA[<blockquote>
-<p>以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html</p>
-</blockquote>
-<hr />
-<h3 id="linuxx86-引导协议">Linux/x86]]>
+<p>以下笔记来自阅读：<a]]>
     </summary>
     <title>Linux内核引导</title>
     <updated>2026-06-05T07:09:54.159Z</updated>
@@ -167,8 +171,7 @@ The Evolutions of the Compute-to-Storage Networks in]]>
     <link href="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/"/>
     <published>2022-03-14T03:57:01.000Z</published>
     <summary>
-      <![CDATA[<div class="line-block">以下笔记 来自阅读：Hennessy J L, Patterson D A.
-Computer Architecture: A Quantitative Approach 6th Edition.]]>
+      <![CDATA[<p>| 以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition.  2019.]]>
     </summary>
     <title>指令集架构</title>
     <updated>2026-06-05T07:09:54.285Z</updated>
@@ -183,8 +186,7 @@ Computer Architecture: A Quantitative Approach 6th Edition.]]>
     <published>2022-03-07T07:38:42.000Z</published>
     <summary>
       <![CDATA[<blockquote>
-<p>以下笔记来自阅读：Knuth D E , Morris J H , Pratt V R . Fast Pattern
-Matching in Strings[J]. Siam Journal on Computing,]]>
+<p>以下笔记来自阅读：Knuth D E , Morris J H , Pratt V R . Fast Pattern Matching in Strings[J]. Siam Journal on Computing, 1977,]]>
     </summary>
     <title>KMP算法</title>
     <updated>2026-06-05T07:09:54.079Z</updated>
@@ -199,8 +201,7 @@ Matching in Strings[J]. Siam Journal on Computing,]]>
     <link href="https://garryx.com/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
     <published>2022-02-22T03:52:17.000Z</published>
     <summary>
-      <![CDATA[<p>在“<a
-href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/">虚拟化]]>
+      <![CDATA[<p>在“<a]]>
     </summary>
     <title>硬件虚拟化</title>
     <updated>2026-06-05T07:09:54.317Z</updated>
@@ -215,8 +216,7 @@ href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%A
     <link href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/"/>
     <published>2022-02-07T11:51:17.000Z</published>
     <summary>
-      <![CDATA[<p>虚拟化是一种让人着迷的技术，其知识背景贯穿底层硬件到上层应用，也是目前云计算服务的基础。本文及后续文章，期望通过“虚拟化简介”这一系列，管中窥豹，将虚拟化技术的魅力阐述一二，也算是对自己多年工作的一个总结。</p>
-<p>在展开描述虚拟化之前，有必要对虚拟化的概念和技术分类]]>
+      <![CDATA[<p>虚拟化是一种让人着迷的技术，其知识背景贯穿底层硬件到上层应用，也是目前云计算服务的基础。本文及后续文章，期望通过“虚拟化简介”这一系列，管中窥豹，将虚拟化技术的魅力阐述一二，也算是对自己多年工作的一个总结。]]>
     </summary>
     <title>虚拟化技术概念及分类</title>
     <updated>2026-06-05T07:09:54.338Z</updated>
@@ -231,9 +231,9 @@ href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%A
     <link href="https://garryx.com/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/"/>
     <published>2020-02-19T16:00:00.000Z</published>
     <summary>
-      <![CDATA[<p>提供虚拟机服务的过程中，遇到了如下问题：</p>
+      <![CDATA[<p>提供虚拟机服务的过程中，遇到了如下问题：  </p>
 <ul>
-<li>现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。<br]]>
+<li>现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。]]>
     </summary>
     <title>在线迁移后虚拟机CPU利用率飙升问题分析</title>
     <updated>2026-06-05T07:09:54.249Z</updated>
@@ -249,8 +249,7 @@ href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%A
     <published>2017-10-25T16:00:00.000Z</published>
     <summary>
       <![CDATA[<blockquote>
-<p>以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
-Software Developer’s]]>
+<p>以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures Software Developer’s]]>
     </summary>
     <title>页表项详解</title>
     <updated>2026-06-05T22:50:46.160Z</updated>
@@ -265,8 +264,7 @@ Software Developer’s]]>
     <link href="https://garryx.com/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/"/>
     <published>2017-09-11T16:00:00.000Z</published>
     <summary>
-      <![CDATA[<p>x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和
-2级32bit。使用大页会产生更多的paging mode，这里不做介绍。</p>
+      <![CDATA[<p>x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。</p>
 <p><strong>1) 4级64-bit：IA-32e （long mode)]]>
     </summary>
     <title>x86分页模式</title>

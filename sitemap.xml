@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://garryx.com/2026/06/08/vector-subtraction-geometry/</loc>
+    
+    <lastmod>2026-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://garryx.com/2026/06/08/ai-daily-2026-06-08/</loc>
     
     <lastmod>2026-06-08</lastmod>
@@ -210,14 +219,35 @@
   </url>
   
   <url>
-    <loc>https://garryx.com/tags/x86/</loc>
+    <loc>https://garryx.com/tags/Kernel/</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://garryx.com/tags/Kernel/</loc>
+    <loc>https://garryx.com/tags/%E5%90%91%E9%87%8F/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://garryx.com/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://garryx.com/tags/%E5%87%A0%E4%BD%95/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://garryx.com/tags/x86/</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -240,6 +270,13 @@
 
   
   <url>
+    <loc>https://garryx.com/categories/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://garryx.com/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -254,7 +291,7 @@
   </url>
   
   <url>
-    <loc>https://garryx.com/categories/%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://garryx.com/categories/%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
