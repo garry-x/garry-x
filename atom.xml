@@ -11,7 +11,27 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-08T12:57:49.694Z</updated>
+  <updated>2026-06-09T00:07:52.416Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/09/ai-daily-2026-06-09/</id>
+    <link href="https://garryx.com/2026/06/09/ai-daily-2026-06-09/"/>
+    <published>2026-06-09T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>今天的主线不是又一个聊天机器人，而是 AI
+基础设施和成本结构继续收紧：NVIDIA 与 SK hynix 建立多年合作，围绕 AI
+工厂共同开发下一代内存；DeepSeek V4]]>
+    </summary>
+    <title>【AI 日报】英伟达与SK海力士锁定AI工厂内存战</title>
+    <updated>2026-06-09T00:07:52.416Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>

@@ -8,39 +8,39 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<title>向量的几何：减法、点积与距离 | Garry&#39;s Blog</title>
-<meta name="description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
+<title>【AI 日报】英伟达与SK海力士锁定AI工厂内存战 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览 今天的主线不是又一个聊天机器人，而是 AI 基础设施和成本结构继续收紧：NVIDIA 与 SK hynix 建立多年合作，围绕 AI 工厂共同开发下一代内存；DeepSeek V4 Pro 继续用“高性能+低价格”冲击闭源模型；Token 计费、企业 API 涨价和 AI 支付协议成为商业化落地的关键变">
 <meta name="author" content="Garry Xu">
-<meta name="keywords" content="向量,线性代数,几何,点积,相似度">
+<meta name="keywords" content="AI,人工智能,日报">
 
 <!-- Open Graph -->
-<meta property="og:title" content="向量的几何：减法、点积与距离 | Garry&#39;s Blog">
-<meta property="og:description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
+<meta property="og:title" content="【AI 日报】英伟达与SK海力士锁定AI工厂内存战 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览 今天的主线不是又一个聊天机器人，而是 AI 基础设施和成本结构继续收紧：NVIDIA 与 SK hynix 建立多年合作，围绕 AI 工厂共同开发下一代内存；DeepSeek V4 Pro 继续用“高性能+低价格”冲击闭源模型；Token 计费、企业 API 涨价和 AI 支付协议成为商业化落地的关键变">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
+<meta property="og:url" content="https://garryx.com/2026/06/09/ai-daily-2026-06-09/">
 <meta property="og:image" content="https://garryx.com/images/og-default.png">
 <meta property="og:site_name" content="Garry&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="向量的几何：减法、点积与距离 | Garry&#39;s Blog">
-<meta name="twitter:description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
+<meta name="twitter:title" content="【AI 日报】英伟达与SK海力士锁定AI工厂内存战 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览 今天的主线不是又一个聊天机器人，而是 AI 基础设施和成本结构继续收紧：NVIDIA 与 SK hynix 建立多年合作，围绕 AI 工厂共同开发下一代内存；DeepSeek V4 Pro 继续用“高性能+低价格”冲击闭源模型；Token 计费、企业 API 涨价和 AI 支付协议成为商业化落地的关键变">
 <meta name="twitter:image" content="https://garryx.com/images/og-default.png">
 
-<link rel="canonical" href="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
+<link rel="canonical" href="https://garryx.com/2026/06/09/ai-daily-2026-06-09/">
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "向量的几何：减法、点积与距离 | Garry&#39;s Blog",
-  "description": "向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代",
-  "url": "https://garryx.com/2026/06/08/vector-subtraction-geometry/",
+  "headline": "【AI 日报】英伟达与SK海力士锁定AI工厂内存战 | Garry&#39;s Blog",
+  "description": "🔦 今日速览 今天的主线不是又一个聊天机器人，而是 AI 基础设施和成本结构继续收紧：NVIDIA 与 SK hynix 建立多年合作，围绕 AI 工厂共同开发下一代内存；DeepSeek V4 Pro 继续用“高性能+低价格”冲击闭源模型；Token 计费、企业 API 涨价和 AI 支付协议成为商业化落地的关键变",
+  "url": "https://garryx.com/2026/06/09/ai-daily-2026-06-09/",
   
-  "datePublished": "2026-06-08T07:30:00.000Z",
-  "dateModified": "2026-06-08T12:57:49.694Z",
+  "datePublished": "2026-06-09T00:00:00.000Z",
+  "dateModified": "2026-06-09T00:07:52.416Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -65,19 +65,6 @@
 
 <link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
 
-
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['\\(', '\\)']],
-    displayMath: [['\\[', '\\]']],
-    processEscapes: true,
-    tags: 'ams'
-  },
-  svg: { fontCache: 'global' }
-};
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 
 <!-- hexo injector head_end start -->
@@ -121,28 +108,24 @@ MathJax = {
             
             <div class="post-header-category">
                 
-                    <a href="/categories/%E6%95%B0%E5%AD%A6/">数学</a>
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
                 
             </div>
             
-            <h1 class="post-title">向量的几何：减法、点积与距离</h1>
+            <h1 class="post-title">【AI 日报】英伟达与SK海力士锁定AI工厂内存战</h1>
             <div class="post-header-meta">
-                <time datetime="2026-06-08T07:30:00.000Z">
-                    2026年6月8日
+                <time datetime="2026-06-09T00:00:00.000Z">
+                    2026年6月9日
                 </time>
                 
                 <span class="sep"></span>
                 <div class="post-header-tags">
                     
-                        <a href="/tags/%E5%90%91%E9%87%8F/">#向量</a>
+                        <a href="/tags/AI/">#AI</a>
                     
-                        <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">#线性代数</a>
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
                     
-                        <a href="/tags/%E5%87%A0%E4%BD%95/">#几何</a>
-                    
-                        <a href="/tags/%E7%82%B9%E7%A7%AF/">#点积</a>
-                    
-                        <a href="/tags/%E7%9B%B8%E4%BC%BC%E5%BA%A6/">#相似度</a>
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
                     
                 </div>
                 
@@ -150,263 +133,160 @@ MathJax = {
         </header>
 
         <div class="post-content" id="post-content">
-            <p>向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。</p>
-<h2 id="一从代数到几何">一、从代数到几何</h2>
-<p>设平面向量</p>
-<p><span class="math display">\[
-\vec{a} = (a_x,\ a_y), \quad \vec{b} = (b_x,\ b_y)
-\]</span></p>
-<p>则减法的代数定义很直接：</p>
-<p><span class="math display">\[
-\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y)
-\]</span></p>
-<p>但这个"分量相减"的规则，背后的几何意义是什么？</p>
-<h2 id="二三角形法则">二、三角形法则</h2>
-<p>将 <span class="math inline">\(\vec{a}\)</span> 与 <span
-class="math inline">\(\vec{b}\)</span> 的<strong>起点放在同一点</strong>
-<span class="math inline">\(O\)</span>，分别达到终点 <span
-class="math inline">\(A\)</span> 和 <span
-class="math inline">\(B\)</span>：</p>
-<p><span class="math display">\[
-\vec{a} = \overrightarrow{OA}, \quad \vec{b} = \overrightarrow{OB}
-\]</span></p>
-<p>那么从 <span class="math inline">\(B\)</span> 指向 <span
-class="math inline">\(A\)</span> 的向量 <span
-class="math inline">\(\overrightarrow{BA}\)</span> 就等于 <span
-class="math inline">\(\vec{a} - \vec{b}\)</span>：</p>
-<p><span class="math display">\[
-\boxed{\vec{a} - \vec{b} = \overrightarrow{BA}}
-\]</span></p>
-<figure>
-<img src="/images/vector-subtraction-geom.png"
-alt="向量减法的三角形法则" />
-<figcaption aria-hidden="true">向量减法的三角形法则</figcaption>
-</figure>
-<p><strong>核心观察</strong>：三个向量 <span
-class="math inline">\(\vec{a}\)</span> (紫色)、<span
-class="math inline">\(\vec{b}\)</span> (靛蓝) 和 <span
-class="math inline">\(\vec{a}-\vec{b}\)</span> (品红)
-构成一个三角形。减法结果的方向总是指向<strong>被减向量的终点</strong>。</p>
-<h2 id="三平行四边形法则">三、平行四边形法则</h2>
-<p>如果将 <span class="math inline">\(\vec{a} - \vec{b}\)</span>
-的起点也放在 <span class="math inline">\(O\)</span>，得到点 <span
-class="math inline">\(C\)</span>，则 <span
-class="math inline">\(OACB\)</span>
-构成平行四边形。这与向量加法的平行四边形法则形成对称：</p>
-<ul>
-<li><strong>加法</strong>：<span class="math inline">\(\vec{a} +
-\vec{b}\)</span> 是平行四边形的对角线 <span
-class="math inline">\(\overrightarrow{OC}\)</span></li>
-<li><strong>减法</strong>：<span class="math inline">\(\vec{a} -
-\vec{b}\)</span> 是另一条对角线 <span
-class="math inline">\(\overrightarrow{BA}\)</span>（从 <span
-class="math inline">\(\vec{b}\)</span> 终点指向 <span
-class="math inline">\(\vec{a}\)</span> 终点）</li>
-</ul>
-<p>这说明向量加法与减法在几何上是同一结构的两个视角。</p>
-<h2 id="四坐标视角的另一种理解">四、坐标视角的另一种理解</h2>
-<p>从坐标视角看，减法可以理解为：</p>
-<p><span class="math display">\[
-\vec{a} - \vec{b} = (a_x - b_x,\ a_y - b_y) = \vec{a} + (-\vec{b})
-\]</span></p>
-<p>即<strong>先取 <span class="math inline">\(\vec{b}\)</span>
-的相反向量</strong>（方向反转），<strong>再与 <span
-class="math inline">\(\vec{a}\)</span>
-相加</strong>。这也是"减法即加法的逆运算"的几何体现。</p>
-<h2 id="五从减法到点积">五、从减法到点积</h2>
-<p>减法回答了"两个向量相差多少"，点积则回答"两个向量有多像"。</p>
-<p>点积的代数定义：</p>
-<p><span class="math display">\[
-\vec{a} \cdot \vec{b} = a_x b_x + a_y b_y
-\]</span></p>
-<p>但它还有更深刻的几何定义：</p>
-<p><span class="math display">\[
-\boxed{\vec{a} \cdot \vec{b} = |\vec{a}|\ |\vec{b}|\ \cos\theta}
-\]</span></p>
-<p>其中 <span class="math inline">\(\theta\)</span>
-是两向量之间的夹角。</p>
-<h2 id="六点积的几何意义投影">六、点积的几何意义：投影</h2>
-<p>将 <span class="math inline">\(\vec{a}\)</span> 投影到 <span
-class="math inline">\(\vec{b}\)</span> 方向上，投影长度正是 <span
-class="math inline">\(|\vec{a}|\cos\theta\)</span>：</p>
-<p><span class="math display">\[
-\text{proj}_{\vec{b}}(\vec{a}) = \frac{\vec{a} \cdot \vec{b}}{|\vec{b}|}
-\]</span></p>
-<p>点积本质上度量了<strong>一个向量在另一个向量方向上的"分量"</strong>。</p>
-<figure>
-<img src="/images/vector-dot-product-projection.png"
-alt="点积的几何意义：投影" />
-<figcaption aria-hidden="true">点积的几何意义：投影</figcaption>
-</figure>
-<blockquote>
-<p><strong>投影分解</strong>：<span
-class="math inline">\(\vec{a}\)</span> 可以分解为沿 <span
-class="math inline">\(\vec{b}\)</span> 方向的分量（投影，品红）和垂直于
-<span class="math inline">\(\vec{b}\)</span> 的分量（<span
-class="math inline">\(\vec{a}_\perp\)</span>）。点积只关心“同向”的那部分。</p>
-</blockquote>
-<h2
-id="七余弦相似度角度作为相似度量">七、余弦相似度：角度作为相似度量</h2>
-<p>从点积的几何公式出发，可以定义余弦相似度：</p>
-<p><span class="math display">\[
-\cos\theta = \frac{\vec{a} \cdot \vec{b}}{|\vec{a}|\ |\vec{b}|}
-\]</span></p>
-<p>它将点积归一化到 <span class="math inline">\([-1, 1]\)</span>
-区间，纯粹反映<strong>方向的一致性</strong>，与向量长度无关：</p>
-<figure>
-<img src="/images/vector-cosine-similarity.png"
-alt="余弦相似度的三种典型情况" />
-<figcaption aria-hidden="true">余弦相似度的三种典型情况</figcaption>
-</figure>
-<table>
-<thead>
-<tr class="header">
-<th>夹角 <span class="math inline">\(\theta\)</span></th>
-<th><span class="math inline">\(\cos\theta\)</span></th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(0°\)</span>（同向）</td>
-<td><span class="math inline">\(+1\)</span></td>
-<td>方向完全一致，最相似</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(90°\)</span>（垂直）</td>
-<td><span class="math inline">\(0\)</span></td>
-<td>方向无关，无相似性</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(180°\)</span>（反向）</td>
-<td><span class="math inline">\(-1\)</span></td>
-<td>方向完全相反</td>
-</tr>
-</tbody>
-</table>
-<p><strong>关键洞察</strong>：余弦相似度忽略向量长度，只关心"指向哪里"。在自然语言处理中，这对应"语义相似但篇幅不同"的文本；在推荐系统中，对应"偏好方向一致但活跃度不同"的用户。</p>
-<h2
-id="八向量距离欧氏距离与点积的关系">八、向量距离：欧氏距离与点积的关系</h2>
-<p>减法给出了两个向量的"差向量" <span class="math inline">\(\vec{a} -
-\vec{b}\)</span>。它的长度——<strong>欧氏距离</strong>——是衡量向量差异的最直接方式：</p>
-<p><span class="math display">\[
-\|\vec{a} - \vec{b}\| = \sqrt{(a_x - b_x)^2 + (a_y - b_y)^2}
-\]</span></p>
-<p>有趣的是，欧氏距离的平方可以直接用点积表示：</p>
-<p><span class="math display">\[
-\|\vec{a} - \vec{b}\|^2 = |\vec{a}|^2 + |\vec{b}|^2 -
-2\,\vec{a}\cdot\vec{b}
-\]</span></p>
-<p>这就是<strong>余弦定理的向量形式</strong>。它揭示了深刻的事实：</p>
-<p><strong>距离与相似度是一枚硬币的两面</strong>——点积越大（越相似），欧氏距离越小（越接近）。</p>
-<figure>
-<img src="/images/vector-mermaid/distance-relation.png"
-alt="距离与点积的关系" />
-<figcaption aria-hidden="true">距离与点积的关系</figcaption>
-</figure>
-<h2 id="九统一视角内积空间中的几何">九、统一视角：内积空间中的几何</h2>
-<p>将以上概念放入统一的框架——<strong>内积空间</strong>：</p>
-<table>
-<colgroup>
-<col style="width: 28%" />
-<col style="width: 28%" />
-<col style="width: 42%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>概念</th>
-<th>公式</th>
-<th>几何意义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>长度（范数）</td>
-<td><span class="math inline">\(\|\vec{a}\| =
-\sqrt{\vec{a}\cdot\vec{a}}\)</span></td>
-<td>向量到原点的距离</td>
-</tr>
-<tr class="even">
-<td>距离</td>
-<td><span class="math inline">\(\|\vec{a} - \vec{b}\|\)</span></td>
-<td>两点间的直线距离</td>
-</tr>
-<tr class="odd">
-<td>相似度</td>
-<td><span class="math inline">\(\cos\theta =
-\frac{\vec{a}\cdot\vec{b}}{\|\vec{a}\|\|\vec{b}\|}\)</span></td>
-<td>方向一致性</td>
-</tr>
-<tr class="even">
-<td>投影</td>
-<td><span class="math inline">\(\text{proj}_{\vec{b}}(\vec{a}) =
-\frac{\vec{a}\cdot\vec{b}}{\|\vec{b}\|}\)</span></td>
-<td>沿某方向的分量</td>
-</tr>
-</tbody>
-</table>
-<p>所有概念都源于同一个操作——<strong>内积（点积）</strong>。在内积空间中，几何直觉与代数计算完美融合。</p>
-<h2 id="十为什么这套直觉很重要">十、为什么这套直觉很重要</h2>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 37%" />
-<col style="width: 37%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>场景</th>
-<th>所用概念</th>
-<th>具体含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>物理中的相对速度</td>
-<td>减法</td>
-<td><span class="math inline">\(\vec{v}_{\text{相对}} = \vec{v}_A -
-\vec{v}_B\)</span></td>
-</tr>
-<tr class="even">
-<td>文本语义搜索</td>
-<td>余弦相似度</td>
-<td>查询与文档的语义方向一致性</td>
-</tr>
-<tr class="odd">
-<td>推荐系统</td>
-<td>点积 + 距离</td>
-<td>用户偏好向量的匹配程度</td>
-</tr>
-<tr class="even">
-<td>计算机图形学</td>
-<td>投影</td>
-<td>光照计算中表面法线与光源方向的夹角</td>
-</tr>
-<tr class="odd">
-<td>机器学习（SVM/感知机）</td>
-<td>点积符号</td>
-<td>决定分类边界的哪一侧</td>
-</tr>
-<tr class="even">
-<td>PCA 降维</td>
-<td>投影长度</td>
-<td>数据在主轴方向上的方差</td>
-</tr>
-</tbody>
-</table>
-<h2 id="总结">总结</h2>
-<p>向量运算构成了现代计算的几何基础：</p>
-<p><span class="math display">\[
-\vec{a} - \vec{b} = \overrightarrow{BA}
-\]</span></p>
-<p><span class="math display">\[
-\vec{a} \cdot \vec{b} = |\vec{a}|\ |\vec{b}|\ \cos\theta
-\]</span></p>
-<p><span class="math display">\[
-\|\vec{a} - \vec{b}\|^2 = |\vec{a}|^2 + |\vec{b}|^2 -
-2\,\vec{a}\cdot\vec{b}
-\]</span></p>
-<p><strong>减法描述差异，点积描述相似，距离将二者统一。</strong>掌握了这三者的几何联系，线性代数中大量抽象概念都将变得直观可见。</p>
+            <h2 id="今日速览">🔦 今日速览</h2>
+<p>今天的主线不是又一个聊天机器人，而是 AI
+基础设施和成本结构继续收紧：NVIDIA 与 SK hynix 建立多年合作，围绕 AI
+工厂共同开发下一代内存；DeepSeek V4 Pro
+继续用“高性能+低价格”冲击闭源模型；Token 计费、企业 API 涨价和 AI
+支付协议成为商业化落地的关键变量。</p>
+<p><strong>趋势1</strong>：内存成为AI瓶颈
+<strong>趋势2</strong>：模型价格战加剧
+<strong>趋势3</strong>：Agent支付补课</p>
+<hr />
+<h2 id="国际动态">🌍 国际动态</h2>
+<h3 id="nvidia-与-sk-hynix-宣布多年合作联合开发-ai-工厂下一代内存">1.
+NVIDIA 与 SK hynix 宣布多年合作，联合开发 AI 工厂下一代内存</h3>
+<p><strong>事件简述</strong>：NVIDIA 与 SK hynix
+在首尔宣布建立多年技术合作，双方将共同开发面向“AI
+factory”的下一代内存，并把合作范围从传统 HBM 供应扩展到 AI
+基础设施、半导体设计和制造流程优化。NVIDIA CEO Jensen Huang 称，AI
+工厂是下一次工业革命的引擎，而先进内存是其性能核心。
+<strong>关键数据</strong>：合作覆盖下一代 AI 平台内存路线，重点面向
+<strong>HBM4/下一代高带宽内存</strong>、AI 工厂扩张、frontier model
+训练、agentic AI 与 physical AI 等负载。
+<strong>影响分析</strong>：算力竞争正在从“谁有更多
+GPU”转向“谁能稳定拿到内存、封装和系统级供应链”。这类多年协同意味着 AI
+基础设施的护城河会进一步向上游材料、内存和制造环节延伸，中小云厂商未来获取高端加速器的难度可能继续上升。
+📅6月8日</p>
+<h3 id="anthropic-推出-claude-partner-hub企业伙伴计划进入规模化阶段">2.
+Anthropic 推出 Claude Partner Hub，企业伙伴计划进入规模化阶段</h3>
+<p><strong>事件简述</strong>：Anthropic 将企业服务生态正式产品化，推出
+Claude Partner Hub 与 Services
+Track，用认证从业者、生产部署案例和客户引用来衡量合作伙伴能力。该计划旨在帮助企业客户找到更可靠的
+Claude 集成、迁移和治理服务商，而不是只依赖 Anthropic 直销团队。
+<strong>关键数据</strong>：项目被纳入 Anthropic 约
+<strong>1亿美元</strong> 级别的企业伙伴计划；伙伴等级将按
+<strong>1月1日、7月1日</strong> 等节奏更新，强调真实生产部署和客户参考。
+<strong>影响分析</strong>：Claude
+的竞争重点正在从“模型能力”转向“企业落地交付能力”。在大模型价格上行、企业要求
+ROI
+的阶段，谁能建立稳定服务商网络，谁就更可能把模型调用转化为长期企业收入。
+📅6月8日</p>
+<h3 id="tokenpocalypse-逼近ai-免费午餐进入尾声">3. Tokenpocalypse
+逼近：AI 免费午餐进入尾声</h3>
+<p><strong>事件简述</strong>：多家日报源将 6 月 8
+日的成本变化概括为“Tokenpocalypse”：GitHub Copilot 转向 token
+计费后，部分开发者成本暴涨；OpenAI 与 Anthropic 企业 API
+价格上调；大型企业月度 token 账单持续抬升。AI 公司冲刺 IPO
+后，需要向公开市场证明毛利和现金流，早期补贴获客模式正在退潮。
+<strong>关键数据</strong>：报道提到企业单月 token 消耗可达
+<strong>5亿美元</strong> 级别；GitHub Copilot token
+化后，重度用户的边际成本可能上涨<strong>数十倍</strong>。
+<strong>影响分析</strong>：未来企业采购 AI
+的核心问题不再是“能不能接入模型”，而是“能否预测并控制 token
+成本”。这会推动缓存、路由、小模型替代、离线批处理和私有化部署重新升温。
+📅6月8日</p>
+<hr />
+<h2 id="国内动态">🇨🇳 国内动态</h2>
+<h3 id="deepseek-v4-pro-发布继续用性能价格挤压闭源模型">1. DeepSeek V4
+Pro 发布，继续用“性能+价格”挤压闭源模型</h3>
+<p><strong>事件简述</strong>：6 月 8 日中文 AI 日报源收录 DeepSeek V4
+Pro 发布动态，称其在精确度指标上超越 GPT-5.5
+Pro，并在编码、数学推理、长上下文任务上表现突出。更重要的是，DeepSeek
+继续延续此前的激进定价策略，把高端模型推向更低成本区间。
+<strong>关键数据</strong>：DeepSeek V4 Pro 此前已宣布<strong>永久降价
+75%</strong>；本轮宣传重点是“精确度超越 GPT-5.5
+Pro”与长上下文、数学、代码能力提升。
+<strong>影响分析</strong>：如果性能宣传能被第三方基准和真实业务验证，DeepSeek
+的打法会进一步压缩闭源前沿模型的价格空间。对于企业客户而言，“够强且便宜”的开源/半开源方案会成为谈判
+API 合同的重要筹码。 📅6月8日</p>
+<h3 id="蚂蚁国际发布-amp-移动智能体协议补齐-ai-agent-支付短板">2.
+蚂蚁国际发布 AMP 移动智能体协议，补齐 AI Agent 支付短板</h3>
+<p><strong>事件简述</strong>：蚂蚁国际发布移动智能体协议 AMP，试图为海外
+AI 支付场景建立统一规范。该协议聚焦 AI
+智能体在移动支付中的身份认证、交易授权、资金清算等问题，目标是让 Agent
+能在合规边界内自主完成支付决策。 <strong>关键数据</strong>：AMP
+覆盖<strong>身份认证、交易授权、资金清算</strong>三类核心流程，面向 AI
+Agent 自主支付，而不是传统人脸、密码或人工确认流程。
+<strong>影响分析</strong>：模型和 Agent
+的前端能力已经跑得很快，但支付、结算、合规等后端基础设施明显滞后。AMP
+的意义在于把“Agent 能做事”推进到“Agent
+能完成交易”，这可能成为电商、本地生活、企业采购自动化的重要底层协议。
+📅6月8日</p>
+<h3 id="ai-硬件创业转向隐形-ai非侵入式脑机接口与睡眠灯获关注">3. AI
+硬件创业转向“隐形 AI”：非侵入式脑机接口与睡眠灯获关注</h3>
+<p><strong>事件简述</strong>：中文日报源还提到两类国内 AI
+硬件创业：华超神控利用 AI
+驱动超声技术探索非侵入式脑机接口；小米创始员工范典创业的格物科技选择 AI
+睡眠床头灯等垂直场景。与“把大模型塞进硬件”的路线不同，这些项目更强调让
+AI 隐藏在具体体验后面。
+<strong>关键数据</strong>：华超神控完成<strong>亿元级天使轮</strong>融资，方向包括神经康复、脑疾病诊断和人机交互；格物科技主打无需学习、无需设置的环境感知式睡眠设备。
+<strong>影响分析</strong>：AI
+硬件正在从“通用入口争夺”分化到“垂直场景隐形化”。真正可持续的硬件机会，可能不是给用户一个新聊天入口，而是在医疗、睡眠、康复等场景里把模型能力变成低摩擦体验。
+📅6月8日</p>
+<hr />
+<h2 id="今日论文">📄 今日论文</h2>
+<h3
+id="memdreamer-decoupling-perception-and-reasoning-for-long-video-understanding">1.
+MemDreamer: Decoupling Perception and Reasoning for Long Video
+Understanding</h3>
+<p><strong>作者/机构</strong>：Cong Chen et al.
+<strong>核心贡献</strong>：提出
+MemDreamer，把长视频理解拆成“感知建图”和“推理检索”两个阶段。系统以流式方式构建分层图记忆，再让推理模型像
+Agent 一样调用检索、遍历和定位工具，避免把数小时视频一次性塞进上下文导致
+token 爆炸。
+<strong>为什么重要</strong>：长视频、多摄像头和工业巡检是多模态模型落地难点。MemDreamer
+的思路说明，未来视频模型可能更像“会查记忆的
+Agent”，而不是单纯扩大上下文窗口。 📄 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.07512v1">arXiv:2606.07512v1</a>
+📅6月5日</p>
+<h3
+id="thinkbooster-a-unified-framework-for-test-time-scaling-of-llm-reasoning">2.
+ThinkBooster: A Unified Framework for Test-Time Scaling of LLM
+Reasoning</h3>
+<p><strong>作者/机构</strong>：Vladislav Smirnov et al.
+<strong>核心贡献</strong>：ThinkBooster 统一了多种 test-time compute
+扩展策略，包括多样本生成、验证器重排和不同 reasoning scorer
+的组合评测。论文重点不是再提出一个单点技巧，而是把“多花推理算力能换多少质量”放进同一框架比较。
+<strong>为什么重要</strong>：随着推理模型成本上升，企业需要知道什么时候该多采样、什么时候该用验证器、什么时候该停。TTC
+的性价比评估会直接影响生产环境中的模型路由和成本控制。 📄 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.06915v1">arXiv:2606.06915v1</a>
+📅6月5日</p>
+<h3
+id="talan-task-aligned-latent-adaptation-networks-for-targeted-post-training">3.
+TALAN: Task-Aligned Latent Adaptation Networks for Targeted
+Post-Training</h3>
+<p><strong>作者/机构</strong>：Chengkai Zhang et al.
+<strong>核心贡献</strong>：TALAN 在 Transformer residual stream
+中加入序列条件化的 latent side
+path，并与低秩适配器一起训练，用于针对数学、代码、推理等任务做定向后训练。它试图兼顾
+LoRA 的高效和 activation intervention 的输入自适应能力。
+<strong>为什么重要</strong>：模型后训练越来越像“精确手术”而不是整体微调。若
+TALAN
+这类方法可靠，企业可以在不破坏通用能力的前提下强化某类业务技能，降低专用模型维护成本。
+📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.06902v1">arXiv:2606.06902v1</a>
+📅6月5日</p>
+<h3
+id="a-comprehensive-anatomy-of-human-and-deepseek-r1-llm-mathematical-reasoning">4.
+A Comprehensive Anatomy of Human and DeepSeek-R1 LLM Mathematical
+Reasoning</h3>
+<p><strong>作者/机构</strong>：作者团队 et al.
+<strong>核心贡献</strong>：论文系统比较人类与 DeepSeek-R1-0120
+在数学推理中的行为，关注所谓 “Aha moment”
+到底代表真实推理，还是仅仅模拟了推理外观。研究通过多维实验拆解推理路径、错误模式和中间步骤。
+<strong>为什么重要</strong>：推理模型的商业价值建立在“可相信的思考过程”之上。对
+DeepSeek-R1
+这类模型做解剖式分析，有助于判断它们在数学、代码和科学发现任务中何时可靠、何时只是在生成看似合理的过程。
+📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.07410v1">arXiv:2606.07410v1</a>
+📅6月5日</p>
+<hr />
+<h2 id="值得关注">💡 值得关注</h2>
+<p><strong>供应链锁定</strong>：NVIDIA 与 SK hynix 的合作提醒我们，AI
+竞争的稀缺资源不只是 GPU，还包括 HBM、封装、制造仿真和长期产能承诺。</p>
+<p><strong>成本治理上桌</strong>：Token
+价格、缓存命中率、模型路由和私有化部署会成为 CIO/CTO 的日常议题。</p>
+<p><strong>Agent闭环补齐</strong>：AMP 这类支付协议让 Agent
+从“建议你买什么”走向“被授权后完成交易”，也会带来新的身份、风控和责任问题。</p>
 
         </div>
 
@@ -440,15 +320,10 @@ alt="距离与点积的关系" />
         <nav class="post-nav">
             <div class="post-nav-inner">
                 
-                <a href="/2026/06/09/ai-daily-2026-06-09/" class="post-nav-link post-nav-prev">
-                    <span class="nav-dir">← 上一篇</span>
-                    <span class="nav-title">【AI 日报】英伟达与SK海力士锁定AI工厂内存战</span>
-                </a>
                 
-                
-                <a href="/2026/06/08/ai-daily-2026-06-08/" class="post-nav-link post-nav-next">
+                <a href="/2026/06/08/vector-subtraction-geometry/" class="post-nav-link post-nav-next">
                     <span class="nav-dir">下一篇 →</span>
-                    <span class="nav-title">【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权</span>
+                    <span class="nav-title">向量的几何：减法、点积与距离</span>
                 </a>
                 
             </div>
