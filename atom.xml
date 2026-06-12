@@ -11,7 +11,27 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-11T00:04:39.988Z</updated>
+  <updated>2026-06-12T00:07:52.767Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/12/ai-daily-2026-06-12/</id>
+    <link href="https://garryx.com/2026/06/12/ai-daily-2026-06-12/"/>
+    <published>2026-06-12T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>今天 AI 行业最大新闻是 <strong>SpaceX（SPCX）以 $135/股、$1.75
+万亿估值登陆纳斯达克</strong>，募资 $750 亿刷新人类 IPO 纪录。同日
+<strong>WWDC]]>
+    </summary>
+    <title>【AI 日报】SpaceX 1.77 万亿 IPO 登陆纳斯达克，重塑 AI 资本秩序</title>
+    <updated>2026-06-12T00:07:52.767Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
