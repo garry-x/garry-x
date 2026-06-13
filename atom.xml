@@ -11,7 +11,27 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-12T00:07:52.767Z</updated>
+  <updated>2026-06-13T00:05:21.046Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/13/ai-daily-2026-06-13/</id>
+    <link href="https://garryx.com/2026/06/13/ai-daily-2026-06-13/"/>
+    <published>2026-06-13T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>今天是 2026 年 6 月 13 日（周六），昨日 HDC 2026 大会上
+<strong>华为正式发布 HarmonyOS 7 开发者 Beta 版</strong>——业内首个完成
+AI]]>
+    </summary>
+    <title>【AI 日报】华为发布 HarmonyOS 7：首个完成 AI 化改造的操作系统</title>
+    <updated>2026-06-13T00:05:21.046Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -348,23 +368,6 @@ href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%A
 Software Developer’s]]>
     </summary>
     <title>页表项详解</title>
-    <updated>2026-06-05T22:50:46.000Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="体系结构" scheme="https://garryx.com/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
-    <category term="x86" scheme="https://garryx.com/tags/x86/"/>
-    <id>https://garryx.com/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/</id>
-    <link href="https://garryx.com/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/"/>
-    <published>2017-09-11T16:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和
-2级32bit。使用大页会产生更多的paging mode，这里不做介绍。</p>
-<p><strong>1) 4级64-bit：IA-32e （long mode)]]>
-    </summary>
-    <title>x86分页模式</title>
     <updated>2026-06-05T22:50:46.000Z</updated>
   </entry>
 </feed>
