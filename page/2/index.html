@@ -149,7 +149,7 @@
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </span>
                             <span class="year-label">2026</span>
-                            <span class="year-count">10</span>
+                            <span class="year-count">11</span>
                         </button>
                         <div class="year-content">
                             
@@ -157,7 +157,7 @@
                             <div class="archive-month">
                                 <a href="/archives/2026/06/" class="month-link">
                                     <span class="month-name">6月</span>
-                                    <span class="month-count">10</span>
+                                    <span class="month-count">11</span>
                                 </a>
                             </div>
                             
@@ -283,26 +283,27 @@
                 </div>
                 <article class="featured-card">
                     <div class="featured-meta">
-                        <time datetime="2023-01-12T09:18:52.000Z">2023-01-12</time>
+                        <time datetime="2026-06-03T00:00:00.000Z">2026-06-03</time>
                         <span class="featured-arrow">→</span>
                     </div>
                     <h3 class="featured-title">
-                        <a href="/2023/01/12/KVM-API-%E7%AE%80%E4%BB%8B/">KVM API 简介</a>
+                        <a href="/2026/06/03/ai-daily-2026-06-03/">【AI 日报】微软Build发布自研推理模型MAI-Thinking-1，Windows全面Agent化</a>
                     </h3>
                     
-                    <p class="featured-excerpt">
-以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt
-
-1. 基本描述
-KVM API
-本质上是为了控制虚拟机的方方面面而下发的一组ioctl，这些ioctl可以划分为四类：
-- system ioctl：
-对影响整个KVM系统的属...</p>
+                    <p class="featured-excerpt">🔦 今日速览
+微软Build 2026 Day 2 发布自研推理模型
+MAI-Thinking-1、端侧模型 Aion
+1.0、Windows Agent
+Framework，将Windows重新定义为"智能体操作系统"。腾讯微信AI智能体进入测试引爆港股，单日市值增超4100亿港元。阿里Qwen3.7-Plus登顶...</p>
                     
                     
                     <div class="featured-tags">
                         
-                            <a href="/tags/KVM/" class="tag">#KVM</a>
+                            <a href="/tags/AI/" class="tag">#AI</a>
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="tag">#人工智能</a>
+                        
+                            <a href="/tags/%E6%97%A5%E6%8A%A5/" class="tag">#日报</a>
                         
                     </div>
                     
@@ -314,6 +315,41 @@ KVM API
                 <div class="section-header">
                     <h2 class="section-title">其他文章</h2>
                 </div>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2023-01-12T09:18:52.000Z">2023-01-12</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2023/01/12/KVM-API-%E7%AE%80%E4%BB%8B/">KVM API 简介</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">
+以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt
+
+1. 基本描述
+KVM API
+本质上是为了控制虚拟机的方方面面而下发的一组ioctl，这些ioctl可以划分为四类：
+- system ioctl：
+对影响整个KVM系统的属性进行查询或设置。创建虚拟机就是其中的一个系统ioctl。
+- vm ioctl...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/KVM/" class="tag">#KVM</a>
+                        
+                    </div>
+                    
+                </article>
                 
                 <article class="post-card">
                     <div class="post-meta">
@@ -555,39 +591,6 @@ Matching in Strings[J]. Siam Journal on Computing, 1977,
                     <div class="post-tags">
                         
                             <a href="/tags/%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/" class="tag">#问题定位</a>
-                        
-                    </div>
-                    
-                </article>
-                
-                <article class="post-card">
-                    <div class="post-meta">
-                        <time datetime="2017-10-25T16:00:00.000Z">2017-10-26</time>
-                        
-                            <span class="sep">·</span>
-                            <span class="post-cat">
-                                
-                                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
-                                
-                            </span>
-                        
-                    </div>
-                    <h2 class="post-title">
-                        <a href="/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/">页表项详解</a>
-                    </h2>
-                    
-                    <div class="post-excerpt">
-以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
-Software Developer’s Manual”
-
-页表是实现地址翻译的重要结构，其中，Page Table Entry
-(PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控制、缺页处理等机制都有着重要的意义。
-PTE的内部结构如下图所...</div>
-                    
-                    
-                    <div class="post-tags">
-                        
-                            <a href="/tags/x86/" class="tag">#x86</a>
                         
                     </div>
                     
