@@ -11,7 +11,7 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-15T03:22:43.833Z</updated>
+  <updated>2026-06-15T03:25:19.548Z</updated>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -26,11 +26,10 @@
     <link href="https://garryx.com/2026/06/15/llm-course-intro/"/>
     <published>2026-06-15T03:00:00.000Z</published>
     <summary>
-      <![CDATA[<ul>
-<li><strong>课程仓库</strong>:]]>
+      <![CDATA[<p><strong>课程仓库</strong>:]]>
     </summary>
-    <title>《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程</title>
-    <updated>2026-06-15T03:22:43.833Z</updated>
+    <title>《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程</title>
+    <updated>2026-06-15T03:25:19.548Z</updated>
   </entry>
   <entry>
     <author>

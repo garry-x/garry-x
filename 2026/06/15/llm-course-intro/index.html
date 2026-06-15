@@ -8,14 +8,14 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<title>《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog</title>
-<meta name="description" content="课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs">
+<title>《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry&#39;s Blog</title>
+<meta name="description" content="课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位">
 <meta name="author" content="Garry Xu">
 <meta name="keywords" content="LLM,大模型,课程,PyTorch,深度学习">
 
 <!-- Open Graph -->
-<meta property="og:title" content="《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog">
-<meta property="og:description" content="课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs">
+<meta property="og:title" content="《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry&#39;s Blog">
+<meta property="og:description" content="课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garryx.com/2026/06/15/llm-course-intro/">
 <meta property="og:image" content="https://garryx.com/images/llm-course-home.jpg">
@@ -24,8 +24,8 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog">
-<meta name="twitter:description" content="课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs">
+<meta name="twitter:title" content="《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry&#39;s Blog">
+<meta name="twitter:description" content="课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位">
 <meta name="twitter:image" content="https://garryx.com/images/llm-course-home.jpg">
 
 <link rel="canonical" href="https://garryx.com/2026/06/15/llm-course-intro/">
@@ -35,12 +35,12 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog",
-  "description": "课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs",
+  "headline": "《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry&#39;s Blog",
+  "description": "课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位",
   "url": "https://garryx.com/2026/06/15/llm-course-intro/",
   
   "datePublished": "2026-06-15T03:00:00.000Z",
-  "dateModified": "2026-06-15T03:22:43.833Z",
+  "dateModified": "2026-06-15T03:25:19.548Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -125,7 +125,7 @@ MathJax = {
                 
             </div>
             
-            <h1 class="post-title">《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程</h1>
+            <h1 class="post-title">《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程</h1>
             <div class="post-header-meta">
                 <time datetime="2026-06-15T03:00:00.000Z">
                     2026年6月15日
@@ -150,114 +150,58 @@ MathJax = {
         </header>
 
         <div class="post-content" id="post-content">
-            <ul>
-<li><strong>课程仓库</strong>: <a
+            <p><strong>课程仓库</strong>: <a
 target="_blank" rel="noopener" href="https://github.com/garry-x/llm-course"
-class="uri">https://github.com/garry-x/llm-course</a></li>
-<li><strong>本地起服务</strong>: <code>./serve.sh serve</code>(默认
-8080)</li>
-<li><strong>状态</strong>: 持续更新中,本文写于 2026-06-15(commit
-<code>e3e2b08</code>,345 commits)</li>
-</ul>
-<h2 id="这门课是什么">这门课是什么</h2>
-<p><strong>LLM Deep Learning</strong> 是一门 <strong>code-first</strong>
-的 LLM
-实战课,核心定位是"为训练和推理工程师而写":不堆概念、不追新模型版本,而是用
-<strong>Python + PyTorch</strong> 从零实现 LLM
-的每一个核心组件,然后把这些组件装配成一个能训、生成、对齐、部署、评估的完整工程系统。</p>
+class="uri">https://github.com/garry-x/llm-course</a></p>
+<p><strong>本地阅读</strong>: clone 后 <code>./serve.sh serve</code>
+启动，默认 <a target="_blank" rel="noopener" href="http://localhost:8080"
+class="uri">http://localhost:8080</a></p>
+<p><strong>状态</strong>: 持续更新中，本文基于 2026-06-15 的 commit
+<code>e3e2b08</code>（345 commits）</p>
+<hr />
+<h2 id="一句话定位">一句话定位</h2>
+<p>这是一门 <strong>code-first</strong> 的 LLM 实战课：不用调
+API、不追新版本，而是用 <strong>Python + PyTorch</strong> 一行行写出
+Tokenizer、Attention、Transformer Block、GPT、Training Loop、Inference
+Optimization，最终拼成一套能训、能生成、能对齐、能部署的完整工程系统。</p>
 <figure>
 <img src="/images/llm-course-home.jpg"
-alt="课程主页入口:11 章导航 + 章节列表" />
-<figcaption aria-hidden="true">课程主页入口:11 章导航 +
-章节列表</figcaption>
+alt="课程主页：11 章导航 + 章节索引" />
+<figcaption aria-hidden="true">课程主页：11 章导航 +
+章节索引</figcaption>
 </figure>
-<p>课程的副标题很直白:</p>
+<h2 id="这课为什么值得看">这课为什么值得看</h2>
+<p>市面上讲 LLM
+的资料不少，但大多分两类：一类是"读论文看公式"的理论课，一类是"调包跑
+demo"的项目课。这门课卡在中间，做了件少见的事——<strong>把公式翻译成
+PyTorch 张量，把论文里的架构改写成工业级代码</strong>。</p>
+<p>具体一点：</p>
+<ul>
+<li><strong>11 章 / 251 个 section</strong>，从 BPE 到 vLLM
+级推理优化全覆盖</li>
+<li><strong>每章都有编程作业</strong>：<code>starter.py</code> +
+<code>reference_solution.py</code> +
+<code>tests.py</code>，写完能跑测试验证</li>
+<li><strong>工业级架构案例</strong>：MLA、MoE、FP8、GRPO/DAPO/GSPO、稀疏/压缩
+Attention、Linear Attention、SSM/Mamba、Learnable
+Residual——不是列名词，而是用代码理解它们解决什么瓶颈</li>
+<li><strong>9 份工程附录</strong>：符号约定、PyTorch 速查、ML
+基础桥接、经典 NLP 衔接、扩展阅读清单</li>
+</ul>
+<p>课程的副标题很直白：</p>
 <blockquote>
 <p><strong>Starting from code, 11 chapters to build a complete large
 language model engineering system.</strong></p>
 </blockquote>
-<p>11 章 / 251 个 section(章下小节),覆盖从 BPE tokenization 到 vLLM
-级推理优化的完整链路,每个 chapter 配套编程练习 + 概念题 +
-工业级架构案例。</p>
-<h2 id="五大核心特点">五大核心特点</h2>
-<h3 id="code-first每一行都自己写">1. Code-first,每一行都自己写</h3>
-<p>跟很多"读论文+看代码"的课程不同,本课的学习循环是:</p>
-<blockquote>
-<p>深度理论 → 理解"为什么" → 编程练习(你写代码) → 对照参考实现 →
-概念题巩固</p>
-</blockquote>
-<p>每个 chapter 起手就是"Prerequisites / In-Chapter Internalization /
-Validation
-Signal"三段,把数学、PyTorch、统计、系统知识按章节任务<strong>就地展开</strong>,不另开
-side track。数学/ML
-基础只在你需要时再补,附录(math-prerequisites.html)是参考,不必先修。</p>
-<h3 id="工业级架构案例不是玩具实现">2. 工业级架构案例,不是玩具实现</h3>
-<p>课程不只教你写一个能 forward 的 GPT,而是用
-<strong>MLA、MoE、FP8、GRPO/DAPO/GSPO、sparse/compressed
-attention、linear attention、SSM/Mamba-style layers、learnable residual
-connections</strong>
-这一串工业级设计,让你看清每个组件背后的<strong>工程瓶颈</strong>,而不是追某个模型版本的规格表。</p>
-<h3 id="概念-编程双练习完成度可验证">3. "概念 +
-编程"双练习,完成度可验证</h3>
-<p>每个 chapter 都配套:</p>
-<ul>
-<li>编程作业 <code>starter.py</code> +
-<code>reference_solution.py</code> + <code>tests.py</code>(11 个
-<code>assignments/chXX_xxx/</code>)</li>
-<li>概念/手算题</li>
-<li>明确的 "Completion Criteria"(你能解释清什么就算学完)</li>
-</ul>
-<p>例如 Ch01 BPE 的完成标准是"能解释一段文本如何变成 token ID,token ID
-如何还原成文本"。</p>
-<h3 id="知识图谱化前后章强关联">4. 知识图谱化,前后章强关联</h3>
-<p>每章顶部都有<strong>SVG 知识地图</strong>:标出"学这章前需要知道什么 /
-这章解决什么 / 学完后接着读什么"。</p>
-<p>下面这张是 Ch10 推理优化(共 38 个 section,235
-分钟阅读)首屏,信息密度直接拉满:</p>
-<figure>
-<img src="/images/llm-course-ch10.jpg"
-alt="Chapter 10: Inference Optimization &amp; Frontiers 首屏(38 sections)" />
-<figcaption aria-hidden="true">Chapter 10: Inference Optimization &amp;
-Frontiers 首屏(38 sections)</figcaption>
-</figure>
-<p>Ch10 的核心问题不是"罗列 KV Cache / FlashAttention / 量化 / RAG
-这些名词",而是<strong>教你按瓶颈(计算、内存、IO、调度、检索、部署)给优化技术分类</strong>,看完慢/贵的推理问题能判断瓶颈在哪一相。</p>
-<h3 id="配套-9-份工程附录工程严谨度高">5. 配套 9
-份工程附录,工程严谨度高</h3>
-<p><code>docs/</code> 下有 9 份独立但互引的文档:</p>
-<ul>
-<li><code>math-prerequisites.html</code> — 数学/PyTorch 符号约定、tensor
-flow、mask 语义、反向传播</li>
-<li><code>ml-foundations-prerequisite-bridge.html</code> — 从 ML
-基础到本课的桥接</li>
-<li><code>python-pytorch-review-session.html</code> — Python/PyTorch
-速查</li>
-<li><code>reading-list.html</code> — 扩展阅读</li>
-<li><code>written-problem-set.html</code> /
-<code>worked-example-pack.html</code> — 配套习题</li>
-<li><code>classic-nlp-handout.html</code> /
-<code>classic-nlp-deep-dive-module.html</code> — RNN/LSTM/seq2seq/BERT
-经典 NLP 衔接</li>
-</ul>
-<p>下图是数学前置附录的符号约定表,定义 B/T/S/V/d_model/H/H_kv/D/N/M
-等十几个张量符号的语义和 shape,整门课统一沿用:</p>
-<figure>
-<img src="/images/llm-course-math.jpg"
-alt="Math and PyTorch Prerequisite Review: 课程符号约定表" />
-<figcaption aria-hidden="true">Math and PyTorch Prerequisite Review:
-课程符号约定表</figcaption>
-</figure>
-<h2 id="章节地图">11 章节地图</h2>
+<h2 id="章地图">11 章地图</h2>
 <table>
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 20%" />
-<col style="width: 31%" />
-<col style="width: 34%" />
+<col style="width: 24%" />
+<col style="width: 36%" />
+<col style="width: 40%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>#</th>
 <th>章节</th>
 <th>核心问题</th>
 <th>sections</th>
@@ -265,202 +209,118 @@ alt="Math and PyTorch Prerequisite Review: 课程符号约定表" />
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>Environment Setup &amp; Tokenization</td>
-<td>文本怎么变成 token ID(BPE)</td>
+<td>Ch01 Environment Setup &amp; Tokenization</td>
+<td>文本怎么变成 token ID（BPE）</td>
 <td>19</td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>Embedding Layer &amp; Positional Encoding</td>
-<td>token 怎么变成向量,位置怎么编码</td>
+<td>Ch02 Embedding Layer &amp; Positional Encoding</td>
+<td>token 怎么变成向量，位置怎么编码</td>
 <td>20</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>Single-Head Self-Attention</td>
+<td>Ch03 Single-Head Self-Attention</td>
 <td>单头注意力的张量流</td>
 <td>20</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>Multi-Head Attention &amp; MLA</td>
+<td>Ch04 Multi-Head Attention &amp; MLA</td>
 <td>多头、KV 复用、MLA</td>
 <td>18</td>
 </tr>
 <tr class="odd">
-<td>5</td>
-<td>Transformer Block</td>
+<td>Ch05 Transformer Block</td>
 <td>残差、Norm、FFN、Block 组合</td>
 <td>20</td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td>Assembling a Complete GPT Model</td>
+<td>Ch06 Assembling a Complete GPT Model</td>
 <td>把上面拼成一个能 forward 的 GPT</td>
 <td>18</td>
 </tr>
 <tr class="odd">
-<td>7</td>
-<td>Training Loop</td>
-<td>next-token prediction = 最大似然,loss/PPL/优化器/checkpoint</td>
+<td>Ch07 Training Loop</td>
+<td>next-token prediction = MLE，loss / PPL / 优化器 / checkpoint</td>
 <td>26</td>
 </tr>
 <tr class="even">
-<td>8</td>
-<td>Text Generation</td>
+<td>Ch08 Text Generation</td>
 <td>采样策略、KV Cache、解码</td>
 <td>25</td>
 </tr>
 <tr class="odd">
-<td>9</td>
-<td>Fine-Tuning &amp; Alignment</td>
-<td>SFT/LoRA/DPO/GRPO/RFT,行为改写</td>
+<td>Ch09 Fine-Tuning &amp; Alignment</td>
+<td>SFT / LoRA / DPO / GRPO / RFT，行为改写</td>
 <td>27</td>
 </tr>
 <tr class="even">
-<td>10</td>
-<td>Inference Optimization &amp; Frontiers</td>
-<td>KV Cache、稀疏/线性注意、量化、RAG、Agent</td>
+<td>Ch10 Inference Optimization &amp; Frontiers</td>
+<td>KV Cache、稀疏/线性 Attention、量化、RAG、Agent</td>
 <td>38</td>
 </tr>
 <tr class="odd">
-<td>11</td>
-<td>Classical Neural NLP &amp; Evaluation</td>
-<td>RNN/LSTM/seq2seq/BERT,与现代 LLM 的联系</td>
+<td>Ch11 Classical Neural NLP &amp; Evaluation</td>
+<td>RNN / LSTM / seq2seq / BERT，与现代 LLM 的联系</td>
 <td>20</td>
 </tr>
 </tbody>
 </table>
-<p>下面是 Ch01 BPE 首屏,展示章首的"How to Learn This
-Chapter"导览、知识地图、before/after 三列对比表:</p>
+<p>Ch10 是目前最厚的一章（38 个 section，约 235
+分钟阅读），信息密度很高：</p>
+<figure>
+<img src="/images/llm-course-ch10.jpg"
+alt="Chapter 10 首屏：Inference Optimization &amp; Frontiers" />
+<figcaption aria-hidden="true">Chapter 10 首屏：Inference Optimization
+&amp; Frontiers</figcaption>
+</figure>
+<p>这一章的核心不是"罗列 KV Cache / FlashAttention / 量化 /
+RAG"这些名词，而是<strong>教你按瓶颈（计算、内存、IO、调度、检索、部署）给优化技术分类</strong>，看完能判断一个慢/贵的推理问题卡在哪个环节。</p>
+<h2 id="四个值得关注的细节">四个值得关注的细节</h2>
+<h3 id="每章都有完成标准">1. 每章都有"完成标准"</h3>
+<p>不是看完视频就算学完。每章开头给出 <strong>Prerequisites → In-Chapter
+Internalization → Validation Signal</strong> 三段，结尾给出
+<strong>Completion Criteria</strong>。比如 Ch01 BPE
+的标准是："你能解释一段文本如何变成 token ID，token ID
+如何还原成文本"——能用自己的话复述，才算过。</p>
+<h3 id="数学和代码不拆成两门课">2. 数学和代码不拆成两门课</h3>
+<p>需要矩阵乘法、链式法则、softmax
+求导时，就在当下章节展开，不另开"数学先导课"。附录
+<code>docs/math-prerequisites.html</code>
+统一整理了符号约定（B/T/S/V/d_model/H/H_kv/D/N/M
+等十几个张量符号的语义和 shape），遇到 confusion 再翻，不必先修。</p>
+<figure>
+<img src="/images/llm-course-math.jpg" alt="数学前置附录的符号约定表" />
+<figcaption aria-hidden="true">数学前置附录的符号约定表</figcaption>
+</figure>
+<h3 id="三阶段学习路径官方建议">3. 三阶段学习路径（官方建议）</h3>
+<p>课程体量大，第一次学不要全修。官方建议三遍走：</p>
+<ul>
+<li><strong>第一遍（主干必修）</strong>：Ch01-Ch06，搭一个能 forward 的
+GPT——<strong>必须写代码作业</strong></li>
+<li><strong>第二遍（让它跑起来）</strong>：Ch07-Ch08，训练一个小模型并让它生成文本——重点看
+loss / optimizer / sampling 的输入输出 shape</li>
+<li><strong>第三遍（进阶选读）</strong>：Ch09-Ch10，微调、对齐、推理优化——先建概念地图，再回头补公式</li>
+</ul>
+<h3 id="知识地图可视化">4. 知识地图可视化</h3>
+<p>每章顶部都有 SVG 知识地图，标出"学这章前需要知道什么 / 这章解决什么 /
+学完后接着读什么"。前后章通过张量流强关联，不跳章效果更好。</p>
 <figure>
 <img src="/images/llm-course-ch01.jpg"
-alt="Chapter 1 BPE Tokenizer 首屏:导览 + 知识地图 + 概念表" />
-<figcaption aria-hidden="true">Chapter 1 BPE Tokenizer 首屏:导览 +
-知识地图 + 概念表</figcaption>
+alt="Chapter 1 首屏：导览 + 知识地图 + 概念对比表" />
+<figcaption aria-hidden="true">Chapter 1 首屏：导览 + 知识地图 +
+概念对比表</figcaption>
 </figure>
-<h2
-id="知识体系模块按问题组织不按工具">知识体系模块(按"问题"组织,不按工具)</h2>
-<table>
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 38%" />
-<col style="width: 38%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>模块</th>
-<th>对应章节</th>
-<th>核心问题</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>表示层</td>
-<td>Ch01-Ch02</td>
-<td>文本→token→向量,模型怎么拿到位置信息</td>
-</tr>
-<tr class="even">
-<td>Transformer 核心</td>
-<td>Ch03-Ch06</td>
-<td>attention/mask/多头/GQA/MLA/Norm/FFN/MoE 怎么组合成 GPT forward</td>
-</tr>
-<tr class="odd">
-<td>训练循环</td>
-<td>Ch07</td>
-<td>为什么 next-token prediction =
-MLE,loss/优化器/checkpoint/分布式诊断</td>
-</tr>
-<tr class="even">
-<td>生成与推理</td>
-<td>Ch08-Ch10</td>
-<td>prefill/decode、采样、speculative、KV
-Cache、FlashAttention、稀疏/线性注意、RAG、多模态 serving</td>
-</tr>
-<tr class="odd">
-<td>微调与对齐</td>
-<td>Ch09</td>
-<td>SFT/LoRA/DPO/GRPO/DAPO/GSPO/RLVR 怎么改写模型行为</td>
-</tr>
-<tr class="even">
-<td>经典 NLP 与评估</td>
-<td>Ch11 / Week 8 Topic</td>
-<td>RNN/LSTM/依存分析/seq2seq/BERT/MLM,BLEU/ROUGE/F1/EM</td>
-</tr>
-<tr class="odd">
-<td>前沿工程案例</td>
-<td>Ch04-Ch10</td>
-<td>MLA、MoE、FP8、稀疏/压缩注意、线性注意、SSM/Mamba、动态分辨率视觉、多模态
-serving</td>
-</tr>
-</tbody>
-</table>
-<p>这是大学级课程质量的关键:<strong>每个知识点都回答三件事</strong>——</p>
-<ol type="1">
-<li><strong>数学上</strong>:它解决什么问题,公式里每个量是什么</li>
-<li><strong>代码上</strong>:怎么落到 PyTorch 的
-tensor、shape、mask、dtype、gradient</li>
-<li><strong>工程上</strong>:引入了什么 cost/speed/quality/stability
-的取舍</li>
-</ol>
-<h2
-id="三阶段学习路径课程自带的初学者指南">三阶段学习路径(课程自带的初学者指南)</h2>
-<p>课程体量大、覆盖到工业前沿,<strong>第一次学不要把高级话题全当必修</strong>。课程建议三遍走:</p>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>阶段</th>
-<th>章节</th>
-<th>目标</th>
-<th>建议</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>第一遍:主干必修</strong></td>
-<td>Ch01-Ch06</td>
-<td>把文本变成 token,搭一个能 forward 的 GPT</td>
-<td><strong>必须写代码作业</strong>;DeepSeek 扩展只需理解动机</td>
-</tr>
-<tr class="even">
-<td><strong>第二遍:让它跑起来</strong></td>
-<td>Ch07-Ch08</td>
-<td>训练一个小模型,让它能生成文本</td>
-<td>重点看 loss/optimizer/sampling 的输入输出 shape</td>
-</tr>
-<tr class="odd">
-<td><strong>第三遍:进阶选读</strong></td>
-<td>Ch09-Ch10</td>
-<td>微调、对齐、RAG、推理优化、前沿架构</td>
-<td>先建立概念地图,再回头补公式和工程细节</td>
-</tr>
-</tbody>
-</table>
-<p><strong>最低前置</strong>:会 Python
-函数/列表/字典、基础矩阵乘法、知道 PyTorch tensor 的
-<code>shape</code>。数学推导最初吃力时,<strong>先抓住"输入是什么、输出是什么、shape
-怎么变"</strong>就够了。</p>
-<h2 id="如何使用">如何使用</h2>
-<h3 id="浏览零安装">1. 浏览(零安装)</h3>
-<p>直接 clone
-仓库到本地,然后起服务阅读(见下一节)。课程<strong>没有</strong> GitHub
-Pages 在线版。</p>
-<h3 id="本地起服务推荐">2. 本地起服务(推荐)</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/garry-x/llm-course</span><br><span class="line"><span class="built_in">cd</span> llm-course</span><br><span class="line">./serve.sh serve           <span class="comment"># 默认 0.0.0.0:8080</span></span><br><span class="line"><span class="comment"># 自定义端口:  ./serve.sh serve -p 3000</span></span><br><span class="line"><span class="comment"># 自定义地址:  ./serve.sh serve -h localhost</span></span><br></pre></td></tr></table></figure>
-<p>打开 <code>http://localhost:8080</code> 即可。<code>serve.sh</code>
-会自动检测端口占用并询问是否终止占用的进程。</p>
-<h3 id="跑作业需要-python-环境">3. 跑作业(需要 Python 环境)</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br><span class="line"><span class="comment"># PyTorch 建议从官网装以匹配 CUDA: https://pytorch.org/get-started/locally/</span></span><br></pre></td></tr></table></figure>
-<p><code>requirements.txt</code> 极简(只有 4 个核心包):</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">torch&gt;=2.0.0</span><br><span class="line">numpy&gt;=1.24.0</span><br><span class="line">tqdm&gt;=4.65.0</span><br><span class="line">transformers&gt;=4.36.0</span><br></pre></td></tr></table></figure>
-<p>每个作业(<code>assignments/chXX_xxx/</code>)有 4 个文件:</p>
+<h2 id="怎么用">怎么用</h2>
+<p><strong>方式一：本地起服务（推荐）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/garry-x/llm-course</span><br><span class="line"><span class="built_in">cd</span> llm-course</span><br><span class="line">./serve.sh serve           <span class="comment"># 默认 0.0.0.0:8080</span></span><br><span class="line"><span class="comment"># 自定义端口: ./serve.sh serve -p 3000</span></span><br></pre></td></tr></table></figure>
+<p>然后打开 <a target="_blank" rel="noopener" href="http://localhost:8080"
+class="uri">http://localhost:8080</a>。<code>serve.sh</code>
+会自动检测端口占用并询问是否终止占用进程。</p>
+<p><strong>方式二：跑作业</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<p><code>requirements.txt</code> 只有 4 个核心包：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">torch&gt;=2.0.0</span><br><span class="line">numpy&gt;=1.24.0</span><br><span class="line">tqdm&gt;=4.65.0</span><br><span class="line">transformers&gt;=4.36.0</span><br></pre></td></tr></table></figure>
+<p>每个作业目录（<code>assignments/chXX_xxx/</code>）包含 4 个文件：</p>
 <ul>
 <li><code>README.md</code> — 任务说明</li>
 <li><code>starter.py</code> — 你的代码起点</li>
@@ -468,43 +328,31 @@ Pages 在线版。</p>
 <li><code>tests.py</code> — 验证脚本</li>
 </ul>
 <p>跑测试统一用仓库根的 <code>run_assignment_tests.py</code>。</p>
-<h3 id="课程使用建议">4. 课程使用建议</h3>
-<ul>
-<li><strong>不要跳章</strong>:Ch01-Ch06
-的链式结构,每一节都建立在前一节的张量流上</li>
-<li><strong>三遍走</strong>:先 Ch01-Ch06 主干 → 再 Ch07-Ch08 跑通 → 最后
-Ch09-Ch10 选读</li>
-<li><strong>做笔记</strong>:每章的"Validation
-Signal"是自检清单,你能复述就说明学到位</li>
-<li><strong>看附录</strong>:遇到符号/shape/mask 模糊时,翻
-<code>docs/math-prerequisites.html</code></li>
-</ul>
 <h2 id="适合谁">适合谁</h2>
 <ul>
-<li>✅ 懂 Python + 基础线性代数,想从代码层真正"造一个 LLM"</li>
-<li>✅ 已经会用 transformers / LangChain,但想搞清里面到底怎么算的</li>
-<li>✅ 做训练 / 推理工程,需要把 MLA、MoE、KV Cache、FlashAttention、GRPO
-这些词从"听过"变成"能写能调"</li>
-<li>❌ 不适合"只想调 API 调 prompt"的纯应用层</li>
-<li>❌ 不适合完全没写过 Python 的纯数学背景</li>
+<li>懂 Python + 基础线性代数，想从代码层真正"造一个 LLM"</li>
+<li>已经会用 transformers / LangChain，但想搞清里面到底怎么算的</li>
+<li>做训练 / 推理工程，需要把 MLA、MoE、KV Cache、FlashAttention、GRPO
+从"听过"变成"能写能调"</li>
+<li><strong>不适合</strong>：只想调 API 调 prompt 的纯应用层；完全没写过
+Python 的纯数学背景</li>
 </ul>
 <h2 id="总结">总结</h2>
 <p>这门课的稀缺之处在于<strong>"代码深度 +
-工程视野"双拉满</strong>:既不像纯论文课只讲公式,也不像纯项目课只跑
-demo。每个 chapter 都有"数学 / 代码 / 工程"三栏自检,251 个 section + 11
-个作业 + 9 份附录,形成了一个自洽的工程学习闭环。</p>
-<p>如果你是认真想搞懂 LLM 训练和推理全链路的工程师,推荐从 Ch01 BPE
-开始,把 <code>assignments/ch01_bpe/starter.py</code> 写完,跑通
-<code>tests.py</code>,然后决定要不要继续。</p>
+工程视野"同时拉满</strong>。251 个 section + 11 个编程作业 + 9
+份附录，每个知识点都回答三件事：数学上解决什么问题、代码上怎么落到
+PyTorch 张量、工程上引入了什么 cost/speed/quality 的取舍。</p>
+<p>如果你认真想搞懂 LLM 全链路，推荐从 Ch01 BPE 开始，把
+<code>assignments/ch01_bpe/starter.py</code> 写完，跑通
+<code>tests.py</code>，然后决定要不要继续往下走。</p>
 <blockquote>
-<p><strong>Star / 提 Issue / 提 PR</strong> 都在 <a
+<p>Star / 提 Issue / 提 PR 都在 <a
 target="_blank" rel="noopener" href="https://github.com/garry-x/llm-course"
-class="uri">https://github.com/garry-x/llm-course</a>,作者 (garry-x)
-维护活跃(commit 历史显示每天有更新)。</p>
+class="uri">https://github.com/garry-x/llm-course</a>，作者维护活跃。</p>
 </blockquote>
 <hr />
-<p><em>本文配图均来自课程仓库 README 与各 chapter / docs
-页面截图,版权归属课程作者 <a
+<p><em>本文配图来自课程仓库 README 与各 chapter / docs
+页面截图，版权归属课程作者 <a
 target="_blank" rel="noopener" href="https://github.com/garry-x">garry-x</a>。</em></p>
 
         </div>
