@@ -40,7 +40,7 @@
   "url": "https://garryx.com/2026/06/15/llm-course-intro/",
   
   "datePublished": "2026-06-15T03:00:00.000Z",
-  "dateModified": "2026-06-15T03:08:23.093Z",
+  "dateModified": "2026-06-15T03:22:43.833Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -150,8 +150,7 @@ MathJax = {
         </header>
 
         <div class="post-content" id="post-content">
-            <blockquote>
-<ul>
+            <ul>
 <li><strong>课程仓库</strong>: <a
 target="_blank" rel="noopener" href="https://github.com/garry-x/llm-course"
 class="uri">https://github.com/garry-x/llm-course</a></li>
@@ -160,7 +159,6 @@ class="uri">https://github.com/garry-x/llm-course</a></li>
 <li><strong>状态</strong>: 持续更新中,本文写于 2026-06-15(commit
 <code>e3e2b08</code>,345 commits)</li>
 </ul>
-</blockquote>
 <h2 id="这门课是什么">这门课是什么</h2>
 <p><strong>LLM Deep Learning</strong> 是一门 <strong>code-first</strong>
 的 LLM
@@ -201,10 +199,14 @@ connections</strong>
 这一串工业级设计,让你看清每个组件背后的<strong>工程瓶颈</strong>,而不是追某个模型版本的规格表。</p>
 <h3 id="概念-编程双练习完成度可验证">3. "概念 +
 编程"双练习,完成度可验证</h3>
-<p>每个 chapter 都配套: - 编程作业 <code>starter.py</code> +
+<p>每个 chapter 都配套:</p>
+<ul>
+<li>编程作业 <code>starter.py</code> +
 <code>reference_solution.py</code> + <code>tests.py</code>(11 个
-<code>assignments/chXX_xxx/</code>) - 概念/手算题 - 明确的 "Completion
-Criteria"(你能解释清什么就算学完)</p>
+<code>assignments/chXX_xxx/</code>)</li>
+<li>概念/手算题</li>
+<li>明确的 "Completion Criteria"(你能解释清什么就算学完)</li>
+</ul>
 <p>例如 Ch01 BPE 的完成标准是"能解释一段文本如何变成 token ID,token ID
 如何还原成文本"。</p>
 <h3 id="知识图谱化前后章强关联">4. 知识图谱化,前后章强关联</h3>
@@ -222,17 +224,21 @@ Frontiers 首屏(38 sections)</figcaption>
 这些名词",而是<strong>教你按瓶颈(计算、内存、IO、调度、检索、部署)给优化技术分类</strong>,看完慢/贵的推理问题能判断瓶颈在哪一相。</p>
 <h3 id="配套-9-份工程附录工程严谨度高">5. 配套 9
 份工程附录,工程严谨度高</h3>
-<p><code>docs/</code> 下有 9 份独立但互引的文档: -
-<code>math-prerequisites.html</code> — 数学/PyTorch 符号约定、tensor
-flow、mask 语义、反向传播 -
-<code>ml-foundations-prerequisite-bridge.html</code> — 从 ML
-基础到本课的桥接 - <code>python-pytorch-review-session.html</code> —
-Python/PyTorch 速查 - <code>reading-list.html</code> — 扩展阅读 -
-<code>written-problem-set.html</code> /
-<code>worked-example-pack.html</code> — 配套习题 -
-<code>classic-nlp-handout.html</code> /
+<p><code>docs/</code> 下有 9 份独立但互引的文档:</p>
+<ul>
+<li><code>math-prerequisites.html</code> — 数学/PyTorch 符号约定、tensor
+flow、mask 语义、反向传播</li>
+<li><code>ml-foundations-prerequisite-bridge.html</code> — 从 ML
+基础到本课的桥接</li>
+<li><code>python-pytorch-review-session.html</code> — Python/PyTorch
+速查</li>
+<li><code>reading-list.html</code> — 扩展阅读</li>
+<li><code>written-problem-set.html</code> /
+<code>worked-example-pack.html</code> — 配套习题</li>
+<li><code>classic-nlp-handout.html</code> /
 <code>classic-nlp-deep-dive-module.html</code> — RNN/LSTM/seq2seq/BERT
-经典 NLP 衔接</p>
+经典 NLP 衔接</li>
+</ul>
 <p>下图是数学前置附录的符号约定表,定义 B/T/S/V/d_model/H/H_kv/D/N/M
 等十几个张量符号的语义和 shape,整门课统一沿用:</p>
 <figure>
