@@ -9,13 +9,13 @@
 <meta http-equiv="Expires" content="0">
 
 <title>《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog</title>
-<meta name="description" content="课程仓库: https://github.com/garryx/llmcourse 课程主页: http://garryx.github.io/llmcourse 本地 ./serve.sh serve 起 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这">
+<meta name="description" content="课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs">
 <meta name="author" content="Garry Xu">
 <meta name="keywords" content="LLM,大模型,课程,PyTorch,深度学习">
 
 <!-- Open Graph -->
 <meta property="og:title" content="《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog">
-<meta property="og:description" content="课程仓库: https://github.com/garryx/llmcourse 课程主页: http://garryx.github.io/llmcourse 本地 ./serve.sh serve 起 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这">
+<meta property="og:description" content="课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garryx.com/2026/06/15/llm-course-intro/">
 <meta property="og:image" content="https://garryx.com/images/llm-course-home.jpg">
@@ -25,7 +25,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog">
-<meta name="twitter:description" content="课程仓库: https://github.com/garryx/llmcourse 课程主页: http://garryx.github.io/llmcourse 本地 ./serve.sh serve 起 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这">
+<meta name="twitter:description" content="课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs">
 <meta name="twitter:image" content="https://garryx.com/images/llm-course-home.jpg">
 
 <link rel="canonical" href="https://garryx.com/2026/06/15/llm-course-intro/">
@@ -36,11 +36,11 @@
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "《LLM Deep Learning》—— 一门面向训练和推理工程师的代码优先 LLM 课程 | Garry&#39;s Blog",
-  "description": "课程仓库: https://github.com/garryx/llmcourse 课程主页: http://garryx.github.io/llmcourse 本地 ./serve.sh serve 起 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这",
+  "description": "课程仓库: https://github.com/garryx/llmcourse 本地起服务: ./serve.sh serve默认 8080 状态: 持续更新中,本文写于 20260615commit e3e2b08,345 commits 这门课是什么 LLM Deep Learning 是一门 codefirs",
   "url": "https://garryx.com/2026/06/15/llm-course-intro/",
   
   "datePublished": "2026-06-15T03:00:00.000Z",
-  "dateModified": "2026-06-15T02:45:28.359Z",
+  "dateModified": "2026-06-15T03:08:23.093Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -151,12 +151,15 @@ MathJax = {
 
         <div class="post-content" id="post-content">
             <blockquote>
-<p>课程仓库: <a target="_blank" rel="noopener" href="https://github.com/garry-x/llm-course"
-class="uri">https://github.com/garry-x/llm-course</a> 课程主页: <a
-target="_blank" rel="noopener" href="http://garry-x.github.io/llm-course"
-class="uri">http://garry-x.github.io/llm-course</a> (本地
-<code>./serve.sh serve</code> 起 8080) 状态: 持续更新中,本文写于
-2026-06-15(commit <code>e3e2b08</code>,345 commits)</p>
+<ul>
+<li><strong>课程仓库</strong>: <a
+target="_blank" rel="noopener" href="https://github.com/garry-x/llm-course"
+class="uri">https://github.com/garry-x/llm-course</a></li>
+<li><strong>本地起服务</strong>: <code>./serve.sh serve</code>(默认
+8080)</li>
+<li><strong>状态</strong>: 持续更新中,本文写于 2026-06-15(commit
+<code>e3e2b08</code>,345 commits)</li>
+</ul>
 </blockquote>
 <h2 id="这门课是什么">这门课是什么</h2>
 <p><strong>LLM Deep Learning</strong> 是一门 <strong>code-first</strong>
@@ -440,12 +443,12 @@ id="三阶段学习路径课程自带的初学者指南">三阶段学习路径(�
 怎么变"</strong>就够了。</p>
 <h2 id="如何使用">如何使用</h2>
 <h3 id="浏览零安装">1. 浏览(零安装)</h3>
-<p>直接打开 <a target="_blank" rel="noopener" href="http://garry-x.github.io/llm-course"
-class="uri">http://garry-x.github.io/llm-course</a> 即可阅读全部 11 章 +
-9 份附录。</p>
+<p>直接 clone
+仓库到本地,然后起服务阅读(见下一节)。课程<strong>没有</strong> GitHub
+Pages 在线版。</p>
 <h3 id="本地起服务推荐">2. 本地起服务(推荐)</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/garry-x/llm-course.git</span><br><span class="line"><span class="built_in">cd</span> llm-course</span><br><span class="line">./serve.sh serve           <span class="comment"># 默认 0.0.0.0:8080</span></span><br><span class="line"><span class="comment"># 自定义端口:  ./serve.sh serve -p 3000</span></span><br><span class="line"><span class="comment"># 自定义地址:  ./serve.sh serve -h 127.0.0.1</span></span><br></pre></td></tr></table></figure>
-<p>打开 <code>http://127.0.0.1:8080</code> 即可。<code>serve.sh</code>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/garry-x/llm-course</span><br><span class="line"><span class="built_in">cd</span> llm-course</span><br><span class="line">./serve.sh serve           <span class="comment"># 默认 0.0.0.0:8080</span></span><br><span class="line"><span class="comment"># 自定义端口:  ./serve.sh serve -p 3000</span></span><br><span class="line"><span class="comment"># 自定义地址:  ./serve.sh serve -h localhost</span></span><br></pre></td></tr></table></figure>
+<p>打开 <code>http://localhost:8080</code> 即可。<code>serve.sh</code>
 会自动检测端口占用并询问是否终止占用的进程。</p>
 <h3 id="跑作业需要-python-环境">3. 跑作业(需要 Python 环境)</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br><span class="line"><span class="comment"># PyTorch 建议从官网装以匹配 CUDA: https://pytorch.org/get-started/locally/</span></span><br></pre></td></tr></table></figure>
@@ -494,8 +497,8 @@ class="uri">https://github.com/garry-x/llm-course</a>,作者 (garry-x)
 维护活跃(commit 历史显示每天有更新)。</p>
 </blockquote>
 <hr />
-<p><em>本文配图均来自课程本地服务 <code>http://127.0.0.1:8080</code>
-的浏览器截图,版权归属课程作者 <a
+<p><em>本文配图均来自课程仓库 README 与各 chapter / docs
+页面截图,版权归属课程作者 <a
 target="_blank" rel="noopener" href="https://github.com/garry-x">garry-x</a>。</em></p>
 
         </div>
