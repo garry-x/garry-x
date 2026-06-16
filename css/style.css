@@ -861,6 +861,15 @@ img {
   box-shadow: none;
 }
 
+.post-content img[src*="math-softmax"] {
+  max-width: min(620px, 100%);
+  box-shadow: none;
+  border-radius: 10px;
+}
+.post-content img[src*="math-softmax"]:hover {
+  box-shadow: none;
+}
+
 .post-content figure {
   margin: 32px 0;
 }
