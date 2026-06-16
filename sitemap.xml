@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://garryx.com/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/</loc>
+    <loc>https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/</loc>
     
     <lastmod>2026-06-05</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/</loc>
+    <loc>https://garryx.com/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/</loc>
     
     <lastmod>2026-06-05</lastmod>
     
@@ -227,7 +227,7 @@
   </url>
   
   <url>
-    <loc>https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/</loc>
+    <loc>https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/</loc>
     
     <lastmod>2026-06-05</lastmod>
     
@@ -236,7 +236,7 @@
   </url>
   
   <url>
-    <loc>https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/</loc>
+    <loc>https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/</loc>
     
     <lastmod>2026-06-05</lastmod>
     
@@ -351,6 +351,41 @@
   </url>
   
   <url>
+    <loc>https://garryx.com/tags/deep-learning/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://garryx.com/tags/llm/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://garryx.com/tags/math/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://garryx.com/tags/attention/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://garryx.com/tags/softmax/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://garryx.com/tags/%E5%90%91%E9%87%8F/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -387,41 +422,6 @@
   
   <url>
     <loc>https://garryx.com/tags/x86/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://garryx.com/tags/deep-learning/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://garryx.com/tags/llm/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://garryx.com/tags/math/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://garryx.com/tags/attention/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://garryx.com/tags/softmax/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -472,6 +472,13 @@
   </url>
   
   <url>
+    <loc>https://garryx.com/categories/AI/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://garryx.com/categories/%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -480,13 +487,6 @@
   
   <url>
     <loc>https://garryx.com/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://garryx.com/categories/AI/</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
