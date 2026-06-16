@@ -11,7 +11,27 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-15T03:25:19.548Z</updated>
+  <updated>2026-06-16T00:17:00.663Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/16/ai-daily-2026-06-16/</id>
+    <link href="https://garryx.com/2026/06/16/ai-daily-2026-06-16/"/>
+    <published>2026-06-16T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>Anthropic 旗舰模型 Fable 5 遭美国政府出口管制强制下架，12
+万字符系统提示词泄漏；同日 Claude 两大 API
+模型字符串无预警退役，开发者紧急迁移。OpenAI 宣布接入]]>
+    </summary>
+    <title>【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役</title>
+    <updated>2026-06-16T00:17:00.663Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -357,22 +377,6 @@ Computer Architecture: A Quantitative Approach 6th Edition.]]>
 Matching in Strings[J]. Siam Journal on Computing,]]>
     </summary>
     <title>KMP算法</title>
-    <updated>2026-06-05T07:09:54.000Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="虚拟化" scheme="https://garryx.com/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    <category term="虚拟化简介" scheme="https://garryx.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%AE%80%E4%BB%8B/"/>
-    <id>https://garryx.com/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/</id>
-    <link href="https://garryx.com/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    <published>2022-02-22T03:52:17.000Z</published>
-    <summary>
-      <![CDATA[<p>在“<a
-href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/">虚拟化]]>
-    </summary>
-    <title>硬件虚拟化</title>
     <updated>2026-06-05T07:09:54.000Z</updated>
   </entry>
 </feed>

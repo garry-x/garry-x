@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览 Anthropic 旗舰模型 Fable 5 遭美国政府出口管制强制下架，12 万字符系统提示词泄漏；同日 Claude 两大 API 模型字符串无预警退役，开发者紧急迁移。OpenAI 宣布接入 Oracle 云生态，企业可用现有云额度购买其模型。国内方面，燧原科技 AI 芯片 IPO 6 月 15 ">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览 Anthropic 旗舰模型 Fable 5 遭美国政府出口管制强制下架，12 万字符系统提示词泄漏；同日 Claude 两大 API 模型字符串无预警退役，开发者紧急迁移。OpenAI 宣布接入 Oracle 云生态，企业可用现有云额度购买其模型。国内方面，燧原科技 AI 芯片 IPO 6 月 15 ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/16/ai-daily-2026-06-16/">
+<meta property="og:image" content="https://garryx.com/images/ai-daily-cover.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览 Anthropic 旗舰模型 Fable 5 遭美国政府出口管制强制下架，12 万字符系统提示词泄漏；同日 Claude 两大 API 模型字符串无预警退役，开发者紧急迁移。OpenAI 宣布接入 Oracle 云生态，企业可用现有云额度购买其模型。国内方面，燧原科技 AI 芯片 IPO 6 月 15 ">
+<meta name="twitter:image" content="https://garryx.com/images/ai-daily-cover.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/16/ai-daily-2026-06-16/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役 | Garry&#39;s Blog",
+  "description": "🔦 今日速览 Anthropic 旗舰模型 Fable 5 遭美国政府出口管制强制下架，12 万字符系统提示词泄漏；同日 Claude 两大 API 模型字符串无预警退役，开发者紧急迁移。OpenAI 宣布接入 Oracle 云生态，企业可用现有云额度购买其模型。国内方面，燧原科技 AI 芯片 IPO 6 月 15 ",
+  "url": "https://garryx.com/2026/06/16/ai-daily-2026-06-16/",
+  
+  "datePublished": "2026-06-16T00:00:00.000Z",
+  "dateModified": "2026-06-16T00:17:00.663Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/images/ai-daily-cover.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=17">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-16T00:00:00.000Z">
+                    2026年6月16日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="今日速览">🔦 今日速览</h2>
+<p>Anthropic 旗舰模型 Fable 5 遭美国政府出口管制强制下架，12
+万字符系统提示词泄漏；同日 Claude 两大 API
+模型字符串无预警退役，开发者紧急迁移。OpenAI 宣布接入 Oracle
+云生态，企业可用现有云额度购买其模型。国内方面，燧原科技 AI 芯片 IPO 6
+月 15 日上会，蚂蚁阿福上线首个"AI+医生"协作模式。</p>
+<p><strong>趋势1</strong>：政府"一键关停"云模型成为现实，企业 AI
+基础设施主权意识觉醒<br />
+<strong>趋势2</strong>：AI 代码安全与幻觉治理从学术走向政策与监管<br />
+<strong>趋势3</strong>：中国 AI 芯片与具身智能加速产业化落地</p>
+<hr />
+<h2 id="国际动态">🌍 国际动态</h2>
+<h3
+id="美国政府出口管制强制下架-anthropic-fable-512-万字符系统提示词泄漏">1.
+美国政府出口管制强制下架 Anthropic Fable 5，12 万字符系统提示词泄漏</h3>
+<p><strong>事件简述</strong>：6 月 12
+日，美国商务部发布出口管制指令，强制 Anthropic 立即停止向全球用户提供
+Claude Fable 5 和 Mythos 5
+两款最强模型。政府声称发现了能绕过模型安全限制的"jailbreak"方法。但
+Anthropic 表示，政府仅提供了口头证据，指控的缺陷构成"一次独特、非通用的
+jailbreak"——仅要求模型阅读特定代码库并修复漏洞。同时，Fable 5 约 12
+万字符的完整系统提示词在 GitHub
+上遭泄漏，暴露了其主要依赖自然语言指令而非硬编码拒绝的安全架构。
+<strong>关键数据</strong>：Fable 5 从发布（6 月 9 日）到下架仅存在
+<strong>72 小时</strong>；系统提示词泄漏长度约 <strong>120,000
+字符</strong>；Anthropic CFO 称五角大楼的"供应链风险"标签可能导致 2026
+年收入减少<strong>数十亿美元</strong>。
+<strong>影响分析</strong>：这是首次美国政府以出口管制为由强制回收已上线的商用
+AI 模型，企业界开始重视"硬件主权"——从依赖云端 API
+转向本地部署或多云商策略。 📅6月15日</p>
+<h3 id="claude-api-两大模型字符串无预警退役agent-sdk-单独计费">2. Claude
+API 两大模型字符串无预警退役，Agent SDK 单独计费</h3>
+<p><strong>事件简述</strong>：美东时间 6 月 15
+日凌晨起，<code>claude-sonnet-4-20250514</code> 和
+<code>claude-opus-4-20250514</code>
+两个模型字符串正式退役，调用直接返回错误，<strong>无任何缓冲期</strong>。同时，Agent
+SDK、无头 Claude Code、GitHub Actions
+等自动化用量开启单独计费，与交互式会话分离。Pro 用户每月约 <strong>20
+美元</strong> API 信用额，用完后按标准 API 价格计费，且信用额不结转。
+<strong>关键数据</strong>：无缓冲期退役；Pro / Max 5x / Max 20x 分别约
+<strong>$20/$100/$200</strong>每月自动化信用额；信用额不结转。
+<strong>影响分析</strong>：强制无缓冲退役的做法在企业开发者中引发不满，将推动更多团队向
+Anthropic
+最新模型字符串（<code>claude-sonnet-4-6</code>、<code>claude-opus-4-8</code>）迁移，也可能加速部分用户转向开源或多云商方案。
+📅6月15日</p>
+<h3 id="openai-模型接入-oracle-云企业可用现有云额度购买">3. OpenAI
+模型接入 Oracle 云，企业可用现有云额度购买</h3>
+<p><strong>事件简述</strong>：OpenAI 官方宣布与 Oracle 达成合作，Oracle
+Cloud Infrastructure（OCI）客户可以使用现有的 <strong>Oracle Universal
+Credits</strong>（通用云额度）购买 OpenAI 前沿模型和 Codex
+服务。这意味着企业无需单独与 OpenAI
+签订新合同或开通新账户，即可通过现有采购流程和治理框架接入先进
+AI。该合作可以在微软排他性协议于 2026 年 4 月终止后实现。
+<strong>关键数据</strong>：公布日期 <strong>6 月 10
+日</strong>；服务尚未上线，预计"未来几周"内开放；采用现有云额度计费，无需新增采购路径。
+<strong>影响分析</strong>：对于已经在 Oracle
+生态中投入巨资的金融、制造等传统行业客户，这大幅降低了 AI
+采购门槛，也标志着 OpenAI 正在构建一个跨云、去中心化的企业分销网络。
+📅6月10日</p>
+<h3 id="anthropic-已在起诉美国政府fable-5-下架背后竞是法律战">4.
+Anthropic 已在起诉美国政府，Fable 5 下架背后竞是法律战</h3>
+<p><strong>事件简述</strong>：此次出口管制并非突发事件。早在 2026
+年初，美国国防部就将 Anthropic 列为"供应链风险"，理由是 Anthropic
+以伦理考虑为由限制了军方使用其技术。这一标签导致政府机构无法采购
+Anthropic 产品，并且 Anthropic 正在以 <strong>10 U.S.C.</strong>
+为依据起诉美国政府。6 月 12
+日的出口管制指令正好落在诉讼期间。此前，Fable 5 的 319
+页系统卡片还暴露了对某些 AI
+开发工作“秘密降级”的政策，被开发者批评为"秘密破坏"。
+<strong>关键数据</strong>：Anthropic 每月向 SpaceX 支付 <strong>12.5
+亿美元</strong>以获取算力；一家合作伙伴因供应链风险标签切换模型，导致
+Anthropic 流失 <strong>1 亿美元</strong>收入管道；另有 <strong>1.8
+亿美元</strong>金融机构合作谈判受阻。 <strong>影响分析</strong>：AI
+安全与国家安全的界限正在被重新划定。当 AI
+公司同时面临商业化、资本市场和政府监管的三重压力时，"技术中立"的空间正在收窄。
+📅6月15日</p>
+<hr />
+<h2 id="国内动态">🇨🇳 国内动态</h2>
+<h3 id="燧原科技上会冲刺-ipo国产云端-ai-芯片领军企业登陆科创板">1.
+燧原科技上会冲刺 IPO，国产云端 AI 芯片领军企业登陆科创板</h3>
+<p><strong>事件简述</strong>：上海证券交易所上市审核委员会定于 <strong>6
+月 15 日</strong> 召开第 37
+次审核会议，审议燧原科技首发上市申请。燧原科技是我国云端 AI
+芯片领军企业之一，成立近 8 年来自研迭代了四代架构、5 款云端 AI
+芯片，产品线覆盖 AI 芯片、加速卡、智算系统及集群和软件平台。
+<strong>关键数据</strong>：自研四代架构、<strong>5 款</strong> 云端 AI
+芯片；冲刺科创板首发上市。
+<strong>影响分析</strong>：燧原科技上会意味着国产 AI
+芯片从"资本驱动"进入"资本市场验证"阶段，将为后续国产算力芯片企业提供市值管理与融资参考。
+📅6月15日</p>
+<h3 id="蚂蚁阿福上线国内首个ai医生协作模式">2.
+蚂蚁阿福上线国内首个"AI+医生"协作模式</h3>
+<p><strong>事件简述</strong>：6 月 15 日，蚂蚁集团旗下健康 AI
+应用"阿福"宣布两大升级：一是皮肤病识别种类从 50 种扩充至 <strong>100
+多种</strong>，覆盖 99%
+的线上就医常见皮肤问题；二是上线"医生把关"功能，用户获得 AI
+解答后，可选择邀请三甲医院医生对分析结果进行复核并补充意见。这是国内首个落地的
+AI 问答 + 医生把关协作模式。 <strong>关键数据</strong>：皮肤病识别
+<strong>100+ 种</strong>＜覆盖 99% 常见问题；<strong>15%</strong>
+用户选择医生把关；AI 与医生分析一致率超过 <strong>90%</strong>。
+<strong>影响分析</strong>："AI 初诊 + 人类专家复核"的模式为医疗 AI
+的可信度和责任分配提供了可行路径，可能成为行业标杆。 📅6月15日</p>
+<h3 id="松延动力发布首款开源鸿蒙人形机器人余承东亲自点赞">3.
+松延动力发布首款开源鸿蒙人形机器人，余承东亲自点赞</h3>
+<p><strong>事件简述</strong>：在 <strong>HDC
+2026</strong>（华为开发者大会）上，松延动力首款开源鸿蒙消费级人形机器人
+<strong>OpenHarmony 版 N2</strong> 亮相。华为终端 BG
+董事长余承东将其作为"开源鸿蒙走进千家万户"六大品类中机器人方向代表进行重点展示，强调人形机器人在开源鸿蒙生态连接家庭、生活和未来智能终端的重要性。该机器人可与手机、智慧屏、智能家居等设备实现深度互联互通，打破消费级机器人的"生态孤岛"。
+<strong>关键数据</strong>：首款开源鸿蒙消费级人形机器人；将向
+<strong>100 位开发者免费赠送</strong>机器人。
+<strong>影响分析</strong>：开源鸿蒙正在从手机、车机扩展到机器人，如果能形成统一的软硬件生态，将为国产机器人提供差异化竞争优势。
+📅6月15日</p>
+<h3 id="中国计划五年投入-2-万亿元建设全国-ai-数据中心网络">4.
+中国计划五年投入 2 万亿元建设全国 AI 数据中心网络</h3>
+<p><strong>事件简述</strong>：据彭博社 6 月 9
+日报道，中国计划未来五年投入约 <strong>2 万亿人民币</strong>（2950
+亿美元）建设全国性 AI 数据中心网络，由国资背景运营商主导，要求至少
+<strong>80%</strong>的芯片及相关技术采用国产方案。这一规模相当于再建一个"东数西算"工程，意在打通算力与能源的协同布局。
+<strong>关键数据</strong>：五年总投资 <strong>2 万亿元</strong>；至少
+<strong>80%</strong>国产芯片/技术占比。
+<strong>影响分析</strong>：如果落地，这将是全球最大规模的 AI
+基础设施投资之一，也是国产芯片取代英伟达 GPU 的最关键场景验证。
+📅6月9日</p>
+<h3 id="微软-ceo-纳德拉提出人力资本-token-资本新范式">5. 微软 CEO
+纳德拉提出"人力资本 + Token 资本"新范式</h3>
+<p><strong>事件简述</strong>：6 月 15 日，微软 CEO 萨提亚·纳德拉（Satya
+Nadella）在 X 发布长文《A frontier without an ecosystem is not
+stable》，浏览量突破 <strong>2800 万</strong>。文章提出，在 AI
+驱动的经济时代，企业未来的核心资本将分为两种：<strong>人力资本（Human
+Capital）与 Token 资本（Token
+Capital）</strong>，并深刻影响数字主权与社会经济格局。
+<strong>关键数据</strong>：推文浏览量超过 <strong>2800
+万</strong>；重新定义 AI 时代企业资本结构。
+<strong>影响分析</strong>："人力 +
+Token"双资本架构可能成为未来企业财务与战略计划的基础框架，也暗示了微软将
+AI 接入云计算、协作软件等产品的长期思路。 📅6月15日</p>
+<hr />
+<h2 id="今日论文">📄 今日论文</h2>
+<h3
+id="from-shield-to-target-denial-of-service-attacks-on-llm-based-agent-guardrails">1.
+From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent
+Guardrails</h3>
+<p><strong>作者</strong>：Yuguang Zhou, Xunguang Wang, Pingchuan Ma et
+al. | <strong>机构</strong>：未明确大型科研院校
+<strong>核心贡献</strong>：研究发现，LLM Agent
+的"护栏"（guardrails）本身也可以成为攻击目标。攻击者可以利用护栏的推理和任务执行机制，发起拒绝服务（DoS）攻击，让合法的
+Agent 工作流也被拒绝。这是首个系统性研究 Agent
+安全护栏可被转化为攻击面的工作。 <strong>为什么重要</strong>：随着 AI
+Agent
+在企业和金融场景快速落地，护栏的可靠性直接决定了生产环境的安全基线。本文提醒：安全机制本身也可能成为攻击面。
+📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.14517">arXiv:2606.14517</a>
+📅6月12日</p>
+<h3 id="recursive-agent-harnesses">2. Recursive Agent Harnesses</h3>
+<p><strong>作者</strong>：Elias Lumer, Sahil Sen, Kevin Paul et al. |
+<strong>机构</strong>：Anthropic 相关
+<strong>核心贡献</strong>：提出"递归 Agent 套件"（Recursive Agent
+Harnesses）概念，将递归语言模型（RLM）的递归调用策略应用到生产级编码
+Agent 中。这种方法允讶代码在运行时动态生成子
+Agent，并以递归方式解决复杂任务。 <strong>为什么重要</strong>：这与
+Anthropic 最近在 Claude Code 中推广的动态工作区（dynamic
+workspaces）技术方向一致，提示下一代编码 Agent
+将以递归、并行的方式扩展能力。 📄 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.13643">arXiv:2606.13643</a>
+📅6月11日</p>
+<h3
+id="towards-direct-latent-space-synthesis-for-parallel-branches-in-llm-agent-workflows">3.
+Towards Direct Latent-Space Synthesis for Parallel Branches in LLM-Agent
+Workflows</h3>
+<p><strong>作者</strong>：Shikun Liu, Mufei Li, Dongqi Fu et al. |
+<strong>机构</strong>：未明确 <strong>核心贡献</strong>：现有 LLM Agent
+工作流通过串行文本交互，但实际中很多分支任务是并行的。本文提出直接在潜在空间（latent
+space）合成并行分支的方法，避免了不必要的文本编码/解码开销，显著提高了多分支
+Agent 的执行效率。 <strong>为什么重要</strong>：多分支并行是下一代复杂
+Agent 系统的关键特征，这项技术可能减少多 Agent 协作时的延迟和成本。 📄
+<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.14672">arXiv:2606.14672</a>
+📅6月12日</p>
+<h3
+id="bayesian-calibrated-detection-of-hallucinated-package-imports-in-ai-assisted-code">4.
+Bayesian-Calibrated Detection of Hallucinated Package Imports in
+AI-Assisted Code</h3>
+<p><strong>作者</strong>：Lom M. Hillah, Jean-Marc Richard, Ryan
+Hasnaoui | <strong>机构</strong>：未明确 <strong>核心贡献</strong>：针对
+AI 辅助编码中频繁出现的"幻觉包导入"（hallucinated package
+imports）问题，提出一个贝叶斯校准层。现有检测器只能输出二元结果（是/否），而该方法输出概率分布，提供更精确的可信度评估。
+<strong>为什么重要</strong>：AI
+编码助手的幻觉包导入是实际生产中常见的"静默失败"，这项技术可帮助开发者在提交代码前识别并修复这类隐蔽错误。
+📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.13918">arXiv:2606.13918</a>
+📅6月11日</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                
+                <a href="/2026/06/15/llm-course-intro/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
