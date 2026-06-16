@@ -36,6 +36,27 @@
     <author>
       <name>Garry Xu</name>
     </author>
+    <category term="AI" scheme="https://garryx.com/categories/AI/"/>
+    <category term="深度学习" scheme="https://garryx.com/categories/AI/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="deep-learning" scheme="https://garryx.com/tags/deep-learning/"/>
+    <category term="llm" scheme="https://garryx.com/tags/llm/"/>
+    <category term="math" scheme="https://garryx.com/tags/math/"/>
+    <category term="attention" scheme="https://garryx.com/tags/attention/"/>
+    <category term="softmax" scheme="https://garryx.com/tags/softmax/"/>
+    <id>https://garryx.com/2026/06/16/softmax-deep-dive/</id>
+    <link href="https://garryx.com/2026/06/16/softmax-deep-dive/"/>
+    <published>2026-06-15T16:00:00.000Z</published>
+    <summary>
+      <![CDATA[<blockquote>
+<p>在每一个现代 LLM 的输出层，每一层 Transformer 的]]>
+    </summary>
+    <title>Softmax：从统计力学到千亿参数 LLM 的进化之路</title>
+    <updated>2026-06-16T09:49:11.071Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
     <category term="技术" scheme="https://garryx.com/categories/%E6%8A%80%E6%9C%AF/"/>
     <category term="LLM" scheme="https://garryx.com/tags/LLM/"/>
     <category term="大模型" scheme="https://garryx.com/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
@@ -361,22 +382,6 @@ The Evolutions of the Compute-to-Storage Networks in]]>
 Computer Architecture: A Quantitative Approach 6th Edition.]]>
     </summary>
     <title>指令集架构</title>
-    <updated>2026-06-05T07:09:54.000Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="算法" scheme="https://garryx.com/categories/%E7%AE%97%E6%B3%95/"/>
-    <id>https://garryx.com/2022/03/07/KMP%E7%AE%97%E6%B3%95/</id>
-    <link href="https://garryx.com/2022/03/07/KMP%E7%AE%97%E6%B3%95/"/>
-    <published>2022-03-07T07:38:42.000Z</published>
-    <summary>
-      <![CDATA[<blockquote>
-<p>以下笔记来自阅读：Knuth D E , Morris J H , Pratt V R . Fast Pattern
-Matching in Strings[J]. Siam Journal on Computing,]]>
-    </summary>
-    <title>KMP算法</title>
     <updated>2026-06-05T07:09:54.000Z</updated>
   </entry>
 </feed>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>Softmax：从统计力学到千亿参数 LLM 的进化之路 | Garry&#39;s Blog</title>
+<meta name="description" content="在每一个现代 LLM 的输出层，每一层 Transformer 的 Attention 机制里，都藏着一个同样的函数——Softmax。它看似简单，却承载着从统计力学到深度学习的百年进化。本文将从历史、数学、工程三个维度，尽可能图表化地解构这个“最熟悉的陌生人”。 一、历史由来：从 Boltzmann 到 Bridle">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="deep-learning,llm,math,attention,softmax">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Softmax：从统计力学到千亿参数 LLM 的进化之路 | Garry&#39;s Blog">
+<meta property="og:description" content="在每一个现代 LLM 的输出层，每一层 Transformer 的 Attention 机制里，都藏着一个同样的函数——Softmax。它看似简单，却承载着从统计力学到深度学习的百年进化。本文将从历史、数学、工程三个维度，尽可能图表化地解构这个“最熟悉的陌生人”。 一、历史由来：从 Boltzmann 到 Bridle">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/16/softmax-deep-dive/">
+<meta property="og:image" content="https://garryx.com/images/math-softmax/softmax-vs-argmax.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Softmax：从统计力学到千亿参数 LLM 的进化之路 | Garry&#39;s Blog">
+<meta name="twitter:description" content="在每一个现代 LLM 的输出层，每一层 Transformer 的 Attention 机制里，都藏着一个同样的函数——Softmax。它看似简单，却承载着从统计力学到深度学习的百年进化。本文将从历史、数学、工程三个维度，尽可能图表化地解构这个“最熟悉的陌生人”。 一、历史由来：从 Boltzmann 到 Bridle">
+<meta name="twitter:image" content="https://garryx.com/images/math-softmax/softmax-vs-argmax.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/16/softmax-deep-dive/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Softmax：从统计力学到千亿参数 LLM 的进化之路 | Garry&#39;s Blog",
+  "description": "在每一个现代 LLM 的输出层，每一层 Transformer 的 Attention 机制里，都藏着一个同样的函数——Softmax。它看似简单，却承载着从统计力学到深度学习的百年进化。本文将从历史、数学、工程三个维度，尽可能图表化地解构这个“最熟悉的陌生人”。 一、历史由来：从 Boltzmann 到 Bridle",
+  "url": "https://garryx.com/2026/06/16/softmax-deep-dive/",
+  
+  "datePublished": "2026-06-15T16:00:00.000Z",
+  "dateModified": "2026-06-16T09:49:11.071Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/images/math-softmax/softmax-vs-argmax.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=17">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI/">AI</a>
+                
+                    <a href="/categories/AI/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+                
+            </div>
+            
+            <h1 class="post-title">Softmax：从统计力学到千亿参数 LLM 的进化之路</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-15T16:00:00.000Z">
+                    2026年6月16日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/deep-learning/">#deep-learning</a>
+                    
+                        <a href="/tags/llm/">#llm</a>
+                    
+                        <a href="/tags/math/">#math</a>
+                    
+                        <a href="/tags/attention/">#attention</a>
+                    
+                        <a href="/tags/softmax/">#softmax</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <blockquote>
+<p>在每一个现代 LLM 的输出层，每一层 Transformer 的 Attention
+机制里，都藏着一个同样的函数——Softmax。它看似简单，却承载着从统计力学到深度学习的百年进化。本文将从历史、数学、工程三个维度，尽可能图表化地解构这个“最熟悉的陌生人”。</p>
+</blockquote>
+<hr />
+<h2 id="一历史由来从-boltzmann-到-bridle">一、历史由来：从 Boltzmann 到
+Bridle</h2>
+<h3 id="统计力学的先声1868">1.1 统计力学的先声（1868）</h3>
+<p>Softmax 的数学原型可以追溯到 19 世纪统计力学家 <strong>Ludwig
+Boltzmann</strong> 提出的 Boltzmann
+分布。在热力学中，一个系统处于某个状态 (i) 的概率与能量 (E_i)
+的负指数成正比：</p>
+<p>\[ P(i) e^{-E_i / kT} \]</p>
+<p>其中 (k) 是 Boltzmann 常数，(T)
+是温度。这个式子的核心思想是：<strong>能量越低的状态越可能被采样，但所有状态都有非零概率。</strong></p>
+<p>今天的 Softmax
+几乎是它的翻版——把能量换成模型输出的“logits”，把温度换成可调的超参数。</p>
+<h3 id="logistic-回归与多分类问题1958">1.2 Logistic
+回归与多分类问题（1958）</h3>
+<p>20 世纪 50 年代，<strong>David Cox</strong> 提出 Logistic 回归，用
+Sigmoid 函数将实数映射到 (0,1) 区间以解决二分类问题：</p>
+<p>\[ (z) = \]</p>
+<p>当统计学家尝试把这个方法推广到 <strong>K 个类别</strong>
+时，他们发现简单地重复 Sigmoid 会导致概率之和不为
+1。需要一种新的函数，能够同时完成：</p>
+<ol type="1">
+<li>每个输出在 (0,1) 区间</li>
+<li>所有输出之和为 1</li>
+<li>保持原始 logits 的相对大小关系</li>
+</ol>
+<h3 id="softmax-的命名1989">1.3 “Softmax” 的命名（1989）</h3>
+<p>大多数人认为是 <strong>John Bridle</strong> 在 1989 年的论文
+<em>"Training Stochastic Model Recognition Algorithms as Networks can
+Lead to Maximum Mutual Information Estimation of Parameters"</em>
+中正式引入了“Softmax”这个名字。</p>
+<p>但其实早在 1986 年，McCullagh 和 Nelder 的《Generalized Linear
+Models》就已经使用了类似的多类 Logistic 函数。Bridle
+的贡献是把它置于神经网络的语境中，并给出了一个有趣的解释：</p>
+<blockquote>
+<p>Softmax 是 Argmax
+的“柔化”版本——它保留了“谁最大谁赢”的精神，但用概率分布取代了硬性的
+one-hot 选择。</p>
+</blockquote>
+<figure>
+<img src="/images/math-softmax/softmax-vs-argmax.png"
+alt="Softmax vs Argmax 对比" />
+<figcaption aria-hidden="true">Softmax vs Argmax 对比</figcaption>
+</figure>
+<p>图中左侧的 Argmax 是不可微的“硬决策”，右侧的 Softmax
+则是每处可导、每个类别都有非零概率的“软决策”。这个区别直接决定了它能被放进神经网络用梯度下降训练，而
+Argmax 不行。</p>
+<h3 id="时间线从物理学到-gpt-3">1.4 时间线：从物理学到 GPT-3</h3>
+<figure>
+<img src="/images/math-softmax/softmax-history.png"
+alt="Softmax 发展历史" />
+<figcaption aria-hidden="true">Softmax 发展历史</figcaption>
+</figure>
+<p>从 1868 年的热力学到 2020 年的 GPT-3，Softmax 走过了近 160
+年。它之所以能在 2017 年 Transformer 出现后成为核心组件，是因为
+Attention 机制需要一个能够渲染“关系强度”的归一化函数，而 Softmax
+正好符合这一需求。</p>
+<hr />
+<h2 id="二数学本质为什么是指数">二、数学本质：为什么是指数？</h2>
+<h3 id="定义与公式">2.1 定义与公式</h3>
+<p>对于一个 (K) 维的输入向量 ( = [z_1, z_2, , z_K])，Softmax
+定义为：</p>
+<p>\[ (z_i) = \]</p>
+<p>这个公式有三个关键性质：</p>
+<ul>
+<li><strong>正性</strong>：(i,; p_i &gt; 0)，每个类别都有非零概率</li>
+<li><strong>归一性</strong>：(_i p_i = 1)，构成有效的概率分布</li>
+<li><strong>单调性</strong>：如果 (z_i &gt; z_j)，则 (p_i &gt;
+p_j)，保持排序关系</li>
+</ul>
+<h3 id="为什么是ex">2.2 为什么是(e^x)？</h3>
+<p>这是最常被忽视的问题。为什么不用 (z_i^2)、(|z_i|)、或其他函数？</p>
+<p><strong>原因一：指数函数是唯一能把加法变成乘法的函数</strong></p>
+<p>\[ e^{a+b} = e^a e^b \]</p>
+<p>这意味着如果你有两个独立的证据来源都支持类别 (i)，它们的 logits
+可以直接相加，而概率则相乘——这正好符合贝叶斯定理的概率更新规则。</p>
+<p><strong>原因二：指数族分布</strong></p>
+<p>在概率论中，Softmax 是 <strong>多项逻辑斯谯回归（Multinomial Logistic
+Regression）</strong> 的自然选择，因为它是指数族分布（Exponential
+Family）的典型成员，拥有最大熵的性质。简而言之：<strong>在信息最少的前提下，Softmax
+是最“不偏不倚”的概率分布。</strong></p>
+<p><strong>原因三：对比度敏感</strong></p>
+<p>(e^x) 是“快速增长”的，这让 Softmax 能放大 logits 之间的差异。如果两个
+logits 相差 1，它们的概率比会是 (e^1 )；相差 2 则是 (e^2
+)。这种对比度的放大效应，让模型能够“自信”地选择最可能的类别，同时又不至于完全放弃其他可能性。</p>
+<hr />
+<h2 id="三llm-中的两大战场">三、LLM 中的两大战场</h2>
+<p>在大语言模型中，Softmax 主要出现在两个关键位置：输出层的
+<strong>Token 预测头</strong>（LM Head）和每层的
+<strong>Self-Attention</strong> 机制。</p>
+<h3 id="输出层从-logits-到词表概率">3.1 输出层：从 logits
+到词表概率</h3>
+<p>当一个 LLM 生成文本时，最后一层的线性层会输出一个维度为
+<strong>(|V|)</strong> 的向量，(|V|) 是词表大小（例如 GPT-3 的
+50,257）。这些原始值就是 <strong>logits</strong>。</p>
+<p>每一个 logit (​z_t) 表示“模型认为下一个 token 是 (t)
+的政击度”。Softmax 把这些原始分数转换为概率分布：</p>
+<p>\[ P(t_{next} = w_i t_1, , t_n) = \]</p>
+<figure>
+<img src="/images/math-softmax/softmax-crossentropy.png"
+alt="Softmax + Cross-Entropy 梯度简化" />
+<figcaption aria-hidden="true">Softmax + Cross-Entropy
+梯度简化</figcaption>
+</figure>
+<p>左图展示了训练过程中 Softmax
+输出的演化：从初始化的均匀分布，逐渐收敛到目标类别的尖峰。右图则揭示了为什么
+Softmax 与 Cross-Entropy 损失函数是“天作之合”——它们的梯度简化后等于 (p_i
+-
+y_i)，即预测误差。这让反向传播极其高效，也是为什么所有主流语言模型都采用这个组合。</p>
+<h3 id="attentionsoftmax-变成了关系强度">3.2 Attention：Softmax
+变成了“关系强度”</h3>
+<p>这是 Softmax 在 LLM 中最具革命性的应用。Transformer 架构中，Softmax
+不再只是“输出一个概率分布”，而是被用来将“相似度分数”转换为“加权和为 1
+的注意力分布”。</p>
+<figure>
+<img src="/images/math-softmax/attention-softmax.png"
+alt="Attention 机制中的 Softmax" />
+<figcaption aria-hidden="true">Attention 机制中的 Softmax</figcaption>
+</figure>
+<p>具体流程如下：</p>
+<ol type="1">
+<li>(​Q) （Query）与 (​K^T) （Key的转置）相乘，得到原始相关性分数</li>
+<li>除以 () 进行 <strong>Scale</strong>，防止点积数值过大导致 Softmax
+极端化</li>
+<li>通过 <strong>Softmax</strong> 归一化，得到 Attention 权重</li>
+<li>权重与 (​V) （Value）相乘，得到最终输出</li>
+</ol>
+<p>这里 Softmax 扮演的角色是关键的：<strong>它确保每个 token
+在聚合信息时，总是从全局中“注意力”最高的那些位置采样——但不会完全忽视其他位置。</strong></p>
+<h3 id="温度参数控制创造力">3.3 温度参数：控制“创造力”</h3>
+<p>在 LLM 的推理阶段，开发者常会用一个叫 <strong>Temperature</strong>
+的超参数来控制输出的“随机性”：</p>
+<p>\[ P(i) = \]</p>
+<figure>
+<img src="/images/math-softmax/softmax-temperature.png"
+alt="温度对 Softmax 分布的影响" />
+<figcaption aria-hidden="true">温度对 Softmax 分布的影响</figcaption>
+</figure>
+<ul>
+<li><strong>(​T &lt; 1)（如
+T=0.3）</strong>：分布变得极端尖锐，几乎等价于 Greedy
+Decoding。模型变得“自信”、“严肃”，适合任务型场景。</li>
+<li><strong>(​T = 1)（标准）</strong>：模型按原始信心度输出。</li>
+<li><strong>(​T &gt; 1)（如
+T=5）</strong>：分布趋向均匀，模型更愿意尝试低概率的
+token，输出更“有创意”。</li>
+</ul>
+<p>这个参数的名字也来自统计力学——它就是 Boltzmann 分布里的温度
+(T)。温度越高，系统越“混乱”，越容易跳出局部最优解。</p>
+<hr />
+<h2 id="四为什么-llm-选择了-softmax">四、为什么 LLM 选择了
+Softmax？</h2>
+<p>理解了历史和应用，我们来回答最核心的问题：如果从头设计一个
+LLM，为什么非得是 Softmax？</p>
+<h3 id="可微分性端到端训练的前提">4.1 可微分性：端到端训练的前提</h3>
+<p>这是最直接的原因。神经网络的训练依赖反向传播（Backpropagation），而这需要每个组件都是可微的。Argmax
+的导数在绝大多数位置是 0，在切换点不连续——这让梯度流无法传递。</p>
+<p>Softmax 则在(^K) 上每处可导，导数为：</p>
+<p>\[ = p_i (_{ij} - p_j) \]</p>
+<p>其中 (_{ij}) 是 Kronecker delta。这是一个美丽的结果：Softmax 的
+Jacobian 矩阵可以用它自己的输出(​p_i) 来表达，计算高效。</p>
+<h3 id="与-cross-entropy-的天作之合">4.2 与 Cross-Entropy
+的天作之合</h3>
+<p>语言模型通常用 <strong>Cross-Entropy Loss</strong> 训练：</p>
+<p>\[ L = -_i y_i (p_i) \]</p>
+<p>当 (p = (z)) 时，对 logits (​z_i) 的梯度简化为：</p>
+<p>\[ = p_i - y_i \]</p>
+<p>这个结果的简洁性是惊人的：</p>
+<ul>
+<li><strong>数值稳定</strong>：没有除法、没有对数的复杂运算</li>
+<li><strong>直观</strong>：梯度就是“预测值减真实标签”</li>
+<li><strong>高效</strong>：计算只需一次前向 + 一次反向，复杂度
+(O(K))</li>
+</ul>
+<p>如果换成其他归一化函数（如简单的
+()），梯度会变得复杂得多，数值上也不稳定。</p>
+<h3 id="数值稳定性减去最大值的魔法">4.3
+数值稳定性：“减去最大值”的魔法</h3>
+<p>在实际工程中，LLM 的 logits 经常是非常大的数（比如 100 或
+-100）。如果直接计算 (e^{1000})，浮点数会直接溢出成
+<code>inf</code>。</p>
+<figure>
+<img src="/images/math-softmax/softmax-numerical-trick.png"
+alt="数值稳定性技巧" />
+<figcaption aria-hidden="true">数值稳定性技巧</figcaption>
+</figure>
+<p>解决方案是在计算前，先把所有 logits 减去它们的最大值：</p>
+<p>\[ (z_i) = \]</p>
+<p>这不会改变最终结果，因为分子分母同时除以 (e^C)
+会相互抵消。但是最大的那一项变成 (e^0 = 1)，其他项都
+()，完全避免了溢出。这个简单的 trick 是每个深度学习框架必备的优化。</p>
+<h3 id="概率归一化的本质优势">4.4 概率归一化的本质优势</h3>
+<p>在 Attention 中，Softmax
+不仅仅是“把数变正”，它还具备三个与语义高度契合的性质：</p>
+<ol type="1">
+<li><strong>单调性</strong>：较高的相关分数()较高的注意力，符合“更相关就更重要”的直觉</li>
+<li><strong>差异放大</strong>：(e^x)
+会放大明显的匹配与弱匹配之间的差距，让模型“聚焦”于真正重要的 token</li>
+<li><strong>总和为 1</strong>：让 Attention 输出可以视为对 Value
+向量的几何加权平均，维护了表征空间的线性结构</li>
+</ol>
+<hr />
+<h2 id="五局限性与前沿探索">五、局限性与前沿探索</h2>
+<p>Softmax 并非完美无缺。在超大词表的场景下（如 100K+
+tokens），它有一个显著的缺陷：</p>
+<h3 id="长尾问题">5.1 长尾问题</h3>
+<p>Softmax 的指数特性会导致概率分布极度不均匀。在一个(|V| =
+50{,}257)的词表中，绝大多数的(​p_i) 会接近于零，只有前几百个 token
+的概率显著非零。这导致：</p>
+<ul>
+<li>训练时，流量和梯度集中在头部几个 token，尾部难以学习</li>
+<li>采样时，低频词几乎从未被选中，模型的“词汇量”被过度压缩</li>
+</ul>
+<h3 id="替代方案">5.2 替代方案</h3>
+<p>研究界已经提出了几种替代品：</p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 33%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>核心思想</th>
+<th>优势</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sparsemax</strong></td>
+<td>将概率分布映射到简单形，允许(​p_i = 0)</td>
+<td>真正稀疏，解释性强</td>
+<td>不可微分点处更多</td>
+</tr>
+<tr class="even">
+<td><strong>Spherical Softmax</strong></td>
+<td>在球面上归一化，而非简单分布</td>
+<td>避免极端尖锐</td>
+<td>计算更复杂</td>
+</tr>
+<tr class="odd">
+<td><strong>Adaptive Softmax</strong></td>
+<td>根据词频分层，少用(​e^x)</td>
+<td>大幅加速训练</td>
+<td>只适用训练阶段</td>
+</tr>
+<tr class="even">
+<td><strong>Logit Scaling</strong></td>
+<td>用其他函数替代(​e^x)</td>
+<td>更灵活</td>
+<td>理论保证弱</td>
+</tr>
+</tbody>
+</table>
+<p>然而直到 2026 年，<strong>Softmax 仍然是 LLM
+的绝对主流</strong>。原因很简单：它的组合性质（可微、高效、稳定、与
+Cross-Entropy 兼容）在工程实践中的优势太大，覆盖了它的理论缺陷。</p>
+<hr />
+<h2 id="六总结">六、总结</h2>
+<p>Softmax 的故事是一个经典的“旧理论遇上新场景”的案例：</p>
+<ul>
+<li><strong>1868 年</strong>，Boltzmann 用它描述分子的热力学行为</li>
+<li><strong>1989 年</strong>，Bridle
+用它解决多分类神经网络的训练问题</li>
+<li><strong>2017 年</strong>，Vaswani 等人用它让 Transformer
+能够“注意”到语句的关键部分</li>
+<li><strong>2026 年</strong>，每个 GPT、Claude、Llama
+的每一次生成，都离不开这个(​)</li>
+</ul>
+<p>它之所以能成为 LLM
+的基石，不仅仅因为它“能用”，更因为它在数学上满足了一组严格的约束：可微、归一、单调、数值稳定、与最小化目标兼容。当你下次看到
+LLM
+输出一个句子时，记得想想：这句话里的每一个字，都曾在一个由指数函数決定的概率分布中被“抽取”出来。那个简洁的分数，正是整个现代
+NLP 的术语底座。</p>
+<hr />
+<h2 id="参考文献">参考文献</h2>
+<ol type="1">
+<li>Bridle, J. S. (1989). "Training Stochastic Model Recognition
+Algorithms as Networks can Lead to Maximum Mutual Information Estimation
+of Parameters." <em>NeurIPS</em>.</li>
+<li>Vaswani, A., et al. (2017). "Attention Is All You Need."
+<em>NeurIPS</em>.</li>
+<li>Martins, A., &amp; Astudillo, R. (2016). "From Softmax to Sparsemax:
+A Sparse Model of Attention and Multi-Label Classification."
+<em>ICML</em>.</li>
+<li>Grave, É., et al. (2017). "Efficient Softmax Approximation for
+GPUs." <em>ICML</em>.</li>
+<li>McCullagh, P., &amp; Nelder, J. A. (1989). <em>Generalized Linear
+Models</em>. Chapman &amp; Hall.</li>
+</ol>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/06/16/ai-daily-2026-06-16/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役</span>
+                </a>
+                
+                
+                <a href="/2026/06/15/llm-course-intro/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
