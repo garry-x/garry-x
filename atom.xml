@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-16T15:33:50.616Z</updated>
+  <updated>2026-06-17T00:06:52.842Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/17/ai-daily-2026-06-17/</id>
+    <link href="https://garryx.com/2026/06/17/ai-daily-2026-06-17/"/>
+    <published>2026-06-17T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】SpaceX 600亿美元收购Cursor母公司，加码企业AI</title>
+    <updated>2026-06-17T00:06:52.842Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -367,21 +384,6 @@ The Evolutions of the Compute-to-Storage Networks in]]>
 <h3 id="linuxx86-引导协议">Linux/x86]]>
     </summary>
     <title>Linux内核引导</title>
-    <updated>2026-06-05T07:09:54.000Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="体系结构" scheme="https://garryx.com/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
-    <id>https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/</id>
-    <link href="https://garryx.com/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/"/>
-    <published>2022-03-14T03:57:01.000Z</published>
-    <summary>
-      <![CDATA[<div class="line-block">以下笔记 来自阅读：Hennessy J L, Patterson D A.
-Computer Architecture: A Quantitative Approach 6th Edition.]]>
-    </summary>
-    <title>指令集架构</title>
     <updated>2026-06-05T07:09:54.000Z</updated>
   </entry>
 </feed>
