@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-18T00:06:07.055Z</updated>
+  <updated>2026-06-19T00:05:09.518Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/19/ai-daily-2026-06-19/</id>
+    <link href="https://garryx.com/2026/06/19/ai-daily-2026-06-19/"/>
+    <published>2026-06-19T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】智谱GLM-5.2开源登顶CodeArena,马斯克押注中国2027Q1</title>
+    <updated>2026-06-19T00:05:09.518Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -363,25 +380,6 @@ AI]]>
 The Evolutions of the Compute-to-Storage Networks in]]>
     </summary>
     <title>阿里云SIGCOMM22论文阅读</title>
-    <updated>2026-06-05T07:09:54.000Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="体系结构" scheme="https://garryx.com/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"/>
-    <category term="x86" scheme="https://garryx.com/tags/x86/"/>
-    <id>https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/</id>
-    <link href="https://garryx.com/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/"/>
-    <published>2022-03-23T01:59:05.000Z</published>
-    <summary>
-      <![CDATA[<blockquote>
-<p>以下笔记来自阅读：x86 Instruction Set Architecture - MindShare</p>
-</blockquote>
-<blockquote>
-<p>本文以Intel处理器作为阐述目标。AMD处理器差异点可以参考:]]>
-    </summary>
-    <title>x86指令集架构</title>
     <updated>2026-06-05T07:09:54.000Z</updated>
   </entry>
 </feed>
