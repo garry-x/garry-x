@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-21T00:03:52.848Z</updated>
+  <updated>2026-06-22T00:09:08.394Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/22/ai-daily-2026-06-22/</id>
+    <link href="https://garryx.com/2026/06/22/ai-daily-2026-06-22/"/>
+    <published>2026-06-22T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】GPT-5.6本周或问世,150万上下文定价仅Fable 5三分之一</title>
+    <updated>2026-06-22T00:09:08.394Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -361,25 +378,5 @@ AI]]>
     </summary>
     <title>【AI 日报】GitHub Copilot按量计费暴涨60倍，开发者补贴时代终结</title>
     <updated>2026-06-05T07:13:34.000Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/06/03/ai-daily-2026-06-03/</id>
-    <link href="https://garryx.com/2026/06/03/ai-daily-2026-06-03/"/>
-    <published>2026-06-03T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>微软Build 2026 Day 2 发布自研推理模型
-<strong>MAI-Thinking-1</strong>、端侧模型 <strong>Aion
-1.0</strong>、<strong>Windows]]>
-    </summary>
-    <title>【AI 日报】微软Build发布自研推理模型MAI-Thinking-1，Windows全面Agent化</title>
-    <updated>2026-06-05T07:13:14.000Z</updated>
   </entry>
 </feed>
