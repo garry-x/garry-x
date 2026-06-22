@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-22T00:09:08.394Z</updated>
+  <updated>2026-06-22T23:33:35.027Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/23/ai-daily-2026-06-23/</id>
+    <link href="https://garryx.com/2026/06/23/ai-daily-2026-06-23/"/>
+    <published>2026-06-23T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】智谱港股市值破1万亿港元，5天涨出一个中国电信</title>
+    <updated>2026-06-22T23:33:35.027Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -360,23 +377,5 @@ AI]]>
     </summary>
     <title>【AI 日报】OpenAI发布Dreaming V3，ChatGPT记忆能力全面升级</title>
     <updated>2026-06-05T07:13:55.000Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/06/04/ai-daily-2026-06-04/</id>
-    <link href="https://garryx.com/2026/06/04/ai-daily-2026-06-04/"/>
-    <published>2026-06-04T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>GitHub]]>
-    </summary>
-    <title>【AI 日报】GitHub Copilot按量计费暴涨60倍，开发者补贴时代终结</title>
-    <updated>2026-06-05T07:13:34.000Z</updated>
   </entry>
 </feed>

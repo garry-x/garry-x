@@ -149,7 +149,7 @@
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </span>
                             <span class="year-label">2026</span>
-                            <span class="year-count">21</span>
+                            <span class="year-count">22</span>
                         </button>
                         <div class="year-content">
                             
@@ -157,7 +157,7 @@
                             <div class="archive-month">
                                 <a href="/archives/2026/06/" class="month-link">
                                     <span class="month-name">6月</span>
-                                    <span class="month-count">21</span>
+                                    <span class="month-count">22</span>
                                 </a>
                             </div>
                             
@@ -283,24 +283,27 @@
                 </div>
                 <article class="featured-card">
                     <div class="featured-meta">
-                        <time datetime="2017-10-25T16:00:00.000Z">2017-10-26</time>
+                        <time datetime="2020-02-19T16:00:00.000Z">2020-02-20</time>
                         <span class="featured-arrow">→</span>
                     </div>
                     <h3 class="featured-title">
-                        <a href="/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/">页表项详解</a>
+                        <a href="/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/">在线迁移后虚拟机CPU利用率飙升问题分析</a>
                     </h3>
                     
-                    <p class="featured-excerpt">
-以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
-Software Developer’s Manual”
+                    <p class="featured-excerpt">提供虚拟机服务的过程中，遇到了如下问题：
 
-页表是实现地址翻译的重要结构，其中，Page Table Entry
-(PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解...</p>
+现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。
+
+现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。
+
+现象3：冷启动虚拟后，启动程序，问题消失。
+
+该问题多次出现，升级宿主机到...</p>
                     
                     
                     <div class="featured-tags">
                         
-                            <a href="/tags/x86/" class="tag">#x86</a>
+                            <a href="/tags/%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/" class="tag">#问题定位</a>
                         
                     </div>
                     
@@ -312,6 +315,39 @@ Software Developer’s Manual”
                 <div class="section-header">
                     <h2 class="section-title">其他文章</h2>
                 </div>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2017-10-25T16:00:00.000Z">2017-10-26</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                                
+                            </span>
+                        
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/">页表项详解</a>
+                    </h2>
+                    
+                    <div class="post-excerpt">
+以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
+Software Developer’s Manual”
+
+页表是实现地址翻译的重要结构，其中，Page Table Entry
+(PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控制、缺页处理等机制都有着重要的意义。
+PTE的内部结构如下图所...</div>
+                    
+                    
+                    <div class="post-tags">
+                        
+                            <a href="/tags/x86/" class="tag">#x86</a>
+                        
+                    </div>
+                    
+                </article>
                 
                 <article class="post-card">
                     <div class="post-meta">
