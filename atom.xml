@@ -11,7 +11,26 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-22T23:33:35.027Z</updated>
+  <updated>2026-06-23T23:37:28.102Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/24/ai-daily-2026-06-24/</id>
+    <link href="https://garryx.com/2026/06/24/ai-daily-2026-06-24/"/>
+    <published>2026-06-24T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p><strong>字节火山引擎 6 月 23 日 FORCE 大会</strong>发布豆包旗舰模型
+Doubao-Seed 2.1 Pro,首次让国产大模型<strong>连续 18 小时自主跑通芯片]]>
+    </summary>
+    <title>【AI 日报】豆包 2.1 Pro 跨越&quot;生产级质变点&quot;,日均 Token 突破 180 万亿</title>
+    <updated>2026-06-23T23:37:28.102Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -360,22 +379,5 @@ AI]]>
     </summary>
     <title>【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权</title>
     <updated>2026-06-16T15:33:50.352Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/06/05/ai-daily-2026-06-05/</id>
-    <link href="https://garryx.com/2026/06/05/ai-daily-2026-06-05/"/>
-    <published>2026-06-05T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】OpenAI发布Dreaming V3，ChatGPT记忆能力全面升级</title>
-    <updated>2026-06-05T07:13:55.000Z</updated>
   </entry>
 </feed>
