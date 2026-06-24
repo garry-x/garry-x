@@ -11,7 +11,27 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-23T23:37:28.102Z</updated>
+  <updated>2026-06-24T23:36:17.391Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/25/ai-daily-2026-06-25/</id>
+    <link href="https://garryx.com/2026/06/25/ai-daily-2026-06-25/"/>
+    <published>2026-06-25T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>OpenAI 联手博通发布<strong>首款自研 AI 芯片
+Jalapeño</strong>,<strong>9 个月</strong>完成从设计到流片,比传统 GPU
+节省约]]>
+    </summary>
+    <title>【AI 日报】OpenAI 九年磨一剑,Jalapeño 自研芯片破局</title>
+    <updated>2026-06-24T23:36:17.391Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -360,24 +380,5 @@ AI]]>
     </summary>
     <title>向量的几何：减法、点积与距离</title>
     <updated>2026-06-16T15:33:50.641Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/06/08/ai-daily-2026-06-08/</id>
-    <link href="https://garryx.com/2026/06/08/ai-daily-2026-06-08/"/>
-    <published>2026-06-08T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS
-27首次允许用户在 <strong>ChatGPT、Google]]>
-    </summary>
-    <title>【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权</title>
-    <updated>2026-06-16T15:33:50.352Z</updated>
   </entry>
 </feed>

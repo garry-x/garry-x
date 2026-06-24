@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】OpenAI 九年磨一剑,Jalapeño 自研芯片破局 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览 OpenAI 联手博通发布首款自研 AI 芯片 Jalapeño,9 个月完成从设计到流片,比传统 GPU 节省约 50% 成本,年底首批部署微软及合作伙伴数据中心;OpenAI 计划累计部署 10GW 算力的定制芯片矩阵。同日,高通正式杀入数据中心 CPU 市场——Dragonfly C1000 拿下">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】OpenAI 九年磨一剑,Jalapeño 自研芯片破局 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览 OpenAI 联手博通发布首款自研 AI 芯片 Jalapeño,9 个月完成从设计到流片,比传统 GPU 节省约 50% 成本,年底首批部署微软及合作伙伴数据中心;OpenAI 计划累计部署 10GW 算力的定制芯片矩阵。同日,高通正式杀入数据中心 CPU 市场——Dragonfly C1000 拿下">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/25/ai-daily-2026-06-25/">
+<meta property="og:image" content="https://garryx.com/covers/cover-ai-daily-2026-06-25.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】OpenAI 九年磨一剑,Jalapeño 自研芯片破局 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览 OpenAI 联手博通发布首款自研 AI 芯片 Jalapeño,9 个月完成从设计到流片,比传统 GPU 节省约 50% 成本,年底首批部署微软及合作伙伴数据中心;OpenAI 计划累计部署 10GW 算力的定制芯片矩阵。同日,高通正式杀入数据中心 CPU 市场——Dragonfly C1000 拿下">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-ai-daily-2026-06-25.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/25/ai-daily-2026-06-25/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【AI 日报】OpenAI 九年磨一剑,Jalapeño 自研芯片破局 | Garry&#39;s Blog",
+  "description": "🔦 今日速览 OpenAI 联手博通发布首款自研 AI 芯片 Jalapeño,9 个月完成从设计到流片,比传统 GPU 节省约 50% 成本,年底首批部署微软及合作伙伴数据中心;OpenAI 计划累计部署 10GW 算力的定制芯片矩阵。同日,高通正式杀入数据中心 CPU 市场——Dragonfly C1000 拿下",
+  "url": "https://garryx.com/2026/06/25/ai-daily-2026-06-25/",
+  
+  "datePublished": "2026-06-25T00:00:00.000Z",
+  "dateModified": "2026-06-24T23:36:17.391Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/covers/cover-ai-daily-2026-06-25.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=18">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】OpenAI 九年磨一剑,Jalapeño 自研芯片破局</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-25T00:00:00.000Z">
+                    2026年6月25日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="今日速览">🔦 今日速览</h2>
+<p>OpenAI 联手博通发布<strong>首款自研 AI 芯片
+Jalapeño</strong>,<strong>9 个月</strong>完成从设计到流片,比传统 GPU
+节省约 <strong>50%
+成本</strong>,年底首批部署微软及合作伙伴数据中心;OpenAI 计划累计部署
+<strong>10GW</strong> 算力的定制芯片矩阵。同日,高通正式杀入数据中心 CPU
+市场——<strong>Dragonfly C1000 拿下 Meta、微软 Azure
+首批客户</strong>,预计数据中心业务 2027
+财年带来<strong>数十亿美元</strong>收入;Google 再度失血,继 Shazeer 与
+Jumper 后,<strong>Gemini 关键贡献者 Adler 与 Pritzel 计划投奔
+Anthropic</strong>。</p>
+<p><strong>趋势 1</strong>:大模型公司集体"去英伟达化",自研 ASIC 战事升级
+<strong>趋势 2</strong>:高通切入数据中心 CPU,移动芯片霸主跨界 AI 算力
+<strong>趋势 3</strong>:AI 顶尖人才从大厂向 AI 初创公司加速流动
+<strong>趋势 4</strong>:具身智能商业化提速,宇树 R1 跌破 3 万元
+<strong>趋势 5</strong>:Token 经济学与"词元金融"概念兴起</p>
+<hr />
+<h2 id="国际动态">🌍 国际动态</h2>
+<h3 id="openai-联手博通发布-jalapeño-自研芯片9-个月打造对标-gpu-方案">1.
+OpenAI 联手博通发布 Jalapeño 自研芯片,9 个月打造对标 GPU 方案</h3>
+<p><strong>事件简述</strong>:OpenAI 与博通周三正式公开首款定制 AI
+推理芯片 <strong>Jalapeño</strong> 的设计方案,芯片从零设计到流片仅用
+<strong>9 个月</strong>,创高性能先进 ASIC
+最快开发周期纪录。该芯片专为大语言模型推理场景设计,博通 CEO
+陈福阳透露相比传统 AI GPU 可节省约 <strong>50% 成本</strong>。OpenAI
+硬件负责人 Richard Ho 表示,"基于早期测试,Jalapeño
+将能在接近硬件理论极限的水平上高效执行我们最重要的工作负载"。最终版本芯片将于今年晚些时候开始部署到<strong>微软及其他合作伙伴</strong>的大型数据中心;OpenAI
+与博通明年的部署规模预计将<strong>超过此前预测的 1.3GW</strong>。</p>
+<p><strong>关键数据</strong>: | 指标 | 数值 | |------|------| | 研发周期
+| <strong>9 个月</strong>(行业最快) | | 成本节约 | 较传统 GPU 节省约
+<strong>50%</strong> | | 计划总部署 | <strong>10GW</strong> 算力 | |
+首批客户 | 微软、博通联合部署 | | 2027 年部署规模 | 预计
+<strong>&gt;1.3GW</strong> |</p>
+<p><strong>影响分析</strong>:Jalapeño 标志着 OpenAI
+正式从"纯模型公司"升级为"全栈 AI
+基础设施公司"。在与英伟达、AMD、Cerebras 保持合作的同时,自研芯片让
+OpenAI 在算力议价中握有更强杠杆,也成为其<strong>长期 IPO
+估值</strong>的核心叙事——硬件自给可显著压缩推理成本,对 Anthropic、Google
+形成新的竞争压力。博通则借此巩固其在定制 ASIC 领域的"造王者"地位。
+📅6月24日</p>
+<h3 id="高通杀入数据中心dragonfly-c1000-拿下-meta-微软首批客户">2.
+高通杀入数据中心:Dragonfly C1000 拿下 Meta 微软首批客户</h3>
+<p><strong>事件简述</strong>:高通周三在纽约活动正式发布<strong>首款数据中心
+CPU</strong>——<strong>Dragonfly
+C1000</strong>,同时公布完整数据中心发展路线图。<strong>Meta
+已同意</strong>在基础设施中采用 Dragonfly C1000
+及后续产品,<strong>微软</strong>将在 Azure
+数据中心部署高通高带宽计算(<strong>HBC</strong>)芯片。Qualcomm
+同步披露:<strong>第三代 AI 芯片 2027 年推出</strong>、数据中心 CPU
+<strong>2028 年中量产</strong>、第二代 HBC 芯片 <strong>2028
+年</strong>推出;高通预计数据中心业务将在 <strong>2027
+财年带来数十亿美元收入</strong>,长期目标抢占数据中心 CPU 市场 <strong>5%
+以上份额</strong>。</p>
+<p><strong>关键数据</strong>: - Dragonfly
+C1000:覆盖边缘到高性能数据中心,专为<strong>与英伟达 GPU
+协同运行</strong>设计 - Meta 合作:覆盖<strong>多代产品</strong>,2028
+年下半年开始量产部署 - 微软 Azure:采用高通 HBC 芯片 - 路线图:第三代 AI
+芯片(2027)→ 数据中心 CPU(2028中)→ 第二代 HBC(2028) - 营收预期:2027
+财年<strong>数十亿美元</strong>,长期市占 <strong>&gt;5%</strong></p>
+<p><strong>影响分析</strong>:高通打破"移动芯片公司"标签,以<strong>CPU +
+GPU 协同</strong>差异化定位挑战英特尔、AMD 的数据中心霸主地位。Meta
+多代合作意味着高通锁定了<strong>未来 5-7 年</strong>的核心算力客户;微软
+Azure 同步部署 HBC
+表明超大规模云厂商对<strong>非英伟达</strong>算力方案的需求正在加速形成。
+📅6月24日</p>
+<h3
+id="google-一周内连失四员大将shazeerjumper-之后adlerpritzel-投奔-anthropic">3.
+Google 一周内连失四员大将:Shazeer、Jumper 之后,Adler、Pritzel 投奔
+Anthropic</h3>
+<p><strong>事件简述</strong>:据《洛杉矶时报》报道,Google 两位 Gemini
+关键 AI 研究员 <strong>Jonas Adler</strong> 与 <strong>Alexander
+Pritzel</strong> 计划离职加盟 Anthropic,二人均被视为 Gemini
+模型的核心贡献者。这已是 Google DeepMind 一周内第四位高管级 AI
+人才外流——此前 <strong>Noam Shazeer</strong>(Transformer
+共同作者、Character.AI 创始人)于 6/18 加入 OpenAI,<strong>John
+Jumper</strong>(AlphaFold 共同负责人、2024 年诺贝尔化学奖得主)于 6/20
+加盟 Anthropic。Google 内部开始讨论对 Shazeer
+离开后伦敦团队项目的算力分配,凸显人才流失的连锁影响。</p>
+<p><strong>关键数据</strong>: - <strong>一周内 4 位高管级 AI
+人才</strong>离开 Google - Adler 与 Pritzel:均参与 Gemini 模型核心研发 -
+累计 2026 年 Google 已向 OpenAI/Anthropic 输送<strong>至少 6 位</strong>
+AI 核心人物 - 谷歌母公司 Alphabet 股价<strong>单日盘中跌
+7.2%</strong>,为 2026 年 2 月以来最大跌幅</p>
+<p><strong>影响分析</strong>:Anthropic 持续从 Google 挖角,意味着 Claude
+系列模型在<strong>预训练、后训练、Agent
+能力</strong>上获得持续人才输入;而 Google Gemini
+团队的稳定性受到严重挑战,叠加即将到来的 Gemini 3.5 Pro GA
+窗口(6/23-6/30),<strong>交付时间表与团队执行力</strong>成为市场新的担忧焦点。
+📅6月24日</p>
+<h3 id="cloudflare-接入月之暗面-kimi-k2.5代码审查成本骤降-77">4.
+Cloudflare 接入月之暗面 Kimi K2.5,代码审查成本骤降 77%</h3>
+<p><strong>事件简述</strong>:Cloudflare 正式推出<strong>"AI
+优先"运营模式</strong>,宣布将 <strong>Moonshot AI 旗下 Kimi K2.5
+大模型</strong>接入 Workers AI 平台,支持 <strong>256K
+上下文窗口</strong>、<strong>多轮工具调用</strong>与<strong>视觉输入适配</strong>。Cloudflare
+将内部代码审查智能体切换至 Kimi K2.5 后,相关运营成本<strong>下降
+77%</strong>;同步推出的前缀缓存、异步接口等平台级技术进一步优化代币使用效率,压低推理环节成本。Cloudflare
+此举被业界视为<strong>西方主流云厂商首次大规模采用中国大模型</strong>作为生产环境
+AI 基础设施组件。</p>
+<p><strong>关键数据</strong>: - 模型:Kimi K2.5(Moonshot AI 开源) -
+上下文:<strong>256K tokens</strong> - 成本降幅:切换 Kimi K2.5
+后代码审查<strong>-77%</strong> - 平台:Cloudflare Workers AI</p>
+<p><strong>影响分析</strong>:Cloudflare 选用 Kimi K2.5 而非
+OpenAI/Anthropic
+模型,折射出<strong>中国开源大模型在推理成本与上下文长度</strong>上已具备国际竞争力。Kimi
+K2.5 进入 Cloudflare
+全球生产网络,标志着国产大模型首次进入西方<strong>头部云厂商核心栈</strong>,对"中国模型出海"具有标志性意义。
+📅6月25日</p>
+<hr />
+<h2 id="国内动态">🇨🇳 国内动态</h2>
+<h3 id="宇树科技-r1-人形机器人降价-1-万从-3.99-万跌破-3-万元">1.
+宇树科技 R1 人形机器人降价 1 万:从 3.99 万跌破 3 万元</h3>
+<p><strong>事件简述</strong>:宇树科技 6 月 24
+日宣布,将旗下双足人形机器人 <strong>Unitree R1</strong> 的官方售价由
+<strong>3.99 万元/台</strong>下调至 <strong>2.99
+万元</strong>起,并即日起开放现货销售。R1 重量约 <strong>25
+千克</strong>,集成语音与图像多模态大模型,具备开发与定制能力,定位轻量级机器人产品,面向个人消费者、AI
+开发者、教育机构及科技爱好者。宇树称 R1
+降价<strong>核心驱动是国产供应链全面成熟</strong>——核心零部件自研率超
+90%(谐波减速器、伺服电机、激光雷达全部国产化),叠加规模化量产摊薄单位成本;<strong>2026
+年国内人形机器人产量预计突破 10-20 万台</strong>,BOM
+成本与边际成本持续下降。</p>
+<p><strong>关键数据</strong>: | 指标 | 数值 | |------|------| | R1
+降价幅度 | 3.99万 → <strong>2.99万</strong>(-25%) | | 重量 | 约
+<strong>25 千克</strong> | | 核心零部件国产化率 |
+<strong>&gt;90%</strong> | | 2026 国内人形机器人产量预测 | <strong>10-20
+万台</strong> | | 2025 年宇树人形机器人出货量 | <strong>&gt;5500
+台</strong>(全球前列) |</p>
+<p><strong>影响分析</strong>:R1 跌破 3
+万元让"消费级人形机器人"从概念走向真实购买决策,叠加<strong>宇树科技 IPO
+已过会</strong>(A股具身智能第一股,估值或达 420
+亿元),产业规模化拐点正在临近;同时,价格下探也加剧宇树与<strong>松延动力、加速进化等国产同业</strong>以及<strong>特斯拉
+Optimus、Figure</strong> 等海外品牌的同台竞争。 📅6月24日</p>
+<h3 id="词元金融概念兴起token-调用指数级爆发上海试水全球资管新基建">2.
+词元金融概念兴起:Token 调用指数级爆发,上海试水全球资管新基建</h3>
+<p><strong>事件简述</strong>:"词元金融"(Token Finance)概念在国内兴起。在
+2026 夏季达沃斯论坛上,经济参考报刊文指出:随着 AI
+大模型加速普及,<strong>全国词元(Token)调用量呈指数级爆发</strong>;围绕词元的"模型调用、信息处理、成本核算、服务定价和价值转化"形成"词元经济",而词元金融可视为数字金融在词元经济领域的深化应用与制度创新。其核心目标是实现<strong>语义价值从数据资源→数字资产→数字资本→可计价/交易/结算/储值的数字金融产品</strong>的价值跃升。报道明确将"词元金融"作为<strong>助力上海全球资管中心建设</strong>的新基建方向。</p>
+<p><strong>关键数据</strong>: - 字节豆包日均 Token 调用量:<strong>180
+万亿</strong>(2 年涨 1500 倍) - 价值跃升路径:<strong>数据资源 → 数字资产
+→ 数字资本 → 数字金融产品</strong> - 试点城市:<strong>上海</strong></p>
+<p><strong>影响分析</strong>:词元金融标志着 AI
+算力从"基础设施支出"向"可计价金融资产"演进,可能催生<strong>Token
+期货、算力 REITs、AI 算力 ABS</strong>
+等新型金融产品;对上海、北京、深圳等 AI
+算力高地而言,谁先建立"词元金融"标准,谁就掌握下一代全球资管中心的定价权。
+📅6月25日</p>
+<h3 id="软银孙正义股东大会已开始量产机器人公开反驳马斯克太空数据中心">3.
+软银孙正义股东大会:已开始量产机器人,公开反驳马斯克太空数据中心</h3>
+<p><strong>事件简述</strong>:软银集团董事长孙正义 6 月 24 日在第 46
+届年度股东大会上透露,针对<strong>物理 AI
+应用场景</strong>,软银<strong>已在某工厂开始机器人量产</strong>,即将正式发布,相信会"让大家感到惊讶"。孙正义同时宣布软银将通过汇聚各垂直领域顶级机器人企业,成为"压倒性世界第一的机器人公司",并提及<strong>2026
+年计划完成收购瑞士工业巨头 ABB
+旗下机器人业务</strong>。在算力路线上,孙正义公开反驳马斯克"太空数据中心"理念,称<strong>电力支出仅占数据中心全周期成本
+7% 左右</strong>,真正的成本大头是 GPU/服务器/土地/带宽,AI
+竞赛胜负仍取决于"地球上的算力"。</p>
+<p><strong>关键数据</strong>: -
+软银机器人:<strong>已量产</strong>,即将正式发布 - ABB
+机器人业务:<strong>2026 年完成收购</strong> -
+电力在数据中心全周期成本占比:<strong>仅 7%</strong> - 软银市值:突破
+<strong>46 万亿日元</strong>(日本第一,超越丰田)</p>
+<p><strong>影响分析</strong>:孙正义"地球算力"路线 vs
+马斯克"轨道数据中心"路线之争,代表 AI
+算力基础设施的<strong>两条长期赌注</strong>——软银选择押注<strong>地面工厂级机器人
++ 数据中心</strong>,而马斯克押注<strong>太空太阳能 +
+在轨算力</strong>。从工程经济学看,孙正义"电力
+7%"的数字显示发射/维护/通信延迟带来的额外成本<strong>短期内难以摊薄</strong>,地球算力仍是主流。
+📅6月24日</p>
+<hr />
+<h2 id="今日论文">📄 今日论文</h2>
+<h3 id="insight-self-guided-skill-acquisition-via-steerable-vlas">1.
+InSight: Self-Guided Skill Acquisition via Steerable VLAs</h3>
+<p><strong>作者/机构</strong>:研究人员团队 | cs.RO, cs.AI, cs.LG
+<strong>核心贡献</strong>:提出 InSight
+框架,通过<strong>可操纵的视觉-语言-动作模型(VLA)</strong>实现机器人的<strong>自引导技能习得</strong>——机器人无需人类示范,通过自我探索与环境反馈就能持续习得新技能;支持通过<strong>自然语言指令实时调控</strong>技能习得过程,大幅降低传统模仿学习对大规模标注数据的依赖。
+<strong>为什么重要</strong>:随着人形机器人量产元年的到来,<strong>VLA
+模型的"自学习能力"</strong>成为机器人从"演示回放"走向"自主进化"的关键;InSight
+的可操纵性意味着同一个 VLA
+可服务于家庭、工业、医疗等多场景,显著降低数据采集成本。 📄 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.24884">arXiv:2606.24884</a>
+📅6月23日</p>
+<h3 id="openthoughts-agent-data-recipes-for-agentic-models">2.
+OpenThoughts-Agent: Data Recipes for Agentic Models</h3>
+<p><strong>作者/机构</strong>:研究团队 | cs.AI
+<strong>核心贡献</strong>:系统研究<strong>Agentic
+模型的训练数据配方(Data Recipes)</strong>,提出 OpenThoughts-Agent
+数据集与训练方法,涵盖<strong>多轮工具调用、长程任务规划、代码执行反馈</strong>等核心
+Agent 能力,实验显示在多个 Agent 基准上带来显著提升。
+<strong>为什么重要</strong>:当
+OpenAI、Anthropic、字节豆包、火山引擎等纷纷推出"任务模式/Agent
+模式",<strong>Agent
+训练数据从何处来、怎样配方</strong>成为业界共性难题;OpenThoughts-Agent
+为开源社区提供了可复现的数据配方范式。 📄 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.24855">arXiv:2606.24855</a>
+📅6月23日</p>
+<h3 id="grad-detect-gradient-based-hallucination-detection-in-llms">3.
+Grad Detect: Gradient-Based Hallucination Detection in LLMs</h3>
+<p><strong>作者/机构</strong>:研究团队 | cs.LG, cs.AI
+<strong>核心贡献</strong>:提出 <strong>Grad Detect</strong>
+框架,通过分析 LLM
+内部<strong>梯度信号</strong>检测幻觉输出——在模型生成过程中,基于 token
+级梯度特征判断"模型是否对自己输出的内容有信心",无需外部知识库或额外 LLM
+评判,即可实现<strong>实时、低成本</strong>的幻觉检测。
+<strong>为什么重要</strong>:幻觉问题是大模型落地企业级应用的最大障碍之一。Grad
+Detect 把幻觉检测从"外部 LLM
+二次验证"推向"模型自身信号"层面,可显著降低部署成本,为金融、医疗、法律等<strong>高幻觉成本</strong>场景提供实用方案。
+📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.24790">arXiv:2606.24790</a>
+📅6月23日</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                
+                <a href="/2026/06/24/ai-daily-2026-06-24/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】豆包 2.1 Pro 跨越&#34;生产级质变点&#34;,日均 Token 突破 180 万亿</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
