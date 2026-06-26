@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-06-24T23:36:17.391Z</updated>
+  <updated>2026-06-26T00:12:13.357Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/06/26/ai-daily-2026-06-26/</id>
+    <link href="https://garryx.com/2026/06/26/ai-daily-2026-06-26/"/>
+    <published>2026-06-26T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦]]>
+    </summary>
+    <title>【AI 日报】Anthropic指控阿里通义千问发动史上最大模型蒸馏攻击</title>
+    <updated>2026-06-26T00:12:13.357Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -360,25 +377,5 @@ AI]]>
     </summary>
     <title>【AI 日报】英伟达与SK海力士锁定AI工厂内存战</title>
     <updated>2026-06-16T15:33:50.382Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="数学" scheme="https://garryx.com/categories/%E6%95%B0%E5%AD%A6/"/>
-    <category term="向量" scheme="https://garryx.com/tags/%E5%90%91%E9%87%8F/"/>
-    <category term="线性代数" scheme="https://garryx.com/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
-    <category term="几何" scheme="https://garryx.com/tags/%E5%87%A0%E4%BD%95/"/>
-    <category term="点积" scheme="https://garryx.com/tags/%E7%82%B9%E7%A7%AF/"/>
-    <category term="相似度" scheme="https://garryx.com/tags/%E7%9B%B8%E4%BC%BC%E5%BA%A6/"/>
-    <id>https://garryx.com/2026/06/08/vector-subtraction-geometry/</id>
-    <link href="https://garryx.com/2026/06/08/vector-subtraction-geometry/"/>
-    <published>2026-06-08T07:30:00.000Z</published>
-    <summary>
-      <![CDATA[<p>向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。</p>
-<h2]]>
-    </summary>
-    <title>向量的几何：减法、点积与距离</title>
-    <updated>2026-06-16T15:33:50.641Z</updated>
   </entry>
 </feed>
