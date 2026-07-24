@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-07-22T00:04:40.795Z</updated>
+  <updated>2026-07-24T00:04:56.551Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/07/24/ai-daily-2026-07-24/</id>
+    <link href="https://garryx.com/2026/07/24/ai-daily-2026-07-24/"/>
+    <published>2026-07-24T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】Alphabet Q2云收入暴增82%，AI支出翻倍引发市场担忧</title>
+    <updated>2026-07-24T00:04:56.551Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -347,22 +364,5 @@ href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%A
     </summary>
     <title>在线迁移后虚拟机CPU利用率飙升问题分析</title>
     <updated>2026-06-05T07:09:54.249Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="虚拟化" scheme="https://garryx.com/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    <category term="x86" scheme="https://garryx.com/tags/x86/"/>
-    <id>https://garryx.com/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/</id>
-    <link href="https://garryx.com/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/"/>
-    <published>2017-10-25T16:00:00.000Z</published>
-    <summary>
-      <![CDATA[<blockquote>
-<p>以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
-Software Developer’s]]>
-    </summary>
-    <title>页表项详解</title>
-    <updated>2026-06-05T22:50:46.160Z</updated>
   </entry>
 </feed>
