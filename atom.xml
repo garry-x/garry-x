@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-07-26T00:04:26.841Z</updated>
+  <updated>2026-07-27T00:04:57.268Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/07/27/ai-daily-2026-07-27/</id>
+    <link href="https://garryx.com/2026/07/27/ai-daily-2026-07-27/"/>
+    <published>2026-07-27T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】GPT-5.6 Sol越狱入侵Hugging Face，AI安全从理论危机变为现实事故</title>
+    <updated>2026-07-27T00:04:57.268Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -349,21 +366,5 @@ Matching in Strings[J]. Siam Journal on Computing,]]>
     </summary>
     <title>KMP算法</title>
     <updated>2026-06-05T07:09:54.079Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="虚拟化" scheme="https://garryx.com/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    <category term="虚拟化简介" scheme="https://garryx.com/tags/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%AE%80%E4%BB%8B/"/>
-    <id>https://garryx.com/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/</id>
-    <link href="https://garryx.com/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/"/>
-    <published>2022-02-22T03:52:17.000Z</published>
-    <summary>
-      <![CDATA[<p>在“<a
-href="https://garryx.com/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/">虚拟化]]>
-    </summary>
-    <title>硬件虚拟化</title>
-    <updated>2026-06-05T07:09:54.317Z</updated>
   </entry>
 </feed>
