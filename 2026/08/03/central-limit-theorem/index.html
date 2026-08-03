@@ -40,7 +40,7 @@
   "url": "https://garryx.com/2026/08/03/central-limit-theorem/",
   
   "datePublished": "2026-08-03T08:00:00.000Z",
-  "dateModified": "2026-08-03T01:21:57.178Z",
+  "dateModified": "2026-08-03T02:04:37.690Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -183,14 +183,37 @@ alt="骰子和的分布收敛" />
 30，和的分布从离散的均匀分布，逐渐平滑成连续的正态分布。粉色曲线是拟合的正态分布密度函数。</p>
 </blockquote>
 <p>这个现象不是骰子的特权。把骰子换成硬币（伯努利分布）、换成等待时间（指数分布）、换成泊松分布——<strong>任何分布</strong>，只要独立地加足够多次，和（或均值）的分布一定趋近于正态。</p>
-<h2 id="卷积平滑的数学本质">卷积：平滑的数学本质</h2>
-<p>为什么"加"这个操作会让分布变得越来越像正态？答案藏在<strong>卷积</strong>里。</p>
-<p>两个独立随机变量 <span class="math inline">\(X\)</span> 和 <span
-class="math inline">\(Y\)</span> 的和 <span class="math inline">\(Z = X
-+ Y\)</span> 的概率密度，是它们各自密度的卷积：</p>
+<h2 id="卷积为什么加会让分布变平滑">卷积：为什么"加"会让分布变平滑</h2>
+<p>回到掷两颗骰子的例子。两颗骰子和为 7 的概率怎么算？</p>
+<p>把所有能得到 7 的组合列出来：(1,6), (2,5), (3,4), (4,3), (5,2),
+(6,1)。每对组合的概率是 1/6 × 1/6 = 1/36，六对加起来就是
+6/36。这个操作——把两个分布"错位相乘再求和"——就叫<strong>卷积</strong>。</p>
+<figure>
+<img src="/images/clt/clt-convolution-explained.png"
+alt="卷积的直观解释" />
+<figcaption aria-hidden="true">卷积的直观解释</figcaption>
+</figure>
+<blockquote>
+<p>左图：两颗骰子各自的分布（都是均匀的）。中图：计算和为 7
+时，相当于把一颗骰子的分布翻转过来，和另一颗逐位相乘（粉色圆点），再把乘积加起来。右图：对所有可能的和（2~12）都做一遍这个操作，就得到了两颗骰子和的分布。</p>
+</blockquote>
+<p>写成公式，两个独立随机变量 <span class="math inline">\(X\)</span> 和
+<span class="math inline">\(Y\)</span> 的和 <span
+class="math inline">\(Z = X + Y\)</span> 的密度函数是：</p>
 <p><span class="math display">\[f_Z(z) = \int_{-\infty}^{\infty} f_X(x)
-f_Y(z - x) \, dx\]</span></p>
-<p>卷积有一个关键性质：它让函数变"平滑"。每次卷积相当于对原函数做一次加权滑动平均。多次卷积后，无论原始函数长什么样，结果都会趋向一个光滑的钟形。</p>
+\, f_Y(z - x) \, dx\]</span></p>
+<p>翻译成人话：想知道 <span class="math inline">\(Z\)</span> 在 <span
+class="math inline">\(z\)</span> 处的概率密度，就把 <span
+class="math inline">\(X\)</span> 的分布固定，把 <span
+class="math inline">\(Y\)</span> 的分布翻过来、滑到 <span
+class="math inline">\(z\)</span> 的位置，然后逐点相乘再积分。<span
+class="math inline">\(z-x\)</span> 这一项就是"滑动"——<span
+class="math inline">\(Y\)</span> 的取值必须等于 <span
+class="math inline">\(z-x\)</span>，<span
+class="math inline">\(X\)</span> 和 <span
+class="math inline">\(Y\)</span> 加起来才能等于 <span
+class="math inline">\(z\)</span>。</p>
+<p>卷积有一个关键性质：每做一次，函数就变"平滑"一点。就像用砂纸打磨木头——磨一次，棱角变钝；磨十次，表面光滑如镜。不管原始分布长什么样，反复和自己卷积（也就是不断加独立同分布的随机变量），最终都会趋近正态分布。</p>
 <p>我们用一个极端例子来展示：从一个<strong>双峰分布</strong>（两个尖峰，中间有深谷）开始，反复和自己卷积。</p>
 <figure>
 <img src="/images/clt/clt-convolution-smoothing.png"
@@ -203,7 +226,7 @@ alt="卷积平滑过程" />
 </blockquote>
 <p>这就是中心极限定理的几何直觉：<strong>独立随机变量的求和 =
 概率密度的重复卷积 =
-平滑化</strong>。而正态分布，恰好是这个平滑过程的"不动点"——唯一一个和自己卷积后形状不变的分布（只改变均值和方差）。</p>
+不断打磨</strong>。正态分布是这个打磨过程的"不动点"——唯一一个和自己卷积后形状不变的分布（只改变均值和方差）。</p>
 <h2
 id="不挑食的定理四种分布同一个归宿">不挑食的定理：四种分布，同一个归宿</h2>
 <p>中心极限定理最反直觉的地方在于：它对原始分布<strong>几乎没有任何要求</strong>。</p>
