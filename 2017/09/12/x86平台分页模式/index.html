@@ -40,7 +40,7 @@
   "url": "https://garryx.com/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/",
   
   "datePublished": "2017-09-11T16:00:00.000Z",
-  "dateModified": "2026-06-05T22:50:46.160Z",
+  "dateModified": "2026-06-05T22:50:46.000Z",
   "author": {
     "@type": "Person",
     "name": "Garry Xu"
@@ -61,7 +61,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=17">
+<link rel="stylesheet" href="/css/style.css?v=18">
 
 <link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
 
@@ -129,18 +129,23 @@
         </header>
 
         <div class="post-content" id="post-content">
-            <p>x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和
-2级32bit。使用大页会产生更多的paging mode，这里不做介绍。</p>
-<p><strong>1) 4级64-bit：IA-32e （long mode) 模式下使用该paging
-mode</strong> * 每级页表项均为64bit，CR3存储PML4 Table基地址</p>
-<p><img src="/images/paging_64_4.png" /></p>
-<p><strong>2) 3级64-bit：IA-32模式下，开启PAE 关闭PSE，使用该paging
-mode</strong> * 每级页表项均为64bit，CR3存储PDPT Table基地址 *
-每个逻辑处理器维护四个PDPTE寄存器，寄存器的值由CR3指向的地址读取</p>
-<p><img src="/images/paging_64_3.png" /></p>
-<p><strong>3) 2级32bit：IA-32模式下，关闭PAE，关闭PSE，使用该paging
-mode</strong> * 每级页表项均为32bit，CR3存储PD Table基地址</p>
-<p><img src="/images/paging_32_2.png" /></p>
+            <p>x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。</p>
+<p><strong>1) 4级64-bit：IA-32e （long mode) 模式下使用该paging mode</strong></p>
+<ul>
+<li>每级页表项均为64bit，CR3存储PML4 Table基地址</li>
+</ul>
+<p><img src="/images/paging_64_4.png" alt=""></p>
+<p><strong>2) 3级64-bit：IA-32模式下，开启PAE 关闭PSE，使用该paging mode</strong></p>
+<ul>
+<li>每级页表项均为64bit，CR3存储PDPT Table基地址</li>
+<li>每个逻辑处理器维护四个PDPTE寄存器，寄存器的值由CR3指向的地址读取</li>
+</ul>
+<p><img src="/images/paging_64_3.png" alt=""></p>
+<p><strong>3) 2级32bit：IA-32模式下，关闭PAE，关闭PSE，使用该paging mode</strong></p>
+<ul>
+<li>每级页表项均为32bit，CR3存储PD Table基地址</li>
+</ul>
+<p><img src="/images/paging_32_2.png" alt=""></p>
 
         </div>
 

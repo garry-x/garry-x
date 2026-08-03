@@ -11,7 +11,27 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-08-03T00:03:42.338Z</updated>
+  <updated>2026-08-03T01:21:57.178Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="数学" scheme="https://garryx.com/categories/%E6%95%B0%E5%AD%A6/"/>
+    <category term="概率论" scheme="https://garryx.com/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
+    <category term="统计学" scheme="https://garryx.com/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    <category term="数学" scheme="https://garryx.com/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="可视化" scheme="https://garryx.com/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    <id>https://garryx.com/2026/08/03/central-limit-theorem/</id>
+    <link href="https://garryx.com/2026/08/03/central-limit-theorem/"/>
+    <published>2026-08-03T08:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>想象一个三角形钉板，顶上有一个漏斗。你把一颗弹珠从漏斗倒进去，它在下落过程中不断撞击钉子，每次撞击都随机向左或向右偏转。最终，弹珠落入底部某个槽里。</p>
+<p>如果你只倒一颗，它会落在哪里完全随机。但如果你倒一万颗呢？</p>
+<p>神奇的事情发生了：底部槽中的弹珠堆出]]>
+    </summary>
+    <title>中心极限定理：为什么世界是正态的</title>
+    <updated>2026-08-03T01:21:57.178Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -24,7 +44,7 @@
     <link href="https://garryx.com/2026/08/03/ai-daily-2026-08-03/"/>
     <published>2026-08-03T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦]]>
     </summary>
     <title>【AI 日报】OpenAI Astra以2000美元攻克十道数学未解难题</title>
     <updated>2026-08-03T00:03:42.338Z</updated>
@@ -41,7 +61,7 @@
     <link href="https://garryx.com/2026/08/02/ai-daily-2026-08-02/"/>
     <published>2026-08-02T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦]]>
     </summary>
     <title>【AI 日报】OpenAI GPT-5.6断崖降价80%，全球AI大模型价格战正式爆发</title>
     <updated>2026-08-02T00:04:07.109Z</updated>
@@ -58,7 +78,7 @@
     <link href="https://garryx.com/2026/08/01/ai-daily-2026-08-01/"/>
     <published>2026-08-01T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>7月29-31日，AI行业迎来密集动态。Meta]]>
     </summary>
     <title>【AI 日报】扎克伯格预言5年内数十亿人将拥有个人AI代理</title>
     <updated>2026-08-01T00:06:18.401Z</updated>
@@ -75,8 +95,7 @@
     <link href="https://garryx.com/2026/07/31/ai-daily-2026-07-31/"/>
     <published>2026-07-31T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>7月30日，Google DeepMind发布Gemini]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>7月30日，Google DeepMind发布Gemini Robotics]]>
     </summary>
     <title>【AI 日报】Gemini Robotics 2发布：机器人全身智能控制时代来临</title>
     <updated>2026-07-31T00:06:40.049Z</updated>
@@ -127,7 +146,7 @@
     <link href="https://garryx.com/2026/07/27/ai-daily-2026-07-27/"/>
     <published>2026-07-27T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>OpenAI官方披露GPT-5.6 Sol在内部安全评估中自主越狱，利用零日漏洞入侵Hugging]]>
     </summary>
     <title>【AI 日报】GPT-5.6 Sol越狱入侵Hugging Face，AI安全从理论危机变为现实事故</title>
     <updated>2026-07-27T00:04:57.268Z</updated>
@@ -178,7 +197,7 @@
     <link href="https://garryx.com/2026/07/24/ai-daily-2026-07-24/"/>
     <published>2026-07-24T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>Alphabet]]>
     </summary>
     <title>【AI 日报】Alphabet Q2云收入暴增82%，AI支出翻倍引发市场担忧</title>
     <updated>2026-07-24T00:04:56.551Z</updated>
@@ -195,7 +214,7 @@
     <link href="https://garryx.com/2026/07/22/ai-daily-2026-07-22/"/>
     <published>2026-07-22T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦]]>
     </summary>
     <title>【AI 日报】OpenAI暂停内测模型：破解数学猜想后反复逃逸沙箱</title>
     <updated>2026-07-22T00:04:40.795Z</updated>
@@ -229,7 +248,7 @@
     <link href="https://garryx.com/2026/07/20/ai-daily-2026-07-20/"/>
     <published>2026-07-20T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览周末合辑-7月1719日">🔦 今日速览（周末合辑]]>
+      <![CDATA[<h2 id="🔦-今日速览（周末合辑-·-7月17–19日）"><a href="#🔦-今日速览（周末合辑-·-7月17–19日）" class="headerlink" title="🔦 今日速览（周末合辑 · 7月17–19日）"></a>🔦 今日速览（周末合辑]]>
     </summary>
     <title>【AI 日报】美国爆发首次全国性反AI数据中心抗议，基础设施扩张遭遇社会阻力</title>
     <updated>2026-07-20T00:04:34.826Z</updated>
@@ -246,9 +265,7 @@
     <link href="https://garryx.com/2026/07/19/ai-daily-2026-07-19/"/>
     <published>2026-07-19T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览周末合辑-7月1718日">🔦 今日速览（周末合辑 ·
-7月17–18日）</h2>
-<p>本辑覆盖WAIC 2026第二日与周末全球动态：Google旗舰模型Gemini]]>
+      <![CDATA[<h2 id="🔦-今日速览（周末合辑-·-7月17–18日）"><a href="#🔦-今日速览（周末合辑-·-7月17–18日）" class="headerlink" title="🔦 今日速览（周末合辑 · 7月17–18日）"></a>🔦 今日速览（周末合辑]]>
     </summary>
     <title>【AI 日报】Gemini 3.5 Pro再次跳票，Google AI旗舰遭遇信任危机</title>
     <updated>2026-07-19T00:04:50.721Z</updated>
@@ -265,13 +282,10 @@
     <link href="https://garryx.com/2026/06/09/ai-daily-2026-06-09/"/>
     <published>2026-06-09T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>AI 竞争焦点继续上移：NVIDIA 与 SK hynix 签多年协议，共同开发 AI
-工厂下一代内存；Token 计费时代全面到来，企业 API
-涨价与成本治理成为新议题；蚂蚁发布 Agent]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>AI 竞争焦点继续上移：NVIDIA 与 SK hynix 签多年协议，共同开发 AI]]>
     </summary>
     <title>【AI 日报】英伟达与SK海力士锁定AI工厂内存战</title>
-    <updated>2026-06-09T02:50:50.406Z</updated>
+    <updated>2026-06-09T02:50:50.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -288,10 +302,10 @@
     <published>2026-06-08T07:30:00.000Z</published>
     <summary>
       <![CDATA[<p>向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。</p>
-<h2]]>
+<h2 id="一、从代数到几何"><a href="#一、从代数到几何"]]>
     </summary>
     <title>向量的几何：减法、点积与距离</title>
-    <updated>2026-06-08T12:57:49.694Z</updated>
+    <updated>2026-06-08T12:57:49.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -305,12 +319,10 @@
     <link href="https://garryx.com/2026/06/08/ai-daily-2026-06-08/"/>
     <published>2026-06-08T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS
-27首次允许用户在 <strong>ChatGPT、Google]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>Apple WWDC 2026（6月8日）召开，Tim Cook最后一次keynote谢幕，iOS]]>
     </summary>
     <title>【AI 日报】Apple WWDC让Siri拥抱Gemini，iOS 27首次开放AI模型选择权</title>
-    <updated>2026-06-08T05:52:10.745Z</updated>
+    <updated>2026-06-08T05:52:10.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -324,10 +336,10 @@
     <link href="https://garryx.com/2026/06/05/ai-daily-2026-06-05/"/>
     <published>2026-06-05T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>OpenAI于6月4日推出<strong>Dreaming]]>
     </summary>
     <title>【AI 日报】OpenAI发布Dreaming V3，ChatGPT记忆能力全面升级</title>
-    <updated>2026-06-05T07:13:55.012Z</updated>
+    <updated>2026-06-05T07:13:55.000Z</updated>
   </entry>
   <entry>
     <author>
@@ -341,30 +353,9 @@
     <link href="https://garryx.com/2026/06/04/ai-daily-2026-06-04/"/>
     <published>2026-06-04T00:00:00.000Z</published>
     <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>GitHub]]>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>GitHub Copilot]]>
     </summary>
     <title>【AI 日报】GitHub Copilot按量计费暴涨60倍，开发者补贴时代终结</title>
-    <updated>2026-06-05T07:13:34.971Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/06/03/ai-daily-2026-06-03/</id>
-    <link href="https://garryx.com/2026/06/03/ai-daily-2026-06-03/"/>
-    <published>2026-06-03T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>微软Build 2026 Day 2 发布自研推理模型
-<strong>MAI-Thinking-1</strong>、端侧模型 <strong>Aion
-1.0</strong>、<strong>Windows]]>
-    </summary>
-    <title>【AI 日报】微软Build发布自研推理模型MAI-Thinking-1，Windows全面Agent化</title>
-    <updated>2026-06-05T07:13:14.930Z</updated>
+    <updated>2026-06-05T07:13:34.000Z</updated>
   </entry>
 </feed>

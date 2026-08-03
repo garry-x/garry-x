@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>中心极限定理：为什么世界是正态的 | Garry&#39;s Blog</title>
+<meta name="description" content="想象一个三角形钉板，顶上有一个漏斗。你把一颗弹珠从漏斗倒进去，它在下落过程中不断撞击钉子，每次撞击都随机向左或向右偏转。最终，弹珠落入底部某个槽里。 如果你只倒一颗，它会落在哪里完全随机。但如果你倒一万颗呢？ 神奇的事情发生了：底部槽中的弹珠堆出一个漂亮的钟形曲线。无论钉子间距如何、无论偏转角度是否均匀——只要你倒的弹">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="概率论,统计学,数学,可视化">
+
+<!-- Open Graph -->
+<meta property="og:title" content="中心极限定理：为什么世界是正态的 | Garry&#39;s Blog">
+<meta property="og:description" content="想象一个三角形钉板，顶上有一个漏斗。你把一颗弹珠从漏斗倒进去，它在下落过程中不断撞击钉子，每次撞击都随机向左或向右偏转。最终，弹珠落入底部某个槽里。 如果你只倒一颗，它会落在哪里完全随机。但如果你倒一万颗呢？ 神奇的事情发生了：底部槽中的弹珠堆出一个漂亮的钟形曲线。无论钉子间距如何、无论偏转角度是否均匀——只要你倒的弹">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/08/03/central-limit-theorem/">
+<meta property="og:image" content="https://garryx.com/images/clt/clt-galton-board.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="中心极限定理：为什么世界是正态的 | Garry&#39;s Blog">
+<meta name="twitter:description" content="想象一个三角形钉板，顶上有一个漏斗。你把一颗弹珠从漏斗倒进去，它在下落过程中不断撞击钉子，每次撞击都随机向左或向右偏转。最终，弹珠落入底部某个槽里。 如果你只倒一颗，它会落在哪里完全随机。但如果你倒一万颗呢？ 神奇的事情发生了：底部槽中的弹珠堆出一个漂亮的钟形曲线。无论钉子间距如何、无论偏转角度是否均匀——只要你倒的弹">
+<meta name="twitter:image" content="https://garryx.com/images/clt/clt-galton-board.png">
+
+<link rel="canonical" href="https://garryx.com/2026/08/03/central-limit-theorem/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "中心极限定理：为什么世界是正态的 | Garry&#39;s Blog",
+  "description": "想象一个三角形钉板，顶上有一个漏斗。你把一颗弹珠从漏斗倒进去，它在下落过程中不断撞击钉子，每次撞击都随机向左或向右偏转。最终，弹珠落入底部某个槽里。 如果你只倒一颗，它会落在哪里完全随机。但如果你倒一万颗呢？ 神奇的事情发生了：底部槽中的弹珠堆出一个漂亮的钟形曲线。无论钉子间距如何、无论偏转角度是否均匀——只要你倒的弹",
+  "url": "https://garryx.com/2026/08/03/central-limit-theorem/",
+  
+  "datePublished": "2026-08-03T08:00:00.000Z",
+  "dateModified": "2026-08-03T01:21:57.178Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/images/clt/clt-galton-board.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=18">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/%E6%95%B0%E5%AD%A6/">数学</a>
+                
+            </div>
+            
+            <h1 class="post-title">中心极限定理：为什么世界是正态的</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-08-03T08:00:00.000Z">
+                    2026年8月3日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">#概率论</a>
+                    
+                        <a href="/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/">#统计学</a>
+                    
+                        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+                    
+                        <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/">#可视化</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <p>想象一个三角形钉板，顶上有一个漏斗。你把一颗弹珠从漏斗倒进去，它在下落过程中不断撞击钉子，每次撞击都随机向左或向右偏转。最终，弹珠落入底部某个槽里。</p>
+<p>如果你只倒一颗，它会落在哪里完全随机。但如果你倒一万颗呢？</p>
+<p>神奇的事情发生了：底部槽中的弹珠堆出一个漂亮的钟形曲线。无论钉子间距如何、无论偏转角度是否均匀——只要你倒的弹珠足够多，结果总是那个熟悉的钟形。</p>
+<p>这就是<strong>中心极限定理（Central Limit Theorem）</strong> 在说话。它可能是整个概率论里最重要的一条定理，也是为什么”正态分布”在自然界随处可见的根本原因。</p>
+<p><img src="/images/clt/clt-galton-board.png" alt="高尔顿板模拟"></p>
+<blockquote>
+<p>上图左侧是高尔顿板（Galton Board）的示意图：弹珠从顶部下落，每次撞到钉子都会随机左偏或右偏。右侧是大量弹珠最终落入底部槽中的分布——拟合正态曲线。</p>
+</blockquote>
+<h2 id="骰子实验：从直觉到发现"><a href="#骰子实验：从直觉到发现" class="headerlink" title="骰子实验：从直觉到发现"></a>骰子实验：从直觉到发现</h2><p>高尔顿板很直观，但它背后的数学是什么？我们用更简单的例子来拆解。</p>
+<p>掷一颗公平的六面骰子。每次掷出的点数 $X$ 服从均匀分布：${1, 2, 3, 4, 5, 6}$ 每个值的概率都是 $1/6$。这是一个<strong>完全平坦</strong>的分布，和正态分布八竿子打不着。</p>
+<p>但如果我们掷两颗骰子，然后看它们的<strong>和</strong>呢？</p>
+<p>两颗骰子的和从 2 到 12，但中间值（7）的概率远高于两端（2 和 12）。因为得到 7 有 6 种组合（1+6, 2+5, 3+4, 4+3, 5+2, 6+1），而得到 2 只有一种（1+1）。分布从平坦变成了三角形。</p>
+<p>继续加骰子：三颗、五颗、十颗、三十颗。每多加一颗，和的分布就更圆滑一点，更接近那个钟形。</p>
+<p><img src="/images/clt/clt-dice-convergence.png" alt="骰子和的分布收敛"></p>
+<blockquote>
+<p>从上图可以看到：当骰子数量从 1 增加到 30，和的分布从离散的均匀分布，逐渐平滑成连续的正态分布。粉色曲线是拟合的正态分布密度函数。</p>
+</blockquote>
+<p>这个现象不是骰子的特权。把骰子换成硬币（伯努利分布）、换成等待时间（指数分布）、换成泊松分布——<strong>任何分布</strong>，只要独立地加足够多次，和（或均值）的分布一定趋近于正态。</p>
+<h2 id="卷积：平滑的数学本质"><a href="#卷积：平滑的数学本质" class="headerlink" title="卷积：平滑的数学本质"></a>卷积：平滑的数学本质</h2><p>为什么”加”这个操作会让分布变得越来越像正态？答案藏在<strong>卷积</strong>里。</p>
+<p>两个独立随机变量 $X$ 和 $Y$ 的和 $Z = X + Y$ 的概率密度，是它们各自密度的卷积：</p>
+<script type="math/tex; mode=display">f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z - x) \, dx</script><p>卷积有一个关键性质：它让函数变”平滑”。每次卷积相当于对原函数做一次加权滑动平均。多次卷积后，无论原始函数长什么样，结果都会趋向一个光滑的钟形。</p>
+<p>我们用一个极端例子来展示：从一个<strong>双峰分布</strong>（两个尖峰，中间有深谷）开始，反复和自己卷积。</p>
+<p><img src="/images/clt/clt-convolution-smoothing.png" alt="卷积平滑过程"></p>
+<blockquote>
+<p>上图展示了一个双峰分布经过 1、2、4、8 次自卷积后的变化。到第 8 次时，原始的双峰结构已经完全消失，分布逼近正态曲线。</p>
+</blockquote>
+<p>这就是中心极限定理的几何直觉：<strong>独立随机变量的求和 = 概率密度的重复卷积 = 平滑化</strong>。而正态分布，恰好是这个平滑过程的”不动点”——唯一一个和自己卷积后形状不变的分布（只改变均值和方差）。</p>
+<h2 id="不挑食的定理：四种分布，同一个归宿"><a href="#不挑食的定理：四种分布，同一个归宿" class="headerlink" title="不挑食的定理：四种分布，同一个归宿"></a>不挑食的定理：四种分布，同一个归宿</h2><p>中心极限定理最反直觉的地方在于：它对原始分布<strong>几乎没有任何要求</strong>。</p>
+<p>我们选了四种完全不同的分布——均匀分布、指数分布、二项分布、泊松分布——分别计算它们的样本均值分布。当样本量 $n=5$ 时，均值分布已经开始向钟形靠拢；到 $n=30$ 时，全部收敛到正态。</p>
+<p><img src="/images/clt/clt-distributions-converge.png" alt="不同分布的收敛"></p>
+<blockquote>
+<p>四行分别对应四种原始分布。左列：原始分布形态；中列：$n=5$ 时的样本均值分布；右列：$n=30$ 时的样本均值分布。粉色曲线是理论正态分布，柱状图是模拟结果。</p>
+</blockquote>
+<p>这解释了为什么正态分布在自然界无处不在：因为很多自然现象本身就是大量微小独立因素的叠加。一个人的身高受基因、营养、环境等几百个因素影响；一个班级的考试平均分是几十个学生各自能力的叠加；测量误差是无数个微小扰动之和。只要这些因素大体独立、数量够多，结果就趋向正态。</p>
+<h2 id="数学表述：定理的精确形式"><a href="#数学表述：定理的精确形式" class="headerlink" title="数学表述：定理的精确形式"></a>数学表述：定理的精确形式</h2><p>现在我们给出精确的数学陈述。设 $X_1, X_2, \ldots, X_n$ 是独立同分布（i.i.d.）的随机变量，均值为 $\mu$，方差为 $\sigma^2 &lt; \infty$。</p>
+<p>定义样本均值 $\bar{X}<em>n = \frac{1}{n} \sum</em>{i=1}^{n} X_i$。中心极限定理说：</p>
+<script type="math/tex; mode=display">\frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} \mathcal{N}(0, 1)</script><p>即标准化的样本均值依分布收敛于标准正态分布。等价地，对于任意实数 $x$：</p>
+<script type="math/tex; mode=display">\lim_{n \to \infty} P\left( \frac{\bar{X}_n - \mu}{\sigma / \sqrt{n}} \leq x \right) = \Phi(x)</script><p>其中 $\Phi(x)$ 是标准正态分布的累积分布函数。</p>
+<p>这里有几个关键细节：</p>
+<ul>
+<li><strong>标准化</strong>：光说”趋近正态”不够精确，因为 $\bar{X}_n$ 本身的方差是 $\sigma^2/n$，会随着 $n$ 增大而缩小到零。标准化（减均值、除标准误）让分布保持在一个稳定的尺度上。</li>
+<li><strong>$\sqrt{n}$</strong>：标准误衰减的速度是 $1/\sqrt{n}$。这意味着把样本量翻四倍，精度才翻一倍——统计学家常说的”$\sqrt{n}$ 法则”。</li>
+</ul>
+<p><img src="/images/clt/clt-se-vs-n.png" alt="标准误与样本量的关系"></p>
+<blockquote>
+<p>左图：标准误随样本量按 $1/\sqrt{n}$ 衰减。从 $n=4$ 到 $n=100$，标准误从 0.5 降到 0.1。右图：样本量越大，均值的抽样分布越窄，估计越精确。</p>
+</blockquote>
+<h2 id="为什么它重要"><a href="#为什么它重要" class="headerlink" title="为什么它重要"></a>为什么它重要</h2><p>中心极限定理是现代统计推断的基石。</p>
+<p><strong>置信区间。</strong> 当你读到”民调显示支持率为 52%，误差 ±3%”——这背后的 ±3% 就是用 CLT 算出来的。样本比例 $\hat{p}$ 近似服从正态分布，标准误是 $\sqrt{p(1-p)/n}$，乘上 1.96 就得到 95% 置信区间。</p>
+<p><img src="/images/clt/clt-confidence-intervals.png" alt="置信区间模拟"></p>
+<blockquote>
+<p>上图模拟了 100 次抽样（每次 $n=50$），绿色线段表示包含真实均值的置信区间，粉色线段表示落空。在 95% 置信水平下，大约 95% 的区间应该能覆盖真实均值。</p>
+</blockquote>
+<p><strong>假设检验。</strong> A/B 测试中，两组转化率的差异是否显著？t 检验的本质就是判断标准化后的差异是否落在正态分布的尾部。没有 CLT，就没有 t 检验。</p>
+<p><strong>为什么正态分布叫”正态”。</strong> 高斯在 19 世纪初研究天文测量误差时发现：无论单次测量误差是什么分布，多次测量的均值误差总是正态的。他把这个”正常”的误差分布命名为正态分布。CLT 为这个经验观察提供了数学证明。</p>
+<h2 id="条件与常见误解"><a href="#条件与常见误解" class="headerlink" title="条件与常见误解"></a>条件与常见误解</h2><p>CLT 不是万能的。它要求两个关键条件：</p>
+<ol>
+<li><strong>独立性</strong>：各次观测之间不能有系统性的关联。时间序列数据（比如股票价格）通常不满足独立性，这时 CLT 不能直接套用。</li>
+<li><strong>有限方差</strong>：如果分布的尾部太厚（比如柯西分布），方差不存在，CLT 失效。柯西分布样本均值的分布仍然是柯西，不会收敛到正态。</li>
+</ol>
+<p>另外，CLT 说的是<strong>标准化后的均值</strong>趋近正态，不是原始数据趋近正态。很多人误以为”大样本下数据就变正态了”——这是错的。数据本身长什么样还是长什么样，变正态的是<strong>均值的抽样分布</strong>。</p>
+<p>还有就是”足够大”到底多大。这取决于原始分布的偏度。对称分布（均匀、正态本身）$n=10$ 就够了；中度偏斜（指数分布）$n=30$ 足够；严重偏斜或厚尾分布可能需要 $n=100$ 甚至更多。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>中心极限定理告诉我们一件优雅的事：<strong>在足够多的独立微小波动叠加下，秩序从混乱中涌现。</strong> 无论单个因素多么不规则，它们的集体行为总是趋向于同一个简洁的钟形曲线。</p>
+<p>从高尔顿板的弹珠到民意调查的误差范围，从测量仪器的精度到机器学习中的梯度噪声——CLT 在背后默默工作，把随机性驯化成可预测的模式。</p>
+<blockquote>
+<p>如果你对本文的可视化感兴趣，所有图片都由 Python + Matplotlib 生成。核心模拟代码不到 50 行，你可以在自己的机器上复现这些实验。试试改变分布类型、样本量或模拟次数，亲眼看看 CLT 的魔力。</p>
+</blockquote>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                
+                <a href="/2026/08/03/ai-daily-2026-08-03/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】OpenAI Astra以2000美元攻克十道数学未解难题</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
