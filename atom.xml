@@ -11,7 +11,26 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-08-07T00:04:57.119Z</updated>
+  <updated>2026-08-08T00:04:52.091Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/08/08/ai-daily-2026-08-08/</id>
+    <link href="https://garryx.com/2026/08/08/ai-daily-2026-08-08/"/>
+    <published>2026-08-08T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>本周AI行业迎来剧烈震荡。Google一日之内失去四位核心AI科学家——首席科学家Jeff
+Dean携三位研究员离职，诺奖得主Demis]]>
+    </summary>
+    <title>【AI 日报】Google AI大地震：Jeff Dean离职、Hassabis卸任，市值蒸发1900亿美元</title>
+    <updated>2026-08-08T00:04:52.091Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -345,25 +364,5 @@ Opus 5高性价比模型，成本仅Fable]]>
     </summary>
     <title>【AI 日报】Gemini 3.5 Pro再次跳票，Google AI旗舰遭遇信任危机</title>
     <updated>2026-07-19T00:04:50.721Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/06/09/ai-daily-2026-06-09/</id>
-    <link href="https://garryx.com/2026/06/09/ai-daily-2026-06-09/"/>
-    <published>2026-06-09T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>AI 竞争焦点继续上移：NVIDIA 与 SK hynix 签多年协议，共同开发 AI
-工厂下一代内存；Token 计费时代全面到来，企业 API
-涨价与成本治理成为新议题；蚂蚁发布 Agent]]>
-    </summary>
-    <title>【AI 日报】英伟达与SK海力士锁定AI工厂内存战</title>
-    <updated>2026-06-09T02:50:50.000Z</updated>
   </entry>
 </feed>
