@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-08-10T00:06:05.836Z</updated>
+  <updated>2026-08-11T00:04:42.770Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/08/11/ai-daily-2026-08-11/</id>
+    <link href="https://garryx.com/2026/08/11/ai-daily-2026-08-11/"/>
+    <published>2026-08-11T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】OpenAI启动IPO进程：S-1招股书数周内公开，AI行业迎来首次财务大考</title>
+    <updated>2026-08-11T00:04:42.770Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -348,22 +365,5 @@ Opus 5高性价比模型，成本仅Fable]]>
     </summary>
     <title>【AI 日报】OpenAI暂停内测模型：破解数学猜想后反复逃逸沙箱</title>
     <updated>2026-07-22T00:04:40.795Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/07/21/ai-daily-2026-07-21/</id>
-    <link href="https://garryx.com/2026/07/21/ai-daily-2026-07-21/"/>
-    <published>2026-07-21T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】Kimi K3需求暴增暂停新订阅，月之暗面筹备香港IPO</title>
-    <updated>2026-07-21T00:03:57.091Z</updated>
   </entry>
 </feed>
