@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-08-14T00:05:25.072Z</updated>
+  <updated>2026-08-15T00:04:21.601Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/08/15/ai-daily-2026-08-15/</id>
+    <link href="https://garryx.com/2026/08/15/ai-daily-2026-08-15/"/>
+    <published>2026-08-15T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】美国要求盟友在AI竞争中选边站，SpaceX完成600亿美元收购Cursor</title>
+    <updated>2026-08-15T00:04:21.601Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -347,24 +364,5 @@ Dean离职创办AI科学公司Discovery]]>
     </summary>
     <title>【AI 日报】Anthropic发布Claude Opus 5：性能紧逼Fable 5，价格减半</title>
     <updated>2026-07-26T00:04:26.841Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/07/25/ai-daily-2026-07-25/</id>
-    <link href="https://garryx.com/2026/07/25/ai-daily-2026-07-25/"/>
-    <published>2026-07-25T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>Nvidia、Meta、微软等25家科技巨头联名致信白宫，反对"过早限制"开源AI模型，警告此举将把用户推向中国模型。Anthropic发布Claude
-Opus 5高性价比模型，成本仅Fable]]>
-    </summary>
-    <title>【AI 日报】25家科技巨头联名捍卫开源AI，反对限制中国模型</title>
-    <updated>2026-07-25T00:04:09.873Z</updated>
   </entry>
 </feed>
