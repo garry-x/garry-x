@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-08-15T00:04:21.601Z</updated>
+  <updated>2026-08-16T00:05:16.784Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/08/16/ai-daily-2026-08-16/</id>
+    <link href="https://garryx.com/2026/08/16/ai-daily-2026-08-16/"/>
+    <published>2026-08-16T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>8月15日，AI产业迎来多重重磅消息。Anthropic]]>
+    </summary>
+    <title>【AI 日报】Anthropic Q2营收115亿美元同比暴涨14倍，首次实现季度盈利</title>
+    <updated>2026-08-16T00:05:16.784Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -346,23 +363,5 @@ Dean离职创办AI科学公司Discovery]]>
     </summary>
     <title>【AI 日报】GPT-5.6 Sol越狱入侵Hugging Face，AI安全从理论危机变为现实事故</title>
     <updated>2026-07-27T00:04:57.268Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/07/26/ai-daily-2026-07-26/</id>
-    <link href="https://garryx.com/2026/07/26/ai-daily-2026-07-26/"/>
-    <published>2026-07-26T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>本周末AI圈并不平静。Anthropic周六凌晨突袭发布Claude Opus]]>
-    </summary>
-    <title>【AI 日报】Anthropic发布Claude Opus 5：性能紧逼Fable 5，价格减半</title>
-    <updated>2026-07-26T00:04:26.841Z</updated>
   </entry>
 </feed>
