@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-08-27T00:04:52.457Z</updated>
+  <updated>2026-08-28T00:05:27.728Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/08/28/ai-daily-2026-08-28/</id>
+    <link href="https://garryx.com/2026/08/28/ai-daily-2026-08-28/"/>
+    <published>2026-08-28T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】英伟达暂停与多家AI企业的收益分成协议</title>
+    <updated>2026-08-28T00:05:27.728Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -340,22 +357,5 @@ Dean携三位研究员离职，诺奖得主Demis]]>
     </summary>
     <title>【AI 日报】Google AI大地震：Jeff Dean离职、Hassabis卸任，市值蒸发1900亿美元</title>
     <updated>2026-08-08T00:04:52.091Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/08/07/ai-daily-2026-08-07/</id>
-    <link href="https://garryx.com/2026/08/07/ai-daily-2026-08-07/"/>
-    <published>2026-08-07T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】DeepSeek官宣API大幅涨价，中国大模型价格战迎来转折点</title>
-    <updated>2026-08-07T00:04:57.119Z</updated>
   </entry>
 </feed>
