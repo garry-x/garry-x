@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-08-28T00:05:27.728Z</updated>
+  <updated>2026-08-29T00:04:27.069Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/08/29/ai-daily-2026-08-29/</id>
+    <link href="https://garryx.com/2026/08/29/ai-daily-2026-08-29/"/>
+    <published>2026-08-29T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>腾讯混元开源旗舰大模型Hy4]]>
+    </summary>
+    <title>【AI 日报】腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文</title>
+    <updated>2026-08-29T00:04:27.069Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -338,24 +355,5 @@ Dean携三名核心研究员出走创办Discovery]]>
     </summary>
     <title>【AI 日报】OpenAI因安全顾虑暂停Astra开发：首次因模型&quot;太强&quot;主动刹车</title>
     <updated>2026-08-09T00:20:41.934Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/08/08/ai-daily-2026-08-08/</id>
-    <link href="https://garryx.com/2026/08/08/ai-daily-2026-08-08/"/>
-    <published>2026-08-08T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>本周AI行业迎来剧烈震荡。Google一日之内失去四位核心AI科学家——首席科学家Jeff
-Dean携三位研究员离职，诺奖得主Demis]]>
-    </summary>
-    <title>【AI 日报】Google AI大地震：Jeff Dean离职、Hassabis卸任，市值蒸发1900亿美元</title>
-    <updated>2026-08-08T00:04:52.091Z</updated>
   </entry>
 </feed>

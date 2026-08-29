@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览腾讯混元开源旗舰大模型Hy4 preview（总参数770B、激活49B、上下文1M），定价输入6元/百万tokens。NVIDIA据报以129亿美元收购Hugging Face（尚未签署正式合同）；a16z募资11亿美元成立首个硬件基金”Machine Age”。Hugging Face同日发布399美">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览腾讯混元开源旗舰大模型Hy4 preview（总参数770B、激活49B、上下文1M），定价输入6元/百万tokens。NVIDIA据报以129亿美元收购Hugging Face（尚未签署正式合同）；a16z募资11亿美元成立首个硬件基金”Machine Age”。Hugging Face同日发布399美">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/08/29/ai-daily-2026-08-29/">
+<meta property="og:image" content="https://garryx.com/images/ai-daily-cover.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览腾讯混元开源旗舰大模型Hy4 preview（总参数770B、激活49B、上下文1M），定价输入6元/百万tokens。NVIDIA据报以129亿美元收购Hugging Face（尚未签署正式合同）；a16z募资11亿美元成立首个硬件基金”Machine Age”。Hugging Face同日发布399美">
+<meta name="twitter:image" content="https://garryx.com/images/ai-daily-cover.png">
+
+<link rel="canonical" href="https://garryx.com/2026/08/29/ai-daily-2026-08-29/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【AI 日报】腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文 | Garry&#39;s Blog",
+  "description": "🔦 今日速览腾讯混元开源旗舰大模型Hy4 preview（总参数770B、激活49B、上下文1M），定价输入6元/百万tokens。NVIDIA据报以129亿美元收购Hugging Face（尚未签署正式合同）；a16z募资11亿美元成立首个硬件基金”Machine Age”。Hugging Face同日发布399美",
+  "url": "https://garryx.com/2026/08/29/ai-daily-2026-08-29/",
+  
+  "datePublished": "2026-08-29T00:00:00.000Z",
+  "dateModified": "2026-08-29T00:04:27.069Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/images/ai-daily-cover.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=18">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-08-29T00:00:00.000Z">
+                    2026年8月29日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>腾讯混元开源旗舰大模型Hy4 preview（总参数<strong>770B</strong>、激活<strong>49B</strong>、上下文<strong>1M</strong>），定价输入<strong>6元/百万tokens</strong>。NVIDIA据报以<strong>129亿美元</strong>收购Hugging Face（尚未签署正式合同）；a16z募资<strong>11亿美元</strong>成立首个硬件基金”Machine Age”。Hugging Face同日发布<strong>399美元</strong>开源机器人Microduck。</p>
+<p><strong>趋势1</strong>：开源旗舰”高参数+低激活”效率竞赛升级<br><strong>趋势2</strong>：资本从软件层向芯片/机器人等物理AI迁移<br><strong>趋势3</strong>：Agent经验沉淀为可复用知识库，技能工程化</p>
+<hr>
+<h2 id="🌍-国际动态"><a href="#🌍-国际动态" class="headerlink" title="🌍 国际动态"></a>🌍 国际动态</h2><h3 id="1-NVIDIA据报以129亿美元收购Hugging-Face，剑指开源AI分发层-⭐"><a href="#1-NVIDIA据报以129亿美元收购Hugging-Face，剑指开源AI分发层-⭐" class="headerlink" title="1. NVIDIA据报以129亿美元收购Hugging Face，剑指开源AI分发层 ⭐"></a>1. NVIDIA据报以129亿美元收购Hugging Face，剑指开源AI分发层 ⭐</h3><p><strong>事件简述</strong>：据The Information 8月26日援引知情人士，英伟达已原则上同意以<strong>129亿美元</strong>收购全球最大开源AI模型社区Hugging Face，若成交将成为英伟达史上最大并购（超越2020年69亿美元收购Mellanox）。截至8月28日，交易仍未签署正式合同，TechCrunch提示仍可能破裂。Hugging Face年化收入近期从约1亿美元攀升至1.5亿美元，129亿美元对应约<strong>86倍</strong>市销率。</p>
+<p><strong>关键数据</strong>：129亿美元收购价、估值超130亿美元、约<strong>86倍</strong>年化收入；2025年底英伟达曾出价5亿美元入股（估值70亿）被拒。</p>
+<p><strong>影响分析</strong>：英伟达意在买下开源AI的”分发与生态层”——对冲OpenAI/谷歌/亚马逊自研芯片、重返云算力租赁、吸收闲置算力，可能重塑开源模型与CUDA生态的中立性。<br>📅8月26日</p>
+<h3 id="2-a16z募资11亿美元成立”Machine-Age”硬件基金"><a href="#2-a16z募资11亿美元成立”Machine-Age”硬件基金" class="headerlink" title="2. a16z募资11亿美元成立”Machine Age”硬件基金"></a>2. a16z募资11亿美元成立”Machine Age”硬件基金</h3><p><strong>事件简述</strong>：8月28日，Andreessen Horowitz宣布为其首个专注硬件基础设施的”Machine Age”基金募资<strong>11亿美元</strong>，投向AI处理器、存储、网络、数据中心、机器人等物理层。a16z官方博客指出，硬件供给侧习惯每年20%-30%的增长，”而追赶AI需求需要三位数增长”。</p>
+<p><strong>关键数据</strong>：11亿美元规模；此前a16z已通过2024年设立的AI基础设施基金投入12.5亿+17亿美元。</p>
+<p><strong>影响分析</strong>：以”软件吞噬世界”闻名的a16z重仓硬件，标志硅谷共识从应用层转向算力/机器人/能源等”物理约束”，是AI工业化叙事的重要注脚。<br>📅8月28日</p>
+<h3 id="3-Hugging-Face发布399美元开源机器人Microduck，押注”物理AI民主化”"><a href="#3-Hugging-Face发布399美元开源机器人Microduck，押注”物理AI民主化”" class="headerlink" title="3. Hugging Face发布399美元开源机器人Microduck，押注”物理AI民主化”"></a>3. Hugging Face发布399美元开源机器人Microduck，押注”物理AI民主化”</h3><p><strong>事件简述</strong>：Hugging Face联合Pollen Robotics推出<strong>25厘米</strong>双足机器人Microduck，售价<strong>399美元</strong>（不含税/运费），8月27日开启预购，圣诞节前发货。配备15个电机、摄像头、激光雷达，能走、蹲、摔倒自起、跟随激光笔甚至滑旱冰。SDK、仿真环境与强化学习栈全部开源，仿真训练的行为可直接部署到真机。</p>
+<p><strong>关键数据</strong>：399美元、15电机、开源sim2real栈；此前已发布Reachy Mini，去年收购Pollen Robotics。</p>
+<p><strong>影响分析</strong>：不到400美元的开源机器人把”物理AI”实验门槛降到消费级，让模型分发平台切入硬件，与英伟达收购传闻形成呼应——开源AI生态正向具身智能延伸。<br>📅8月27日</p>
+<h3 id="4-特朗普政府考虑对含芯片成品征收全面半导体关税"><a href="#4-特朗普政府考虑对含芯片成品征收全面半导体关税" class="headerlink" title="4. 特朗普政府考虑对含芯片成品征收全面半导体关税"></a>4. 特朗普政府考虑对含芯片成品征收全面半导体关税</h3><p><strong>事件简述</strong>：据The Guardian 8月27日报道，特朗普政府正考虑新一轮关税，范围从裸芯片扩展到含半导体的成品——笔记本电脑、游戏机以及填充AI数据中心的服务器；商务部长卢特尼克倾向以”在美国建芯片厂”作为外国厂商获得关税减免的筹码。</p>
+<p><strong>关键数据</strong>：覆盖服务器/笔记本/游戏机等成品；或设过渡期；科技公司警告将推高AI基础设施成本。</p>
+<p><strong>影响分析</strong>：若落地，关税将从GPU传导到整机与云资本开支，直接抬高AI算力建设成本，与华盛顿”锁定AI领导地位”的目标形成张力。<br>📅8月27日</p>
+<hr>
+<h2 id="🇨🇳-国内动态"><a href="#🇨🇳-国内动态" class="headerlink" title="🇨🇳 国内动态"></a>🇨🇳 国内动态</h2><h3 id="1-腾讯混元开源旗舰Hy4-preview：770B参数、1M上下文-⭐"><a href="#1-腾讯混元开源旗舰Hy4-preview：770B参数、1M上下文-⭐" class="headerlink" title="1. 腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文 ⭐"></a>1. 腾讯混元开源旗舰Hy4 preview：770B参数、1M上下文 ⭐</h3><p><strong>事件简述</strong>：8月28日，腾讯混元发布并开源新一代大语言模型Hy4 preview，总参数<strong>770B</strong>、激活参数<strong>49B</strong>，上下文长度突破<strong>1M</strong>，初步形成”递归自我改进”闭环。模型已在WorkBuddy/CodeBuddy国内外版、元宝、ima等腾讯产品同步首发，并可通过腾讯云Tokenhub与OpenRouter接入API。</p>
+<p><strong>关键数据</strong>：770B/49B MoE、1M上下文；定价输入<strong>6元</strong>/百万tokens、输出<strong>18元</strong>/百万tokens、缓存命中<strong>0.3元</strong>/百万tokens。</p>
+<p><strong>影响分析</strong>：继智谱GLM-5.3-Flash（320B/18B）、阿里Qwen3.8-Flash（125B/6B）之后，腾讯以770B旗舰参战开源赛道，国产开源模型”旗舰参数+极致激活比”的军备竞赛再升级，并将1M超长上下文带入主力产品线。<br>📅8月28日</p>
+<h3 id="2-2026数博会贵阳开幕，”词元”成为数据要素价值新尺度"><a href="#2-2026数博会贵阳开幕，”词元”成为数据要素价值新尺度" class="headerlink" title="2. 2026数博会贵阳开幕，”词元”成为数据要素价值新尺度"></a>2. 2026数博会贵阳开幕，”词元”成为数据要素价值新尺度</h3><p><strong>事件简述</strong>：8月28日，2026中国国际大数据产业博览会（数博会）在贵阳开幕，主题为”词元——数据要素价值释放新路径”。国家数据局局长刘烈宏表示，词元正逐步成为人工智能服务的计量单位、结算单位与统计单位，数据要素市场化配置改革在医疗等重点领域加快推进。</p>
+<p><strong>关键数据</strong>：聚焦成果展示/行业交流/展产融合三大方面；”词元”确立为AI服务计量与结算尺度。</p>
+<p><strong>影响分析</strong>：”词元金融化”从行业讨论上升到国家数据战略层面，token作为统一计量尺度将影响AI服务的定价、结算与统计体系，为数据要素流通提供制度接口。<br>📅8月28日</p>
+<h3 id="3-智元”机器人奥运会”夺双冠：18金领跑，量产机参赛"><a href="#3-智元”机器人奥运会”夺双冠：18金领跑，量产机参赛" class="headerlink" title="3. 智元”机器人奥运会”夺双冠：18金领跑，量产机参赛"></a>3. 智元”机器人奥运会”夺双冠：18金领跑，量产机参赛</h3><p><strong>事件简述</strong>：第二届世界人形机器人运动会（业内称”机器人奥运会”）闭幕，智元首次参赛即以<strong>18金、16银、12铜</strong>包揽金牌榜、奖牌榜双第一。量产版灵巧手OmniHand拿下8个灵巧手专项中的<strong>7枚金牌</strong>，精灵G2、远征A3、灵犀X2在场景赛与舞蹈、武术、乒乓球等项目中多线获奖，且参赛机型均为量产机、未单独定制。</p>
+<p><strong>关键数据</strong>：18金/16银/12铜双榜第一；OmniHand 8项中夺7金；全部量产机型参赛。</p>
+<p><strong>影响分析</strong>：从”实验室样机秀肌肉”到”量产机跨赛道摘金”，人形机器人竞争焦点正从单项长板转向系统能力与工程化成熟度，国内具身智能进入部署期。<br>📅8月28日</p>
+<hr>
+<h2 id="📄-今日论文"><a href="#📄-今日论文" class="headerlink" title="📄 今日论文"></a>📄 今日论文</h2><h3 id="1-CLAP：跨具身视频世界模型成为零样本物理模拟器"><a href="#1-CLAP：跨具身视频世界模型成为零样本物理模拟器" class="headerlink" title="1. CLAP：跨具身视频世界模型成为零样本物理模拟器"></a>1. CLAP：跨具身视频世界模型成为零样本物理模拟器</h3><p><strong>作者</strong>：Kechen Liu, Ola Shorinwa<br><strong>核心贡献</strong>：现有动作条件视频模型受限于单一机器人形态，无法利用互联网海量异构视频学习通用物理规律。CLAP提出跨具身动作条件视频生成框架，能在人类与机器人等多形态视频上联合训练，以”物理规律与执行者无关”为核心洞见，解决跨平台动作表征不统一、人类视频缺动作标签两大难题。<br><strong>为什么重要</strong>：与Microduck、a16z硬件基金同频——物理AI的通用”世界模型”需要跨形态数据，CLAP为机器人训练提供零样本物理模拟新路径。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2608.27406">arXiv:2608.27406</a> 📅8月27日</p>
+<h3 id="2-Puro-2B：5090美元在RTX-5090上训出Qwen2-1-5B"><a href="#2-Puro-2B：5090美元在RTX-5090上训出Qwen2-1-5B" class="headerlink" title="2. Puro-2B：5090美元在RTX 5090上训出Qwen2-1.5B"></a>2. Puro-2B：5090美元在RTX 5090上训出Qwen2-1.5B</h3><p><strong>作者</strong>：Kairong Luo et al.<br><strong>核心贡献</strong>：预训练长期与”天价成本”绑定——训Llama-3.2-3B要超150万美元，复现SmolLM3-3B要超70万美元。Puro-2B开源一整套低门槛预训练配方，用消费级RTX 5090、FP8精度、最高<strong>1.4万亿token</strong>从零训练2B级模型，全部成本控制在<strong>5090美元</strong>以内。<br><strong>为什么重要</strong>：把”从零预训练”拉回单卡可负担区间，呼应开源社区”旗舰化+民主化”并行趋势，为学术与小型团队保留一条自研路线。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2608.27370">arXiv:2608.27370</a> 📅8月27日</p>
+<h3 id="3-SWE-Prime：更少轨迹，更好软件工程能力"><a href="#3-SWE-Prime：更少轨迹，更好软件工程能力" class="headerlink" title="3. SWE-Prime：更少轨迹，更好软件工程能力"></a>3. SWE-Prime：更少轨迹，更好软件工程能力</h3><p><strong>作者</strong>：Dewu Zheng et al.<br><strong>核心贡献</strong>：指出”任务成功”不等于”高质量监督”——成功轨迹仍可能包含无效、冗余甚至危险步骤，直接SFT会引入噪声。SWE-Prime提出多粒度两阶段SFT数据筛选，在轨迹级与片段级渐进过滤训练数据，用更少但更干净的Agent轨迹取得更好性能。<br><strong>为什么重要</strong>：软件工程Agent的瓶颈正从”堆数据”转向”提纯数据”，SWE-Prime为Agent轨迹数据工程提供方法论，直击当前SFT训练的效率痛点。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2608.27449">arXiv:2608.27449</a> 📅8月27日</p>
+<h3 id="4-WikiSkill：把Agent经验沉淀为可进化知识库"><a href="#4-WikiSkill：把Agent经验沉淀为可进化知识库" class="headerlink" title="4. WikiSkill：把Agent经验沉淀为可进化知识库"></a>4. WikiSkill：把Agent经验沉淀为可进化知识库</h3><p><strong>作者</strong>：Liyan Tang, Cyrus Rashtchian, Chun-Sung Ferng, Andrew Tomkins et al.<br><strong>核心贡献</strong>：Agent技能发现的经验往往散落在优化历史中，难以跨迭代复用。WikiSkill将”原始执行经验—累积知识—可执行技能”三层解耦，持续把执行经验固化为持久知识库（wiki），后续技能更新可在此之上迭代，实现技能与知识库的共同进化。<br><strong>为什么重要</strong>：Agent正从”单次执行”走向”长期自我进化”，WikiSkill提供经验沉淀与复用的工程化框架，是构建持久智能体的关键基础设施。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2608.27454">arXiv:2608.27454</a> 📅8月27日</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                
+                <a href="/2026/08/28/ai-daily-2026-08-28/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】英伟达暂停与多家AI企业的收益分成协议</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
