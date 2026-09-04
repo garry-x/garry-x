@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-09-03T00:04:19.173Z</updated>
+  <updated>2026-09-04T00:06:11.371Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/09/04/ai-daily-2026-09-04/</id>
+    <link href="https://garryx.com/2026/09/04/ai-daily-2026-09-04/"/>
+    <published>2026-09-04T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】博通AI营收两年翻倍至2300亿美元，Anthropic成最大TPU客户</title>
+    <updated>2026-09-04T00:06:11.371Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -334,22 +351,5 @@
     </summary>
     <title>【AI 日报】Anthropic Q2营收115亿美元同比暴涨14倍，首次实现季度盈利</title>
     <updated>2026-08-16T00:05:16.784Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/08/15/ai-daily-2026-08-15/</id>
-    <link href="https://garryx.com/2026/08/15/ai-daily-2026-08-15/"/>
-    <published>2026-08-15T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】美国要求盟友在AI竞争中选边站，SpaceX完成600亿美元收购Cursor</title>
-    <updated>2026-08-15T00:04:21.601Z</updated>
   </entry>
 </feed>
