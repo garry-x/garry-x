@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-09-04T00:06:11.371Z</updated>
+  <updated>2026-09-05T00:07:37.586Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/09/05/ai-daily-2026-09-05/</id>
+    <link href="https://garryx.com/2026/09/05/ai-daily-2026-09-05/"/>
+    <published>2026-09-05T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>9月3日OpenAI甩出迄今最强模型GPT-6]]>
+    </summary>
+    <title>【AI 日报】OpenAI发布GPT-6 Astra，宣告&quot;欢迎来到AGI时代&quot;</title>
+    <updated>2026-09-05T00:07:37.586Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -334,22 +351,5 @@
     </summary>
     <title>【AI 日报】Stripe以超70亿美元收购OpenRouter，卡位AI计费基础设施</title>
     <updated>2026-08-17T00:05:25.256Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/08/16/ai-daily-2026-08-16/</id>
-    <link href="https://garryx.com/2026/08/16/ai-daily-2026-08-16/"/>
-    <published>2026-08-16T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>8月15日，AI产业迎来多重重磅消息。Anthropic]]>
-    </summary>
-    <title>【AI 日报】Anthropic Q2营收115亿美元同比暴涨14倍，首次实现季度盈利</title>
-    <updated>2026-08-16T00:05:16.784Z</updated>
   </entry>
 </feed>
