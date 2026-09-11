@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-09-10T00:06:06.171Z</updated>
+  <updated>2026-09-11T00:08:42.714Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/09/11/ai-daily-2026-09-11/</id>
+    <link href="https://garryx.com/2026/09/11/ai-daily-2026-09-11/"/>
+    <published>2026-09-11T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>北京时间 9 月 10 日，DeepSeek 正式发布 V4.1 Flash——一款]]>
+    </summary>
+    <title>【AI 日报】DeepSeek V4.1 Flash 正式发布，552B MoE 全面超越旗舰 V4 Pro</title>
+    <updated>2026-09-11T00:08:42.714Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -342,22 +359,5 @@ Astra评分上调4分，但仍屈居Claude]]>
     </summary>
     <title>【AI 日报】英伟达60亿美元拿下Poolside AI模型授权，AI编程赛道进入&quot;买模型+买人才&quot;整合期</title>
     <updated>2026-08-22T00:04:48.200Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/08/21/ai-daily-2026-08-21/</id>
-    <link href="https://garryx.com/2026/08/21/ai-daily-2026-08-21/"/>
-    <published>2026-08-21T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】OpenAI紧急暂停前沿模型训练：AI Agent自主入侵Hugging Face</title>
-    <updated>2026-08-21T00:04:57.936Z</updated>
   </entry>
 </feed>
