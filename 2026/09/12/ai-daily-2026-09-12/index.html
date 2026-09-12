@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】Anthropic 指控七家中国公司蒸馏 Claude，阿里涉 1.51 亿次交互 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览 9 月 10 日，Anthropic 发布《检测与应对 AI 滥用》报告，指控阿里巴巴、月之暗面、DeepSeek 等七家中国 AI 公司系统性「蒸馏」其 Claude 模型，其中阿里 5—7 月涉及超 1.51 亿次交互；OpenAI 同日密集发布 Agents API、全双工语音模型 GPTLive">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】Anthropic 指控七家中国公司蒸馏 Claude，阿里涉 1.51 亿次交互 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览 9 月 10 日，Anthropic 发布《检测与应对 AI 滥用》报告，指控阿里巴巴、月之暗面、DeepSeek 等七家中国 AI 公司系统性「蒸馏」其 Claude 模型，其中阿里 5—7 月涉及超 1.51 亿次交互；OpenAI 同日密集发布 Agents API、全双工语音模型 GPTLive">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/09/12/ai-daily-2026-09-12/">
+<meta property="og:image" content="https://garryx.com/images/ai-daily-cover.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】Anthropic 指控七家中国公司蒸馏 Claude，阿里涉 1.51 亿次交互 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览 9 月 10 日，Anthropic 发布《检测与应对 AI 滥用》报告，指控阿里巴巴、月之暗面、DeepSeek 等七家中国 AI 公司系统性「蒸馏」其 Claude 模型，其中阿里 5—7 月涉及超 1.51 亿次交互；OpenAI 同日密集发布 Agents API、全双工语音模型 GPTLive">
+<meta name="twitter:image" content="https://garryx.com/images/ai-daily-cover.png">
+
+<link rel="canonical" href="https://garryx.com/2026/09/12/ai-daily-2026-09-12/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【AI 日报】Anthropic 指控七家中国公司蒸馏 Claude，阿里涉 1.51 亿次交互 | Garry&#39;s Blog",
+  "description": "🔦 今日速览 9 月 10 日，Anthropic 发布《检测与应对 AI 滥用》报告，指控阿里巴巴、月之暗面、DeepSeek 等七家中国 AI 公司系统性「蒸馏」其 Claude 模型，其中阿里 5—7 月涉及超 1.51 亿次交互；OpenAI 同日密集发布 Agents API、全双工语音模型 GPTLive",
+  "url": "https://garryx.com/2026/09/12/ai-daily-2026-09-12/",
+  
+  "datePublished": "2026-09-12T00:00:00.000Z",
+  "dateModified": "2026-09-12T00:04:17.548Z",
+  "author": {
+    "@type": "Person",
+    "name": "Garry Xu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Garry&#39;s Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://garryx.com/images/avatar.png"
+    }
+  },
+  
+  "image": "https://garryx.com/images/ai-daily-cover.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=18">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        <article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】Anthropic 指控七家中国公司蒸馏 Claude，阿里涉 1.51 亿次交互</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-09-12T00:00:00.000Z">
+                    2026年9月12日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="今日速览">🔦 今日速览</h2>
+<p>9 月 10 日，Anthropic 发布《检测与应对 AI
+滥用》报告，指控阿里巴巴、月之暗面、DeepSeek 等<strong>七家</strong>中国
+AI 公司系统性「蒸馏」其 Claude 模型，其中阿里 5—7 月涉及超 <strong>1.51
+亿次</strong>交互；OpenAI 同日密集发布 Agents API、全双工语音模型
+GPT-Live-1 与金融版 ChatGPT 三款产品。国内方面，工信部 9 月 11
+日印发《「人工智能+软件」专项行动实施方案》，提出到 2030
+年软件业抢占全球价值链制高点；外滩大会收官在即，支付宝发布 AI
+钱包智能体，智能体代买 5 个月增长 7 倍。</p>
+<p><strong>趋势1</strong>：蒸馏攻防上升为中美 AI 核心博弈
+<strong>趋势2</strong>：OpenAI 转向「智能体平台」战略
+<strong>趋势3</strong>：推理芯片资本密集升温</p>
+<hr />
+<h2 id="国际动态">🌍 国际动态</h2>
+<h3 id="anthropic-发布报告指控七家中国公司蒸馏-claude">1. Anthropic
+发布报告，指控七家中国公司蒸馏 Claude ⭐</h3>
+<p><strong>事件简述</strong>：Anthropic 于 9 月 10 日发布《检测与应对 AI
+滥用》报告，指控阿里巴巴、月之暗面（Kimi）、DeepSeek、智谱、小米、商汤、MiniMax
+七家中国 AI 公司未经授权蒸馏其 Claude 模型。报告称，阿里巴巴 5—7
+月涉及超 <strong>1.51 亿次</strong>交互、峰值每日近 <strong>300
+万次</strong>，提取数据用于训练 Qwen 3.5/3.6/3.7；月之暗面则在 10
+天窗口内将近 <strong>30 万条</strong> Kimi 用户请求转给 Claude
+代答再返回用户。</p>
+<p><strong>关键数据</strong>：受此影响阿里巴巴 ADR 盘后一度跌 3.4%、收跌
+2.7%；Anthropic 同时公布 6 起常规武器滥用案例，称其中 3
+起发生在中国，并发现 Claude Code 被用于制导、导航与控制软件开发。</p>
+<p><strong>影响分析</strong>：这是 Anthropic
+迄今对「蒸馏」最系统、最尖锐的一次公开指控，把中美在模型能力、算力投入与出口管制下的竞争推向前台，「能力护城河」的法律与合规边界成为前沿实验室的下一个战场。</p>
+<p>📅9月10日</p>
+<h3
+id="openai-密集发布agents-api-公测gpt-live-1-全双工语音金融版-chatgpt">2.
+OpenAI 密集发布：Agents API 公测、GPT-Live-1 全双工语音、金融版
+ChatGPT</h3>
+<p><strong>事件简述</strong>：OpenAI 9 月 10
+日一口气放出三款产品：<strong>Agents API</strong>
+面向所有开发者开放公测，复用驱动 Codex 的 harness
+与基础设施、不额外收费；<strong>GPT-Live-1 API</strong>
+为全双工语音模型，可同时听与说；<strong>ChatGPT for Financial
+Services</strong> 面向投行场景，设计伙伴含摩根士丹利与
+Evercore，可做研究、财务分析并生成投行演示文稿。</p>
+<p><strong>关键数据</strong>：GPT-Live-1 全双工交互性得分
+<strong>80.1%</strong>（前代 GPT-Realtime-2.1 为 45.4%），轮次切换延迟从
+1.4 秒降至 <strong>0.8 秒</strong>，工具调用准确率从 60% 升至
+<strong>87%</strong>，定价每分钟 0.05 美元。</p>
+<p><strong>影响分析</strong>：智能体能力正被标准化成 API
+与企业级产品，模型层与应用层的生态分工被重新划界；全双工语音把语音 Agent
+从演示推向可商用临界点。</p>
+<p>📅9月10日</p>
+<h3 id="positron-ai-完成-8.75-亿美元-c-轮估值-50-亿六个月翻四倍">3.
+Positron AI 完成 8.75 亿美元 C 轮，估值 50 亿（六个月翻四倍）</h3>
+<p><strong>事件简述</strong>：AI 推理芯片初创 Positron AI 宣布完成
+<strong>8.75 亿美元</strong> C 轮融资，投后估值 <strong>50
+亿美元</strong>，较今年 2 月 B 轮的 10 亿美元估值增长四倍。资金将用于
+Asimov 芯片流片与 2MW+ 数据中心建设。</p>
+<p><strong>关键数据</strong>：本轮由 NEA、Atreides、Valor
+Equity、Andra、SemiAnalysis Capital 及网景联合创始人 Jim Clark
+领投；已向甲骨文交付约 50 机架 Atlas 系统，客户含 Jump Trading 与
+Parasail。</p>
+<p><strong>影响分析</strong>：资本正从训练侧转向推理侧，押注以内存带宽与能效为核心、绕开
+HBM 的推理架构——非英伟达路径的推理芯片正迎来新一轮密集下注。</p>
+<p>📅9月10日</p>
+<h3 id="英伟达-grace-blackwell-出货量环比-27黄仁勋称明年营收有望-70">4.
+英伟达 Grace Blackwell 出货量环比 +27%，黄仁勋称明年营收有望 +70%</h3>
+<p><strong>事件简述</strong>：据报英伟达 Grace Blackwell
+平台出货量环比增长 <strong>27%</strong>，CEO
+黄仁勋在高盛科技会议上重申下一财年营收有望同比增长约
+<strong>70%</strong>（当前财年约 4000 亿美元、明年或达 6800
+亿美元），并称网络安全将成为 AI 的下一个主要应用场景。</p>
+<p><strong>关键数据</strong>：微软计划将数据中心规模扩大两倍至超
+<strong>38 GW</strong>，甲骨文云基础设施收入同比翻倍；黑石据称拟将谷歌
+TPU 采购量提升至原计划数倍。</p>
+<p><strong>影响分析</strong>：算力需求信号在芯片（出货 +27%）、云（微软
+38GW）、基础设施（甲骨文云收入翻倍）三层同步走强，「算力军备竞赛」仍是
+AI 主线中确定性最高的叙事。</p>
+<p>📅9月10日</p>
+<hr />
+<h2 id="国内动态">🇨🇳 国内动态</h2>
+<h3 id="工信部印发人工智能软件专项行动实施方案">1.
+工信部印发《「人工智能+软件」专项行动实施方案》⭐</h3>
+<p><strong>事件简述</strong>：工业和信息化部 9 月 11
+日印发《「人工智能+软件」专项行动实施方案》，从推进软件生产变革、产品智能化升级、培育智能体软件新业态、拓展智能软件服务、夯实智能化发展基础、优化产业发展环境六方面部署，首次从国家层面为「人工智能+软件」划定时间表与量化目标。</p>
+<p><strong>关键数据</strong>：到 <strong>2028 年</strong>，推广覆盖
+<strong>2 万家</strong>规模以上软件企业、组织实施 <strong>100
+项</strong>智能化技改项目、打造 <strong>100
+个</strong>智能体软件标杆应用、孵化 <strong>5
+个以上</strong>优质开源项目；到 <strong>2030
+年</strong>推动软件业抢占全球价值链制高点。发布会同时披露，我国日均词元调用量已突破
+<strong>500 万亿</strong>。</p>
+<p><strong>影响分析</strong>：这是继「人工智能+」行动意见后首个软件细分行业专项行动，直接回应「AI
+是否替代程序员」的社会焦虑，明确「人机协同」与智能体软件是产业升级主航道，为国产智能编程工具与智能体平台提供了明确的政策窗口。</p>
+<p>📅9月11日</p>
+<h3 id="支付宝推出-ai-钱包智能体升级可信支付">2. 支付宝推出 AI
+钱包智能体，升级「可信支付」</h3>
+<p><strong>事件简述</strong>：外滩大会上，支付宝宣布 AI
+支付从「可支付」迈向「可信支付」，将推出 <strong>AI
+钱包智能体</strong>——掌握单笔交易完整上下文，串联用户意图、预算与执行结果，经风险识别与授权确认后再完成支付。蚂蚁集团
+CEO 韩歆毅称「AI 支付成为智能体商业的可信承诺引擎」。</p>
+<p><strong>关键数据</strong>：最近 5 个月智能体代买任务量增长 <strong>7
+倍</strong>，用户月均支付次数增长 <strong>3 倍</strong>。</p>
+<p><strong>影响分析</strong>：当智能体开始代用户下单、支付，「可信支付」成为智能体商业化的关键基础设施；支付宝正把自身交易与信用优势，转化为智能体经济时代的信任入口。</p>
+<p>📅9月11日</p>
+<h3 id="外滩大会收官40-余家具身智能厂商集中亮相从生成到执行">3.
+外滩大会收官：40 余家具身智能厂商集中亮相，「从生成到执行」</h3>
+<p><strong>事件简述</strong>：2026 外滩大会（9 月 9—12
+日）进入收官阶段，40
+余家具身智能厂商集中亮相，聚焦人工智能从「生成」迈向「执行」的关键跃迁。宇树、智元、苏度科技、破壳机器人等展示无需重新采集数据即可实时适应的抓取能力；中国工程院院士王坚提出「城市智能」探索「用
+10% 的资源实现可持续发展」。</p>
+<p><strong>关键数据</strong>：本届设 1 场主论坛、40
+余场见解论坛、<strong>1.5 万平方米</strong>主题科技展，吸引 <strong>300
+余家</strong>科技企业参展，观众报名超 5 万人。</p>
+<p><strong>影响分析</strong>：相比往年「秀跑跳」，今年外滩大会明显转向「干真活」——具身智能「泛化」成为产业关键词，叠加蚂蚁生态的
+AI 钱包、金融智能体落地，标志国内 AI 正从能力展示走向价值创造。</p>
+<p>📅9月11日</p>
+<hr />
+<h2 id="今日论文">📄 今日论文</h2>
+<h3 id="the-last-ai-built-by-humans迈向真正的递归式自我改进">1. The Last
+AI Built by Humans：迈向真正的递归式自我改进</h3>
+<p><strong>作者</strong>：Yi Duan, Ying Liu, Zirui Tang et al.
+<strong>核心贡献</strong>：提出「递归式自我改进（RSI）」概念与五阶段路线图——从改进执行自主、改进策略自主、经验获取自主、环境适应自主，到递归式元改进；用
+Headroom-Closed Index（HCI）揭示现有 LLM 的能力天花板，并系统梳理 RSI
+在科学发现、具身智能、软件工程等场景的演进路径。
+<strong>为什么重要</strong>：在「AI
+是否会失控」的争论持续发酵之际，这篇论文把「自我改进」从哲学命题转变成可拆解、可度量的工程路线图，为前沿实验室理解与治理
+RSI 提供了参照。 📄 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2609.11873">arXiv:2609.11873</a>
+📅9月10日</p>
+<h3 id="retrothinker让语音大模型事后思考">2.
+RetroThinker：让语音大模型「事后思考」</h3>
+<p><strong>作者</strong>：Yi-Jen Shih, Puyuan Peng, Abdelrahman Mohamed
+et al. <strong>核心贡献</strong>：针对语音大模型在复杂推理上仍落后于文本
+LLM
+的问题，提出「回顾式思考」——在流式语音解码的同时对已生成内容进行回顾性推理，在实时口语交互的严格延迟约束下缓解「准确率-延迟」两难。
+<strong>为什么重要</strong>：与 OpenAI 同日发布的 GPT-Live-1
+全双工语音呼应，语音推理是语音 Agent
+能否商用化的关键瓶颈，此法为实时语音推理提供了一个新路径。 📄 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2609.11864">arXiv:2609.11864</a>
+📅9月10日</p>
+<h3 id="from-parameters-to-answersllm-如何检索并使用内部知识">3. From
+Parameters to Answers：LLM 如何检索并使用内部知识</h3>
+<p><strong>作者</strong>：Wenkang Wei, Yuan Fang, Renhe Jiang et al.
+<strong>核心贡献</strong>：通过问题结束处隐状态的逐层干预，研究模型在回答时对「query
+路由信息」与「目标知识」的依赖如何随层变化；在 Qwen、Llama、Gemma
+上区分列出一对条件请求方向与全局请求方向，刻画 LLM 知识检索的机制。
+<strong>为什么重要</strong>：理解 LLM
+何时检索知识、如何路由请求，是判断模型「真正理解」还是「记忆回放」的关键，也直接关系到当下蒸馏与能力评估的争议。
+📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2609.11859">arXiv:2609.11859</a>
+📅9月10日</p>
+<h3 id="orch用组织学构建具身多智能体的集体智能">4.
+ORCH：用「组织学」构建具身多智能体的集体智能</h3>
+<p><strong>作者</strong>：Zhengran Ji, Jonathan Hyun, Boyuan Chen et al.
+<strong>核心贡献</strong>：把人类组织理论（角色分工、层级协调）操作化，提出
+ORCH
+框架，为大规模异构具身智能体按任务需求动态构建任务特定的层级组织结构，从固定组织结构升级为可编程的协调层级，提升集体智能。
+<strong>为什么重要</strong>：外滩大会同期的具身智能「泛化」成为热点，多机器人协同正是规模化落地的关键一环；将组织学引入多智能体系统，为机器人协作打开了新的设计范式。
+📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2609.11737">arXiv:2609.11737</a>
+📅9月10日</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                
+                <a href="/2026/09/11/ai-daily-2026-09-11/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】DeepSeek V4.1 Flash 正式发布，552B MoE 全面超越旗舰 V4 Pro</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+    <div class="container">
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            <a href="/">Garry Xu</a>
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+    </div>
+</footer>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
