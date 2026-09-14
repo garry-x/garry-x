@@ -11,7 +11,26 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-09-13T00:06:23.768Z</updated>
+  <updated>2026-09-14T00:07:57.025Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/09/14/ai-daily-2026-09-14/</id>
+    <link href="https://garryx.com/2026/09/14/ai-daily-2026-09-14/"/>
+    <published>2026-09-14T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>9 月 13 日（周末合辑），中国 AI 大模型融资再掀高潮：智谱宣布完成约
+<strong>50 亿美元</strong>融资，距其 7 月]]>
+    </summary>
+    <title>【AI 日报】智谱两个月内再融 50 亿美元，大模型竞赛进入资本与算力深水区</title>
+    <updated>2026-09-14T00:07:57.025Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -348,22 +367,5 @@ Astra评分上调4分，但仍屈居Claude]]>
     </summary>
     <title>【AI 日报】阿里巴巴800亿港元配售All-in AI，中国科技巨头开启算力军备竞赛</title>
     <updated>2026-08-25T00:04:50.352Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/08/24/ai-daily-2026-08-24/</id>
-    <link href="https://garryx.com/2026/08/24/ai-daily-2026-08-24/"/>
-    <published>2026-08-24T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】NVIDIA斥60亿美元收购Poolside模型授权，芯片巨头亲自下场做开源大模型</title>
-    <updated>2026-08-24T00:05:26.991Z</updated>
   </entry>
 </feed>
