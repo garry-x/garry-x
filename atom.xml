@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-09-16T00:07:28.292Z</updated>
+  <updated>2026-09-17T00:04:07.231Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/09/17/ai-daily-2026-09-17/</id>
+    <link href="https://garryx.com/2026/09/17/ai-daily-2026-09-17/"/>
+    <published>2026-09-17T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】OpenAI拟IPO前融资，估值目标1.2万亿美元</title>
+    <updated>2026-09-17T00:04:07.231Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -356,22 +373,5 @@ Astra评分上调4分，但仍屈居Claude]]>
     </summary>
     <title>【AI 日报】英伟达暂停与多家AI企业的收益分成协议</title>
     <updated>2026-08-28T00:05:27.728Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/08/27/ai-daily-2026-08-27/</id>
-    <link href="https://garryx.com/2026/08/27/ai-daily-2026-08-27/"/>
-    <published>2026-08-27T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】英伟达Q2营收962亿美元同比翻倍，黄仁勋预警供给受限</title>
-    <updated>2026-08-27T00:04:52.457Z</updated>
   </entry>
 </feed>
