@@ -11,7 +11,26 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-09-23T00:05:24.631Z</updated>
+  <updated>2026-09-24T00:04:42.036Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/09/24/ai-daily-2026-09-24/</id>
+    <link href="https://garryx.com/2026/09/24/ai-daily-2026-09-24/"/>
+    <published>2026-09-24T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>9月23日两条主线：Meta Connect 2026 发布新 Ray-Ban 智能眼镜（Gen
+3「Aperol/Bellini」、无摄像头 Luna、MR 头显 Project]]>
+    </summary>
+    <title>【AI 日报】Meta Connect 2026发布Ray-Ban Gen 3与Project Phoenix，AI眼镜成主战场</title>
+    <updated>2026-09-24T00:04:42.036Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -366,23 +385,5 @@ Astra评分上调4分，但仍屈居Claude]]>
     </summary>
     <title>【AI 日报】博通AI营收两年翻倍至2300亿美元，Anthropic成最大TPU客户</title>
     <updated>2026-09-04T00:06:11.371Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/09/03/ai-daily-2026-09-03/</id>
-    <link href="https://garryx.com/2026/09/03/ai-daily-2026-09-03/"/>
-    <published>2026-09-03T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>9月2日是"AI网络安全"大日：Google发布最强网络安全模型Gemini 3.8]]>
-    </summary>
-    <title>【AI 日报】Google发布Gemini 3.8 Flash Cyber，AI网络攻防进入实战</title>
-    <updated>2026-09-03T00:04:19.173Z</updated>
   </entry>
 </feed>
