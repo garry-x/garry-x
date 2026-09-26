@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-09-24T00:04:42.036Z</updated>
+  <updated>2026-09-26T00:12:26.808Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/09/26/ai-daily-2026-09-26/</id>
+    <link href="https://garryx.com/2026/09/26/ai-daily-2026-09-26/"/>
+    <published>2026-09-26T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】中美元首白宫会晤，聚焦&quot;超级智能&quot;治理与合作</title>
+    <updated>2026-09-26T00:12:26.808Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -368,22 +385,5 @@ Astra评分上调4分，但仍屈居Claude]]>
     </summary>
     <title>【AI 日报】OpenAI发布GPT-6 Astra，宣告&quot;欢迎来到AGI时代&quot;</title>
     <updated>2026-09-05T00:07:37.586Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/09/04/ai-daily-2026-09-04/</id>
-    <link href="https://garryx.com/2026/09/04/ai-daily-2026-09-04/"/>
-    <published>2026-09-04T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦]]>
-    </summary>
-    <title>【AI 日报】博通AI营收两年翻倍至2300亿美元，Anthropic成最大TPU客户</title>
-    <updated>2026-09-04T00:06:11.371Z</updated>
   </entry>
 </feed>
