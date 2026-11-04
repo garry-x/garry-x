@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-11-03T00:29:22.265Z</updated>
+  <updated>2026-11-04T00:22:41.051Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/11/04/ai-daily-2026-11-04/</id>
+    <link href="https://garryx.com/2026/11/04/ai-daily-2026-11-04/"/>
+    <published>2026-11-04T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】美国中期选举开票：AI首次成为全国性选举议题</title>
+    <updated>2026-11-04T00:22:41.051Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -339,25 +356,5 @@ Opus]]>
     </summary>
     <title>【AI 日报】OpenAI与Anthropic同日降本：GPT-6 Sol/Luna砍半，Claude Opus 5.5发布</title>
     <updated>2026-09-23T00:05:24.631Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/09/22/ai-daily-2026-09-22/</id>
-    <link href="https://garryx.com/2026/09/22/ai-daily-2026-09-22/"/>
-    <published>2026-09-22T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
-<p>9月21日，AI智能体与模型竞争全面升温：xAI（SpaceX AI）正式发布旗舰模型
-Grok 4.7，2.1万亿参数、推理速度翻倍、价格减半；Meta 智能体 Muse
-登顶美区应用商店，芯片股随之大涨，AMD]]>
-    </summary>
-    <title>【AI 日报】xAI发布Grok 4.7：2.1万亿参数，推理速度翻倍价格减半</title>
-    <updated>2026-09-22T00:04:36.590Z</updated>
   </entry>
 </feed>
