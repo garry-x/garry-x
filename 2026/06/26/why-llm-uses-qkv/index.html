@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>为什么 LLM 要使用 Q/K/V | Garry&#39;s Blog</title>
+<meta name="description" content="0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配Value 负责提供内容 放进 Transformer 里就是： \mathrm{Attention}Q,K,V =\mathrm{softmax}\">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="LLM,Transformer,attention,QKV">
+
+<!-- Open Graph -->
+<meta property="og:title" content="为什么 LLM 要使用 Q/K/V | Garry&#39;s Blog">
+<meta property="og:description" content="0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配Value 负责提供内容 放进 Transformer 里就是： \mathrm{Attention}Q,K,V =\mathrm{softmax}\">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/26/why-llm-uses-qkv/">
+<meta property="og:image" content="https://garryx.com/covers/cover-why-llm-uses-qkv.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="为什么 LLM 要使用 Q/K/V | Garry&#39;s Blog">
+<meta name="twitter:description" content="0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配Value 负责提供内容 放进 Transformer 里就是： \mathrm{Attention}Q,K,V =\mathrm{softmax}\">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-why-llm-uses-qkv.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/26/why-llm-uses-qkv/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"为什么 LLM 要使用 Q/K/V | Garry's Blog","description":"0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配Value 负责提供内容 放进 Transformer 里就是： \\mathrm{Attention}Q,K,V =\\mathrm{softmax}\\","url":"https://garryx.com/2026/06/26/why-llm-uses-qkv/","image":"https://garryx.com/covers/cover-why-llm-uses-qkv.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/06/26/why-llm-uses-qkv/"},"datePublished":"2026-06-26T02:00:00.000Z","dateModified":"2026-11-13T01:34:52.046Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"LLM,Transformer,attention,QKV","articleSection":"AI"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI/">AI</a>
+                
+            </div>
+            
+            <h1 class="post-title">为什么 LLM 要使用 Q/K/V</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-26T02:00:00.000Z">
+                    2026年6月26日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/LLM/">#LLM</a>
+                    
+                        <a href="/tags/Transformer/">#Transformer</a>
+                    
+                        <a href="/tags/attention/">#attention</a>
+                    
+                        <a href="/tags/QKV/">#QKV</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="0-先看结论"><a href="#0-先看结论" class="headerlink" title="0. 先看结论"></a>0. 先看结论</h2><p>LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Query 负责提问</span><br><span class="line">Key   负责匹配</span><br><span class="line">Value 负责提供内容</span><br></pre></td></tr></table></figure>
+<p>放进 Transformer 里就是：</p>
+<script type="math/tex; mode=display">
+\mathrm{Attention}(Q,K,V)
+=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V</script><p>Q/K/V 把一件事拆成两步：</p>
+<ol>
+<li><strong>先决定看哪里</strong>：用 $QK^T$ 算当前位置和其他位置的匹配程度。</li>
+<li><strong>再决定拿什么</strong>：用匹配权重对 $V$ 做加权求和。</li>
+</ol>
+<p>如果没有 Q/K/V 的分工，模型只能用同一套表示同时承担“匹配”和“传递信息”两个角色，表达能力会弱很多。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;当前 token&quot;] --&gt; B[&quot;Q 提问&quot;]</span><br><span class="line">    C[&quot;上下文 token&quot;] --&gt; D[&quot;K 被匹配&quot;]</span><br><span class="line">    C --&gt; E[&quot;V 提供内容&quot;]</span><br><span class="line">    B --&gt; F[&quot;QK 算相关性&quot;]</span><br><span class="line">    D --&gt; F</span><br><span class="line">    F --&gt; G[&quot;softmax 权重&quot;]</span><br><span class="line">    G --&gt; H[&quot;加权汇总 V&quot;]</span><br><span class="line">    E --&gt; H</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="1-Q-K-V-的一句话解释"><a href="#1-Q-K-V-的一句话解释" class="headerlink" title="1. Q/K/V 的一句话解释"></a>1. Q/K/V 的一句话解释</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>全称</th>
+<th>做什么</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>Query</td>
+<td>当前 token 想找什么</td>
+<td>搜索词</td>
+</tr>
+<tr>
+<td>K</td>
+<td>Key</td>
+<td>每个 token 用什么被匹配</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Value</td>
+<td>匹配后真正取走的信息</td>
+<td>内容</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">小明把书放进书包，因为它太重了。</span><br></pre></td></tr></table></figure>
+<p>模型处理“它”时，需要判断“它”指什么。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">候选位置</th>
+<th>token</th>
+<th>K 提供的索引</th>
+<th>V 提供的内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>小明</td>
+<td>人名、主体</td>
+<td>人物相关信息</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>书</td>
+<td>物体、可重</td>
+<td>书的语义信息</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>书包</td>
+<td>容器、装东西</td>
+<td>书包的语义信息</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>它</td>
+<td>当前 query</td>
+<td>当前要更新的位置</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>“它”的 Q 会更匹配“书”的 K，于是“书”的 V 被分到更高权重。</p>
+<hr>
+<h2 id="2-从固定向量到-attention"><a href="#2-从固定向量到-attention" class="headerlink" title="2. 从固定向量到 attention"></a>2. 从固定向量到 attention</h2><p>早期 encoder-decoder 模型常把整句压成一个固定长度向量，再交给 decoder 生成输出。问题很直接：句子越长，信息越容易挤在一起。</p>
+<p>Bahdanau attention 的关键改变是：decoder 每生成一步，都可以回头看 encoder 的不同位置。它不再依赖一个固定向量装下整句。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>做法</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>固定向量 encoder-decoder</td>
+<td>整句压成一个向量</td>
+<td>长句信息容易丢</td>
+</tr>
+<tr>
+<td>Bahdanau attention</td>
+<td>decoder 动态看 source 位置</td>
+<td>还依赖 RNN</td>
+</tr>
+<tr>
+<td>Luong attention</td>
+<td>系统比较 global/local attention</td>
+<td>attention 形式更清晰</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>完全用 self-attention 建模序列</td>
+<td>并行化好，成为 LLM 主线</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这条历史线解释了 Q/K/V 的需求：模型需要一种机制，能在每一步动态决定“该看哪个位置”。</p>
+<hr>
+<h2 id="3-Q-K-V-的历史来源"><a href="#3-Q-K-V-的历史来源" class="headerlink" title="3. Q/K/V 的历史来源"></a>3. Q/K/V 的历史来源</h2><p>Q/K/V 的表述在 Transformer 原论文中被清晰固定下来。论文写法是：attention 可以看成把一个 query 和一组 key-value pairs 映射成一个输出。</p>
+<p>这个说法不是凭空来的，它和三类思想有关。</p>
+<h3 id="3-1-信息检索"><a href="#3-1-信息检索" class="headerlink" title="3.1 信息检索"></a>3.1 信息检索</h3><p>在搜索系统里，你输入 query，系统拿它去匹配文档索引，然后返回文档内容。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>搜索系统</th>
+<th>Attention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>搜索词</td>
+<td>Query</td>
+</tr>
+<tr>
+<td>文档索引</td>
+<td>Key</td>
+</tr>
+<tr>
+<td>文档内容</td>
+<td>Value</td>
+</tr>
+<tr>
+<td>检索相关性</td>
+<td>attention score</td>
+</tr>
+<tr>
+<td>返回结果</td>
+<td>加权后的 value</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Attention 把这个过程变成了可微分的神经网络操作。</p>
+<h3 id="3-2-记忆网络"><a href="#3-2-记忆网络" class="headerlink" title="3.2 记忆网络"></a>3.2 记忆网络</h3><p>Memory Networks 把模型看成能读写外部记忆的系统。记忆里可以有地址，也可以有内容。后来的 key-value memory 思想，把“用什么匹配”和“取什么内容”分开。</p>
+<p>这和 Q/K/V 很接近：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">query -&gt; 找 memory slot</span><br><span class="line">key   -&gt; memory slot 的地址或索引</span><br><span class="line">value -&gt; memory slot 的内容</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-神经机器翻译里的对齐"><a href="#3-3-神经机器翻译里的对齐" class="headerlink" title="3.3 神经机器翻译里的对齐"></a>3.3 神经机器翻译里的对齐</h3><p>Bahdanau 和 Luong 的 attention 还没有今天这么明确的 Q/K/V 术语，但已经有了同样的结构：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>早期 NMT attention</th>
+<th>Transformer Q/K/V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>decoder 当前状态</td>
+<td>Query</td>
+</tr>
+<tr>
+<td>encoder hidden states</td>
+<td>Key/Value 的来源</td>
+</tr>
+<tr>
+<td>alignment score</td>
+<td>Q 与 K 的匹配分数</td>
+</tr>
+<tr>
+<td>context vector</td>
+<td>加权后的 V</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Transformer 把这套机制矩阵化、并行化，并让同一个序列内部也能互相注意。</p>
+<hr>
+<h2 id="4-为什么不直接用一个向量"><a href="#4-为什么不直接用一个向量" class="headerlink" title="4. 为什么不直接用一个向量"></a>4. 为什么不直接用一个向量</h2><p>假设每个 token 只有一个向量 $x$，attention 直接用：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(XX^T)X</script><p>这样当然也能跑，但它把三件事绑死了：</p>
+<ol>
+<li>用 $x$ 去匹配别人。</li>
+<li>让别人用 $x$ 匹配自己。</li>
+<li>被选中后，仍然把 $x$ 当内容传出去。</li>
+</ol>
+<p>Q/K/V 的做法是：</p>
+<script type="math/tex; mode=display">
+Q=XW_Q,\quad K=XW_K,\quad V=XW_V</script><p>同一个 token 可以在三个空间里扮演不同角色。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>如果共用 $x$</th>
+<th>使用 Q/K/V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主动查找</td>
+<td>只能用原始表示查找</td>
+<td>用 $W_Q$ 学“要找什么”</td>
+</tr>
+<tr>
+<td>被别人匹配</td>
+<td>只能用原始表示当索引</td>
+<td>用 $W_K$ 学“如何被找”</td>
+</tr>
+<tr>
+<td>输出内容</td>
+<td>只能输出原始表示</td>
+<td>用 $W_V$ 学“该传什么”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这就是 Q/K/V 的核心收益：<strong>匹配空间和内容空间可以分开学</strong>。</p>
+<hr>
+<h2 id="5-数学上-Q-K-V-做了什么"><a href="#5-数学上-Q-K-V-做了什么" class="headerlink" title="5. 数学上 Q/K/V 做了什么"></a>5. 数学上 Q/K/V 做了什么</h2><h3 id="5-1-三个线性投影"><a href="#5-1-三个线性投影" class="headerlink" title="5.1 三个线性投影"></a>5.1 三个线性投影</h3><p>设输入序列表示为：</p>
+<script type="math/tex; mode=display">
+X\in \mathbb{R}^{L\times d_{\text{model}}}</script><p>其中 $L$ 是序列长度，$d_{\text{model}}$ 是模型维度。</p>
+<p>Transformer 学三组参数：</p>
+<script type="math/tex; mode=display">
+W_Q\in \mathbb{R}^{d_{\text{model}}\times d_k}</script><script type="math/tex; mode=display">
+W_K\in \mathbb{R}^{d_{\text{model}}\times d_k}</script><script type="math/tex; mode=display">
+W_V\in \mathbb{R}^{d_{\text{model}}\times d_v}</script><p>得到：</p>
+<script type="math/tex; mode=display">
+Q=XW_Q,\quad K=XW_K,\quad V=XW_V</script><p>这不是手写规则，而是训练出来的投影。</p>
+<h3 id="5-2-匹配分数"><a href="#5-2-匹配分数" class="headerlink" title="5.2 匹配分数"></a>5.2 匹配分数</h3><p>第 $i$ 个 token 看第 $j$ 个 token 的分数是：</p>
+<script type="math/tex; mode=display">
+s_{ij}=\frac{q_i\cdot k_j}{\sqrt{d_k}}</script><p>其中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$q_i$</td>
+<td>第 $i$ 个位置的 query</td>
+</tr>
+<tr>
+<td>$k_j$</td>
+<td>第 $j$ 个位置的 key</td>
+</tr>
+<tr>
+<td>$d_k$</td>
+<td>query/key 维度</td>
+</tr>
+<tr>
+<td>$\sqrt{d_k}$</td>
+<td>缩放因子，避免点积过大</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所有位置一起算，就是：</p>
+<script type="math/tex; mode=display">
+S=\frac{QK^T}{\sqrt{d_k}}</script><h3 id="5-3-权重和输出"><a href="#5-3-权重和输出" class="headerlink" title="5.3 权重和输出"></a>5.3 权重和输出</h3><p>对每一行做 softmax：</p>
+<script type="math/tex; mode=display">
+A=\mathrm{softmax}(S)</script><p>输出：</p>
+<script type="math/tex; mode=display">
+O=AV</script><p>展开到单个位置：</p>
+<script type="math/tex; mode=display">
+o_i=\sum_j a_{ij}v_j</script><p>这句话很重要：attention 输出不是“选一个 token”，而是按权重混合多个 value。</p>
+<hr>
+<h2 id="6-Q-K-V-蕴含的数学基础"><a href="#6-Q-K-V-蕴含的数学基础" class="headerlink" title="6. Q/K/V 蕴含的数学基础"></a>6. Q/K/V 蕴含的数学基础</h2><h3 id="6-1-内积相似度"><a href="#6-1-内积相似度" class="headerlink" title="6.1 内积相似度"></a>6.1 内积相似度</h3><p>Q 和 K 的点积衡量两个向量的匹配程度：</p>
+<script type="math/tex; mode=display">
+q\cdot k=\sum_{r=1}^{d_k}q_rk_r</script><p>点积越大，softmax 后权重越高。</p>
+<h3 id="6-2-双线性打分"><a href="#6-2-双线性打分" class="headerlink" title="6.2 双线性打分"></a>6.2 双线性打分</h3><p>把 $q_i=x_iW_Q$、$k_j=x_jW_K$ 代入点积：</p>
+<script type="math/tex; mode=display">
+q_i\cdot k_j
+=x_iW_QW_K^Tx_j^T</script><p>这说明 attention 分数不是简单比较两个原始 token 向量，而是在学习一个双线性匹配函数。</p>
+<p>其中：</p>
+<script type="math/tex; mode=display">
+M=W_QW_K^T</script><p>可以看成模型学到的“匹配度量”。不同 head 有不同的 $W_Q,W_K$，也就能学不同的关系。</p>
+<h3 id="6-3-概率归一化"><a href="#6-3-概率归一化" class="headerlink" title="6.3 概率归一化"></a>6.3 概率归一化</h3><p>softmax 把分数变成权重：</p>
+<script type="math/tex; mode=display">
+a_{ij}=\frac{e^{s_{ij}}}{\sum_t e^{s_{it}}}</script><p>每一行权重加起来等于 1：</p>
+<script type="math/tex; mode=display">
+\sum_j a_{ij}=1</script><p>这让输出成为一组 value 的加权平均。</p>
+<h3 id="6-4-可微检索"><a href="#6-4-可微检索" class="headerlink" title="6.4 可微检索"></a>6.4 可微检索</h3><p>普通检索通常是硬选择：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找到最匹配的一条，然后返回</span><br></pre></td></tr></table></figure>
+<p>Attention 是软选择：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">所有位置都给一点权重，相关位置权重大</span><br></pre></td></tr></table></figure>
+<p>这让模型可以通过反向传播学习：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>学什么</th>
+<th>对应参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>当前该问什么</td>
+<td>$W_Q$</td>
+</tr>
+<tr>
+<td>每个 token 如何被匹配</td>
+<td>$W_K$</td>
+</tr>
+<tr>
+<td>被选中后传什么内容</td>
+<td>$W_V$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="7-自注意力和交叉注意力里的-Q-K-V"><a href="#7-自注意力和交叉注意力里的-Q-K-V" class="headerlink" title="7. 自注意力和交叉注意力里的 Q/K/V"></a>7. 自注意力和交叉注意力里的 Q/K/V</h2><h3 id="7-1-Self-Attention"><a href="#7-1-Self-Attention" class="headerlink" title="7.1 Self-Attention"></a>7.1 Self-Attention</h3><p>Self-attention 里，Q/K/V 都来自同一个序列：</p>
+<script type="math/tex; mode=display">
+Q=XW_Q,\quad K=XW_K,\quad V=XW_V</script><p>这让一句话内部的 token 可以互相看。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>当前序列</td>
+</tr>
+<tr>
+<td>K</td>
+<td>当前序列</td>
+</tr>
+<tr>
+<td>V</td>
+<td>当前序列</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>LLM 的 decoder block 主要使用 causal self-attention，也就是只能看当前位置及之前的 token。</p>
+<h3 id="7-2-Cross-Attention"><a href="#7-2-Cross-Attention" class="headerlink" title="7.2 Cross-Attention"></a>7.2 Cross-Attention</h3><p>Encoder-decoder Transformer 里还有 cross-attention。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>decoder 当前状态</td>
+</tr>
+<tr>
+<td>K</td>
+<td>encoder 输出</td>
+</tr>
+<tr>
+<td>V</td>
+<td>encoder 输出</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这和早期机器翻译 attention 更接近：decoder 用 Q 去查 encoder 产生的 K/V。</p>
+<hr>
+<h2 id="8-Multi-Head-为什么要多套-Q-K-V"><a href="#8-Multi-Head-为什么要多套-Q-K-V" class="headerlink" title="8. Multi-Head 为什么要多套 Q/K/V"></a>8. Multi-Head 为什么要多套 Q/K/V</h2><p>一个 head 只能学一种匹配方式。多个 head 可以并行学习不同关系。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>head 可能关注的关系</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语法依赖</td>
+<td>主谓、宾语、修饰关系</td>
+</tr>
+<tr>
+<td>指代关系</td>
+<td>“它”指向哪个名词</td>
+</tr>
+<tr>
+<td>局部邻近</td>
+<td>前一个 token、短语内部</td>
+</tr>
+<tr>
+<td>长距离依赖</td>
+<td>跨句引用、代码括号匹配</td>
+</tr>
+<tr>
+<td>格式结构</td>
+<td>Markdown 标题、列表、代码块</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Multi-head attention 的公式：</p>
+<script type="math/tex; mode=display">
+\mathrm{head}_i=\mathrm{Attention}(XW_i^Q,XW_i^K,XW_i^V)</script><script type="math/tex; mode=display">
+\mathrm{MultiHead}(X)=\mathrm{Concat}(\mathrm{head}_1,\ldots,\mathrm{head}_h)W^O</script><p>每个 head 都有自己的 Q/K/V 投影。不同 head 学到的“检索方式”可以不同。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;输入 X&quot;] --&gt; B[&quot;Head 1 的 Q K V&quot;]</span><br><span class="line">    A --&gt; C[&quot;Head 2 的 Q K V&quot;]</span><br><span class="line">    A --&gt; D[&quot;Head n 的 Q K V&quot;]</span><br><span class="line">    B --&gt; E[&quot;不同关系 1&quot;]</span><br><span class="line">    C --&gt; F[&quot;不同关系 2&quot;]</span><br><span class="line">    D --&gt; G[&quot;不同关系 n&quot;]</span><br><span class="line">    E --&gt; H[&quot;拼接后输出&quot;]</span><br><span class="line">    F --&gt; H</span><br><span class="line">    G --&gt; H</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="9-Q-K-V-和-KV-Cache"><a href="#9-Q-K-V-和-KV-Cache" class="headerlink" title="9. Q/K/V 和 KV Cache"></a>9. Q/K/V 和 KV Cache</h2><p>LLM 推理时，历史 token 的 K 和 V 不会变。</p>
+<p>生成第 $t$ 个 token 时：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>张量</th>
+<th>是否需要重新算</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>当前 Q</td>
+<td>需要</td>
+<td>新 token 要发起查询</td>
+</tr>
+<tr>
+<td>历史 K</td>
+<td>不需要</td>
+<td>历史 token 的索引不变</td>
+</tr>
+<tr>
+<td>历史 V</td>
+<td>不需要</td>
+<td>历史 token 的内容不变</td>
+</tr>
+<tr>
+<td>当前 K/V</td>
+<td>需要</td>
+<td>新 token 要加入缓存</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以推理会缓存历史 K/V：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">第 t 步：</span><br><span class="line">  计算当前 token 的 Q/K/V</span><br><span class="line">  用当前 Q 匹配历史 K</span><br><span class="line">  用权重汇总历史 V</span><br><span class="line">  把当前 K/V 追加到 KV cache</span><br></pre></td></tr></table></figure>
+<p>这也解释了为什么后来的注意力优化经常盯着 K/V：长上下文推理时，KV cache 会占大量显存。</p>
+<hr>
+<h2 id="10-为什么当前探索多围绕-K-V"><a href="#10-为什么当前探索多围绕-K-V" class="headerlink" title="10. 为什么当前探索多围绕 K/V"></a>10. 为什么当前探索多围绕 K/V</h2><p>下面这些方向按截至 2026-06 的公开论文梳理。它们并不是都已经成为主流标准，但能看出研究重点：尽量保留 Q/K/V 的内容检索能力，同时降低长上下文的计算和缓存成本。</p>
+<p>标准 multi-head attention 中，每个 head 都有自己的 K/V。推理时要为每一层、每个 head、每个历史 token 存 K/V。</p>
+<p>KV cache 大小近似正比于：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">层数 * 序列长度 * KV head 数 * head 维度 * 2</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>2</code> 分别是 K 和 V。</p>
+<p>当上下文从 4K 变成 128K，KV cache 会线性增长。于是新的注意力架构大多在问：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">能不能少存一点 K/V？</span><br><span class="line">能不能少读一点 K/V？</span><br><span class="line">能不能只看一部分 K/V？</span><br><span class="line">能不能把 K/V 压缩成更小的状态？</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="11-当前探索一：MQA"><a href="#11-当前探索一：MQA" class="headerlink" title="11. 当前探索一：MQA"></a>11. 当前探索一：MQA</h2><p>Multi-Query Attention（MQA）保留多个 Q head，但所有 head 共享一组 K/V。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>结构</th>
+<th style="text-align:right">Q heads</th>
+<th style="text-align:right">KV heads</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHA</td>
+<td style="text-align:right">多个</td>
+<td style="text-align:right">多个</td>
+<td>质量强，KV cache 大</td>
+</tr>
+<tr>
+<td>MQA</td>
+<td style="text-align:right">多个</td>
+<td style="text-align:right">1 组</td>
+<td>KV cache 小，推理快</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>直观理解：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">多个 query 视角还在</span><br><span class="line">但大家共用同一套 key/value 记忆</span><br></pre></td></tr></table></figure>
+<p>MQA 的目标是降低推理时读取 K/V 的内存带宽。Shazeer 2019 的论文标题“One Write-Head is All You Need”说的就是这个方向。</p>
+<p>代价是表达能力可能下降，因为所有 query heads 共用同一个 K/V 空间。</p>
+<hr>
+<h2 id="12-当前探索二：GQA"><a href="#12-当前探索二：GQA" class="headerlink" title="12. 当前探索二：GQA"></a>12. 当前探索二：GQA</h2><p>Grouped-Query Attention（GQA）介于 MHA 和 MQA 之间。</p>
+<p>它把 query heads 分组，每组共享一组 K/V。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>结构</th>
+<th>KV 共享方式</th>
+<th>取舍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHA</td>
+<td>每个 head 独立 K/V</td>
+<td>表达能力强，缓存大</td>
+</tr>
+<tr>
+<td>MQA</td>
+<td>所有 head 共享一组 K/V</td>
+<td>缓存小，可能降质</td>
+</tr>
+<tr>
+<td>GQA</td>
+<td>一组 query heads 共享一组 K/V</td>
+<td>折中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>GQA 论文还提出把已有 MHA checkpoint 转成 GQA/MQA，并用少量继续训练适配。论文报告中，GQA 可以接近 MHA 的质量，同时接近 MQA 的速度。</p>
+<hr>
+<h2 id="13-当前探索三：MLA"><a href="#13-当前探索三：MLA" class="headerlink" title="13. 当前探索三：MLA"></a>13. 当前探索三：MLA</h2><p>Multi-head Latent Attention（MLA）是 DeepSeek-V2 提出的注意力结构。它的目标仍然是减少 KV cache，但思路不只是“少几个 KV head”，而是把 K/V 压到一个更小的 latent 表示里。</p>
+<p>简化理解：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">标准 MHA：缓存每层每个 token 的完整 K/V</span><br><span class="line">MLA：缓存压缩后的 latent，再生成需要的 K/V 信息</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>怎么省 KV cache</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MQA</td>
+<td>所有 heads 共享 K/V</td>
+</tr>
+<tr>
+<td>GQA</td>
+<td>分组共享 K/V</td>
+</tr>
+<tr>
+<td>MLA</td>
+<td>存更小的 latent 表示</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>MLA 的意义在于：它把“Q/K/V 是否必须完整显式存储”这个问题推进了一步。现代长上下文模型越来越重视这类结构。</p>
+<hr>
+<h2 id="14-当前探索四：稀疏注意力"><a href="#14-当前探索四：稀疏注意力" class="headerlink" title="14. 当前探索四：稀疏注意力"></a>14. 当前探索四：稀疏注意力</h2><p>标准 attention 每个位置看所有位置，复杂度是 $O(L^2)$。</p>
+<p>稀疏注意力改成只看一部分位置：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>看哪些 token</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>local window</td>
+<td>附近窗口</td>
+</tr>
+<tr>
+<td>global tokens</td>
+<td>少数全局位置</td>
+</tr>
+<tr>
+<td>block sparse</td>
+<td>按块选择</td>
+</tr>
+<tr>
+<td>dynamic sparse</td>
+<td>根据内容动态选择</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Native Sparse Attention（NSA）代表了一个新方向：稀疏模式不仅要数学上省，还要和硬件计算方式对齐，并且最好能端到端训练。</p>
+<p>在 Q/K/V 视角下，稀疏注意力不是取消 Q/K/V，而是减少每个 Q 需要匹配的 K/V 数量。</p>
+<hr>
+<h2 id="15-当前探索五：线性注意力和替代架构"><a href="#15-当前探索五：线性注意力和替代架构" class="headerlink" title="15. 当前探索五：线性注意力和替代架构"></a>15. 当前探索五：线性注意力和替代架构</h2><p>线性注意力试图把：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(QK^T)V</script><p>改写成能按序列长度线性计算的形式。常见思路是用核函数或递推状态，把历史 K/V 压缩到一个状态里。</p>
+<p>粗略写法：</p>
+<script type="math/tex; mode=display">
+S_t=S_{t-1}+\phi(k_t)v_t^T</script><script type="math/tex; mode=display">
+o_t=\phi(q_t)^TS_t</script><p>这仍然保留了 Q/K/V 的影子：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>线性注意力里的对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>查询当前状态</td>
+</tr>
+<tr>
+<td>K</td>
+<td>决定如何写入状态</td>
+</tr>
+<tr>
+<td>V</td>
+<td>写入状态的内容</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Mamba 这类 SSM 则走得更远：它不再使用标准 Q/K/V attention，而是用选择性状态空间模型处理序列。它说明当前研究并不是只在改 Q/K/V，也在探索 attention 之外的序列建模方式。</p>
+<p>Kimi Linear 等较新的线性/混合注意力模型，则尝试在效率和检索能力之间重新折中。它们不是简单否定 Q/K/V，而是在问：哪些层、哪些场景还需要完整 attention，哪些地方可以用更便宜的结构替代。</p>
+<p>2026 年的 Dynamic Linear Attention（DLA）继续沿着“压缩历史记忆”这个方向走。它关注的问题是：固定分块或固定合并策略会把重要 token 过早压进粗粒度状态里。DLA 尝试根据信息变化动态决定什么时候开新状态、什么时候合并旧状态。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>处理历史信息的方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准 attention</td>
+<td>保留所有历史 K/V</td>
+</tr>
+<tr>
+<td>稀疏 attention</td>
+<td>只看一部分历史 K/V</td>
+</tr>
+<tr>
+<td>线性 attention</td>
+<td>把历史压进递推状态</td>
+</tr>
+<tr>
+<td>多状态线性 attention</td>
+<td>用多个状态保存不同粒度历史</td>
+</tr>
+<tr>
+<td>DLA</td>
+<td>根据信息变化动态合并状态</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="16-当前探索六：Q-K-V-是否有冗余"><a href="#16-当前探索六：Q-K-V-是否有冗余" class="headerlink" title="16. 当前探索六：Q/K/V 是否有冗余"></a>16. 当前探索六：Q/K/V 是否有冗余</h2><p>近年的一些工作开始直接问：Q/K/V 三套投影是否都必要？</p>
+<p>有研究讨论在一定假设下，Query、Key、Value 的某些投影可能存在冗余，可以被 identity 或更少的参数替代。这个方向还不是主流大模型的标准做法，但问题很有价值：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q/K/V 是最方便的分解方式，还是存在更省参数的等价分解？</span><br></pre></td></tr></table></figure>
+<p>这类研究提醒我们：Q/K/V 是目前非常成功的工程和数学结构，但不是不可挑战的公理。</p>
+<hr>
+<h2 id="17-Q-K-V-的优势和代价"><a href="#17-Q-K-V-的优势和代价" class="headerlink" title="17. Q/K/V 的优势和代价"></a>17. Q/K/V 的优势和代价</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>优势</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>表达能力</td>
+<td>匹配和内容分开学</td>
+<td>参数更多</td>
+</tr>
+<tr>
+<td>并行性</td>
+<td>$QK^T$ 很适合矩阵乘法</td>
+<td>序列长时 $L^2$ 成本高</td>
+</tr>
+<tr>
+<td>可训练性</td>
+<td>soft attention 可微</td>
+<td>softmax 可能饱和</td>
+</tr>
+<tr>
+<td>长上下文</td>
+<td>能做内容检索</td>
+<td>KV cache 占显存</td>
+</tr>
+<tr>
+<td>多头机制</td>
+<td>多种关系并行建模</td>
+<td>K/V 存储和带宽压力大</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Q/K/V 的成功不是因为它完美，而是因为它在表达能力、可训练性和硬件效率之间做了很好的平衡。</p>
+<hr>
+<h2 id="18-常见误解"><a href="#18-常见误解" class="headerlink" title="18. 常见误解"></a>18. 常见误解</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>误解</th>
+<th>更准确的说法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q/K/V 是人工写好的语义规则</td>
+<td>它们是训练出来的线性投影</td>
+</tr>
+<tr>
+<td>Q 就是问题，K 就是关键词，V 就是答案</td>
+<td>这是类比，真实模型里它们是向量空间</td>
+</tr>
+<tr>
+<td>self-attention 里 Q/K/V 完全一样</td>
+<td>来源相同，投影矩阵不同</td>
+</tr>
+<tr>
+<td>attention 只是找最相关 token</td>
+<td>它是对多个 value 做加权混合</td>
+</tr>
+<tr>
+<td>多头只是重复计算</td>
+<td>不同 head 可以学习不同匹配关系</td>
+</tr>
+<tr>
+<td>KV cache 是模型参数</td>
+<td>KV cache 是推理时产生的中间状态</td>
+</tr>
+<tr>
+<td>MQA/GQA/MLA 取消了 Q/K/V</td>
+<td>它们主要是在压缩或共享 K/V</td>
+</tr>
+<tr>
+<td>线性注意力完全不需要 Q/K/V 思想</td>
+<td>许多线性注意力仍保留 query/key/value 的角色分工</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="19-和前两篇文档的关系"><a href="#19-和前两篇文档的关系" class="headerlink" title="19. 和前两篇文档的关系"></a>19. 和前两篇文档的关系</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文档</th>
+<th>重点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>softmax历史由来与LLM应用深度调研.md</code></td>
+<td>分数如何变成概率/权重</td>
+</tr>
+<tr>
+<td><code>Scaled Dot-Product Attention详解.md</code></td>
+<td>为什么用 $QK^T/\sqrt{d_k}$</td>
+</tr>
+<tr>
+<td>本文</td>
+<td>为什么要把表示拆成 Q/K/V</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>三篇合起来可以按这条线读：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q/K/V 分工 -&gt; QK 点积打分 -&gt; scale 稳定分数 -&gt; softmax 变权重 -&gt; 加权汇总 V</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="20-小结"><a href="#20-小结" class="headerlink" title="20. 小结"></a>20. 小结</h2><p>LLM 使用 Q/K/V，是因为序列建模需要一种可训练的内容检索机制。</p>
+<p>Q/K/V 把 attention 拆成三个角色：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Q：当前位置要找什么</span><br><span class="line">K：上下文位置如何被匹配</span><br><span class="line">V：匹配后传递什么内容</span><br></pre></td></tr></table></figure>
+<p>数学上，它对应三组可学习线性投影、一个双线性匹配函数、一个 softmax 归一化，以及对 value 的加权求和。</p>
+<p>工程上，它带来了强表达能力，也带来了 KV cache、长上下文和内存带宽问题。当前很多新结构，包括 MQA、GQA、MLA、稀疏注意力和线性注意力，都在围绕这个问题做取舍：保留 Q/K/V 的检索能力，同时降低 K/V 存储和读取成本。</p>
+<hr>
+<h2 id="21-参考资料"><a href="#21-参考资料" class="headerlink" title="21. 参考资料"></a>21. 参考资料</h2><h3 id="历史和基础"><a href="#历史和基础" class="headerlink" title="历史和基础"></a>历史和基础</h3><ul>
+<li>Bahdanau attention：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1409.0473">Neural Machine Translation by Jointly Learning to Align and Translate</a></li>
+<li>Luong attention：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1508.04025">Effective Approaches to Attention-based Neural Machine Translation</a></li>
+<li>Transformer 原论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></li>
+<li>Memory Networks：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1410.3916">Weston et al., Memory Networks</a></li>
+</ul>
+<h3 id="Q-K-V-和推理优化"><a href="#Q-K-V-和推理优化" class="headerlink" title="Q/K/V 和推理优化"></a>Q/K/V 和推理优化</h3><ul>
+<li>MQA：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.02150">Shazeer, Fast Transformer Decoding: One Write-Head is All You Need</a></li>
+<li>GQA：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.13245">Ainslie et al., GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints</a></li>
+<li>DeepSeek-V2 / MLA：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.04434">DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model</a></li>
+<li>Native Sparse Attention：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.11089">Hardware-Aligned and Natively Trainable Sparse Attention</a></li>
+</ul>
+<h3 id="替代注意力和最新探索"><a href="#替代注意力和最新探索" class="headerlink" title="替代注意力和最新探索"></a>替代注意力和最新探索</h3><ul>
+<li>Mamba：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.00752">Mamba: Linear-Time Sequence Modeling with Selective State Spaces</a></li>
+<li>DeltaNet：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.06484">Parallelizing Linear Transformers with the Delta Rule over Sequence Length</a></li>
+<li>Kimi Linear：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2510.26692">Kimi Linear: An Expressive, Efficient Attention Architecture</a></li>
+<li>Dynamic Linear Attention：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.10650">Dynamic Linear Attention</a></li>
+<li>Q/K/V 冗余探索：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2510.23912">On the Necessity of the Query, Key, and Value Weight Triplet</a></li>
+</ul>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-22T02:00:00.000Z">2026-06-22</time>
+                    <h3><a href="/2026/06/22/scaled-dot-product-attention/">Scaled Dot-Product Attention 详解</a></h3>
+                    
+                    
+                    <p>0. 先看结论Scaled Dot-Product Attention 的公式是： \mathrm{Attention}(Q,K,V)=\mathrm{softmax}\l...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-03T02:00:00.000Z">2026-07-03</time>
+                    <h3><a href="/2026/07/03/token-id-to-embedding/">Token ID 到 Embedding 机制详解</a></h3>
+                    
+                    
+                    <p>生成日期：2026-06-26主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-16T02:00:00.000Z">2026-06-16</time>
+                    <h3><a href="/2026/06/16/softmax-deep-dive/">Softmax 的来历与 LLM 应用</a></h3>
+                    
+                    
+                    <p>0. 先看结论Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-13T06:00:00.000Z">2026-07-13</time>
+                    <h3><a href="/2026/07/13/paper-global-workspace-llm/">AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」</a></h3>
+                    
+                    
+                    <p>原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthrop...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/06/27/ai-daily-2026-06-27/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】白宫要求 OpenAI 受限发布 GPT-5.6，AI 监管进入“事前审批”时代</span>
+                </a>
+                
+                
+                <a href="/2026/06/26/ai-daily-2026-06-26/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】Anthropic指控阿里通义千问发动史上最大模型蒸馏攻击</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

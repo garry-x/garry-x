@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>Token ID 到 Embedding 机制详解 | Garry&#39;s Blog</title>
+<meta name="description" content="生成日期：20260626主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流程中的作用适合读者：知道 LLM 会“分词”，但想弄清楚数字 id 怎么进入神经网络的人 0. 先看结论LLM 不能直接处理文字。它先把文本切成 tok">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="LLM,Transformer,deep-learning,Tokenizer,Embedding">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Token ID 到 Embedding 机制详解 | Garry&#39;s Blog">
+<meta property="og:description" content="生成日期：20260626主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流程中的作用适合读者：知道 LLM 会“分词”，但想弄清楚数字 id 怎么进入神经网络的人 0. 先看结论LLM 不能直接处理文字。它先把文本切成 tok">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/07/03/token-id-to-embedding/">
+<meta property="og:image" content="https://garryx.com/covers/cover-token-id-to-embedding.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Token ID 到 Embedding 机制详解 | Garry&#39;s Blog">
+<meta name="twitter:description" content="生成日期：20260626主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流程中的作用适合读者：知道 LLM 会“分词”，但想弄清楚数字 id 怎么进入神经网络的人 0. 先看结论LLM 不能直接处理文字。它先把文本切成 tok">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-token-id-to-embedding.png">
+
+<link rel="canonical" href="https://garryx.com/2026/07/03/token-id-to-embedding/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Token ID 到 Embedding 机制详解 | Garry's Blog","description":"生成日期：20260626主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流程中的作用适合读者：知道 LLM 会“分词”，但想弄清楚数字 id 怎么进入神经网络的人 0. 先看结论LLM 不能直接处理文字。它先把文本切成 tok","url":"https://garryx.com/2026/07/03/token-id-to-embedding/","image":"https://garryx.com/covers/cover-token-id-to-embedding.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/07/03/token-id-to-embedding/"},"datePublished":"2026-07-03T02:00:00.000Z","dateModified":"2026-11-13T01:34:52.046Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"LLM,Transformer,deep-learning,Tokenizer,Embedding","articleSection":"AI"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI/">AI</a>
+                
+            </div>
+            
+            <h1 class="post-title">Token ID 到 Embedding 机制详解</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-07-03T02:00:00.000Z">
+                    2026年7月3日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/LLM/">#LLM</a>
+                    
+                        <a href="/tags/Transformer/">#Transformer</a>
+                    
+                        <a href="/tags/deep-learning/">#deep-learning</a>
+                    
+                        <a href="/tags/Tokenizer/">#Tokenizer</a>
+                    
+                        <a href="/tags/Embedding/">#Embedding</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <blockquote>
+<p>生成日期：2026-06-26<br>主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流程中的作用<br>适合读者：知道 LLM 会“分词”，但想弄清楚数字 id 怎么进入神经网络的人</p>
+</blockquote>
+<hr>
+<h2 id="0-先看结论"><a href="#0-先看结论" class="headerlink" title="0. 先看结论"></a>0. 先看结论</h2><p>LLM 不能直接处理文字。它先把文本切成 token，再把每个 token 映射成一个整数 id，最后用这个 id 去 embedding table 里查一行向量。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文本 -&gt; tokenizer -&gt; token ids -&gt; embedding lookup -&gt; token embeddings -&gt; Transformer</span><br></pre></td></tr></table></figure>
+<p>比如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;我喜欢猫&quot;</span><br></pre></td></tr></table></figure>
+<p>可能被 tokenizer 变成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tokens:    [&quot;我&quot;, &quot;喜欢&quot;, &quot;猫&quot;]</span><br><span class="line">token ids: [1024, 5832, 941]</span><br></pre></td></tr></table></figure>
+<p>再查 embedding table：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1024 -&gt; E[1024]</span><br><span class="line">5832 -&gt; E[5832]</span><br><span class="line">941  -&gt; E[941]</span><br></pre></td></tr></table></figure>
+<p>得到三个向量后，模型才能开始计算。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;文本&quot;] --&gt; B[&quot;Tokenizer&quot;]</span><br><span class="line">    B --&gt; C[&quot;Token IDs&quot;]</span><br><span class="line">    C --&gt; D[&quot;Embedding Table 查表&quot;]</span><br><span class="line">    D --&gt; E[&quot;Token Embeddings&quot;]</span><br><span class="line">    E --&gt; F[&quot;位置处理&quot;]</span><br><span class="line">    F --&gt; G[&quot;Transformer Blocks&quot;]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="1-为什么需要-embedding"><a href="#1-为什么需要-embedding" class="headerlink" title="1. 为什么需要 embedding"></a>1. 为什么需要 embedding</h2><p>文字是离散符号，神经网络擅长处理连续数值。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>表示方式</th>
+<th>例子</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始文字</td>
+<td><code>&quot;猫&quot;</code></td>
+<td>模型不能直接矩阵乘</td>
+</tr>
+<tr>
+<td>token id</td>
+<td><code>941</code></td>
+<td>只是编号，没有语义距离</td>
+</tr>
+<tr>
+<td>embedding</td>
+<td><code>[0.12, -0.38, ...]</code></td>
+<td>可参与神经网络计算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>token id 本身没有语义。<code>941</code> 不比 <code>940</code> 更接近 <code>猫</code>，也不代表第 941 个 token 比第 940 个 token “大”。它只是词表里的行号。</p>
+<p>embedding 的作用是把这个行号变成可学习的向量。</p>
+<hr>
+<h2 id="2-从文本到-token-id"><a href="#2-从文本到-token-id" class="headerlink" title="2. 从文本到 token id"></a>2. 从文本到 token id</h2><h3 id="2-1-tokenizer-做什么"><a href="#2-1-tokenizer-做什么" class="headerlink" title="2.1 tokenizer 做什么"></a>2.1 tokenizer 做什么</h3><p>Tokenizer 的工作是把文本切成模型词表里的 token，并把 token 转成 id。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入文本: &quot;Transformers are powerful&quot;</span><br><span class="line"></span><br><span class="line">tokens:</span><br><span class="line">[&quot;Transform&quot;, &quot;ers&quot;, &quot; are&quot;, &quot; powerful&quot;]</span><br><span class="line"></span><br><span class="line">token ids:</span><br><span class="line">[41762, 388, 527, 8147]</span><br></pre></td></tr></table></figure>
+<p>不同 tokenizer 的切分方式不同。常见方法有：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>常见位置</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BPE</td>
+<td>GPT 系列常见</td>
+<td>从字符/字节片段合并高频片段</td>
+</tr>
+<tr>
+<td>WordPiece</td>
+<td>BERT 系列常见</td>
+<td>子词切分，常用 <code>##</code> 标记后缀</td>
+</tr>
+<tr>
+<td>SentencePiece</td>
+<td>多语言模型常见</td>
+<td>把文本当原始字符流处理，不强依赖空格</td>
+</tr>
+<tr>
+<td>Byte-level BPE</td>
+<td>GPT-2 之后常见</td>
+<td>能覆盖任意字节，较少出现未知字符</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tokenizer 不是神经网络主体的一层。它通常是一个确定性预处理器：同一段文本、同一套 tokenizer，输出的 token ids 应该一致。</p>
+<h3 id="2-2-token-id-是词表索引"><a href="#2-2-token-id-是词表索引" class="headerlink" title="2.2 token id 是词表索引"></a>2.2 token id 是词表索引</h3><p>模型有一个 vocabulary，也就是词表。词表可以看成：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">token id</th>
+<th>token</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td><code>&lt;unk&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td><code>&lt;bos&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td><code>&lt;eos&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:right">941</td>
+<td><code>猫</code></td>
+</tr>
+<tr>
+<td style="text-align:right">1024</td>
+<td><code>我</code></td>
+</tr>
+<tr>
+<td style="text-align:right">5832</td>
+<td><code>喜欢</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>token id 就是 token 在词表里的编号。</p>
+<p>注意：编号大小没有语义。<code>1024</code> 和 <code>1025</code> 是否语义接近，取决于它们对应 token 的 embedding，而不是 id 数值。</p>
+<hr>
+<h2 id="3-Embedding-table-是什么"><a href="#3-Embedding-table-是什么" class="headerlink" title="3. Embedding table 是什么"></a>3. Embedding table 是什么</h2><p>Embedding table 是一个可训练矩阵：</p>
+<script type="math/tex; mode=display">
+E\in \mathbb{R}^{V\times d_{\text{model}}}</script><p>其中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$V$</td>
+<td>词表大小，也就是 token 总数</td>
+</tr>
+<tr>
+<td>$d_{\text{model}}$</td>
+<td>模型隐藏维度</td>
+</tr>
+<tr>
+<td>$E$</td>
+<td>embedding table</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果词表大小 $V=50,000$，模型维度 $d_{\text{model}}=4096$，那么 embedding table 的形状就是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">50000 x 4096</span><br></pre></td></tr></table></figure>
+<p>第 <code>i</code> 行就是 token id 为 <code>i</code> 的向量：</p>
+<script type="math/tex; mode=display">
+\mathrm{embedding}(i)=E_i</script><hr>
+<h2 id="4-查表机制：id-怎么变成向量"><a href="#4-查表机制：id-怎么变成向量" class="headerlink" title="4. 查表机制：id 怎么变成向量"></a>4. 查表机制：id 怎么变成向量</h2><p>假设输入 token ids 是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1024, 5832, 941]</span><br></pre></td></tr></table></figure>
+<p>embedding lookup 做的是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">取第 1024 行</span><br><span class="line">取第 5832 行</span><br><span class="line">取第 941 行</span><br></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  E[1024],</span><br><span class="line">  E[5832],</span><br><span class="line">  E[941]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>如果每个 embedding 是 4096 维，那么输出形状是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sequence length x d_model</span><br><span class="line">= 3 x 4096</span><br></pre></td></tr></table></figure>
+<p>对 batch 输入：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">input_ids shape:      [batch, seq_len]</span><br><span class="line">embedding output:     [batch, seq_len, d_model]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="5-查表等价于-one-hot-乘矩阵"><a href="#5-查表等价于-one-hot-乘矩阵" class="headerlink" title="5. 查表等价于 one-hot 乘矩阵"></a>5. 查表等价于 one-hot 乘矩阵</h2><p>token id 查表也可以写成矩阵乘法。</p>
+<p>假设词表大小为 5，token id 是 2。它的 one-hot 向量是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 0, 1, 0, 0]</span><br></pre></td></tr></table></figure>
+<p>embedding table 是：</p>
+<script type="math/tex; mode=display">
+E\in \mathbb{R}^{5\times d}</script><p>那么：</p>
+<script type="math/tex; mode=display">
+[0,0,1,0,0]E=E_2</script><p>也就是取出第 2 行。</p>
+<p>实际工程不会真的构造巨大的 one-hot 矩阵，因为太浪费。框架会直接按 id 做索引。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>写法</th>
+<th>含义</th>
+<th>工程实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>one-hot 乘 embedding matrix</td>
+<td>数学上好理解</td>
+<td>不常直接用</td>
+</tr>
+<tr>
+<td>embedding lookup</td>
+<td>直接取对应行</td>
+<td>实际使用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="6-PyTorch-里的写法"><a href="#6-PyTorch-里的写法" class="headerlink" title="6. PyTorch 里的写法"></a>6. PyTorch 里的写法</h2><p>简化代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line">vocab_size = <span class="number">50000</span></span><br><span class="line">d_model = <span class="number">4096</span></span><br><span class="line"></span><br><span class="line">embedding = nn.Embedding(vocab_size, d_model)</span><br><span class="line"></span><br><span class="line">input_ids = torch.tensor([</span><br><span class="line">    [<span class="number">1024</span>, <span class="number">5832</span>, <span class="number">941</span>],</span><br><span class="line">    [<span class="number">18</span>, <span class="number">927</span>, <span class="number">4501</span>],</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">x = embedding(input_ids)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(x.shape)</span><br><span class="line"><span class="comment"># torch.Size([2, 3, 4096])</span></span><br></pre></td></tr></table></figure>
+<p>这里：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>张量</th>
+<th>形状</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input_ids</code></td>
+<td><code>[2, 3]</code></td>
+<td>batch size 为 2，每条 3 个 token</td>
+</tr>
+<tr>
+<td><code>embedding.weight</code></td>
+<td><code>[50000, 4096]</code></td>
+<td>embedding table</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td><code>[2, 3, 4096]</code></td>
+<td>每个 token 的向量表示</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="7-embedding-是怎么训练出来的"><a href="#7-embedding-是怎么训练出来的" class="headerlink" title="7. embedding 是怎么训练出来的"></a>7. embedding 是怎么训练出来的</h2><p>Embedding table 是模型参数。训练开始时，它通常是随机初始化的。</p>
+<p>训练过程中，模型预测下一个 token，并计算 loss：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input ids -&gt; embeddings -&gt; Transformer -&gt; logits -&gt; loss</span><br></pre></td></tr></table></figure>
+<p>反向传播会更新：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否更新</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>embedding table</td>
+<td>更新</td>
+</tr>
+<tr>
+<td>attention 层参数</td>
+<td>更新</td>
+</tr>
+<tr>
+<td>MLP 层参数</td>
+<td>更新</td>
+</tr>
+<tr>
+<td>输出层参数</td>
+<td>更新</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="7-1-哪些-embedding-行会被更新"><a href="#7-1-哪些-embedding-行会被更新" class="headerlink" title="7.1 哪些 embedding 行会被更新"></a>7.1 哪些 embedding 行会被更新</h3><p>如果一个 batch 只出现了这些 token ids：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1024, 5832, 941]</span><br></pre></td></tr></table></figure>
+<p>那么直接参与前向计算的是这几行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E[1024], E[5832], E[941]</span><br></pre></td></tr></table></figure>
+<p>这些行会收到直接梯度。没出现的 token 行不会通过输入 embedding lookup 直接更新。</p>
+<p>但如果输入 embedding 和输出 embedding 共享权重，输出层会让更多 token 的行参与 softmax 计算。这个问题见后面的权重共享部分。</p>
+<h3 id="7-2-高频-token-和低频-token"><a href="#7-2-高频-token-和低频-token" class="headerlink" title="7.2 高频 token 和低频 token"></a>7.2 高频 token 和低频 token</h3><p>高频 token 出现次数多，embedding 被更新得更频繁。低频 token 更新少，学习更难。</p>
+<p>这也是 tokenizer 设计很重要的原因：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token 太细</th>
+<th>token 太粗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>序列变长，训练和推理更贵</td>
+<td>稀有词太多，很多 embedding 学不好</td>
+</tr>
+<tr>
+<td>子词可复用，覆盖能力强</td>
+<td>词表变大，embedding table 变大</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>好的 tokenizer 是覆盖率、序列长度、词表大小之间的折中。</p>
+<hr>
+<h2 id="8-embedding-和位置有什么关系"><a href="#8-embedding-和位置有什么关系" class="headerlink" title="8. embedding 和位置有什么关系"></a>8. embedding 和位置有什么关系</h2><p>只做 token embedding 还不够。</p>
+<p>如果输入是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">猫 追 狗</span><br><span class="line">狗 追 猫</span><br></pre></td></tr></table></figure>
+<p>两句话 token 一样，但顺序不同，意思也不同。模型需要位置信息。</p>
+<p>所以进入 Transformer 前，通常要加入或使用位置编码。</p>
+<h3 id="8-1-绝对位置-embedding"><a href="#8-1-绝对位置-embedding" class="headerlink" title="8.1 绝对位置 embedding"></a>8.1 绝对位置 embedding</h3><p>早期 Transformer 使用 sinusoidal positional encoding，也可以用可学习的 position embedding。</p>
+<p>如果使用可学习位置 embedding：</p>
+<script type="math/tex; mode=display">
+x_i = E_{\text{token}}[t_i] + E_{\text{pos}}[i]</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$E_{\text{token}}[t_i]$</td>
+<td>第 $i$ 个 token 的语义向量</td>
+</tr>
+<tr>
+<td>$E_{\text{pos}}[i]$</td>
+<td>第 $i$ 个位置的位置向量</td>
+</tr>
+<tr>
+<td>$x_i$</td>
+<td>送入 Transformer 的输入向量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="8-2-RoPE"><a href="#8-2-RoPE" class="headerlink" title="8.2 RoPE"></a>8.2 RoPE</h3><p>很多现代 LLM 使用 RoPE，也就是 Rotary Position Embedding。</p>
+<p>RoPE 不一定在最开始把 position embedding 加到 token embedding 上，而是在 attention 里旋转 Q/K，让点积带上相对位置信息。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>位置作用在哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>absolute position embedding</td>
+<td>输入层直接加到 token embedding</td>
+</tr>
+<tr>
+<td>sinusoidal encoding</td>
+<td>输入层加位置编码</td>
+</tr>
+<tr>
+<td>RoPE</td>
+<td>attention 里作用于 Q/K</td>
+</tr>
+<tr>
+<td>ALiBi</td>
+<td>attention score 上加位置偏置</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以“token id 到 embedding”通常只是第一步。真正进入 attention 时，还会通过位置机制补上顺序信息。</p>
+<hr>
+<h2 id="9-embedding-在-LLM-整体流程中的位置"><a href="#9-embedding-在-LLM-整体流程中的位置" class="headerlink" title="9. embedding 在 LLM 整体流程中的位置"></a>9. embedding 在 LLM 整体流程中的位置</h2><p>完整流程可以这样看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;原始文本&quot;] --&gt; B[&quot;Tokenizer&quot;]</span><br><span class="line">    B --&gt; C[&quot;Token IDs&quot;]</span><br><span class="line">    C --&gt; D[&quot;Token Embedding&quot;]</span><br><span class="line">    D --&gt; E[&quot;位置处理&quot;]</span><br><span class="line">    E --&gt; F[&quot;Transformer Blocks&quot;]</span><br><span class="line">    F --&gt; G[&quot;Hidden States&quot;]</span><br><span class="line">    G --&gt; H[&quot;Output Projection&quot;]</span><br><span class="line">    H --&gt; I[&quot;Logits&quot;]</span><br><span class="line">    I --&gt; J[&quot;Softmax 或采样&quot;]</span><br></pre></td></tr></table></figure>
+<p>各阶段做什么：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>输入</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tokenizer</td>
+<td>文本</td>
+<td>token ids</td>
+</tr>
+<tr>
+<td>embedding lookup</td>
+<td>token ids</td>
+<td>token embeddings</td>
+</tr>
+<tr>
+<td>位置处理</td>
+<td>token embeddings</td>
+<td>带位置信息的表示</td>
+</tr>
+<tr>
+<td>Transformer blocks</td>
+<td>hidden states</td>
+<td>更深的 hidden states</td>
+</tr>
+<tr>
+<td>output projection</td>
+<td>hidden states</td>
+<td>vocab logits</td>
+</tr>
+<tr>
+<td>softmax / sampling</td>
+<td>logits</td>
+<td>下一个 token id</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>生成时，模型输出的是下一个 token id。这个 id 再被 tokenizer decode 回文本。</p>
+<hr>
+<h2 id="10-输入-embedding-和输出-embedding"><a href="#10-输入-embedding-和输出-embedding" class="headerlink" title="10. 输入 embedding 和输出 embedding"></a>10. 输入 embedding 和输出 embedding</h2><p>LLM 不只在输入端用 embedding。输出端也有一个矩阵，把 hidden state 投影回词表 logits：</p>
+<script type="math/tex; mode=display">
+z = hW_{\text{out}}^T</script><p>其中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>形状</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$h$</td>
+<td>$d_{\text{model}}$</td>
+<td>当前 hidden state</td>
+</tr>
+<tr>
+<td>$W_{\text{out}}$</td>
+<td>$V\times d_{\text{model}}$</td>
+<td>输出词表矩阵</td>
+</tr>
+<tr>
+<td>$z$</td>
+<td>$V$</td>
+<td>每个 token 的 logit</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>很多语言模型会使用 weight tying：</p>
+<script type="math/tex; mode=display">
+W_{\text{out}} = E_{\text{token}}</script><p>也就是输入 embedding table 和输出词表矩阵共享参数。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>优点</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不共享</td>
+<td>输入和输出自由度更高</td>
+<td>参数更多</td>
+</tr>
+<tr>
+<td>共享</td>
+<td>参数更少，输入输出语义空间一致</td>
+<td>约束更强</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>直观上：一个 token 作为输入时的向量，和它作为输出候选时的向量，使用同一套语义空间。</p>
+<hr>
+<h2 id="11-特殊-token-的-embedding"><a href="#11-特殊-token-的-embedding" class="headerlink" title="11. 特殊 token 的 embedding"></a>11. 特殊 token 的 embedding</h2><p>词表里通常有一些特殊 token。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;bos&gt;</code></td>
+<td>序列开始</td>
+</tr>
+<tr>
+<td><code>&lt;eos&gt;</code></td>
+<td>序列结束</td>
+</tr>
+<tr>
+<td><code>&lt;pad&gt;</code></td>
+<td>padding</td>
+</tr>
+<tr>
+<td><code>&lt;unk&gt;</code></td>
+<td>未知 token</td>
+</tr>
+<tr>
+<td><code>&lt;mask&gt;</code></td>
+<td>mask 语言模型使用</td>
+</tr>
+<tr>
+<td>chat template tokens</td>
+<td>标记 system/user/assistant 等角色</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这些 token 也有自己的 token id，也会有对应 embedding。</p>
+<p>例如 chat 模型的输入可能包含：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;system&gt; 你是一个助手</span><br><span class="line">&lt;user&gt; 解释 softmax</span><br><span class="line">&lt;assistant&gt;</span><br></pre></td></tr></table></figure>
+<p>模型并不是“天生知道”这些标记的意义。它通过训练学会这些特殊 token 的作用。</p>
+<hr>
+<h2 id="12-padding-和-attention-mask"><a href="#12-padding-和-attention-mask" class="headerlink" title="12. padding 和 attention mask"></a>12. padding 和 attention mask</h2><p>batch 训练时，不同样本长度不同，通常要 padding 到同一长度。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">样本 1: [我, 喜欢, 猫]</span><br><span class="line">样本 2: [你好, &lt;pad&gt;, &lt;pad&gt;]</span><br></pre></td></tr></table></figure>
+<p><code>&lt;pad&gt;</code> 也有 embedding，但模型不应该把它当有效内容看。所以还需要 attention mask。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>是否有 embedding</th>
+<th>是否应被 attention 看见</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通 token</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td><code>&lt;pad&gt;</code> token</td>
+<td>是</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以 embedding lookup 和 attention mask 是两件事：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">embedding lookup: 把所有 id 转成向量</span><br><span class="line">attention mask: 告诉模型哪些位置不能看</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="13-embedding-和语义空间"><a href="#13-embedding-和语义空间" class="headerlink" title="13. embedding 和语义空间"></a>13. embedding 和语义空间</h2><p>训练后，embedding 不再是随机向量。语义、语法、格式、语言、代码结构等信息都会被压进向量空间。</p>
+<p>常见现象：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语义相近 token embedding 可能更接近</td>
+<td>比如动物、数字、标点等类别</td>
+</tr>
+<tr>
+<td>高频 token embedding 学得更充分</td>
+<td>训练数据里出现更多</td>
+</tr>
+<tr>
+<td>特殊 token embedding 有控制作用</td>
+<td>chat 模板、分隔符会影响模型行为</td>
+</tr>
+<tr>
+<td>多语言 token 会共享空间</td>
+<td>跨语言模型里常见</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这里要小心：embedding 空间不是人工设计的词典。它是训练目标和数据共同塑造出来的。</p>
+<hr>
+<h2 id="14-embedding-维度为什么很大"><a href="#14-embedding-维度为什么很大" class="headerlink" title="14. embedding 维度为什么很大"></a>14. embedding 维度为什么很大</h2><p>一个 token 需要携带很多信息：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信息类型</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语义</td>
+<td><code>猫</code> 是动物</td>
+</tr>
+<tr>
+<td>语法</td>
+<td>名词、动词、助词</td>
+</tr>
+<tr>
+<td>语言</td>
+<td>中文、英文、代码</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>空格、换行、Markdown</td>
+</tr>
+<tr>
+<td>任务信号</td>
+<td>指令、角色、分隔符</td>
+</tr>
+<tr>
+<td>统计关系</td>
+<td>常和哪些 token 一起出现</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>低维向量放不下足够多的可分离特征。高维 embedding 给模型更多空间来表达这些关系。</p>
+<p>但维度越大，参数越多：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">embedding 参数量 = vocab_size * d_model</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">vocab size</th>
+<th style="text-align:right">d_model</th>
+<th style="text-align:right">参数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">50,000</td>
+<td style="text-align:right">4,096</td>
+<td style="text-align:right">204,800,000</td>
+</tr>
+<tr>
+<td style="text-align:right">100,000</td>
+<td style="text-align:right">4,096</td>
+<td style="text-align:right">409,600,000</td>
+</tr>
+<tr>
+<td style="text-align:right">100,000</td>
+<td style="text-align:right">8,192</td>
+<td style="text-align:right">819,200,000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>embedding table 本身就可能有几亿参数。</p>
+<hr>
+<h2 id="15-训练和推理时-embedding-的差别"><a href="#15-训练和推理时-embedding-的差别" class="headerlink" title="15. 训练和推理时 embedding 的差别"></a>15. 训练和推理时 embedding 的差别</h2><h3 id="15-1-训练"><a href="#15-1-训练" class="headerlink" title="15.1 训练"></a>15.1 训练</h3><p>训练时，输入是一批 token ids：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input_ids -&gt; embedding -&gt; Transformer -&gt; logits -&gt; loss</span><br></pre></td></tr></table></figure>
+<p>loss 反向传播后，embedding table 会被更新。</p>
+<h3 id="15-2-推理"><a href="#15-2-推理" class="headerlink" title="15.2 推理"></a>15.2 推理</h3><p>推理时，embedding table 固定不变。每生成一个新 token：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">新 token id -&gt; embedding -&gt; Transformer -&gt; logits -&gt; 采样下一个 id</span><br></pre></td></tr></table></figure>
+<p>生成出的 token id 会追加到上下文里，再参与下一步。</p>
+<hr>
+<h2 id="16-和-tokenizer-的边界"><a href="#16-和-tokenizer-的边界" class="headerlink" title="16. 和 tokenizer 的边界"></a>16. 和 tokenizer 的边界</h2><p>Tokenizer 和 embedding 经常被混在一起说，但它们不是一回事。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>输入</th>
+<th>输出</th>
+<th>是否神经网络参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tokenizer</td>
+<td>文本</td>
+<td>token ids</td>
+<td>通常不是</td>
+</tr>
+<tr>
+<td>embedding table</td>
+<td>token ids</td>
+<td>vectors</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tokenizer 决定：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">文本如何切</span><br><span class="line">每个 token 对应哪个 id</span><br></pre></td></tr></table></figure>
+<p>Embedding 决定：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每个 id 在模型内部对应哪个向量</span><br></pre></td></tr></table></figure>
+<p>如果换 tokenizer，词表和 token ids 就变了，原来的 embedding table 通常不能直接复用。</p>
+<hr>
+<h2 id="17-新增-token-会发生什么"><a href="#17-新增-token-会发生什么" class="headerlink" title="17. 新增 token 会发生什么"></a>17. 新增 token 会发生什么</h2><p>如果给模型增加新 token，比如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;my_special_token&gt;</span><br></pre></td></tr></table></figure>
+<p>需要做两件事：</p>
+<ol>
+<li>tokenizer 词表里加入这个 token，分配新 id。</li>
+<li>embedding table 增加一行新向量。</li>
+</ol>
+<p>新 embedding 通常要初始化：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>初始化方式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>随机初始化</td>
+<td>简单，但需要训练</td>
+</tr>
+<tr>
+<td>用相近 token 平均</td>
+<td>让新 token 起点更合理</td>
+</tr>
+<tr>
+<td>复制已有 token embedding</td>
+<td>常用于特殊标记</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果不继续训练或微调，新 token 的 embedding 没学过，模型很难正确使用它。</p>
+<hr>
+<h2 id="18-常见误解"><a href="#18-常见误解" class="headerlink" title="18. 常见误解"></a>18. 常见误解</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>误解</th>
+<th>更准确的说法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token id 本身有语义</td>
+<td>id 只是词表行号，语义在 embedding 里</td>
+</tr>
+<tr>
+<td>embedding 是 tokenizer 生成的</td>
+<td>tokenizer 生成 id，embedding 是模型参数</td>
+</tr>
+<tr>
+<td>embedding 是固定词典</td>
+<td>embedding 会在训练中更新</td>
+</tr>
+<tr>
+<td>相邻 id 的 token 语义接近</td>
+<td>id 相邻不代表 embedding 接近</td>
+</tr>
+<tr>
+<td><code>&lt;pad&gt;</code> 没有 embedding</td>
+<td>它也有 embedding，只是 attention mask 会屏蔽它</td>
+</tr>
+<tr>
+<td>位置 embedding 和 token embedding 是一回事</td>
+<td>一个表示 token 内容，一个表示位置</td>
+</tr>
+<tr>
+<td>输出 token 直接来自 embedding</td>
+<td>输出来自 hidden state 经过输出投影得到的 logits</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="19-和已有几篇文档的关系"><a href="#19-和已有几篇文档的关系" class="headerlink" title="19. 和已有几篇文档的关系"></a>19. 和已有几篇文档的关系</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文档</th>
+<th>关注点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本文</td>
+<td>token id 如何变成 embedding</td>
+</tr>
+<tr>
+<td><code>为什么LLM要使用QKV.md</code></td>
+<td>embedding 进入 attention 后如何变成 Q/K/V</td>
+</tr>
+<tr>
+<td><code>Scaled Dot-Product Attention详解.md</code></td>
+<td>Q/K/V 如何计算 attention</td>
+</tr>
+<tr>
+<td><code>softmax历史由来与LLM应用深度调研.md</code></td>
+<td>logits 如何变成概率</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>LLM 的主流程可以串起来：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">文本</span><br><span class="line">-&gt; token ids</span><br><span class="line">-&gt; embeddings</span><br><span class="line">-&gt; Q/K/V</span><br><span class="line">-&gt; attention</span><br><span class="line">-&gt; hidden states</span><br><span class="line">-&gt; logits</span><br><span class="line">-&gt; softmax / sampling</span><br><span class="line">-&gt; 下一个 token id</span><br><span class="line">-&gt; 文本</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="20-小结"><a href="#20-小结" class="headerlink" title="20. 小结"></a>20. 小结</h2><p>Token id 到 embedding 的转换，本质上是一次查表：</p>
+<script type="math/tex; mode=display">
+\mathrm{embedding}(i)=E_i</script><p>这个查表看起来简单，但它是 LLM 进入连续向量世界的入口。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tokenizer</td>
+<td>把文本变成 token ids</td>
+</tr>
+<tr>
+<td>embedding lookup</td>
+<td>把 ids 变成向量</td>
+</tr>
+<tr>
+<td>position handling</td>
+<td>补上顺序信息</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>在向量空间里建模上下文</td>
+</tr>
+<tr>
+<td>output projection</td>
+<td>把 hidden state 映射回词表</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>embedding table 是模型参数，会被训练数据塑造。它连接了离散符号和神经网络计算，也是后续 Q/K/V、attention、MLP、logits 的起点。</p>
+<hr>
+<h2 id="21-参考资料"><a href="#21-参考资料" class="headerlink" title="21. 参考资料"></a>21. 参考资料</h2><ul>
+<li>Word2Vec：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1301.3781">Mikolov et al., Efficient Estimation of Word Representations in Vector Space</a></li>
+<li>GloVe：<a target="_blank" rel="noopener" href="https://nlp.stanford.edu/pubs/glove.pdf">Pennington et al., GloVe: Global Vectors for Word Representation</a></li>
+<li>WordPiece：<a target="_blank" rel="noopener" href="https://research.google/pubs/japanese-and-korean-voice-search/">Schuster and Nakajima, Japanese and Korean Voice Search</a></li>
+<li>BPE for NMT：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1508.07909">Sennrich et al., Neural Machine Translation of Rare Words with Subword Units</a></li>
+<li>SentencePiece：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1808.06226">Kudo and Richardson, SentencePiece</a></li>
+<li>Transformer：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">Vaswani et al., Attention Is All You Need</a></li>
+<li>Weight tying：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1608.05859">Press and Wolf, Using the Output Embedding to Improve Language Models</a></li>
+<li>RoPE：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.09864">Su et al., RoFormer: Enhanced Transformer with Rotary Position Embedding</a></li>
+<li>ALiBi：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2108.12409">Press et al., Train Short, Test Long</a></li>
+</ul>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-22T02:00:00.000Z">2026-06-22</time>
+                    <h3><a href="/2026/06/22/scaled-dot-product-attention/">Scaled Dot-Product Attention 详解</a></h3>
+                    
+                    
+                    <p>0. 先看结论Scaled Dot-Product Attention 的公式是： \mathrm{Attention}(Q,K,V)=\mathrm{softmax}\l...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-26T02:00:00.000Z">2026-06-26</time>
+                    <h3><a href="/2026/06/26/why-llm-uses-qkv/">为什么 LLM 要使用 Q/K/V</a></h3>
+                    
+                    
+                    <p>0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配V...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-16T02:00:00.000Z">2026-06-16</time>
+                    <h3><a href="/2026/06/16/softmax-deep-dive/">Softmax 的来历与 LLM 应用</a></h3>
+                    
+                    
+                    <p>0. 先看结论Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-13T06:00:00.000Z">2026-07-13</time>
+                    <h3><a href="/2026/07/13/paper-global-workspace-llm/">AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」</a></h3>
+                    
+                    
+                    <p>原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthrop...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/07/03/global-cpu-supply-shortage/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">服务器 CPU 供应紧张深度分析</span>
+                </a>
+                
+                
+                <a href="/2026/07/03/ai-daily-2026-07-03/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】Nvidia推出AI基础设施收入分成新模式，重塑算力融资生态</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

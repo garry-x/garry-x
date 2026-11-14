@@ -18,7 +18,7 @@
 <meta property="og:description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
-<meta property="og:image" content="https://garryx.com/images/og-default.png">
+<meta property="og:image" content="https://garryx.com/covers/cover-vector-subtraction-geometry.png">
 <meta property="og:site_name" content="Garry&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
 
@@ -26,42 +26,19 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="向量的几何：减法、点积与距离 | Garry&#39;s Blog">
 <meta name="twitter:description" content="向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代">
-<meta name="twitter:image" content="https://garryx.com/images/og-default.png">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-vector-subtraction-geometry.png">
 
 <link rel="canonical" href="https://garryx.com/2026/06/08/vector-subtraction-geometry/">
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "向量的几何：减法、点积与距离 | Garry&#39;s Blog",
-  "description": "向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \ \vec{a} = ax,\ ay, \quad \vec{b} = bx,\ by \ 则减法的代",
-  "url": "https://garryx.com/2026/06/08/vector-subtraction-geometry/",
-  
-  "datePublished": "2026-06-08T07:30:00.000Z",
-  "dateModified": "2026-06-08T12:57:49.694Z",
-  "author": {
-    "@type": "Person",
-    "name": "Garry Xu"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Garry&#39;s Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://garryx.com/images/avatar.png"
-    }
-  },
-  
-  "image": "https://garryx.com/images/og-default.png"
-}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"向量的几何：减法、点积与距离 | Garry's Blog","description":"向量是线性代数的基石。很多人熟悉向量加法的平行四边形法则，却对减法、点积和距离之间的深层联系感到模糊。本文用几何图解和代数公式，帮你建立从向量减法到点积相似度、再到距离度量的完整直觉。 一、从代数到几何 设平面向量 \\ \\vec{a} = ax,\\ ay, \\quad \\vec{b} = bx,\\ by \\ 则减法的代","url":"https://garryx.com/2026/06/08/vector-subtraction-geometry/","image":"https://garryx.com/covers/cover-vector-subtraction-geometry.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/06/08/vector-subtraction-geometry/"},"datePublished":"2026-06-08T07:30:00.000Z","dateModified":"2026-11-14T00:30:11.897Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"向量,线性代数,几何,点积,相似度","articleSection":"数学"}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=17">
+<link rel="stylesheet" href="/css/style.css?v=28">
 
 <link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
 
@@ -69,15 +46,15 @@
 <script>
 MathJax = {
   tex: {
-    inlineMath: [['\\(', '\\)']],
-    displayMath: [['\\[', '\\]']],
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
     processEscapes: true,
     tags: 'ams'
   },
   svg: { fontCache: 'global' }
 };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
 
 
 <!-- hexo injector head_end start -->
@@ -95,6 +72,8 @@ MathJax = {
             
                 <a class="nav-link " href="/">Home</a>
             
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
                 <a class="nav-link " href="/archives">Archives</a>
             
                 <a class="nav-link " href="/tags">Tags</a>
@@ -110,7 +89,8 @@ MathJax = {
 </header>
 
     <main class="main">
-        <article class="post-detail">
+        
+<article class="post-detail">
     <div class="reading-progress" id="reading-progress"></div>
     <aside class="toc-sidebar" id="toc-sidebar">
         <div class="toc-title">目录</div>
@@ -437,6 +417,27 @@ alt="距离与点积的关系" />
             </div>
         </div>
 
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-08-03T00:00:00.000Z">2026-08-03</time>
+                    <h3><a href="/2026/08/03/central-limit-theorem/">中心极限定理：为什么世界是正态的</a></h3>
+                    
+                    
+                    <p>想象一个三角形钉板，顶上有一个漏斗。你把一颗弹珠从漏斗倒进去，它在下落过程中不断撞击钉子，每次撞击都随机向左或向右偏转。最终，弹珠落入底部某个槽里。 如果你只倒一颗，它会落...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
         <nav class="post-nav">
             <div class="post-nav-inner">
                 
@@ -550,6 +551,43 @@ alt="距离与点积的关系" />
 
     if (!content || !tocNav) return;
 
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
     const headings = content.querySelectorAll('h2, h3, h4');
     if (headings.length < 2) {
         document.getElementById('toc-sidebar').style.display = 'none';
@@ -596,15 +634,53 @@ alt="距离与点积的关系" />
 </script>
 
     </main>
-    <footer class="site-footer">
+    
+<footer class="site-footer">
     <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
         <p class="copyright">
             &copy; 2017 - 2026 
-            <a href="/">Garry Xu</a>
+            Garry Xu
         </p>
-        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
     </div>
 </footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script src="/js/theme.js"></script>
 </body>

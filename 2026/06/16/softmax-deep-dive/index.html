@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>Softmax 的来历与 LLM 应用 | Garry&#39;s Blog</title>
+<meta name="description" content="0. 先看结论Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络。到了 LLM 里，最常见的是两个位置： 输出层：把模型对所有 token 的打分 logits 变成“下一个 token 的概率”。 注意力层：把">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="attention,deep-learning,llm,math,softmax">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Softmax 的来历与 LLM 应用 | Garry&#39;s Blog">
+<meta property="og:description" content="0. 先看结论Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络。到了 LLM 里，最常见的是两个位置： 输出层：把模型对所有 token 的打分 logits 变成“下一个 token 的概率”。 注意力层：把">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/16/softmax-deep-dive/">
+<meta property="og:image" content="https://garryx.com/covers/cover-softmax-deep-dive.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Softmax 的来历与 LLM 应用 | Garry&#39;s Blog">
+<meta name="twitter:description" content="0. 先看结论Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络。到了 LLM 里，最常见的是两个位置： 输出层：把模型对所有 token 的打分 logits 变成“下一个 token 的概率”。 注意力层：把">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-softmax-deep-dive.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/16/softmax-deep-dive/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Softmax 的来历与 LLM 应用 | Garry's Blog","description":"0. 先看结论Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络。到了 LLM 里，最常见的是两个位置： 输出层：把模型对所有 token 的打分 logits 变成“下一个 token 的概率”。 注意力层：把","url":"https://garryx.com/2026/06/16/softmax-deep-dive/","image":"https://garryx.com/covers/cover-softmax-deep-dive.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/06/16/softmax-deep-dive/"},"datePublished":"2026-06-16T02:00:00.000Z","dateModified":"2026-11-13T01:34:52.045Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"attention,deep-learning,llm,math,softmax","articleSection":"AI"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI/">AI</a>
+                
+            </div>
+            
+            <h1 class="post-title">Softmax 的来历与 LLM 应用</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-16T02:00:00.000Z">
+                    2026年6月16日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/attention/">#attention</a>
+                    
+                        <a href="/tags/deep-learning/">#deep-learning</a>
+                    
+                        <a href="/tags/llm/">#llm</a>
+                    
+                        <a href="/tags/math/">#math</a>
+                    
+                        <a href="/tags/softmax/">#softmax</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="0-先看结论"><a href="#0-先看结论" class="headerlink" title="0. 先看结论"></a>0. 先看结论</h2><p>Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络。到了 LLM 里，最常见的是两个位置：</p>
+<ol>
+<li><strong>输出层</strong>：把模型对所有 token 的打分 <code>logits</code> 变成“下一个 token 的概率”。</li>
+<li><strong>注意力层</strong>：把 query 和 key 的相似度分数变成“该看哪些上下文 token 的权重”。</li>
+</ol>
+<p>在 MoE 模型里，softmax 还可能出现在 router 中，给不同 expert 分配路由权重。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[原始分数 logits] --&gt; B[指数放大差异 exp]</span><br><span class="line">    B --&gt; C[归一化: 除以总和]</span><br><span class="line">    C --&gt; D[概率分布: 每项 &gt; 0, 总和 = 1]</span><br><span class="line"></span><br><span class="line">    D --&gt; E[输出层: 预测下一个 token]</span><br><span class="line">    D --&gt; F[注意力层: 给上下文 token 分配权重]</span><br></pre></td></tr></table></figure>
+<h3 id="0-1-名词速查"><a href="#0-1-名词速查" class="headerlink" title="0.1 名词速查"></a>0.1 名词速查</h3><p>刚接触 LLM 的话，可以先看这张表。后面遇到术语，再回来查。</p>
+<p>基础数学词：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>通俗解释</th>
+<th>在本文中的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分数</td>
+<td>模型给某个选项的原始评价</td>
+<td>softmax 的输入</td>
+</tr>
+<tr>
+<td>logit</td>
+<td>softmax 前的原始分数</td>
+<td>token 或位置的未归一化偏好</td>
+</tr>
+<tr>
+<td>概率</td>
+<td>0 到 1 之间的数，总和为 1</td>
+<td>softmax 的输出</td>
+</tr>
+<tr>
+<td>概率分布</td>
+<td>一组候选项各自的概率</td>
+<td>表示“每个选项有多可能”</td>
+</tr>
+<tr>
+<td>归一化</td>
+<td>把一组数缩放到总和为 1</td>
+<td>softmax 分母的作用</td>
+</tr>
+<tr>
+<td>指数函数 <code>exp</code></td>
+<td>把数变成 $e^x$</td>
+<td>放大高分和低分的差距</td>
+</tr>
+<tr>
+<td>log-sum-exp</td>
+<td>$\log \sum_j e^{z_j}$</td>
+<td>稳定计算 log softmax 的核心技巧</td>
+</tr>
+<tr>
+<td>sigmoid</td>
+<td>把一个分数压到 0 到 1</td>
+<td>常用于二分类或多标签，不要求总和为 1</td>
+</tr>
+<tr>
+<td>temperature</td>
+<td>温度参数</td>
+<td>控制概率分布尖锐或平滑</td>
+</tr>
+<tr>
+<td>cross entropy</td>
+<td>交叉熵损失</td>
+<td>训练时惩罚“真实 token 概率低”</td>
+</tr>
+<tr>
+<td>perplexity</td>
+<td>困惑度</td>
+<td>语言模型常见评估指标，来自交叉熵</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>LLM 结构词：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>通俗解释</th>
+<th>在本文中的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>模型处理文本的基本单位</td>
+<td>LLM 每次预测下一个 token</td>
+</tr>
+<tr>
+<td>vocabulary</td>
+<td>词表，所有可选 token 的集合</td>
+<td>输出层要给每个 token 打分</td>
+</tr>
+<tr>
+<td>hidden state</td>
+<td>模型内部的上下文表示</td>
+<td>用来生成 vocab logits</td>
+</tr>
+<tr>
+<td>embedding</td>
+<td>token 的向量表示</td>
+<td>把离散 token 变成模型可计算的向量</td>
+</tr>
+<tr>
+<td>output matrix</td>
+<td>输出矩阵</td>
+<td>把 hidden state 映射成词表 logits</td>
+</tr>
+<tr>
+<td>attention</td>
+<td>注意力机制</td>
+<td>决定当前位置该看哪些上下文位置</td>
+</tr>
+<tr>
+<td>Q/K/V</td>
+<td>query、key、value 三组向量</td>
+<td>计算注意力分数并聚合信息</td>
+</tr>
+<tr>
+<td>attention score</td>
+<td>注意力分数</td>
+<td>softmax 前的位置相关性分数</td>
+</tr>
+<tr>
+<td>mask</td>
+<td>屏蔽规则</td>
+<td>禁止模型看不该看的位置</td>
+</tr>
+<tr>
+<td>causal mask</td>
+<td>因果遮罩</td>
+<td>自回归生成时屏蔽未来 token</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>解码与工程词：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>通俗解释</th>
+<th>在本文中的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>greedy</td>
+<td>每次选最大概率 token</td>
+<td>最确定的解码方式</td>
+</tr>
+<tr>
+<td>top-k</td>
+<td>只保留概率最高的 k 个候选</td>
+<td>限制低质量长尾 token</td>
+</tr>
+<tr>
+<td>top-p</td>
+<td>保留累计概率达到 p 的候选集合</td>
+<td>根据不确定性动态调候选数</td>
+</tr>
+<tr>
+<td>logit bias</td>
+<td>人为调整某些 token 的 logit</td>
+<td>鼓励或禁止特定输出</td>
+</tr>
+<tr>
+<td>repetition penalty</td>
+<td>重复惩罚</td>
+<td>降低已出现 token 的再次出现概率</td>
+</tr>
+<tr>
+<td>full softmax</td>
+<td>对整个词表完整计算 softmax</td>
+<td>准确但大词表成本高</td>
+</tr>
+<tr>
+<td>softmax bottleneck</td>
+<td>softmax 输出表达能力限制</td>
+<td>解释语言模型输出层的理论瓶颈</td>
+</tr>
+<tr>
+<td>label smoothing</td>
+<td>标签平滑</td>
+<td>训练时不把正确答案当成 100% one-hot</td>
+</tr>
+<tr>
+<td>MoE router</td>
+<td>专家路由器</td>
+<td>在 MoE 模型中为 token 选择专家</td>
+</tr>
+<tr>
+<td>expert</td>
+<td>专家网络</td>
+<td>MoE 中被路由选中的子网络</td>
+</tr>
+<tr>
+<td>FlashAttention</td>
+<td>高效 attention 实现</td>
+<td>不改结果，减少显存读写</td>
+</tr>
+<tr>
+<td>HBM</td>
+<td>GPU 高带宽显存</td>
+<td>长上下文 attention 的主要瓶颈之一</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="1-Softmax-是什么"><a href="#1-Softmax-是什么" class="headerlink" title="1. Softmax 是什么"></a>1. Softmax 是什么</h2><p>给定一组实数分数：</p>
+<script type="math/tex; mode=display">
+z = [z_1, z_2, ..., z_K]</script><p>softmax 输出第 $i$ 个类别的概率：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(z_i)=\frac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}}</script><p>带温度参数的版本：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(z_i/T)=\frac{e^{z_i/T}}{\sum_{j=1}^{K}e^{z_j/T}}</script><p>其中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$z_i$</td>
+<td>第 $i$ 个选项的原始分数，也叫 logit</td>
+<td>分数越大，概率越大</td>
+</tr>
+<tr>
+<td>$e^{z_i}$</td>
+<td>指数变换</td>
+<td>把差距放大，并保证为正数</td>
+</tr>
+<tr>
+<td>$\sum_j e^{z_j}$</td>
+<td>归一化项，也类似物理里的 partition function</td>
+<td>让所有概率加起来等于 1</td>
+</tr>
+<tr>
+<td>$T$</td>
+<td>temperature，温度</td>
+<td>低温更“贪心”，高温更“发散”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="1-1-logits-是什么"><a href="#1-1-logits-是什么" class="headerlink" title="1.1 logits 是什么"></a>1.1 logits 是什么</h3><p><code>logits</code> 指 <strong>模型在 softmax 之前给每个候选项打的原始分数</strong>。</p>
+<p>它不是概率，也不需要满足概率的约束：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>logits</th>
+<th>概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>取值范围</td>
+<td>可以是任意实数，例如 <code>-12.3</code>、<code>0</code>、<code>27.8</code></td>
+<td>必须在 0 到 1 之间</td>
+</tr>
+<tr>
+<td>是否要相加为 1</td>
+<td>不需要</td>
+<td>必须总和为 1</td>
+</tr>
+<tr>
+<td>含义</td>
+<td>相对偏好、相对证据、未归一化分数</td>
+<td>可解释为抽样概率</td>
+</tr>
+<tr>
+<td>进入 softmax 前后</td>
+<td>softmax 之前</td>
+<td>softmax 之后</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在 LLM 里，模型每次预测下一个 token 时，会给词表里的每个 token 都算一个 logit：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">上下文: &quot;今天天气很&quot;</span><br><span class="line"></span><br><span class="line">token 候选      logit      softmax 后概率</span><br><span class="line">---------------------------------------</span><br><span class="line">&quot;好&quot;            8.2        0.51</span><br><span class="line">&quot;热&quot;            7.5        0.25</span><br><span class="line">&quot;冷&quot;            6.4        0.08</span><br><span class="line">&quot;苹果&quot;         -1.3        很小</span><br></pre></td></tr></table></figure>
+<p>也可以把 logits 当成“还没换算成概率的投票分”：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[模型内部表示 hidden state] --&gt; B[线性层打分]</span><br><span class="line">    B --&gt; C[logits: 原始分数]</span><br><span class="line">    C --&gt; D[softmax]</span><br><span class="line">    D --&gt; E[概率分布]</span><br></pre></td></tr></table></figure>
+<p>几个容易混淆的点：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>logit 越大是否概率一定越大？</td>
+<td>是。softmax 保序，最大 logit 对应最大概率。</td>
+</tr>
+<tr>
+<td>logit 是不是百分比？</td>
+<td>不是。<code>8.2</code> 不代表 82%。</td>
+</tr>
+<tr>
+<td>logit 可以是负数吗？</td>
+<td>可以。负数只表示相对分数低，不代表概率为负。</td>
+</tr>
+<tr>
+<td>为什么不直接输出概率？</td>
+<td>任意概率分布不方便直接训练；模型先输出自由实数，再由 softmax 转成概率。</td>
+</tr>
+<tr>
+<td>采样时一定要显式算 softmax 吗？</td>
+<td>不一定。greedy 只要找最大 logit；但随机采样、top-p 等通常需要概率或等价处理。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="1-2-一个极小例子"><a href="#1-2-一个极小例子" class="headerlink" title="1.2 一个极小例子"></a>1.2 一个极小例子</h3><p>假设三个 token 的 logits 是：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th style="text-align:right">logit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>猫</code></td>
+<td style="text-align:right">3.0</td>
+</tr>
+<tr>
+<td><code>狗</code></td>
+<td style="text-align:right">2.0</td>
+</tr>
+<tr>
+<td><code>车</code></td>
+<td style="text-align:right">0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>softmax 后大致为：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th style="text-align:right">softmax 概率</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>猫</code></td>
+<td style="text-align:right">0.705</td>
+<td>最高分，概率最大</td>
+</tr>
+<tr>
+<td><code>狗</code></td>
+<td style="text-align:right">0.259</td>
+<td>次高分，仍有机会</td>
+</tr>
+<tr>
+<td><code>车</code></td>
+<td style="text-align:right">0.035</td>
+<td>分数低，但不是 0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th>logit 条形</th>
+<th>概率条形</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>猫</code></td>
+<td><code>████████████</code> 3.0</td>
+<td><code>██████████████</code> 0.705</td>
+</tr>
+<tr>
+<td><code>狗</code></td>
+<td><code>████████</code> 2.0</td>
+<td><code>█████</code> 0.259</td>
+</tr>
+<tr>
+<td><code>车</code></td>
+<td><code> </code> 0.0</td>
+<td><code>█</code> 0.035</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>logit 只差 1，softmax 概率可能差很多。</p>
+</blockquote>
+<hr>
+<h2 id="2-为什么叫“soft-max”"><a href="#2-为什么叫“soft-max”" class="headerlink" title="2. 为什么叫“soft max”"></a>2. 为什么叫“soft max”</h2><p><code>max</code> 的意思是“只选最大的那个”。例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[3, 2, 0] -&gt; max 选择第 1 项</span><br></pre></td></tr></table></figure>
+<p>神经网络训练需要可导函数，不能直接用“硬选择”。softmax 给出的是“软选择”：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[3, 2, 0] -&gt; [0.705, 0.259, 0.035]</span><br></pre></td></tr></table></figure>
+<p>它偏向最大值，同时保留其他选项的非零概率，所以能参与梯度下降。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[硬 max] --&gt; B[只选最大项]</span><br><span class="line">    B --&gt; C[不适合反向传播]</span><br><span class="line"></span><br><span class="line">    D[softmax] --&gt; E[最大项权重大]</span><br><span class="line">    D --&gt; F[其他项仍有概率]</span><br><span class="line">    F --&gt; G[平滑可导]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-历史由来：从物理到-LLM"><a href="#3-历史由来：从物理到-LLM" class="headerlink" title="3. 历史由来：从物理到 LLM"></a>3. 历史由来：从物理到 LLM</h2><p>Softmax 不是专门为神经网络凭空发明的。更贴近历史的说法是：<strong>归一化指数分布在多个学科里反复出现；“softmax”这个名字是在神经网络语境里流行起来的。</strong></p>
+<h3 id="3-1-时间线"><a href="#3-1-时间线" class="headerlink" title="3.1 时间线"></a>3.1 时间线</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">时间</th>
+<th>关键事件</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1868</td>
+<td>Boltzmann 分布</td>
+<td>指数形式描述状态概率</td>
+</tr>
+<tr>
+<td style="text-align:right">1902</td>
+<td>Gibbs 统计力学</td>
+<td>partition function 等概念系统化</td>
+</tr>
+<tr>
+<td style="text-align:right">1959</td>
+<td>Luce 选择公理</td>
+<td>用相对偏好解释选择概率</td>
+</tr>
+<tr>
+<td style="text-align:right">1989</td>
+<td>Bridle NIPS 论文</td>
+<td>softmax 术语在神经网络语境中扩散</td>
+</tr>
+<tr>
+<td style="text-align:right">2001/2003</td>
+<td>Bengio 神经概率语言模型</td>
+<td>softmax 输出整个词表的下一个词概率</td>
+</tr>
+<tr>
+<td style="text-align:right">2005</td>
+<td>hierarchical softmax</td>
+<td>缓解大词表 full softmax 成本</td>
+</tr>
+<tr>
+<td style="text-align:right">2013</td>
+<td>word2vec 负采样</td>
+<td>用近似目标绕开大规模 softmax</td>
+</tr>
+<tr>
+<td style="text-align:right">2017</td>
+<td>Transformer</td>
+<td>attention 中使用 scaled dot-product softmax</td>
+</tr>
+<tr>
+<td style="text-align:right">2017/2018</td>
+<td>adaptive softmax / softmax bottleneck</td>
+<td>系统讨论大词表效率与表达能力</td>
+</tr>
+<tr>
+<td style="text-align:right">2019/2020</td>
+<td>nucleus sampling</td>
+<td>基于 softmax 概率做动态截断采样</td>
+</tr>
+<tr>
+<td style="text-align:right">2022</td>
+<td>FlashAttention</td>
+<td>不改变结果，用 IO-aware 算法高效计算 attention softmax</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="3-2-各阶段对照"><a href="#3-2-各阶段对照" class="headerlink" title="3.2 各阶段对照"></a>3.2 各阶段对照</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>代表工作</th>
+<th>今天的对应关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>统计物理</td>
+<td>Boltzmann, Gibbs</td>
+<td>“指数打分 + 归一化”的原型</td>
+</tr>
+<tr>
+<td>选择理论</td>
+<td>R. Duncan Luce</td>
+<td>相对偏好转选择概率</td>
+</tr>
+<tr>
+<td>神经网络</td>
+<td>John S. Bridle</td>
+<td>多分类输出层概率化</td>
+</tr>
+<tr>
+<td>神经语言模型</td>
+<td>Bengio 等</td>
+<td>LLM 输出层的前身</td>
+</tr>
+<tr>
+<td>Transformer</td>
+<td>Vaswani 等</td>
+<td>LLM 注意力权重的核心公式</td>
+</tr>
+<tr>
+<td>长上下文工程</td>
+<td>FlashAttention</td>
+<td>exact softmax attention 的高效实现</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>几个常见公式形态：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>统计物理</td>
+<td>$p_i \propto e^{-E_i/kT}$</td>
+</tr>
+<tr>
+<td>选择理论</td>
+<td>$P(i)=u_i/\sum_j u_j$</td>
+</tr>
+<tr>
+<td>神经网络/LLM</td>
+<td>$P(i)=e^{z_i}/\sum_j e^{z_j}$</td>
+</tr>
+<tr>
+<td>Transformer attention</td>
+<td>$\mathrm{softmax}(QK^T/\sqrt{d_k})V$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="4-三条来源线索"><a href="#4-三条来源线索" class="headerlink" title="4. 三条来源线索"></a>4. 三条来源线索</h2><h3 id="4-1-物理线：Boltzmann-Gibbs-分布"><a href="#4-1-物理线：Boltzmann-Gibbs-分布" class="headerlink" title="4.1 物理线：Boltzmann/Gibbs 分布"></a>4.1 物理线：Boltzmann/Gibbs 分布</h3><p>统计物理里，一个系统处在某个能量状态 $E_i$ 的概率常写成：</p>
+<script type="math/tex; mode=display">
+p_i = \frac{e^{-E_i/kT}}{\sum_j e^{-E_j/kT}}</script><p>这和 softmax 几乎同形：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>统计物理</th>
+<th>机器学习</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>能量 $E_i$ 越低，概率越高</td>
+<td>logit $z_i$ 越高，概率越高</td>
+</tr>
+<tr>
+<td>温度 $T$ 控制分布平滑程度</td>
+<td>temperature 控制采样随机性</td>
+</tr>
+<tr>
+<td>partition function 负责归一化</td>
+<td>softmax 分母负责归一化</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>把 $z_i=-E_i/kT$，Boltzmann 分布就可以看成 softmax。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[物理: 能量 E] --&gt; B[取负并除以温度]</span><br><span class="line">    B --&gt; C[指数 e^score]</span><br><span class="line">    C --&gt; D[除以总和]</span><br><span class="line">    D --&gt; E[状态概率]</span><br><span class="line"></span><br><span class="line">    F[ML: logit z] --&gt; C</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-选择理论线：Luce-选择公理"><a href="#4-2-选择理论线：Luce-选择公理" class="headerlink" title="4.2 选择理论线：Luce 选择公理"></a>4.2 选择理论线：Luce 选择公理</h3><p>Luce 在 1959 年的《Individual Choice Behavior》里研究“人在多个选项中如何随机选择”。如果每个选项有正的吸引力 $u_i$，可以写成：</p>
+<script type="math/tex; mode=display">
+P(i)=\frac{u_i}{\sum_j u_j}</script><p>如果令 $u_i=e^{z_i}$，得到：</p>
+<script type="math/tex; mode=display">
+P(i)=\frac{e^{z_i}}{\sum_j e^{z_j}}</script><p>也就是 softmax。<br>所以 softmax 既是数学技巧，也可以看作“相对偏好转概率”的模型。</p>
+<h3 id="4-3-神经网络线：Bridle-与-softmax-命名"><a href="#4-3-神经网络线：Bridle-与-softmax-命名" class="headerlink" title="4.3 神经网络线：Bridle 与 softmax 命名"></a>4.3 神经网络线：Bridle 与 softmax 命名</h3><p>在 1989 年 NIPS 论文中，John S. Bridle 将随机识别模型与神经网络训练联系起来，使用了归一化指数形式。随后 1990 年相关工作明确把神经网络分类输出解释为概率，使用 normalized exponential，也就是后来常说的 softmax。</p>
+<p>从这以后，softmax 成为多分类神经网络的标准输出层之一。</p>
+<hr>
+<h2 id="5-Softmax-的几个性质"><a href="#5-Softmax-的几个性质" class="headerlink" title="5. Softmax 的几个性质"></a>5. Softmax 的几个性质</h2><h3 id="5-1-输出是合法概率分布"><a href="#5-1-输出是合法概率分布" class="headerlink" title="5.1 输出是合法概率分布"></a>5.1 输出是合法概率分布</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>性质</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>非负</td>
+<td>$e^{z_i}&gt;0$，所以每个概率都大于 0</td>
+</tr>
+<tr>
+<td>归一化</td>
+<td>分母是所有指数值之和，所以总和为 1</td>
+</tr>
+<tr>
+<td>保序</td>
+<td>logit 越大，softmax 概率越大</td>
+</tr>
+<tr>
+<td>可导</td>
+<td>能参与反向传播</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="5-2-平移不变性"><a href="#5-2-平移不变性" class="headerlink" title="5.2 平移不变性"></a>5.2 平移不变性</h3><p>对所有 logits 同时加一个常数，结果不变：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(z)=\mathrm{softmax}(z+c)</script><p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([3, 2, 0]) == softmax([103, 102, 100])</span><br></pre></td></tr></table></figure>
+<p>实际计算时会用这个性质做稳定化：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(z_i)=\frac{e^{z_i-\max(z)}}{\sum_j e^{z_j-\max(z)}}</script><p>这样可以避免 $e^{z_i}$ 太大导致数值溢出。</p>
+<h3 id="5-3-温度控制“尖锐度”"><a href="#5-3-温度控制“尖锐度”" class="headerlink" title="5.3 温度控制“尖锐度”"></a>5.3 温度控制“尖锐度”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">温度 $T$</th>
+<th>效果</th>
+<th>生成文本中的表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">$T \to 0$</td>
+<td>分布非常尖锐</td>
+<td>更像 greedy，保守、重复风险更高</td>
+</tr>
+<tr>
+<td style="text-align:right">$T = 1$</td>
+<td>原始分布</td>
+<td>常规随机采样</td>
+</tr>
+<tr>
+<td style="text-align:right">$T &gt; 1$</td>
+<td>分布更平</td>
+<td>更发散、多样，但错误风险上升</td>
+</tr>
+<tr>
+<td style="text-align:right">$T \to \infty$</td>
+<td>接近均匀分布</td>
+<td>几乎乱选</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th style="text-align:right">T=0.5</th>
+<th style="text-align:right">T=1.0</th>
+<th style="text-align:right">T=2.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td style="text-align:right"><code>█████████████████</code> 0.86</td>
+<td style="text-align:right"><code>█████████████</code> 0.64</td>
+<td style="text-align:right"><code>█████████</code> 0.46</td>
+</tr>
+<tr>
+<td>B</td>
+<td style="text-align:right"><code>██</code> 0.12</td>
+<td style="text-align:right"><code>█████</code> 0.24</td>
+<td style="text-align:right"><code>██████</code> 0.28</td>
+</tr>
+<tr>
+<td>C</td>
+<td style="text-align:right"><code>█</code> 0.02</td>
+<td style="text-align:right"><code>██</code> 0.09</td>
+<td style="text-align:right"><code>███</code> 0.17</td>
+</tr>
+<tr>
+<td>D</td>
+<td style="text-align:right"><code> </code> 0.00</td>
+<td style="text-align:right"><code>█</code> 0.03</td>
+<td style="text-align:right"><code>██</code> 0.10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="5-4-softmax-和-sigmoid-的区别"><a href="#5-4-softmax-和-sigmoid-的区别" class="headerlink" title="5.4 softmax 和 sigmoid 的区别"></a>5.4 softmax 和 sigmoid 的区别</h3><p>Softmax 和 sigmoid 都能把分数压到概率语义附近，但用法不同。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>softmax</th>
+<th>sigmoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入</td>
+<td>一组互相竞争的分数</td>
+<td>一个分数，或多个互不排斥的分数</td>
+</tr>
+<tr>
+<td>输出约束</td>
+<td>所有项相加为 1</td>
+<td>每一项独立在 0 到 1 之间</td>
+</tr>
+<tr>
+<td>适合场景</td>
+<td>多分类、下一个 token、attention 权重</td>
+<td>二分类、多标签判断</td>
+</tr>
+<tr>
+<td>判断方式</td>
+<td>“这些选项里选一个”</td>
+<td>“这个标签是否成立”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例子：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>更常见选择</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下一个 token 是 <code>猫/狗/车</code> 哪一个</td>
+<td>softmax</td>
+<td>token 之间互相竞争</td>
+</tr>
+<tr>
+<td>一张图是否同时有 <code>猫</code> 和 <code>草地</code></td>
+<td>sigmoid</td>
+<td>多个标签可以同时成立</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="6-Softmax-在-LLM-中的第一处核心应用：输出层"><a href="#6-Softmax-在-LLM-中的第一处核心应用：输出层" class="headerlink" title="6. Softmax 在 LLM 中的第一处核心应用：输出层"></a>6. Softmax 在 LLM 中的第一处核心应用：输出层</h2><p>LLM 的基本任务是：给定前文，预测下一个 token。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[输入上下文 tokens] --&gt; B[Transformer layers]</span><br><span class="line">    B --&gt; C[最后一个位置的 hidden state]</span><br><span class="line">    C --&gt; D[线性层: hidden -&gt; vocab logits]</span><br><span class="line">    D --&gt; E[softmax]</span><br><span class="line">    E --&gt; F[下一个 token 概率分布]</span><br><span class="line">    F --&gt; G[采样或选择 token]</span><br></pre></td></tr></table></figure>
+<h3 id="6-1-从-hidden-state-到词表概率"><a href="#6-1-从-hidden-state-到词表概率" class="headerlink" title="6.1 从 hidden state 到词表概率"></a>6.1 从 hidden state 到词表概率</h3><p>假设词表大小是 $V$，模型最后得到一个隐藏向量 $h$。输出层一般写成：</p>
+<script type="math/tex; mode=display">
+z = hW^T + b</script><p>其中 $z$ 是长度为 $V$ 的 logits。$z_i$ 表示：<strong>在当前上下文下，第 $i$ 个 token 作为下一个 token 的未归一化分数</strong>。<br>$W$ 可以看作“每个 token 的输出方向表”。hidden state $h$ 和某个 token 的输出方向越匹配，这个 token 的 logit 越高。</p>
+<p>随后：</p>
+<script type="math/tex; mode=display">
+P(\mathrm{token}=i|\mathrm{context})=\frac{e^{z_i}}{\sum_{j=1}^{V}e^{z_j}}</script><h3 id="6-2-训练时：softmax-cross-entropy"><a href="#6-2-训练时：softmax-cross-entropy" class="headerlink" title="6.2 训练时：softmax + cross entropy"></a>6.2 训练时：softmax + cross entropy</h3><p>训练数据中，真实下一个 token 是 $y$。模型希望提高 $P(y)$。常用损失：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}=-\log P(y)</script><p>也就是负对数似然。概率越低，损失越大：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">模型给真实 token 的概率</th>
+<th style="text-align:right">损失 $-\log P(y)$</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0.90</td>
+<td style="text-align:right">0.105</td>
+<td>很好</td>
+</tr>
+<tr>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">0.693</td>
+<td>一般</td>
+</tr>
+<tr>
+<td style="text-align:right">0.10</td>
+<td style="text-align:right">2.303</td>
+<td>差</td>
+</tr>
+<tr>
+<td style="text-align:right">0.01</td>
+<td style="text-align:right">4.605</td>
+<td>很差</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[模型 logits] --&gt; B[softmax]</span><br><span class="line">    B --&gt; C[P(token)]</span><br><span class="line">    D[真实 token y] --&gt; E[cross entropy]</span><br><span class="line">    C --&gt; E</span><br><span class="line">    E --&gt; F[反向传播]</span><br></pre></td></tr></table></figure>
+<h3 id="6-2-1-训练细节：为什么损失函数直接吃-logits"><a href="#6-2-1-训练细节：为什么损失函数直接吃-logits" class="headerlink" title="6.2.1 训练细节：为什么损失函数直接吃 logits"></a>6.2.1 训练细节：为什么损失函数直接吃 logits</h3><p>在 PyTorch、TensorFlow 这类框架里，交叉熵损失通常接收 <strong>raw logits</strong>，而不是手动 softmax 后的概率。</p>
+<p>原因有两个：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数值更稳定</td>
+<td>框架会把 <code>log_softmax</code> 和负对数似然融合计算，避免 <code>exp</code>、<code>log</code> 带来的溢出或精度损失</td>
+</tr>
+<tr>
+<td>梯度更简洁</td>
+<td>对“softmax + cross entropy”组合，梯度就是 <code>预测概率 - 真实标签</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对 one-hot 标签来说，可以直接记成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">梯度 = p - y</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$p$</td>
+<td>softmax 后的预测概率</td>
+</tr>
+<tr>
+<td>$y$</td>
+<td>真实标签的 one-hot 分布</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果真实 token 是 <code>猫</code>，但模型只给了 0.20 概率，那么 <code>猫</code> 对应的梯度会推动它的 logit 上升；其他 token 的概率越高，被压低的力度也越大。</p>
+<h3 id="6-2-2-label-smoothing-和-perplexity"><a href="#6-2-2-label-smoothing-和-perplexity" class="headerlink" title="6.2.2 label smoothing 和 perplexity"></a>6.2.2 label smoothing 和 perplexity</h3><p>训练语言模型时，经常还会遇到两个和 softmax 输出层相关的词：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>作用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>label smoothing</td>
+<td>把 100% 正确答案改成“多数给正确 token，少量分给其他 token”</td>
+<td>避免模型过度自信</td>
+</tr>
+<tr>
+<td>perplexity</td>
+<td>$\exp(\mathrm{cross\ entropy})$</td>
+<td>模型平均有多“困惑”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一个简化例子：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标签形式</th>
+<th style="text-align:right"><code>猫</code></th>
+<th style="text-align:right"><code>狗</code></th>
+<th style="text-align:right"><code>车</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>one-hot</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.00</td>
+</tr>
+<tr>
+<td>label smoothing</td>
+<td style="text-align:right">0.90</td>
+<td style="text-align:right">0.05</td>
+<td style="text-align:right">0.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>perplexity 越低，模型越能预测真实文本。但它不能单独代表生成质量；采样策略、任务目标和偏好对齐也会影响最终输出。</p>
+<h3 id="6-3-推理时：softmax-后如何选-token"><a href="#6-3-推理时：softmax-后如何选-token" class="headerlink" title="6.3 推理时：softmax 后如何选 token"></a>6.3 推理时：softmax 后如何选 token</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>解码方式</th>
+<th>是否用 softmax 概率</th>
+<th>做法</th>
+<th>风格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>greedy</td>
+<td>间接使用</td>
+<td>选最大 logit/probability</td>
+<td>稳定但可能单调</td>
+</tr>
+<tr>
+<td>temperature sampling</td>
+<td>使用</td>
+<td>logits 除以 $T$ 后 softmax，再采样</td>
+<td>控制随机性</td>
+</tr>
+<tr>
+<td>top-k</td>
+<td>使用</td>
+<td>只保留概率最高的 k 个 token</td>
+<td>去掉长尾</td>
+</tr>
+<tr>
+<td>top-p / nucleus</td>
+<td>使用</td>
+<td>保留累计概率达到 p 的最小 token 集</td>
+<td>动态控制候选集</td>
+</tr>
+<tr>
+<td>beam search</td>
+<td>使用</td>
+<td>保留若干高概率路径</td>
+<td>机器翻译常见，开放生成中可能乏味</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[logits] --&gt; B[可选: repetition penalty / logit bias]</span><br><span class="line">    B --&gt; C[temperature 缩放]</span><br><span class="line">    C --&gt; D[softmax 概率]</span><br><span class="line">    D --&gt; E[top-k / top-p 截断]</span><br><span class="line">    E --&gt; F[重新归一化]</span><br><span class="line">    F --&gt; G[采样 token]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="7-Softmax-在-LLM-中的第二处核心应用：注意力机制"><a href="#7-Softmax-在-LLM-中的第二处核心应用：注意力机制" class="headerlink" title="7. Softmax 在 LLM 中的第二处核心应用：注意力机制"></a>7. Softmax 在 LLM 中的第二处核心应用：注意力机制</h2><p>Transformer 的注意力公式：</p>
+<script type="math/tex; mode=display">
+\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V</script><p>实际实现里还会加 mask 和 attention bias：</p>
+<script type="math/tex; mode=display">
+\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}} + M + B\right)V</script><p>这里 softmax 处理的是 attention scores，不是输出层的 vocab logits。二者都是“softmax 前的分数”，但对象不同：输出层 logits 对<strong>词表 token</strong>打分，attention scores 对<strong>上下文位置</strong>打分。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$Q$</td>
+<td>query：当前位置“想找什么”</td>
+</tr>
+<tr>
+<td>$K$</td>
+<td>key：每个上下文位置“提供什么索引”</td>
+</tr>
+<tr>
+<td>$V$</td>
+<td>value：每个上下文位置携带的信息</td>
+</tr>
+<tr>
+<td>$QK^T$</td>
+<td>query 和 key 的相似度</td>
+</tr>
+<tr>
+<td>$\sqrt{d_k}$</td>
+<td>缩放项，防止点积过大让 softmax 饱和</td>
+</tr>
+<tr>
+<td>$M$</td>
+<td>mask，例如 causal mask</td>
+</tr>
+<tr>
+<td>$B$</td>
+<td>位置偏置，例如相对位置偏置、ALiBi 等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="7-1-注意力的软选择过程"><a href="#7-1-注意力的软选择过程" class="headerlink" title="7.1 注意力的软选择过程"></a>7.1 注意力的软选择过程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[Q 和 K] --&gt; B[相似度分数]</span><br><span class="line">    B --&gt; C[scale + mask]</span><br><span class="line">    C --&gt; D[softmax]</span><br><span class="line">    D --&gt; E[注意力权重]</span><br><span class="line">    E --&gt; F[加权 V]</span><br></pre></td></tr></table></figure>
+<h3 id="7-2-为什么-attention-需要-softmax"><a href="#7-2-为什么-attention-需要-softmax" class="headerlink" title="7.2 为什么 attention 需要 softmax"></a>7.2 为什么 attention 需要 softmax</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>softmax 的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在多个上下文 token 中分配权重</td>
+<td>把相似度变成概率权重</td>
+</tr>
+<tr>
+<td>更关注相关 token</td>
+<td>高相似度经过指数后权重大</td>
+</tr>
+<tr>
+<td>保持可导</td>
+<td>能端到端训练</td>
+</tr>
+<tr>
+<td>支持 mask</td>
+<td>被禁止的位置加 $-\infty$ 后概率约为 0</td>
+</tr>
+<tr>
+<td>支持位置偏置</td>
+<td>在 softmax 前加 bias 就能改变注意力分布</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="7-3-causal-mask-怎么起作用"><a href="#7-3-causal-mask-怎么起作用" class="headerlink" title="7.3 causal mask 怎么起作用"></a>7.3 causal mask 怎么起作用</h3><p>自回归 LLM 生成第 $t$ 个 token 时不能看到未来 token。实现上会把未来位置的 attention logit 设成 $-\infty$：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([2.1, 1.3, -inf, -inf]) = [0.69, 0.31, 0.00, 0.00]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[注意力分数] --&gt; B&#123;位置是否合法?&#125;</span><br><span class="line">    B -- 历史和当前 --&gt; C[保留原分数]</span><br><span class="line">    B -- 未来位置 --&gt; D[设为 -inf]</span><br><span class="line">    C --&gt; E[softmax]</span><br><span class="line">    D --&gt; E</span><br><span class="line">    E --&gt; F[未来 token 权重为 0]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="8-两个-softmax-的区别：输出层-vs-注意力层"><a href="#8-两个-softmax-的区别：输出层-vs-注意力层" class="headerlink" title="8. 两个 softmax 的区别：输出层 vs 注意力层"></a>8. 两个 softmax 的区别：输出层 vs 注意力层</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>输出层 softmax</th>
+<th>注意力 softmax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>作用对象</td>
+<td>词表中的所有 token</td>
+<td>当前序列中的上下文位置</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>vocab logits</td>
+<td>attention scores</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>下一个 token 的概率</td>
+<td>每个上下文位置的权重</td>
+</tr>
+<tr>
+<td>规模瓶颈</td>
+<td>词表大小 $V$，常见数万到数十万</td>
+<td>序列长度 $L$，attention 矩阵 $L \times L$</td>
+</tr>
+<tr>
+<td>训练损失直接使用</td>
+<td>是，cross entropy</td>
+<td>不直接作为最终损失，但影响 hidden states</td>
+</tr>
+<tr>
+<td>推理阶段是否可采样</td>
+<td>是，从 token 分布采样</td>
+<td>否，用于加权聚合 value</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>流向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输出层 softmax</td>
+<td><code>hidden state -&gt; vocab logits -&gt; token 概率 -&gt; 采样下一个 token</code></td>
+</tr>
+<tr>
+<td>注意力 softmax</td>
+<td><code>QK 相似度 -&gt; 位置权重 -&gt; 加权求和 V -&gt; 更新 hidden state</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="8-1-扩展应用：MoE-路由里的-softmax"><a href="#8-1-扩展应用：MoE-路由里的-softmax" class="headerlink" title="8.1 扩展应用：MoE 路由里的 softmax"></a>8.1 扩展应用：MoE 路由里的 softmax</h3><p>如果模型采用 Mixture-of-Experts（MoE）结构，softmax 还可能出现在 <strong>router</strong> 里。router 不选下一个 token，也不选上下文位置；它给当前 token 选择要经过哪些 expert。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[token hidden state] --&gt; B[router logits]</span><br><span class="line">    B --&gt; C[softmax]</span><br><span class="line">    C --&gt; D[top-k experts]</span><br><span class="line">    D --&gt; E[加权合并 expert 输出]</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>softmax 对象</th>
+<th>输出含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输出层</td>
+<td>词表 token</td>
+<td>下一个 token 的概率</td>
+</tr>
+<tr>
+<td>注意力层</td>
+<td>上下文位置</td>
+<td>每个位置的信息权重</td>
+</tr>
+<tr>
+<td>MoE router</td>
+<td>expert 列表</td>
+<td>每个 expert 的路由权重</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>MoE 路由后面常接 top-k 选择，例如每个 token 只激活 1 个或 2 个 expert。这样可以让模型拥有更多参数，同时让每次推理只使用其中一小部分。普通 dense Transformer 没有这一层 router softmax。</p>
+<hr>
+<h2 id="9-工程问题：为什么-softmax-不是“算一下”这么简单"><a href="#9-工程问题：为什么-softmax-不是“算一下”这么简单" class="headerlink" title="9. 工程问题：为什么 softmax 不是“算一下”这么简单"></a>9. 工程问题：为什么 softmax 不是“算一下”这么简单</h2><h3 id="9-1-数值稳定性"><a href="#9-1-数值稳定性" class="headerlink" title="9.1 数值稳定性"></a>9.1 数值稳定性</h3><p>直接算 $e^{z_i}$ 可能溢出。例如 $e^{1000}$ 超出常规浮点范围。</p>
+<p>稳定写法：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(z_i)=\frac{e^{z_i-m}}{\sum_j e^{z_j-m}}, \quad m=\max_j z_j</script><p>训练中一般不会显式先 softmax 再 log，而是用 fused 的 <code>log_softmax + negative log likelihood</code> 或 <code>cross_entropy</code>，减少溢出和精度损失。</p>
+<p>这背后常用到 <code>log-sum-exp</code> 技巧：</p>
+<script type="math/tex; mode=display">
+\log \sum_j e^{z_j}=m+\log \sum_j e^{z_j-m}, \quad m=\max_j z_j</script><p>它和“先减最大值再 softmax”是同一个稳定性思路：数学结果不变，但指数项不会过大。深度学习框架里的 <code>log_softmax</code>、<code>cross_entropy</code> 一般会在内部做类似处理。</p>
+<h3 id="9-2-大词表成本"><a href="#9-2-大词表成本" class="headerlink" title="9.2 大词表成本"></a>9.2 大词表成本</h3><p>输出层 full softmax 的复杂度与词表大小 $V$ 线性相关：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每个位置都要给 V 个 token 打分并归一化</span><br></pre></td></tr></table></figure>
+<p>如果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:right">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>batch size</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td>sequence length</td>
+<td style="text-align:right">2048</td>
+</tr>
+<tr>
+<td>vocab size</td>
+<td style="text-align:right">100,000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>那么仅 logits 就有：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8 * 2048 * 100000 = 1,638,400,000 个数</span><br></pre></td></tr></table></figure>
+<p>这会占用大量显存和计算。</p>
+<p>常用缓解思路：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>核心思想</th>
+<th>常见场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hierarchical softmax</td>
+<td>用树结构把 $O(V)$ 降到约 $O(\log V)$</td>
+<td>早期神经语言模型、word2vec</td>
+</tr>
+<tr>
+<td>sampled softmax / NCE / negative sampling</td>
+<td>训练时只比较少量负样本</td>
+<td>大词表表示学习</td>
+</tr>
+<tr>
+<td>adaptive softmax</td>
+<td>高频词精细算，低频词分簇算</td>
+<td>大词表语言模型</td>
+</tr>
+<tr>
+<td>vocabulary pruning</td>
+<td>推理时只考虑部分候选</td>
+<td>特定任务或约束解码</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="9-3-注意力的-L-2-成本"><a href="#9-3-注意力的-L-2-成本" class="headerlink" title="9.3 注意力的 $L^2$ 成本"></a>9.3 注意力的 $L^2$ 成本</h3><p>注意力 softmax 的输入是 $L \times L$ 的分数矩阵。序列越长，成本越高：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">上下文长度 $L$</th>
+<th style="text-align:right">attention score 数量 $L^2$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2,048</td>
+<td style="text-align:right">4,194,304</td>
+</tr>
+<tr>
+<td style="text-align:right">8,192</td>
+<td style="text-align:right">67,108,864</td>
+</tr>
+<tr>
+<td style="text-align:right">32,768</td>
+<td style="text-align:right">1,073,741,824</td>
+</tr>
+<tr>
+<td style="text-align:right">128,000</td>
+<td style="text-align:right">16,384,000,000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>FlashAttention 不改变 softmax 的数学结果。它通过分块和 online softmax，避免把完整 attention 矩阵长时间写到显存里，从而减少 HBM 读写。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[标准 attention] --&gt; B[生成完整 LxL 分数矩阵]</span><br><span class="line">    B --&gt; C[写入/读取显存]</span><br><span class="line">    C --&gt; D[softmax]</span><br><span class="line">    D --&gt; E[乘 V]</span><br><span class="line"></span><br><span class="line">    F[FlashAttention] --&gt; G[分块读 Q/K/V]</span><br><span class="line">    G --&gt; H[块内 online softmax]</span><br><span class="line">    H --&gt; I[累积输出]</span><br><span class="line">    I --&gt; J[减少显存 IO]</span><br></pre></td></tr></table></figure>
+<h3 id="9-4-softmax-饱和与梯度问题"><a href="#9-4-softmax-饱和与梯度问题" class="headerlink" title="9.4 softmax 饱和与梯度问题"></a>9.4 softmax 饱和与梯度问题</h3><p>如果某个 logit 远大于其他 logit，softmax 会非常接近 one-hot：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([20, 0, 0]) ≈ [1.0, 0.0, 0.0]</span><br></pre></td></tr></table></figure>
+<p>这会导致：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分布过尖</td>
+<td>模型过度自信</td>
+</tr>
+<tr>
+<td>梯度变小</td>
+<td>学习信号变弱</td>
+</tr>
+<tr>
+<td>生成更确定</td>
+<td>多样性下降</td>
+</tr>
+<tr>
+<td>attention 过集中</td>
+<td>模型可能忽视长距离信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Transformer 里的 $1/\sqrt{d_k}$ 缩放，就是为了缓解点积随维度增大而使 softmax 过尖的问题。</p>
+<hr>
+<h2 id="10-Softmax-与-LLM-解码参数"><a href="#10-Softmax-与-LLM-解码参数" class="headerlink" title="10. Softmax 与 LLM 解码参数"></a>10. Softmax 与 LLM 解码参数</h2><p>不少 LLM API 的生成参数，都是在 softmax 前后改概率分布。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数/技术</th>
+<th>发生位置</th>
+<th>数学含义</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>temperature</td>
+<td>softmax 前</td>
+<td>$z_i \leftarrow z_i/T$</td>
+<td>控制随机性</td>
+</tr>
+<tr>
+<td>top-k</td>
+<td>softmax 后或截断 logits 后</td>
+<td>只保留最高 k 个候选</td>
+<td>去掉低概率长尾</td>
+</tr>
+<tr>
+<td>top-p / nucleus</td>
+<td>softmax 后</td>
+<td>保留累计概率达到 p 的最小集合</td>
+<td>动态候选集</td>
+</tr>
+<tr>
+<td>repetition penalty</td>
+<td>softmax 前</td>
+<td>降低已出现 token 的 logit</td>
+<td>减少重复</td>
+</tr>
+<tr>
+<td>logit bias</td>
+<td>softmax 前</td>
+<td>手动提高/降低某些 token 的 logit</td>
+<td>控制词汇偏好</td>
+</tr>
+<tr>
+<td>greedy</td>
+<td>softmax 可省略</td>
+<td>取最大 logit</td>
+<td>确定性输出</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="10-1-top-k-和-top-p-的区别"><a href="#10-1-top-k-和-top-p-的区别" class="headerlink" title="10.1 top-k 和 top-p 的区别"></a>10.1 top-k 和 top-p 的区别</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[概率分布] --&gt; B[top-k: 固定 k 个]</span><br><span class="line">    A --&gt; C[top-p: 累计概率 p]</span><br><span class="line">    B --&gt; D[候选数固定]</span><br><span class="line">    C --&gt; E[候选数动态]</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th style="text-align:right">概率</th>
+<th>top-k=3</th>
+<th>top-p=0.9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td style="text-align:right">0.50</td>
+<td>保留</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>B</td>
+<td style="text-align:right">0.20</td>
+<td>保留</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>C</td>
+<td style="text-align:right">0.12</td>
+<td>保留</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>D</td>
+<td style="text-align:right">0.08</td>
+<td>丢弃</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>E</td>
+<td style="text-align:right">0.04</td>
+<td>丢弃</td>
+<td>丢弃</td>
+</tr>
+<tr>
+<td>其他</td>
+<td style="text-align:right">0.06</td>
+<td>丢弃</td>
+<td>丢弃</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>top-p=0.9 会保留 A+B+C+D，因为累计概率 0.90。</p>
+<hr>
+<h2 id="11-Softmax-的表达能力问题：softmax-bottleneck"><a href="#11-Softmax-的表达能力问题：softmax-bottleneck" class="headerlink" title="11. Softmax 的表达能力问题：softmax bottleneck"></a>11. Softmax 的表达能力问题：softmax bottleneck</h2><p>在语言模型中，输出层常可写成：</p>
+<script type="math/tex; mode=display">
+z = hW^T</script><p>其中：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$h$</td>
+<td>当前上下文的 hidden state</td>
+</tr>
+<tr>
+<td>$W$</td>
+<td>token embedding/output matrix</td>
+</tr>
+<tr>
+<td>$z$</td>
+<td>vocab logits</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这意味着 logits 会受到隐藏维度和输出矩阵秩的限制。Yang 等人在 “Breaking the Softmax Bottleneck” 中指出，许多基于 softmax 的语言模型存在表达能力瓶颈：自然语言的条件分布很复杂，而标准 softmax 输出结构可能限制模型能表示的分布族。</p>
+<p>相关思路：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>代表思想</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mixture of Softmaxes</td>
+<td>多个 softmax 混合</td>
+<td>用多个低秩分布组合出更高秩分布</td>
+</tr>
+<tr>
+<td>更强 hidden state</td>
+<td>增大模型深度/宽度</td>
+<td>提高上下文表示能力</td>
+</tr>
+<tr>
+<td>untied/tied embeddings 权衡</td>
+<td>输入输出 embedding 是否共享</td>
+<td>参数效率 vs 表达自由度</td>
+</tr>
+<tr>
+<td>alternative output distributions</td>
+<td>sparsemax、entmax 等</td>
+<td>让概率分布可稀疏或形状不同</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>现代 LLM 仍大量使用标准 softmax。softmax bottleneck 提供的是理解输出层限制的理论视角，不表示 softmax 已经被主流 LLM 淘汰。</p>
+<hr>
+<h2 id="12-替代方案与变体"><a href="#12-替代方案与变体" class="headerlink" title="12. 替代方案与变体"></a>12. 替代方案与变体</h2><p>主流路线：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+<th>主要收益</th>
+<th>主要代价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>softmax</td>
+<td>标准输出层/注意力</td>
+<td>稳定、简单、生态成熟</td>
+<td>大词表和长序列成本高</td>
+</tr>
+<tr>
+<td>FlashAttention</td>
+<td>exact attention 实现</td>
+<td>更快、更省显存</td>
+<td>依赖内核和硬件实现</td>
+</tr>
+<tr>
+<td>hierarchical softmax</td>
+<td>大词表近似</td>
+<td>降低 $O(V)$ 成本</td>
+<td>树结构会影响效果</td>
+</tr>
+<tr>
+<td>sampled softmax / NCE</td>
+<td>训练近似</td>
+<td>减少负类计算</td>
+<td>有偏差/方差权衡</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>研究或特定场景：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sparsemax</td>
+<td>可产生 0 概率</td>
+<td>希望分布稀疏</td>
+</tr>
+<tr>
+<td>entmax</td>
+<td>softmax 与 sparsemax 折中</td>
+<td>希望可控稀疏</td>
+</tr>
+<tr>
+<td>adaptive softmax</td>
+<td>高频词细算、低频词分簇</td>
+<td>大词表语言模型</td>
+</tr>
+<tr>
+<td>linear attention</td>
+<td>不一定使用 softmax</td>
+<td>追求低于 $L^2$ 的长上下文复杂度</td>
+</tr>
+<tr>
+<td>Gumbel-Softmax</td>
+<td>可微近似离散采样</td>
+<td>训练含离散选择的模型</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="13-Softmax-在-LLM-中的位置"><a href="#13-Softmax-在-LLM-中的位置" class="headerlink" title="13. Softmax 在 LLM 中的位置"></a>13. Softmax 在 LLM 中的位置</h2><p>这里用总览表和短流程图放在一起看，避免一张大图在 Obsidian 里拉得太长。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>softmax 前的分数</th>
+<th>softmax 后的结果</th>
+<th>直接用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>训练输出层</td>
+<td>vocab logits</td>
+<td>token 概率或 log 概率</td>
+<td>计算 cross entropy，更新参数</td>
+</tr>
+<tr>
+<td>每层 attention</td>
+<td>attention scores</td>
+<td>上下文位置权重</td>
+<td>加权聚合 value，更新 hidden state</td>
+</tr>
+<tr>
+<td>推理解码</td>
+<td>处理后的 vocab logits</td>
+<td>候选 token 概率</td>
+<td>greedy、temperature、top-k、top-p 选 token</td>
+</tr>
+<tr>
+<td>MoE router</td>
+<td>expert logits</td>
+<td>expert 路由权重</td>
+<td>选择并加权少量 expert</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="13-1-训练输出层"><a href="#13-1-训练输出层" class="headerlink" title="13.1 训练输出层"></a>13.1 训练输出层</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[文本 tokens] --&gt; B[Transformer]</span><br><span class="line">    B --&gt; C[vocab logits]</span><br><span class="line">    C --&gt; D[log_softmax]</span><br><span class="line">    D --&gt; E[cross entropy]</span><br></pre></td></tr></table></figure>
+<h3 id="13-2-每层-attention"><a href="#13-2-每层-attention" class="headerlink" title="13.2 每层 attention"></a>13.2 每层 attention</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[QK^T] --&gt; B[scale/mask/bias]</span><br><span class="line">    B --&gt; C[softmax]</span><br><span class="line">    C --&gt; D[attention 权重]</span><br><span class="line">    D --&gt; E[加权 V]</span><br></pre></td></tr></table></figure>
+<h3 id="13-3-推理解码"><a href="#13-3-推理解码" class="headerlink" title="13.3 推理解码"></a>13.3 推理解码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[最后位置 logits] --&gt; B[temperature/penalty]</span><br><span class="line">    B --&gt; C[softmax]</span><br><span class="line">    C --&gt; D[top-k/top-p]</span><br><span class="line">    D --&gt; E[下一个 token]</span><br></pre></td></tr></table></figure>
+<h3 id="13-4-MoE-路由"><a href="#13-4-MoE-路由" class="headerlink" title="13.4 MoE 路由"></a>13.4 MoE 路由</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[hidden state] --&gt; B[router logits]</span><br><span class="line">    B --&gt; C[softmax]</span><br><span class="line">    C --&gt; D[top-k experts]</span><br><span class="line">    D --&gt; E[expert 输出]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="14-常见误解"><a href="#14-常见误解" class="headerlink" title="14. 常见误解"></a>14. 常见误解</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>误解</th>
+<th>更准确的说法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>softmax 会“理解”概率</td>
+<td>softmax 只做数值归一化，概率质量来自训练目标和数据</td>
+</tr>
+<tr>
+<td>最大 logit 的 token 一定会被选中</td>
+<td>采样时只是概率最大，不一定被抽中</td>
+</tr>
+<tr>
+<td>temperature 是在 softmax 后调概率</td>
+<td>通常是 softmax 前缩放 logits</td>
+</tr>
+<tr>
+<td>attention softmax 输出的是词概率</td>
+<td>attention softmax 输出的是上下文位置权重</td>
+</tr>
+<tr>
+<td>mask 是 softmax 后把概率改成 0</td>
+<td>常见实现是在 softmax 前把非法 logit 加上 $-\infty$</td>
+</tr>
+<tr>
+<td>FlashAttention 是近似 attention</td>
+<td>FlashAttention 原始核心是 exact attention，只改变计算组织方式</td>
+</tr>
+<tr>
+<td>softmax 概率就是模型“真实置信度”</td>
+<td>神经网络概率可能未校准，不能直接等同真实可信度</td>
+</tr>
+<tr>
+<td>训练时应该先手动 softmax 再算 cross entropy</td>
+<td>多数框架的交叉熵损失应直接输入 raw logits</td>
+</tr>
+<tr>
+<td>MoE router 的 softmax 是 token 概率</td>
+<td>router softmax 输出的是 expert 权重，不是词表概率</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="15-面向工程实践的检查清单"><a href="#15-面向工程实践的检查清单" class="headerlink" title="15. 面向工程实践的检查清单"></a>15. 面向工程实践的检查清单</h2><h3 id="15-1-写-softmax-代码时"><a href="#15-1-写-softmax-代码时" class="headerlink" title="15.1 写 softmax 代码时"></a>15.1 写 softmax 代码时</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否减去 max</td>
+<td>必须，避免 overflow</td>
+</tr>
+<tr>
+<td>是否在训练中手写 <code>softmax + log</code></td>
+<td>尽量用框架的 fused cross entropy</td>
+</tr>
+<tr>
+<td>mask 是否在 softmax 前加</td>
+<td>推荐 pre-softmax mask</td>
+</tr>
+<tr>
+<td>mask 值是否足够小</td>
+<td>常用 <code>-inf</code> 或 dtype 可承受的极小值</td>
+</tr>
+<tr>
+<td>fp16/bf16 下是否稳定</td>
+<td>注意溢出、下溢和累加精度</td>
+</tr>
+<tr>
+<td>损失函数是否期待 logits</td>
+<td>先看框架文档，避免重复 softmax</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="15-2-调-LLM-生成时"><a href="#15-2-调-LLM-生成时" class="headerlink" title="15.2 调 LLM 生成时"></a>15.2 调 LLM 生成时</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>想要的效果</th>
+<th>可调参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>更确定、更保守</td>
+<td>降低 temperature，降低 top-p</td>
+</tr>
+<tr>
+<td>更有创意</td>
+<td>提高 temperature，适度提高 top-p</td>
+</tr>
+<tr>
+<td>减少胡言乱语</td>
+<td>降低 temperature，限制 top-p/top-k</td>
+</tr>
+<tr>
+<td>减少重复</td>
+<td>使用 repetition penalty 或 presence/frequency penalty</td>
+</tr>
+<tr>
+<td>禁止/鼓励特定词</td>
+<td>使用 logit bias</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="16-收束"><a href="#16-收束" class="headerlink" title="16. 收束"></a>16. 收束</h2><p>Softmax 把“相对分数”变成“可训练、可采样、可解释的概率分布”。<br>它的历史大致经历了三次迁移：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[统计物理: 状态能量 -&gt; 概率] --&gt; B[选择理论: 偏好强度 -&gt; 选择概率]</span><br><span class="line">    B --&gt; C[神经网络: logits -&gt; 分类概率]</span><br><span class="line">    C --&gt; D[语言模型: 上下文 -&gt; token 概率]</span><br><span class="line">    C --&gt; E[Transformer: token 相似度 -&gt; 注意力权重]</span><br></pre></td></tr></table></figure>
+<p>在 LLM 中，softmax 同时参与两件事：<strong>决定下一个 token 的概率</strong>，以及<strong>决定上下文信息怎么流动</strong>。在 MoE 模型里，它还可能参与 expert 路由。公式本身不长，但围绕它会碰到大词表训练、长上下文注意力、采样策略、数值稳定、概率校准和表达能力瓶颈等问题。</p>
+<hr>
+<h2 id="17-参考资料"><a href="#17-参考资料" class="headerlink" title="17. 参考资料"></a>17. 参考资料</h2><h3 id="17-1-历史与基础"><a href="#17-1-历史与基础" class="headerlink" title="17.1 历史与基础"></a>17.1 历史与基础</h3><ul>
+<li>Boltzmann/Gibbs 分布：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Boltzmann_distribution">Boltzmann distribution</a></li>
+<li>Luce 选择公理：<a target="_blank" rel="noopener" href="https://www.scholarpedia.org/article/Luce%27s_choice_axiom">Scholarpedia: Luce’s choice axiom</a></li>
+<li>Luce 1959 书目：<a target="_blank" rel="noopener" href="https://books.google.com/books/about/Individual_Choice_Behavior.html?id=a80DAQAAIAAJ">Individual Choice Behavior</a></li>
+<li>Bridle 1989：<a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/1989/file/0336dcbab05b9d5ad24f4333c7658a0e-Paper.pdf">Training Stochastic Model Recognition Algorithms</a></li>
+<li>Bridle 1990：<a target="_blank" rel="noopener" href="https://link.springer.com/chapter/10.1007/978-3-642-76153-9_28">Probabilistic Interpretation of Feedforward Classification Network Outputs</a></li>
+</ul>
+<h3 id="17-2-语言模型与-LLM"><a href="#17-2-语言模型与-LLM" class="headerlink" title="17.2 语言模型与 LLM"></a>17.2 语言模型与 LLM</h3><ul>
+<li>神经概率语言模型：<a target="_blank" rel="noopener" href="https://jmlr.org/papers/volume3/bengio03a/bengio03a.pdf">Bengio et al., A Neural Probabilistic Language Model</a></li>
+<li>hierarchical softmax：<a target="_blank" rel="noopener" href="https://proceedings.mlr.press/r5/morin05a.html">Morin &amp; Bengio, Hierarchical Probabilistic Neural Network Language Model</a></li>
+<li>word2vec 与负采样：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1310.4546">Mikolov et al., Distributed Representations of Words and Phrases</a></li>
+<li>adaptive softmax：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1609.04309">Grave et al., Efficient Softmax Approximation for GPUs</a></li>
+<li>softmax bottleneck：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.03953">Yang et al., Breaking the Softmax Bottleneck</a></li>
+</ul>
+<h3 id="17-3-Transformer、注意力与生成"><a href="#17-3-Transformer、注意力与生成" class="headerlink" title="17.3 Transformer、注意力与生成"></a>17.3 Transformer、注意力与生成</h3><ul>
+<li>Transformer 注意力：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">Vaswani et al., Attention Is All You Need</a></li>
+<li>nucleus sampling / top-p：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1904.09751">Holtzman et al., The Curious Case of Neural Text Degeneration</a></li>
+<li>FlashAttention：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=H4DqfPSibmx">Dao et al., FlashAttention</a></li>
+<li>FlashAttention-2：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=mZn2Xyh9Ec">Dao, FlashAttention-2</a></li>
+</ul>
+<h3 id="17-4-训练技巧、MoE-与变体"><a href="#17-4-训练技巧、MoE-与变体" class="headerlink" title="17.4 训练技巧、MoE 与变体"></a>17.4 训练技巧、MoE 与变体</h3><ul>
+<li>label smoothing：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1512.00567">Szegedy et al., Rethinking the Inception Architecture for Computer Vision</a></li>
+<li>Gumbel-Softmax：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1611.01144">Jang et al., Categorical Reparameterization with Gumbel-Softmax</a></li>
+<li>Switch Transformer：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.03961">Fedus et al., Switch Transformers</a></li>
+<li>Mixtral MoE：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.04088">Jiang et al., Mixtral of Experts</a></li>
+</ul>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-22T02:00:00.000Z">2026-06-22</time>
+                    <h3><a href="/2026/06/22/scaled-dot-product-attention/">Scaled Dot-Product Attention 详解</a></h3>
+                    
+                    
+                    <p>0. 先看结论Scaled Dot-Product Attention 的公式是： \mathrm{Attention}(Q,K,V)=\mathrm{softmax}\l...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-03T02:00:00.000Z">2026-07-03</time>
+                    <h3><a href="/2026/07/03/token-id-to-embedding/">Token ID 到 Embedding 机制详解</a></h3>
+                    
+                    
+                    <p>生成日期：2026-06-26主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-26T02:00:00.000Z">2026-06-26</time>
+                    <h3><a href="/2026/06/26/why-llm-uses-qkv/">为什么 LLM 要使用 Q/K/V</a></h3>
+                    
+                    
+                    <p>0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配V...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/06/17/ai-daily-2026-06-17/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】SpaceX 600亿美元收购Cursor母公司，加码企业AI</span>
+                </a>
+                
+                
+                <a href="/2026/06/16/ai-daily-2026-06-16/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

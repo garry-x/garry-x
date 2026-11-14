@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>Scaled Dot-Product Attention 详解 | Garry&#39;s Blog</title>
+<meta name="description" content="0. 先看结论Scaled DotProduct Attention 的公式是： \mathrm{Attention}Q,K,V=\mathrm{softmax}\left\frac{QK^T}{\sqrt{dk}}\rightV它做了三件事： 用 $QK^T$ 算“当前位置和其他位置有多相关”。 除以 $\sqrt{">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="LLM,Transformer,attention,deep-learning">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Scaled Dot-Product Attention 详解 | Garry&#39;s Blog">
+<meta property="og:description" content="0. 先看结论Scaled DotProduct Attention 的公式是： \mathrm{Attention}Q,K,V=\mathrm{softmax}\left\frac{QK^T}{\sqrt{dk}}\rightV它做了三件事： 用 $QK^T$ 算“当前位置和其他位置有多相关”。 除以 $\sqrt{">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/22/scaled-dot-product-attention/">
+<meta property="og:image" content="https://garryx.com/covers/cover-scaled-dot-product-attention.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scaled Dot-Product Attention 详解 | Garry&#39;s Blog">
+<meta name="twitter:description" content="0. 先看结论Scaled DotProduct Attention 的公式是： \mathrm{Attention}Q,K,V=\mathrm{softmax}\left\frac{QK^T}{\sqrt{dk}}\rightV它做了三件事： 用 $QK^T$ 算“当前位置和其他位置有多相关”。 除以 $\sqrt{">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-scaled-dot-product-attention.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/22/scaled-dot-product-attention/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Scaled Dot-Product Attention 详解 | Garry's Blog","description":"0. 先看结论Scaled DotProduct Attention 的公式是： \\mathrm{Attention}Q,K,V=\\mathrm{softmax}\\left\\frac{QK^T}{\\sqrt{dk}}\\rightV它做了三件事： 用 $QK^T$ 算“当前位置和其他位置有多相关”。 除以 $\\sqrt{","url":"https://garryx.com/2026/06/22/scaled-dot-product-attention/","image":"https://garryx.com/covers/cover-scaled-dot-product-attention.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/06/22/scaled-dot-product-attention/"},"datePublished":"2026-06-22T02:00:00.000Z","dateModified":"2026-11-13T01:34:52.045Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"LLM,Transformer,attention,deep-learning","articleSection":"AI"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI/">AI</a>
+                
+            </div>
+            
+            <h1 class="post-title">Scaled Dot-Product Attention 详解</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-22T02:00:00.000Z">
+                    2026年6月22日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/LLM/">#LLM</a>
+                    
+                        <a href="/tags/Transformer/">#Transformer</a>
+                    
+                        <a href="/tags/attention/">#attention</a>
+                    
+                        <a href="/tags/deep-learning/">#deep-learning</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="0-先看结论"><a href="#0-先看结论" class="headerlink" title="0. 先看结论"></a>0. 先看结论</h2><p>Scaled Dot-Product Attention 的公式是：</p>
+<script type="math/tex; mode=display">
+\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V</script><p>它做了三件事：</p>
+<ol>
+<li>用 $QK^T$ 算“当前位置和其他位置有多相关”。</li>
+<li>除以 $\sqrt{d_k}$，把分数压回稳定范围。</li>
+<li>用 softmax 得到权重，再对 $V$ 做加权求和。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;Q query&quot;] --&gt; D[&quot;QK 相似度分数&quot;]</span><br><span class="line">    B[&quot;K key&quot;] --&gt; D</span><br><span class="line">    D --&gt; E[&quot;除以 sqrt dk&quot;]</span><br><span class="line">    E --&gt; F[&quot;softmax 得到权重&quot;]</span><br><span class="line">    C[&quot;V value&quot;] --&gt; G[&quot;加权求和&quot;]</span><br><span class="line">    F --&gt; G</span><br><span class="line">    G --&gt; H[&quot;新的 token 表示&quot;]</span><br></pre></td></tr></table></figure>
+<p>一句话讲 scale：</p>
+<blockquote>
+<p>点积会随着维度 $d_k$ 变大而变大；不缩放的话，softmax 很容易变得过尖，梯度变小，训练不稳定。除以 $\sqrt{d_k}$ 后，分数的方差大致回到 1。</p>
+</blockquote>
+<hr>
+<h2 id="1-Attention-要解决什么问题"><a href="#1-Attention-要解决什么问题" class="headerlink" title="1. Attention 要解决什么问题"></a>1. Attention 要解决什么问题</h2><p>语言模型处理一句话时，每个 token 都需要参考上下文。</p>
+<p>比如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">小明把书放进书包，因为它太重了。</span><br></pre></td></tr></table></figure>
+<p>这里的“它”更可能指“书”，不是“书包”。模型需要一种机制，让当前位置可以去看前面的相关位置。Attention 做的就是这件事：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>attention 的做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>当前 token 该看哪里</td>
+<td>用 query 和 key 算相关性</td>
+</tr>
+<tr>
+<td>每个位置该占多少权重</td>
+<td>用 softmax 把分数变成权重</td>
+</tr>
+<tr>
+<td>看完以后拿到什么信息</td>
+<td>对 value 做加权求和</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这不是在“查字典”，而是在每一层里动态计算上下文关系。</p>
+<hr>
+<h2 id="2-Q、K、V-分别是什么"><a href="#2-Q、K、V-分别是什么" class="headerlink" title="2. Q、K、V 分别是什么"></a>2. Q、K、V 分别是什么</h2><p>对同一个 token 表示 $x$，Transformer 会用三个不同的线性层得到：</p>
+<script type="math/tex; mode=display">
+Q = XW_Q,\quad K = XW_K,\quad V = XW_V</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>全称</th>
+<th>可以怎么理解</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$Q$</td>
+<td>Query</td>
+<td>当前位置想找什么</td>
+<td>主动发问</td>
+</tr>
+<tr>
+<td>$K$</td>
+<td>Key</td>
+<td>每个位置提供什么索引</td>
+<td>被匹配</td>
+</tr>
+<tr>
+<td>$V$</td>
+<td>Value</td>
+<td>每个位置真正携带的信息</td>
+<td>被加权汇总</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>同一个输入 $X$ 会被投影成三种角色。这样做的好处是：模型可以把“用来匹配的信息”和“真正要传递的信息”分开学。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;输入 X&quot;] --&gt; B[&quot;WQ&quot;]</span><br><span class="line">    A --&gt; C[&quot;WK&quot;]</span><br><span class="line">    A --&gt; D[&quot;WV&quot;]</span><br><span class="line">    B --&gt; E[&quot;Q&quot;]</span><br><span class="line">    C --&gt; F[&quot;K&quot;]</span><br><span class="line">    D --&gt; G[&quot;V&quot;]</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-公式里的形状"><a href="#3-公式里的形状" class="headerlink" title="3. 公式里的形状"></a>3. 公式里的形状</h2><p>先看单个 batch、单个 head 的情况。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>形状</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$L$</td>
+<td>标量</td>
+<td>序列长度</td>
+</tr>
+<tr>
+<td>$d_k$</td>
+<td>标量</td>
+<td>query/key 的维度</td>
+</tr>
+<tr>
+<td>$d_v$</td>
+<td>标量</td>
+<td>value 的维度</td>
+</tr>
+<tr>
+<td>$Q$</td>
+<td>$L \times d_k$</td>
+<td>每个位置的 query</td>
+</tr>
+<tr>
+<td>$K$</td>
+<td>$L \times d_k$</td>
+<td>每个位置的 key</td>
+</tr>
+<tr>
+<td>$V$</td>
+<td>$L \times d_v$</td>
+<td>每个位置的 value</td>
+</tr>
+<tr>
+<td>$QK^T$</td>
+<td>$L \times L$</td>
+<td>每个位置对每个位置的相关性分数</td>
+</tr>
+<tr>
+<td>softmax 后</td>
+<td>$L \times L$</td>
+<td>attention 权重</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>$L \times d_v$</td>
+<td>每个位置的新表示</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>矩阵乘法流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Q:        L x d_k</span><br><span class="line">K^T:      d_k x L</span><br><span class="line">QK^T:     L x L</span><br><span class="line"></span><br><span class="line">softmax(QK^T / sqrt(d_k)):  L x L</span><br><span class="line">V:                          L x d_v</span><br><span class="line">output:                     L x d_v</span><br></pre></td></tr></table></figure>
+<p>每一行代表“某个位置看所有位置”的权重。</p>
+<hr>
+<h2 id="4-第一步：为什么用点积"><a href="#4-第一步：为什么用点积" class="headerlink" title="4. 第一步：为什么用点积"></a>4. 第一步：为什么用点积</h2><p>两个向量的点积：</p>
+<script type="math/tex; mode=display">
+q \cdot k = \sum_{i=1}^{d_k} q_i k_i</script><p>点积越大，通常表示两个向量方向越接近。放到 attention 里：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">点积结果</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">很大</td>
+<td>当前 query 和这个 key 很匹配</td>
+</tr>
+<tr>
+<td style="text-align:right">接近 0</td>
+<td>关系不明显</td>
+</tr>
+<tr>
+<td style="text-align:right">很小或负数</td>
+<td>不匹配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例子：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">位置</th>
+<th>token</th>
+<th style="text-align:right">与当前位置的分数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>小明</td>
+<td style="text-align:right">0.8</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>书</td>
+<td style="text-align:right">3.2</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>书包</td>
+<td style="text-align:right">1.1</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>它</td>
+<td style="text-align:right">当前 token</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果当前位置是“它”，第 2 个位置的分数最高，softmax 后它会拿到更高权重。</p>
+<p>点积也适合硬件计算。所有位置之间的匹配可以一次矩阵乘法完成：</p>
+<script type="math/tex; mode=display">
+QK^T</script><p>这比逐个位置循环计算更适合 GPU。</p>
+<hr>
+<h2 id="5-第二步：为什么要除以-sqrt-d-k"><a href="#5-第二步：为什么要除以-sqrt-d-k" class="headerlink" title="5. 第二步：为什么要除以 $\sqrt{d_k}$"></a>5. 第二步：为什么要除以 $\sqrt{d_k}$</h2><p>Transformer 原论文给出的理由是：当 $d_k$ 比较大时，点积的值会变大，softmax 会进入梯度很小的区域。缩放可以缓解这个问题。</p>
+<p>下面把这句话拆开。</p>
+<h3 id="5-1-点积为什么会变大"><a href="#5-1-点积为什么会变大" class="headerlink" title="5.1 点积为什么会变大"></a>5.1 点积为什么会变大</h3><p>假设 query 和 key 的每个分量都满足：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均值为 0</td>
+<td>正负值大致抵消</td>
+</tr>
+<tr>
+<td>方差为 1</td>
+<td>每个分量的尺度差不多</td>
+</tr>
+<tr>
+<td>分量之间独立</td>
+<td>为了方便推导</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>点积是：</p>
+<script type="math/tex; mode=display">
+q \cdot k = \sum_{i=1}^{d_k} q_i k_i</script><p>如果 $q_i$ 和 $k_i$ 的均值都是 0、方差都是 1，那么乘积 $q_i k_i$ 的均值约为 0，方差约为 1。</p>
+<p>把 $d_k$ 项加起来：</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}(q \cdot k)=d_k</script><p>标准差就是：</p>
+<script type="math/tex; mode=display">
+\mathrm{Std}(q \cdot k)=\sqrt{d_k}</script><p>所以维度越大，点积分数的典型幅度越大。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">$d_k$</th>
+<th style="text-align:right">点积分数的标准差约为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td style="text-align:right">64</td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td style="text-align:right">128</td>
+<td style="text-align:right">11.3</td>
+</tr>
+<tr>
+<td style="text-align:right">256</td>
+<td style="text-align:right">16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这就是 scale 的数学来源。</p>
+<h3 id="5-2-为什么是除以-sqrt-d-k-，不是除以-d-k"><a href="#5-2-为什么是除以-sqrt-d-k-，不是除以-d-k" class="headerlink" title="5.2 为什么是除以 $\sqrt{d_k}$，不是除以 $d_k$"></a>5.2 为什么是除以 $\sqrt{d_k}$，不是除以 $d_k$</h3><p>如果点积的标准差约为 $\sqrt{d_k}$，那除以 $\sqrt{d_k}$ 后：</p>
+<script type="math/tex; mode=display">
+\mathrm{Std}\left(\frac{q \cdot k}{\sqrt{d_k}}\right) \approx 1</script><p>方差也回到 1 左右：</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}\left(\frac{q \cdot k}{\sqrt{d_k}}\right) \approx 1</script><p>如果除以 $d_k$，会缩得太狠：</p>
+<script type="math/tex; mode=display">
+\mathrm{Std}\left(\frac{q \cdot k}{d_k}\right) \approx \frac{1}{\sqrt{d_k}}</script><p>当 $d_k=64$ 时，标准差大约变成 $1/8$。分数太接近，softmax 会变得很平，注意力权重难以拉开差距。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>缩放方式</th>
+<th>分数尺度</th>
+<th>softmax 结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不缩放</td>
+<td>太大</td>
+<td>过尖，容易接近 one-hot</td>
+</tr>
+<tr>
+<td>除以 $\sqrt{d_k}$</td>
+<td>合适</td>
+<td>分布有区分度，也不容易饱和</td>
+</tr>
+<tr>
+<td>除以 $d_k$</td>
+<td>太小</td>
+<td>过平，接近平均看所有位置</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="5-3-不-scale-会发生什么"><a href="#5-3-不-scale-会发生什么" class="headerlink" title="5.3 不 scale 会发生什么"></a>5.3 不 scale 会发生什么</h3><p>softmax 对大分数很敏感。</p>
+<p>例子 1：分数尺度正常。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([1, 0, -1]) ≈ [0.665, 0.245, 0.090]</span><br></pre></td></tr></table></figure>
+<p>三个位置都有梯度，模型还能调整。</p>
+<p>例子 2：分数过大。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([10, 0, -10]) ≈ [0.99995, 0.00005, 0.00000]</span><br></pre></td></tr></table></figure>
+<p>最大项几乎吃掉所有概率。这个状态下，softmax 的梯度很小，模型很难继续细调“第二相关”和“第三相关”的位置。</p>
+<h3 id="5-4-scale-不改变排序，但会改变分布形状"><a href="#5-4-scale-不改变排序，但会改变分布形状" class="headerlink" title="5.4 scale 不改变排序，但会改变分布形状"></a>5.4 scale 不改变排序，但会改变分布形状</h3><p>除以同一个正数不会改变大小顺序：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[16, 8, 0] / 8 = [2, 1, 0]</span><br></pre></td></tr></table></figure>
+<p>最大值仍然是最大值。变化在 softmax 之后：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>logits</th>
+<th>softmax 大致结果</th>
+<th>分布形状</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[16, 8, 0]</code></td>
+<td><code>[0.9997, 0.0003, 0.0000]</code></td>
+<td>很尖</td>
+</tr>
+<tr>
+<td><code>[2, 1, 0]</code></td>
+<td><code>[0.665, 0.245, 0.090]</code></td>
+<td>有区分，也不至于饱和</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>scale 的目的不是改变谁更相关，而是让 softmax 有合适的工作区间。</p>
+<hr>
+<h2 id="6-第三步：softmax-把分数变成权重"><a href="#6-第三步：softmax-把分数变成权重" class="headerlink" title="6. 第三步：softmax 把分数变成权重"></a>6. 第三步：softmax 把分数变成权重</h2><p>对每个 query 位置，softmax 会在所有 key 位置上做归一化：</p>
+<script type="math/tex; mode=display">
+\alpha_{ij}=\frac{\exp(s_{ij})}{\sum_{t=1}^{L}\exp(s_{it})}</script><p>其中：</p>
+<script type="math/tex; mode=display">
+s_{ij}=\frac{q_i \cdot k_j}{\sqrt{d_k}}</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$i$</td>
+<td>当前 query 的位置</td>
+</tr>
+<tr>
+<td>$j$</td>
+<td>被看的 key/value 位置</td>
+</tr>
+<tr>
+<td>$s_{ij}$</td>
+<td>缩放后的相关性分数</td>
+</tr>
+<tr>
+<td>$\alpha_{ij}$</td>
+<td>位置 $i$ 分给位置 $j$ 的注意力权重</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一行权重会加起来等于 1：</p>
+<script type="math/tex; mode=display">
+\sum_{j=1}^{L}\alpha_{ij}=1</script><p>所以 attention 可以看成“当前位置从所有 value 中按比例取信息”。</p>
+<hr>
+<h2 id="7-第四步：对-V-做加权求和"><a href="#7-第四步：对-V-做加权求和" class="headerlink" title="7. 第四步：对 V 做加权求和"></a>7. 第四步：对 V 做加权求和</h2><p>得到权重后，输出为：</p>
+<script type="math/tex; mode=display">
+o_i=\sum_{j=1}^{L}\alpha_{ij}v_j</script><p>矩阵形式就是：</p>
+<script type="math/tex; mode=display">
+O=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V</script><p>例子：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">位置</th>
+<th>token</th>
+<th style="text-align:right">attention 权重</th>
+<th>value 信息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>小明</td>
+<td style="text-align:right">0.10</td>
+<td>人名相关信息</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>书</td>
+<td style="text-align:right">0.70</td>
+<td>物体相关信息</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>书包</td>
+<td style="text-align:right">0.20</td>
+<td>容器相关信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>输出向量就是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.10 * v_小明 + 0.70 * v_书 + 0.20 * v_书包</span><br></pre></td></tr></table></figure>
+<p>这也是 attention 被称为“加权检索”的原因。</p>
+<hr>
+<h2 id="8-Mask-在哪里加"><a href="#8-Mask-在哪里加" class="headerlink" title="8. Mask 在哪里加"></a>8. Mask 在哪里加</h2><p>实际 Transformer 里，softmax 前还会加 mask：</p>
+<script type="math/tex; mode=display">
+\mathrm{Attention}(Q,K,V)=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}} + M\right)V</script><h3 id="8-1-padding-mask"><a href="#8-1-padding-mask" class="headerlink" title="8.1 padding mask"></a>8.1 padding mask</h3><p>padding token 是补齐长度用的，不应该被模型关注。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>token</th>
+<th>是否有效</th>
+<th style="text-align:right">mask 值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>我</td>
+<td>有效</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>爱</td>
+<td>有效</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>NLP</td>
+<td>有效</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><code>&lt;pad&gt;</code></td>
+<td>无效</td>
+<td style="text-align:right">$-\infty$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>加上 $-\infty$ 后：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([2.0, 1.0, 0.5, -inf]) = [0.629, 0.231, 0.140, 0.000]</span><br></pre></td></tr></table></figure>
+<h3 id="8-2-causal-mask"><a href="#8-2-causal-mask" class="headerlink" title="8.2 causal mask"></a>8.2 causal mask</h3><p>自回归语言模型不能看未来 token。</p>
+<p>假设序列长度为 4，允许看的位置如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">query 位置</th>
+<th>能看哪些 key 位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>1, 2</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>1, 2, 3</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>1, 2, 3, 4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对应矩阵：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">允许 = 0</span><br><span class="line">禁止 = -inf</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">  [0,    -inf, -inf, -inf],</span><br><span class="line">  [0,     0,   -inf, -inf],</span><br><span class="line">  [0,     0,    0,   -inf],</span><br><span class="line">  [0,     0,    0,    0  ],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>mask 一定要在 softmax 前加。softmax 后再把概率置 0，还需要重新归一化，容易写错。</p>
+<hr>
+<h2 id="9-一个完整小例子"><a href="#9-一个完整小例子" class="headerlink" title="9. 一个完整小例子"></a>9. 一个完整小例子</h2><p>假设当前 query 对三个 key 的原始点积分数是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[16, 8, 0]</span><br></pre></td></tr></table></figure>
+<p>设 $d_k=64$，那么 $\sqrt{d_k}=8$。</p>
+<p>缩放前：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([16, 8, 0]) ≈ [0.9997, 0.0003, 0.0000]</span><br></pre></td></tr></table></figure>
+<p>缩放后：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[16, 8, 0] / 8 = [2, 1, 0]</span><br><span class="line">softmax([2, 1, 0]) ≈ [0.665, 0.245, 0.090]</span><br></pre></td></tr></table></figure>
+<p>对 value 做加权求和：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output = 0.665 * V1 + 0.245 * V2 + 0.090 * V3</span><br></pre></td></tr></table></figure>
+<p>缩放后，模型仍然更关注第一个位置，但不会完全忽略后两个位置。训练早期尤其需要这种余地。</p>
+<hr>
+<h2 id="10-和-cosine-similarity-的区别"><a href="#10-和-cosine-similarity-的区别" class="headerlink" title="10. 和 cosine similarity 的区别"></a>10. 和 cosine similarity 的区别</h2><p>有人会问：既然担心点积太大，为什么不用 cosine similarity？</p>
+<p>cosine similarity 是：</p>
+<script type="math/tex; mode=display">
+\cos(q,k)=\frac{q \cdot k}{\|q\|\|k\|}</script><p>它会把向量长度也归一化掉。Scaled dot-product attention 只按维度缩放，不会去掉向量模长信息。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>scaled dot-product</th>
+<th>cosine similarity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缩放方式</td>
+<td>除以固定的 $\sqrt{d_k}$</td>
+<td>除以每对向量的模长</td>
+</tr>
+<tr>
+<td>是否保留向量长度信息</td>
+<td>保留</td>
+<td>基本去掉</td>
+</tr>
+<tr>
+<td>计算效率</td>
+<td>很适合矩阵乘法</td>
+<td>还要计算 norm</td>
+</tr>
+<tr>
+<td>在 Transformer 中</td>
+<td>标准做法</td>
+<td>可研究，但不是主流标准</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>向量长度有时也是模型学到的信号。直接用 cosine 会改变注意力打分的表达方式。</p>
+<hr>
+<h2 id="11-Multi-Head-Attention-里的位置"><a href="#11-Multi-Head-Attention-里的位置" class="headerlink" title="11. Multi-Head Attention 里的位置"></a>11. Multi-Head Attention 里的位置</h2><p>Multi-Head Attention 会把 embedding 维度拆成多个 head，每个 head 各自做一遍 Scaled Dot-Product Attention。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;X&quot;] --&gt; B[&quot;投影成 Q K V&quot;]</span><br><span class="line">    B --&gt; C[&quot;切成多个 head&quot;]</span><br><span class="line">    C --&gt; D[&quot;每个 head 做 scaled attention&quot;]</span><br><span class="line">    D --&gt; E[&quot;拼接 heads&quot;]</span><br><span class="line">    E --&gt; F[&quot;输出投影&quot;]</span><br></pre></td></tr></table></figure>
+<p>公式：</p>
+<script type="math/tex; mode=display">
+\mathrm{head}_i=\mathrm{Attention}(QW_i^Q,KW_i^K,VW_i^V)</script><script type="math/tex; mode=display">
+\mathrm{MultiHead}(Q,K,V)=\mathrm{Concat}(\mathrm{head}_1,\ldots,\mathrm{head}_h)W^O</script><p>如果模型维度是 $d_{\text{model}}=768$，head 数是 $h=12$，那么每个 head 的 key 维度通常是：</p>
+<script type="math/tex; mode=display">
+d_k=\frac{768}{12}=64</script><p>此时 scale 就是：</p>
+<script type="math/tex; mode=display">
+\sqrt{d_k}=8</script><p>每个 head 单独缩放。不是用整个 $d_{\text{model}}$ 去缩放。</p>
+<hr>
+<h2 id="12-工程实现"><a href="#12-工程实现" class="headerlink" title="12. 工程实现"></a>12. 工程实现</h2><h3 id="12-1-简化版-PyTorch-代码"><a href="#12-1-简化版-PyTorch-代码" class="headerlink" title="12.1 简化版 PyTorch 代码"></a>12.1 简化版 PyTorch 代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">scaled_dot_product_attention</span>(<span class="params">q, k, v, mask=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># q, k: [batch, heads, seq_len, d_k]</span></span><br><span class="line">    <span class="comment"># v:    [batch, heads, seq_len, d_v]</span></span><br><span class="line">    d_k = q.size(-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    scores = torch.matmul(q, k.transpose(-<span class="number">2</span>, -<span class="number">1</span>)) / math.sqrt(d_k)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        scores = scores.masked_fill(mask == <span class="number">0</span>, <span class="built_in">float</span>(<span class="string">&quot;-inf&quot;</span>))</span><br><span class="line"></span><br><span class="line">    weights = torch.softmax(scores, dim=-<span class="number">1</span>)</span><br><span class="line">    output = torch.matmul(weights, v)</span><br><span class="line">    <span class="keyword">return</span> output, weights</span><br></pre></td></tr></table></figure>
+<p>真实工程里还会考虑：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fp16/bf16 下 <code>-inf</code> 处理</td>
+<td>用 dtype 可承受的极小值，或交给框架内核</td>
+</tr>
+<tr>
+<td>长上下文显存占用</td>
+<td>FlashAttention / memory-efficient attention</td>
+</tr>
+<tr>
+<td>dropout</td>
+<td>对 attention weights 做 dropout</td>
+</tr>
+<tr>
+<td>causal mask</td>
+<td>使用上三角 mask</td>
+</tr>
+<tr>
+<td>KV cache</td>
+<td>推理时缓存历史 K/V，避免重复计算</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="12-2-数值稳定-softmax"><a href="#12-2-数值稳定-softmax" class="headerlink" title="12.2 数值稳定 softmax"></a>12.2 数值稳定 softmax</h3><p>softmax 实现通常会先减去最大值：</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(x_i)=\frac{e^{x_i-\max(x)}}{\sum_j e^{x_j-\max(x)}}</script><p>这不改变结果，但能避免 $e^x$ 溢出。</p>
+<hr>
+<h2 id="13-KV-Cache-和推理"><a href="#13-KV-Cache-和推理" class="headerlink" title="13. KV Cache 和推理"></a>13. KV Cache 和推理</h2><p>训练时，整段序列通常一次性进入模型：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q, K, V 都来自整段序列</span><br></pre></td></tr></table></figure>
+<p>自回归推理时，每次只生成一个新 token。历史 token 的 $K,V$ 不会变，可以缓存起来：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第 t 步：</span><br><span class="line">  新 Q: 当前 token</span><br><span class="line">  历史 K/V: 从 cache 里取</span><br><span class="line">  新 K/V: 当前 token 算出来后追加进 cache</span><br></pre></td></tr></table></figure>
+<p>这样每一步不用重新计算所有历史 token 的 $K,V$。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>Q</th>
+<th>K/V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>训练</td>
+<td>全序列</td>
+<td>全序列</td>
+</tr>
+<tr>
+<td>推理第 t 步</td>
+<td>当前 token</td>
+<td>历史 cache + 当前 token</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>注意：KV cache 省的是重复计算 K/V，不会让 attention 对历史长度的依赖消失。当前 token 仍然要和历史 K 做匹配。</p>
+<hr>
+<h2 id="14-FlashAttention-做了什么"><a href="#14-FlashAttention-做了什么" class="headerlink" title="14. FlashAttention 做了什么"></a>14. FlashAttention 做了什么</h2><p>普通实现会显式生成 $L \times L$ 的 attention score 矩阵：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scores = QK^T</span><br><span class="line">weights = softmax(scores)</span><br><span class="line">output = weights V</span><br></pre></td></tr></table></figure>
+<p>当 $L$ 很大时，$L \times L$ 矩阵很占显存。</p>
+<p>FlashAttention 的思路是：不长期保存完整 attention 矩阵，而是分块计算，并用 online softmax 累积结果。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>普通 attention</th>
+<th>FlashAttention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数学结果</td>
+<td>exact</td>
+<td>exact</td>
+</tr>
+<tr>
+<td>是否显式保存完整 $L \times L$ 权重</td>
+<td>通常会</td>
+<td>不长期保存</td>
+</tr>
+<tr>
+<td>主要收益</td>
+<td>实现简单</td>
+<td>降低 HBM 读写，更快更省显存</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>它没有改变 Scaled Dot-Product Attention 的公式，只是改变计算组织方式。</p>
+<hr>
+<h2 id="15-常见误解"><a href="#15-常见误解" class="headerlink" title="15. 常见误解"></a>15. 常见误解</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>误解</th>
+<th>更准确的说法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scale 是为了让分数都变小</td>
+<td>scale 是为了让分数尺度和维度解耦，避免 softmax 饱和</td>
+</tr>
+<tr>
+<td>除以 $d_k$ 更合理，因为点积加了 $d_k$ 项</td>
+<td>点积的方差随 $d_k$ 增长，标准差随 $\sqrt{d_k}$ 增长</td>
+</tr>
+<tr>
+<td>scale 不影响结果</td>
+<td>它不改排序，但会改 softmax 后的权重分布</td>
+</tr>
+<tr>
+<td>attention 权重就是解释</td>
+<td>attention 权重能显示信息流，但不等同完整可解释性</td>
+</tr>
+<tr>
+<td>mask 可以 softmax 后再加</td>
+<td>推荐 softmax 前加，否则要重新归一化</td>
+</tr>
+<tr>
+<td>Multi-head 里用 $d_{\text{model}}$ 缩放</td>
+<td>每个 head 用自己的 $d_k$ 缩放</td>
+</tr>
+<tr>
+<td>FlashAttention 是近似</td>
+<td>FlashAttention 的主线实现是 exact attention</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="16-手算流程"><a href="#16-手算流程" class="headerlink" title="16. 手算流程"></a>16. 手算流程</h2><p>给定：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">q = [1, 1]</span><br><span class="line">k1 = [1, 0]</span><br><span class="line">k2 = [0, 1]</span><br><span class="line">k3 = [1, 1]</span><br></pre></td></tr></table></figure>
+<p>点积：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">q·k1 = 1</span><br><span class="line">q·k2 = 1</span><br><span class="line">q·k3 = 2</span><br></pre></td></tr></table></figure>
+<p>$d_k=2$，所以：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqrt(d_k) = 1.414</span><br></pre></td></tr></table></figure>
+<p>缩放：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 1, 2] / 1.414 ≈ [0.707, 0.707, 1.414]</span><br></pre></td></tr></table></figure>
+<p>softmax：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softmax([0.707, 0.707, 1.414]) ≈ [0.248, 0.248, 0.503]</span><br></pre></td></tr></table></figure>
+<p>如果三个 value 是 $v_1,v_2,v_3$：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output = 0.248*v1 + 0.248*v2 + 0.503*v3</span><br></pre></td></tr></table></figure>
+<p>第三个 key 和 query 最匹配，所以第三个 value 权重最高。</p>
+<hr>
+<h2 id="17-和前一篇-softmax-文档的关系"><a href="#17-和前一篇-softmax-文档的关系" class="headerlink" title="17. 和前一篇 softmax 文档的关系"></a>17. 和前一篇 softmax 文档的关系</h2><p>Scaled Dot-Product Attention 里有两个层次：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>层次</th>
+<th>对应内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>softmax 文档</td>
+<td>解释“分数怎么变成概率/权重”</td>
+</tr>
+<tr>
+<td>本文</td>
+<td>解释“attention 分数从哪里来，为什么要缩放”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以把本文的公式拆开看：</p>
+<script type="math/tex; mode=display">
+\frac{QK^T}{\sqrt{d_k}}</script><p>负责生成稳定的 attention scores；</p>
+<script type="math/tex; mode=display">
+\mathrm{softmax}(\cdot)</script><p>负责把 scores 变成权重；</p>
+<script type="math/tex; mode=display">
+(\cdot)V</script><p>负责按权重汇总信息。</p>
+<hr>
+<h2 id="18-小结"><a href="#18-小结" class="headerlink" title="18. 小结"></a>18. 小结</h2><p>Scaled Dot-Product Attention 的内部逻辑可以按这条线记：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q/K 算相关性 -&gt; 除以 sqrt(d_k) 稳定分数 -&gt; softmax 得到权重 -&gt; 加权汇总 V</span><br></pre></td></tr></table></figure>
+<p>scale 的来源是点积方差：</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}(q \cdot k)=d_k,\quad \mathrm{Std}(q \cdot k)=\sqrt{d_k}</script><p>除以 $\sqrt{d_k}$ 后，softmax 输入的尺度更稳定。这样既能保留点积注意力的高效矩阵乘法，又能避免高维点积分数过大导致 softmax 饱和。</p>
+<hr>
+<h2 id="19-参考资料"><a href="#19-参考资料" class="headerlink" title="19. 参考资料"></a>19. 参考资料</h2><ul>
+<li>Transformer 原论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">Vaswani et al., Attention Is All You Need</a></li>
+<li>原论文 HTML 版本：<a target="_blank" rel="noopener" href="https://arxiv.org/html/1706.03762v7">Attention Is All You Need - arXiv HTML</a></li>
+<li>FlashAttention：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=H4DqfPSibmx">Dao et al., FlashAttention</a></li>
+<li>FlashAttention-2：<a target="_blank" rel="noopener" href="https://openreview.net/forum?id=mZn2Xyh9Ec">Dao, FlashAttention-2</a></li>
+</ul>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-03T02:00:00.000Z">2026-07-03</time>
+                    <h3><a href="/2026/07/03/token-id-to-embedding/">Token ID 到 Embedding 机制详解</a></h3>
+                    
+                    
+                    <p>生成日期：2026-06-26主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-26T02:00:00.000Z">2026-06-26</time>
+                    <h3><a href="/2026/06/26/why-llm-uses-qkv/">为什么 LLM 要使用 Q/K/V</a></h3>
+                    
+                    
+                    <p>0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配V...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-16T02:00:00.000Z">2026-06-16</time>
+                    <h3><a href="/2026/06/16/softmax-deep-dive/">Softmax 的来历与 LLM 应用</a></h3>
+                    
+                    
+                    <p>0. 先看结论Softmax 做的事很直接：把一组分数变成概率分布。它的思想可追溯到统计物理里的 Boltzmann/Gibbs 分布，后来进入选择理论、统计学习和神经网络...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-13T06:00:00.000Z">2026-07-13</time>
+                    <h3><a href="/2026/07/13/paper-global-workspace-llm/">AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」</a></h3>
+                    
+                    
+                    <p>原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthrop...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/06/23/ai-daily-2026-06-23/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】智谱港股市值破1万亿港元，5天涨出一个中国电信</span>
+                </a>
+                
+                
+                <a href="/2026/06/22/ai-daily-2026-06-22/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】GPT-5.6本周或问世,150万上下文定价仅Fable 5三分之一</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

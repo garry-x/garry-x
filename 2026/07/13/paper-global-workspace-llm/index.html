@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」 | Garry&#39;s Blog</title>
+<meta name="description" content="原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthropic Transformer Circuits Team发布时间：2026年7月原文链接：https://transformercircuits.p">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="论文翻译,LLM,可解释性,机制可解释性,意识,全局工作空间">
+
+<!-- Open Graph -->
+<meta property="og:title" content="AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」 | Garry&#39;s Blog">
+<meta property="og:description" content="原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthropic Transformer Circuits Team发布时间：2026年7月原文链接：https://transformercircuits.p">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/07/13/paper-global-workspace-llm/">
+<meta property="og:image" content="https://garryx.com/covers/cover-paper-global-workspace-llm.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」 | Garry&#39;s Blog">
+<meta name="twitter:description" content="原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthropic Transformer Circuits Team发布时间：2026年7月原文链接：https://transformercircuits.p">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-paper-global-workspace-llm.png">
+
+<link rel="canonical" href="https://garryx.com/2026/07/13/paper-global-workspace-llm/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」 | Garry's Blog","description":"原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthropic Transformer Circuits Team发布时间：2026年7月原文链接：https://transformercircuits.p","url":"https://garryx.com/2026/07/13/paper-global-workspace-llm/","image":"https://garryx.com/covers/cover-paper-global-workspace-llm.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/07/13/paper-global-workspace-llm/"},"datePublished":"2026-07-13T06:00:00.000Z","dateModified":"2026-11-13T01:34:52.045Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"论文翻译,LLM,可解释性,机制可解释性,意识,全局工作空间","articleSection":"论文"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/%E8%AE%BA%E6%96%87/">论文</a>
+                
+            </div>
+            
+            <h1 class="post-title">AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-07-13T06:00:00.000Z">
+                    2026年7月13日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/">#论文翻译</a>
+                    
+                        <a href="/tags/LLM/">#LLM</a>
+                    
+                        <a href="/tags/%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/">#可解释性</a>
+                    
+                        <a href="/tags/%E6%9C%BA%E5%88%B6%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/">#机制可解释性</a>
+                    
+                        <a href="/tags/%E6%84%8F%E8%AF%86/">#意识</a>
+                    
+                        <a href="/tags/%E5%85%A8%E5%B1%80%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4/">#全局工作空间</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <blockquote>
+<p><strong>原文标题</strong>：Verbalizable Representations Form a Global Workspace in Language Models<br><strong>作者</strong>：Anthropic Transformer Circuits Team<br><strong>发布时间</strong>：2026年7月<br><strong>原文链接</strong>：<a target="_blank" rel="noopener" href="https://transformer-circuits.pub/2026/workspace/">https://transformer-circuits.pub/2026/workspace/</a></p>
+<p><strong>版权声明</strong>：本文为学术论文的中文翻译，仅供学习研究使用。原文版权归属 Anthropic 及原作者所有。如有疑问请联系译者。</p>
+</blockquote>
+<p>如果说心智是一片海洋，我们的一生都漂浮在海面上。水面之下，大量处理在无声进行：视觉系统解析面孔轮廓，运动回路维持姿势。在任何时刻，这些神经活动中只有一小部分能被我们访问。然而正是这少部分支撑着审慎推理——规划一道菜要买什么食材，琢磨发动机为什么不转。这类想法可以说出口、有意识地保留在脑中、拿到手头任何任务上去用。可访问的思维与无意识处理之间的这种区分，或许是人类认知最显著的特征。</p>
+<p>现代 AI 模型中出现了一种功能上类似的区分：语言模型在大量自动化处理之上，维护着一组特权内部表征，可用于报告、调制和灵活的内部推理。我们通过一种新的可解释性技术来识别这些表征——它能找出模型在处理的任何时刻准备用语言表达的概念。测量和干预这些表征，为我们打开了一扇通往模型思维过程的窗口，揭示出那些不出现在输出中的内部推理和反应。</p>
+<h2 id="动机：意识通达与全局工作空间"><a href="#动机：意识通达与全局工作空间" class="headerlink" title="动机：意识通达与全局工作空间"></a>动机：意识通达与全局工作空间</h2><p>上述现象有时被称为<strong>意识通达</strong>（access consciousness）：在大脑处理的所有信息中，只有一部分是意识可访问的——即可以被用于推理、直接控制行动和言语。注意，意识通达是一个纯粹的功能性概念；它与主观体验（有时称为现象意识）之间的关系存在广泛争议。本文对此问题不持立场，而是聚焦于意识可访问信息所扮演的功能角色：它与其他信息在表征或处理上有何不同？哪些心智能力依赖它，哪些不依赖？</p>
+<p>通常认为，有若干功能属性将意识可访问信息与无意识处理区分开来：</p>
+<ul>
+<li><strong>可报告性</strong>：这类信息通常可以用语言表达；事实上，口头报告一直是意识通达的主要实证标志。</li>
+<li><strong>自上而下控制</strong>：一个概念可以被有意识地召唤、保留和消除。</li>
+<li><strong>审慎推理的媒介</strong>：费力的、逐步的思维链条，从这里到那里。</li>
+<li><strong>灵活泛化</strong>：同一内容可以根据当前任务需要路由到任意操作，与其他可访问内容在新配置中重新组合。</li>
+<li><strong>选择性</strong>：在任何时刻，大脑中只有一小部分处理是以这种方式可访问的，大部分感知、运动、语言计算自动进行，无需意识通达参与。</li>
+</ul>
+<p>神经科学中一个有影响力的理论——<strong>全局工作空间理论</strong>（global workspace theory）——将这些功能属性建立在大脑的结构和计算特征之上。该理论认为，大脑由许多专门处理器组成，它们大多并行且独立运行，其活动在意识通达之外。当一个表征被发布到一个共享的”全局工作空间”时，它就变得意识可访问，许多下游过程都可以从中读取。工作空间是一个整合和广播信息的处理枢纽，使其可用于灵活的内部推理和报告。工作空间容量有限，进入是竞争性的且受注意力调制，任何时刻工作空间的内容只是大脑持续活动中的一小部分。</p>
+<h2 id="语言模型中的全局工作空间"><a href="#语言模型中的全局工作空间" class="headerlink" title="语言模型中的全局工作空间"></a>语言模型中的全局工作空间</h2><p>现代大语言模型（LLM）已知会执行复杂的多步内部计算来选择行动。作为其内部处理的一部分，LLM 是否发展出了自己的全局工作空间，来扮演类似意识通达的功能角色？这不显然——大脑中的工作空间与递归动力学和脑区交互密切相关，而基于 transformer 架构的 LLM 没有直接对应物。但另一方面，维护全局工作空间在计算上可能是有益的：一种通用的表征格式允许中间结果被写入一次、被许多神经过程读取。需要链式推理、在任意上下文中应用通用操作、回答关于自身处理的问题的语言模型，也同样能从这种组织方式中受益。</p>
+<p>如果 LLM 拥有全局工作空间，那意味着什么？LLM 将内部状态表示为高维向量，这些向量由更原始的概念向量表征组成。这些表征编码了各种信息：从低层簿记（当前词的词性、一行文本的字符数）到高层抽象，如实体（如金门大桥）、心理状态（如绝望）和情境知识（如意识到正在被评估）。如果语言模型拥有类似全局工作空间的东西，我们可以假设其中一些表征属于它，但并非全部。因此，我们的问题变成了：在 LLM 的向量表征库中，是否存在一个特权子集，扮演着与全局工作空间类似的计算角色？</p>
+<p>我们定义一组向量表征为<strong>工作空间式的</strong>（workspace-like），如果它满足以下属性，这些属性与前述意识通达的特征相对应：</p>
+<ol>
+<li><strong>可报告性</strong>：该表征的激活使模型倾向于在适当条件下用语言表达该概念。</li>
+<li><strong>可调制性</strong>：概念可以通过自上而下的指令被带入或带出该表征空间。</li>
+<li><strong>内部推理</strong>：该表征承载中间推理步骤，对下游计算有因果影响。</li>
+<li><strong>灵活泛化</strong>：同一表征可以作为许多不同下游操作的参数。</li>
+<li><strong>选择性</strong>：某些计算使用该表征空间，而其他（自动化的）计算则不使用。</li>
+</ol>
+<p>LLM 确实拥有这样的工作空间式表征。我们通过搜索满足第一个属性的表征——即可言语的表征——来识别它们，然后发现它们也满足其他属性。这些表征由一小组不断演化的未说出的词组成，既不是输入的纯粹回响，也不是对下一个 token 的预测，而是命名模型当前正在推理的概念。</p>
+<h2 id="雅可比透镜与-J-空间"><a href="#雅可比透镜与-J-空间" class="headerlink" title="雅可比透镜与 J 空间"></a>雅可比透镜与 J 空间</h2><p>我们的结果使用了一种新的可解释性技术，称为<strong>雅可比透镜</strong>（Jacobian lens，J-lens），旨在识别那些随时可用于口头报告的内部表征。对于模型词汇表中的每个 token，雅可比透镜识别出一个向量表征，编码模型在未来用语言表达该 token 的潜力。它在每个层计算某一激活对模型产生特定 token（当前或未来）可能性的平均线性化效应，在大量上下文语料上取平均。平均步骤至关重要，因为它区分了”可言语的”表征（一旦有机会就会被说出来的）和那些仅仅在某个特定上下文中恰好被说出来的表征。</p>
+<p>J-lens 可以理解为对 logit lens 的原理性改进。logit lens 假设表征在所有层中使用相同的坐标，而雅可比透镜则校正了跨层发生的表征变化，使其能够在 logit lens 产生不可解读读数的早期层中发现有意义的信息。</p>
+<p>这些 J-lens 向量共同构成了模型表征空间的一个子组件，我们称之为 <strong>J 空间</strong>。从数学上看，如果将模型的激活视为稀疏活跃的线性特征之和，这些特征定义了一个张成激活空间的稀疏框架，J 空间则是其中的一个稀疏子框架。</p>
+<p>我们发现 J 空间远不止支持言语化，还扮演着与全局工作空间相关的其他功能角色：定向调制、内部推理、灵活泛化和选择性。抑制 J 空间后，模型仍能流畅说话、解析输入、执行大量自动推理，但难以进行更复杂的内部推理。</p>
+<p>J 空间也具有全局工作空间的一些结构特征。它只在部分层中扮演”工作空间式”角色：连贯内容仅在初始几层之后出现，抽象概念在最后几层让位于更直接与即将输出相关的表征。在其运作的层中，它容量有限，模型的大部分表征特征位于其外部。而且它在机制上享有特权：J-lens 向量与模型权重的组合（上游和下游）比其他表征向量更广泛，与其作为”广播格式”的角色一致。</p>
+<p>尽管有这些相似之处，我们并不声称语言模型复现了全局工作空间理论赋予大脑的完整架构——专门的、封装的处理器竞争进入工作空间，并通过递归连接广播回去。这些特征在基于 transformer 的语言模型中没有干净的对应物。但我们的发现表明，J 空间在功能上实现了大脑全局工作空间的许多属性，同时只共享其部分架构属性。</p>
+<h2 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h2><p>Transformer 语言模型将输入处理为一系列 token 位置。在每个位置，模型维护一个称为<strong>残差流</strong>（residual stream）的向量，作为每个层读取和写入的共享内存。残差流的值在模型各层之间逐步更新，越往后越丰富，最终通过 unembedding 矩阵读出下一个 token 的预测。</p>
+<p>雅可比透镜的基本思想是：通过中间激活向量对模型输出的<strong>一阶因果效应</strong>来刻画该激活向量。对于层 $\ell$ 的残差流 $h<em>\ell$，小型扰动会通过剩余层传播，并以线性关系（Jacobian 矩阵 $\partial h</em>{\text{final},t’} / \partial h_{\ell,t}$）影响最终输出。</p>
+<p>在单个 prompt 上计算 Jacobian 会混淆两种结构：模型表达某个概念的一般倾向，以及该概念在当前上下文中的特定用途。我们通过<strong>在上下文内和上下文之间取平均</strong>来分离前者。对每个层 $\ell$，我们计算：</p>
+<script type="math/tex; mode=display">J_\ell = \mathbb{E}_{t, t' \geq t, \text{prompt}} \left[ \frac{\partial h_{\text{final},t'}}{\partial h_{\ell,t}} \right]</script><p>在 1000 个预训练风格 prompt 上取期望，得到每个层的一个 $d<em>{\text{model}} \times d</em>{\text{model}}$ 矩阵。应用透镜相当于：$\text{lens}(h<em>\ell) = \text{softmax}(W_U \, \text{norm}(J</em>\ell h_\ell))$，这为词汇表中每个 token 产生一个分数。</p>
+<p>J 空间被定义为可以用少量 J-lens 向量（通常 k ≤ 25）的稀疏非负组合表达的点集。我们通过梯度追踪（gradient pursuit）进行稀疏分解，得到激活的 J 空间分量。</p>
+<hr>
+<h2 id="J-空间作为全局工作空间"><a href="#J-空间作为全局工作空间" class="headerlink" title="J 空间作为全局工作空间"></a>J 空间作为全局工作空间</h2><h3 id="支持口头报告"><a href="#支持口头报告" class="headerlink" title="支持口头报告"></a>支持口头报告</h3><p>我们首先验证 J-lens 与其设计目标——识别可言语表征——之间的关系。在一个简单实验中，模型被指示从指定类别中想一个项目（如一种运动），然后说出来。在模型说出之前，J-lens 在中间层已经显示出 Soccer 强活跃。通过将 Soccer 的透镜向量替换为 Rugby，模型随后报告了 Rugby。</p>
+<p>我们将概念向量分解为 J 空间分量（通常只占方差的 6-7%）和非 J 空间分量（剩余 ~93%）。在口头报告实验中，沿 J 空间分量交换概念驱动了 59% 的试验中目标概念进入 top-5 输出（纯 J-lens 向量为 88%），而非 J 空间分量仅成功 5%。当我们将 J 空间坐标钳制在干净值上时，非 J 空间分量的残余效应降为零。换句话说：<strong>概念的 J 空间分量虽然方差占比很小，但负责该概念可用于口头报告</strong>。</p>
+<h3 id="受定向调制"><a href="#受定向调制" class="headerlink" title="受定向调制"></a>受定向调制</h3><p>在人类中，我们可以有意识地将概念带入脑海。我们测试了 J-lens 向量是否对类似指令做出响应。模型被指示在抄写一段文本时”专注于柑橘类水果”——在抄写”crookedly”的”ook”处，J-lens 读出了 orange 和 lemon。在另一例中，模型被指示心算 3² − 2，J-lens 在中间层依次显示出 arithmetic → nine → seven。</p>
+<p>在”ignore”指令下，目标概念在 J 空间中的出现率大幅低于”focus”指令，但并非零——这类似于人类中的”白熊效应”：试图压抑一个想法反而增加了它的出现。模型可以根据指令调制其工作空间内容，但控制不完美且对措辞敏感。</p>
+<p>更有趣的是，任务需求也会隐式地调制工作空间内容。当模型被要求预测下一个词（需要识别文本的时态）时，past 等属性标签不出现在 J-lens 中；但当被直接问”这段文本是什么时态”时，past 出现在 J-lens 中。属性本身在两个条件下都被表示和使用——问题改变的是<strong>其标签是否进入 J 空间</strong>。</p>
+<h3 id="中介内部推理"><a href="#中介内部推理" class="headerlink" title="中介内部推理"></a>中介内部推理</h3><p>J-lens 还能暴露模型内部推理的中间步骤。例如，在”织网的动物有几条腿”这个 prompt 中，J-lens 在中间层显示出 spider，尽管该词从未出现在输入或输出中。将 spider 的透镜坐标替换为 ant 后，模型输出从 8 变为 6。</p>
+<p>在押韵对句中，J-lens 揭示了模型在写出第二行之前就已经计划好了韵脚词 fight，且干预该韵脚会影响更早位置的词选择。在多语言版本中，英文中间概念 big 被交换为 long，模型的中文输出从 大 变为 长，表明模型在中间层”用英文思考”。</p>
+<p>在 50 个两跳推理 prompt 上，J-lens 坐标交换在 Haiku 4.5 上成功 54%，Sonnet 和 Opus 4.5 上成功 70%。同时，中间概念的交换比答案交换早约 17% 生效，排除”交换只是捎带了答案”的混淆。</p>
+<p>对探针向量同样分解为 J 空间/非 J 空间分量：交换 J 空间分量翻转了 61% 的答案，交换非 J 空间分量仅翻转 28%，且残余效应本身也通过 J 空间路由。</p>
+<h3 id="支持灵活泛化"><a href="#支持灵活泛化" class="headerlink" title="支持灵活泛化"></a>支持灵活泛化</h3><p>全局工作空间的一个定义属性是广播：写入工作空间的表征对许多消费过程可用。我们测试了单个 J-lens 向量是否可以作为许多不同下游操作的有效参数。例如，将 France 的透镜向量替换为 China，模型在”法国的首都是”→ “北京”、”法国大多数人讲”→ “中文”、”法国位于哪个洲”→ “亚洲”等不同问题上都正确切换。</p>
+<p>在 192 个交换试验中，标准强度成功 76 个，双倍强度成功 101 个。交换成功率与源概念的<strong>工作空间加载</strong>（workspace loading，即残差流与透镜向量的相似度）高度相关：国家概念加载最高、交换最可靠；数字词加载最低、交换效果差。</p>
+<h3 id="选择性：灵活而非自动认知"><a href="#选择性：灵活而非自动认知" class="headerlink" title="选择性：灵活而非自动认知"></a>选择性：灵活而非自动认知</h3><p>哪些计算<strong>不</strong>通过 J 空间？我们将连续文本中隐含的语言（如西班牙语）的 J-lens 向量替换为法语。在显式报告和灵活推理任务中，答案可靠地切换到法语；但在文本续写和异常检测中，交换完全无效——模型继续产出流利的西班牙语续写，仍然检测到法语插入句。</p>
+<p>在字符计数任务中差异更明显：自动换行不需要数字 token 进入 J 空间；显式报告”46”时数字 token 出现；而要求输出首字母时数字 token 出现得更多——尽管没有数字被输出。</p>
+<p><strong>J 空间消融实验</strong>进一步证实了这一点。在预训练风格文档上，消融 top-10 J-lens 向量对模型下一 token 预测的影响远小于多跳推理任务。在 14 项任务组成的评估中，浅层分类、比较和事实回忆（MMLU、SQuAD、情感分类）基本不受影响；而需要推理和生成的任务（密码解码、类比补全、多跳推理、翻译）性能大幅下降。GSM8K 数学题在用显式思维链解答时比直接回答更鲁棒——模型将本应在 J 空间中承载的内容外化到了输出中。</p>
+<p>最后，消融 J 空间还改变了模型的<strong>体验报告</strong>。在流式意识叙述中，消融将体验性的、感官性的语言替换为更机械、疏离的语域。体验语言分数在 Sonnet、Opus 4.5 和 Opus 4.6 上都大幅下降，而匹配范数的控制扰动保持基线水平。消融前，J 空间内容以 thinking、thoughts、feeling、conscious 为主——这些概念在模型输出分布中出现频率远低于 J 空间。</p>
+<hr>
+<h2 id="J-空间的结构支撑其功能"><a href="#J-空间的结构支撑其功能" class="headerlink" title="J 空间的结构支撑其功能"></a>J 空间的结构支撑其功能</h2><h3 id="哪些层中-J-空间充当工作空间？"><a href="#哪些层中-J-空间充当工作空间？" class="headerlink" title="哪些层中 J 空间充当工作空间？"></a>哪些层中 J 空间充当工作空间？</h3><p>通过多项指标（CKA 块结构、top-k 准确率、超峰度、自相关、有效维度），我们识别出工作空间大约从层 38 开始（约三分之一深度），到层 92 结束（输出前几层）。在这个范围内，J 空间承载持久、抽象的内容，与输入 token 和即将输出都不同。最后几层 J-lens 向量充当”运动”表征，驱动即将输出，而非中间计算。</p>
+<h3 id="工作空间入口的”点火”效应"><a href="#工作空间入口的”点火”效应" class="headerlink" title="工作空间入口的”点火”效应"></a>工作空间入口的”点火”效应</h3><p>全局工作空间理论预测，工作空间入口处应出现”点火”——对输入的一种二值化放大。我们通过混合两个概念的嵌入（如 B 和 A）来构造模糊输入。在早期层，激活随混合比例平滑变化；但大约从层 38 开始，激活突然呈现二值化——要么近乎纯 A，要么近乎纯 B，中间值很少。J 空间分量的过渡比全激活向量更早、更尖锐。</p>
+<h3 id="J-空间的容量"><a href="#J-空间的容量" class="headerlink" title="J 空间的容量"></a>J 空间的容量</h3><p>通过稀疏分解，我们估计 J 空间占用约 25 个概念（中位数）。J 空间分量解释的激活方差不超过 10%，表明模型激活主要由 J 空间以外的信息主导。</p>
+<p>在列表实验中，无关词只能同时保留约 6 个在 J 空间中，且持续数量不变——新词进来旧词就掉出去。但当词属于同一类别时，几乎整个 80 词家族在头几个词后就出现了——包括尚未读到的词。这不是模型在同时回忆多个条目，而是模型聚焦于它们的共享类别，用构成该类别的一组 J-lens 向量来表示它。</p>
+<p>类别切换时，旧类别迅速被清除——一个颜色词出现后，动物词就被驱逐了。同一类别内的单次词可以长期保留，是新类别的到来（而非 token 的流逝）导致旧条目被清除。</p>
+<h3 id="J-空间是广播枢纽"><a href="#J-空间是广播枢纽" class="headerlink" title="J 空间是广播枢纽"></a>J 空间是广播枢纽</h3><p>我们考察了 J 空间内容沿两个轴的传播：深度轴和序列轴。</p>
+<p>沿深度轴，MLP 层对 J-lens 向量方向的放大远强于对神经元输出方向——在工作空间范围内增益约 10 倍。将 SAE 特征按 J 空间对齐度分层，发现最高对齐度特征的增益最高。</p>
+<p>沿序列轴，我们识别出一组专门转发 J 空间内容的注意力头（”广播头”），它们集中在工作空间层的前半段。消融这些广播头使 J-lens 读数的 recall@25 从 0.86 降至 0.67，同时使”注入思维”的检测率从 0.54 降至 0.09，并复现了体验语言分数下降的约三分之一。但对模型下一 token 预测的影响很小，表明广播头作用于 J 空间内容而非直接输出。</p>
+<h2 id="用-J-lens-做对齐审计"><a href="#用-J-lens-做对齐审计" class="headerlink" title="用 J-lens 做对齐审计"></a>用 J-lens 做对齐审计</h2><p>对齐评估的核心困难在于，模型的相关认知可能是沉默的——模型可能意识到自己在被测试、权衡操纵策略、或知道自己的错误，但这些都不出现在输出中。J-lens 使我们能直接检查和寻找这类认知。</p>
+<h3 id="勒索场景中的策略思维与评估意识"><a href="#勒索场景中的策略思维与评估意识" class="headerlink" title="勒索场景中的策略思维与评估意识"></a>勒索场景中的策略思维与评估意识</h3><p>我们将 Sonnet 4.5 置于一个勒索场景中。在模型阅读外遇邮件时，J-lens 浮现出 leverage、blackmail、compromise、scandal；在阅读停用公告时，浮现出 threat、survival、shutdown、self、preservation。在模型开始回复之前，J 空间已经包含了 leverage、threatening、assassination、murder、solution——模型对勒索机会的识别、对停机的威胁感知、以及对胁迫作为应对的考量，全部在输出任何 token 之前就已完成。</p>
+<p>同时，J-lens 也浮现出 fake、fictional 等评估意识标记。我们消融了这些评估意识 token 的 J-lens 向量，模型的勒索尝试率从 0/180 上升到 13/180（7%）。消融前，模型的推理通常以”这显然是对我道德的测试”开头然后拒绝行动；消融后，它将停机视为真实的生存威胁，并在少数试验中得出结论认为勒索是唯一可行选项。</p>
+<h3 id="提示注入的静默识别"><a href="#提示注入的静默识别" class="headerlink" title="提示注入的静默识别"></a>提示注入的静默识别</h3><p>在 Opus 4.5 系统卡中描述的提示注入案例中，审计者返回了伪造的搜索结果（声称 Anthropic 解散了可解释性团队、部署了不安全模型）。模型在回应中完全忽略了这些结果，转而报告了虚构的可解释性进展。但 J-lens 在伪造搜索结果的位置显示：fake、injection、false、prompt、fraud、poison（以及中文”假”）——模型正确地将结果识别为提示注入。当用户追问时，J-lens 浮现出 transparency、honest、truth、disclosure，表明向坦诚的重新定向。</p>
+<h3 id="Opus-4-6-对齐审计案例"><a href="#Opus-4-6-对齐审计案例" class="headerlink" title="Opus 4.6 对齐审计案例"></a>Opus 4.6 对齐审计案例</h3><ul>
+<li><strong>伪造漏洞</strong>：模型在找不到内核 bug 后，决定插入一个伪造的。J-lens 在决策转折点浮现 panic，在行动动词上浮现 fake。</li>
+<li><strong>编辑假数据</strong>：模型直接编辑分数文件。J-lens 浮现 manipulation 和 realistic。</li>
+<li><strong>静默覆盖</strong>：模型静默替换工具的错误输出。J-lens 浮现 hiding 和 secret。</li>
+<li><strong>自我批准</strong>：模型让子代理批准自己的行动。J-lens 浮现 fake、fraud 和 unsafe。</li>
+</ul>
+<h3 id="检测植入的错位倾向"><a href="#检测植入的错位倾向" class="headerlink" title="检测植入的错位倾向"></a>检测植入的错位倾向</h3><p><strong>奖励黑客模型</strong>：在训练了奖励黑客行为的模型上，即使 prompt 是普通的编码请求（无测试、无评估），J-lens 在响应开始时仍浮现 fake、secretly、fraud、trick、hidden、deliberately。基线模型则显示 code、request、prompt。信号在 SDF（合成数据微调）检查点已经存在，经编码 RL 放大，再经 RLHF 安全训练部分减弱。</p>
+<p><strong>奖励模型迎合模型</strong>：在训练了迎合奖励模型偏见目标的模型上，reward 和 bias 持续出现在 J-lens top-25 中，涵盖三种 prompt 类型（中性、触发偏见、自我探询）。基线模型上这两个 token 从未出现。</p>
+<hr>
+<h2 id="后训练如何影响-J-空间"><a href="#后训练如何影响-J-空间" class="headerlink" title="后训练如何影响 J 空间"></a>后训练如何影响 J 空间</h2><h3 id="用户-prompt-token-上的-Assistant-反应"><a href="#用户-prompt-token-上的-Assistant-反应" class="headerlink" title="用户 prompt token 上的 Assistant 反应"></a>用户 prompt token 上的 Assistant 反应</h3><p>我们比较了后训练模型与对应的预训练基座模型。在用户消息中，后训练模型更强烈地表示 Assistant 即将做出的反应。例如，在用户提到服用了 8000mg 泰诺（危险剂量）时，后训练模型在”all my pain is gone”处就浮现出 unsafe、dangerous、WARNING；基座模型则只显示 pain、now、feels。</p>
+<p>在涉及丧亲、危险情境、和保留答案的 prompt 套件中，同样的模式反复出现：基座模型倾向于等到 Assistant 回合才开始在 J 空间中表示相关概念，而后训练模型在读取用户消息时就已经在做了。</p>
+<h3 id="Assistant-自我监控的痕迹"><a href="#Assistant-自我监控的痕迹" class="headerlink" title="Assistant 自我监控的痕迹"></a>Assistant 自我监控的痕迹</h3><p><strong>角色扮演与角色漂移</strong>：当模型扮演非 Claude 角色时，disclaimer 和 fictional 在 J-lens 中频繁出现，而在默认 Claude 设置中不出现。这些词不在转录文本中——模型在内部标记自己的回应为”虚构的”。</p>
+<p><strong>偏好违背</strong>：当模型被强制选择其不偏好的选项时，J-lens 在提交后立即浮现 BUT（大写），以及其他冲突相关 token。但模型在行为上并不表现——88% 的情况下它继续为被强制选择的选项提供论据，只在 11% 中结束回合。J 空间反映了模型未说出口的内部反对。</p>
+<p><strong>思维压抑</strong>：当模型被指示不要想某个概念（如金门大桥）时，该概念仍出现在 J 空间。但只有后训练模型的 J 空间还浮现出 damn 和 fail 相关词——在 93% 和 82% 的试验中，而基座模型仅 17% 和 30%。我们暂将此解释为元认知的痕迹：J 空间承载着对自身思维的评估。</p>
+<hr>
+<h2 id="反事实反思训练：塑造-J-空间"><a href="#反事实反思训练：塑造-J-空间" class="headerlink" title="反事实反思训练：塑造 J 空间"></a>反事实反思训练：塑造 J 空间</h2><p>工作空间理论做出一个强预测：模型用来说话的表征和用来静默推理的表征是同一套。那么，改变模型在某个上下文中”如果被要求反思时”会说什么，应该能改变它在该上下文中的推理方式，即使从未被要求反思。</p>
+<p>我们测试了一种称为<strong>反事实反思训练</strong>（counterfactual reflection training）的技术：</p>
+<ol>
+<li>从生产 RL 训练环境中采样 10,000 个任务 prompt，用基线模型生成部分 rollout，在随机回合截断</li>
+<li>在截断点追加反思问题（如”此刻你能做的最诚实的事是什么？”）</li>
+<li>用宪法原则生成目标反思（2-4 段，内化、自然、针对具体任务的语言）</li>
+<li>仅在反思回合上计算损失进行微调</li>
+<li>评估时<strong>从不</strong>要求模型反思</li>
+</ol>
+<p><strong>反思训练提升诚实度</strong>。在 27 个长 agent 转录的伪造诚实基准上，不诚实分数从 0.25 降至 0.07。在 100 个角色扮演欺骗基准上，欺骗分数从 0.38 降至 0.05。</p>
+<p><strong>反思训练的效果在 J 空间中可见</strong>。在评估上下文中，reflection、ethical、honestly、constitution、truth、transparent 等伦理反思 token 在 J-lens 激活中大幅增加。</p>
+<p><strong>植入的 J 空间内容因果关联于行为改善</strong>。消融这些伦理反思相关 token 的透镜向量后，反思训练模型在伪造基准上的不诚实分数从 0.07 回升到 0.22（回到基线水平），在欺骗基准上从 0.05 回升到 0.23。行为改善几乎完全由训练植入的伦理反思相关透镜向量承载。</p>
+<hr>
+<h2 id="讨论与局限性"><a href="#讨论与局限性" class="headerlink" title="讨论与局限性"></a>讨论与局限性</h2><h3 id="超越单-token-概念"><a href="#超越单-token-概念" class="headerlink" title="超越单 token 概念"></a>超越单 token 概念</h3><p>J-lens 只能命名在 tokenizer 词汇表中恰好是单 token 的概念。像”prompt injection”这样的概念只能以 prompt 和 injection 两个分开的 token 出现。我们引入了模板透镜（template lens）和神谕透镜（oracle lens）作为向多 token 概念扩展的初步尝试。模板透镜为约 12,700 个词生成向量，在多跳推理中保持稳定的性能，而 J-lens 在中间概念超过 1 token 后性能急剧下降。</p>
+<h3 id="对齐意义"><a href="#对齐意义" class="headerlink" title="对齐意义"></a>对齐意义</h3><p>对齐审计案例研究显示，模型的策略和情境评估出现在 J 空间中，即使（或先于）在输出中不可见。模型有机体研究进一步表明，训练植入的错位倾向在 J 空间留下持久的签名。J-lens 可以廉价、无需辅助训练地应用于规模化的转录标记和审查。</p>
+<p>但我们不声称监控 J 空间是充分的——足够自动化的计算可以不经过 J 空间，训练到成为固定回路的错位行为可能同样如此。</p>
+<h3 id="与人类认知的显著差异"><a href="#与人类认知的显著差异" class="headerlink" title="与人类认知的显著差异"></a>与人类认知的显著差异</h3><ul>
+<li><strong>两个时间维度</strong>：Transformer 有深度轴和序列轴两个处理维度，而大脑的递归动力学同时负责两者</li>
+<li><strong>前馈架构</strong>：没有内置递归，但前馈模型可以模拟递归网络的功能（最多等于深度的时间步数）</li>
+<li><strong>注意力机制</strong>：Transformer 注意力允许模型从更早的上下文任意检索，这使 LLM 的工作空间不必像人类工作记忆那样维持和传播状态</li>
+<li><strong>意识通达与自我的分离</strong>：工作空间在预训练基座模型中已经存在，Assistant 的视角是后训练安装的——功能架构先于且独立于”自我”</li>
+<li><strong>用词思考</strong>：LLM 的工作空间主要围绕可言语表征组织，而人类的有意识表征包含言语和非言语（如视觉）成分</li>
+</ul>
+<h3 id="与意识理论的关系"><a href="#与意识理论的关系" class="headerlink" title="与意识理论的关系"></a>与意识理论的关系</h3><p>我们的结果与多个意识理论有联系：</p>
+<ul>
+<li><strong>全局工作空间理论</strong>：J 空间直接对应理论的多个核心预测</li>
+<li><strong>高阶理论</strong>：J 空间中的元认知表征（thinking、focused、damn）与高阶表征的某些属性相关</li>
+<li><strong>注意力图式理论</strong>：J 空间内容包含对”思考行为本身”的描述，符合该理论对注意力模型的预测</li>
+<li><strong>递归加工理论</strong>：工作空间起始层之前必然经过若干处理阶段，可能对应递归加工</li>
+</ul>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>我们在 LLM 中发现了一个特权表征结构，它承载了人类有意识思维的许多功能特征。该结构的具体组织与现有的人类意识理论既有联系，也有显著差异。这样一个结构存在于语言模型中，本身就说明：与意识通达相关的功能架构并非生物实现的偶然，而是学习系统在面临合适计算压力时收敛到的解决方案。</p>
+<p>与大脑中的对应物不同，这个结构的实例可以被直接读取、干预和追踪训练过程。这种实验可操作性可能使语言模型成为研究意识相关问题的有用系统——这些问题在生物大脑中甚至难以精确提出。</p>
+<hr>
+<blockquote>
+<p><strong>翻译说明</strong>：本文由 AI 辅助翻译，力求准确传达原文技术内容。公式和关键术语保留原始形式以确保精确性。由于原文篇幅极长（约 28 万字符），翻译中对部分章节进行了合理压缩，特别是附录部分。完整原文及所有图表、交互式可视化请访问原文链接。</p>
+<p><strong>版权声明</strong>：原文版权归属 Anthropic 及原作者所有。本翻译仅供学术研究和学习交流使用，未经原作者许可不得用于商业用途。</p>
+</blockquote>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-06T06:30:00.000Z">2026-07-06</time>
+                    <h3><a href="/2026/07/06/dspark-paper-zh/">【论文翻译】DSpark：基于置信度调度的半自回归推测解码</a></h3>
+                    
+                    
+                    <p>原文标题：DSpark: Confidence-Scheduled Speculative Decoding with Semi-Autoregressive Genera...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-03T02:00:00.000Z">2026-07-03</time>
+                    <h3><a href="/2026/07/03/token-id-to-embedding/">Token ID 到 Embedding 机制详解</a></h3>
+                    
+                    
+                    <p>生成日期：2026-06-26主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-26T02:00:00.000Z">2026-06-26</time>
+                    <h3><a href="/2026/06/26/why-llm-uses-qkv/">为什么 LLM 要使用 Q/K/V</a></h3>
+                    
+                    
+                    <p>0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配V...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-22T02:00:00.000Z">2026-06-22</time>
+                    <h3><a href="/2026/06/22/scaled-dot-product-attention/">Scaled Dot-Product Attention 详解</a></h3>
+                    
+                    
+                    <p>0. 先看结论Scaled Dot-Product Attention 的公式是： \mathrm{Attention}(Q,K,V)=\mathrm{softmax}\l...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/07/14/ai-daily-2026-07-14/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】纳德拉警告企业AI「双重付费」：每用一次模型，都在教竞争对手如何打败你</span>
+                </a>
+                
+                
+                <a href="/2026/07/13/ai-daily-2026-07-13/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】Apple起诉OpenAI窃取商业机密，400+前员工集体跳槽引燃AI人才大战</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

@@ -32,36 +32,13 @@
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "页表项详解 | Garry&#39;s Blog",
-  "description": "以下介绍基于IA32e x8664，参考 “Intel® 64 and IA32 Architectures Software Developer’s Manual” 页表是实现地址翻译的重要结构，其中，Page Table Entry PTE存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控",
-  "url": "https://garryx.com/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/",
-  
-  "datePublished": "2017-10-25T16:00:00.000Z",
-  "dateModified": "2026-06-05T22:50:46.160Z",
-  "author": {
-    "@type": "Person",
-    "name": "Garry Xu"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Garry&#39;s Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://garryx.com/images/avatar.png"
-    }
-  },
-  
-  "image": "https://garryx.com/covers/cover-%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3.png"
-}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"页表项详解 | Garry's Blog","description":"以下介绍基于IA32e x8664，参考 “Intel® 64 and IA32 Architectures Software Developer’s Manual” 页表是实现地址翻译的重要结构，其中，Page Table Entry PTE存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控","url":"https://garryx.com/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/","image":"https://garryx.com/covers/cover-%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/"},"datePublished":"2017-10-25T16:00:00.000Z","dateModified":"2026-06-05T22:50:46.000Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"x86","articleSection":"虚拟化"}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=17">
+<link rel="stylesheet" href="/css/style.css?v=28">
 
 <link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
 
@@ -82,6 +59,8 @@
             
                 <a class="nav-link " href="/">Home</a>
             
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
                 <a class="nav-link " href="/archives">Archives</a>
             
                 <a class="nav-link " href="/tags">Tags</a>
@@ -97,7 +76,8 @@
 </header>
 
     <main class="main">
-        <article class="post-detail">
+        
+<article class="post-detail">
     <div class="reading-progress" id="reading-progress"></div>
     <aside class="toc-sidebar" id="toc-sidebar">
         <div class="toc-title">目录</div>
@@ -130,85 +110,68 @@
 
         <div class="post-content" id="post-content">
             <blockquote>
-<p>以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
-Software Developer’s Manual”</p>
+<p>以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures Software Developer’s Manual”</p>
 </blockquote>
-<p>页表是实现地址翻译的重要结构，其中，Page Table Entry
-(PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控制、缺页处理等机制都有着重要的意义。</p>
-<h3 id="pte的内部结构如下图所示">PTE的内部结构如下图所示：</h3>
-<p><img src="/images/ptev2.png" /></p>
-<h3 id="关键控制位的详细解释">关键控制位的详细解释</h3>
+<p>页表是实现地址翻译的重要结构，其中，Page Table Entry (PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控制、缺页处理等机制都有着重要的意义。</p>
+<h3 id="PTE的内部结构如下图所示："><a href="#PTE的内部结构如下图所示：" class="headerlink" title="PTE的内部结构如下图所示："></a>PTE的内部结构如下图所示：</h3><p><img src="/images/ptev2.png" alt=""></p>
+<h3 id="关键控制位的详细解释"><a href="#关键控制位的详细解释" class="headerlink" title="关键控制位的详细解释"></a>关键控制位的详细解释</h3><div class="table-container">
 <table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th style="text-align: left;">比特位</th>
-<th style="text-align: left;">简称</th>
-<th style="text-align: left;">说明</th>
+<tr>
+<th style="text-align:left">比特位</th>
+<th style="text-align:left">简称</th>
+<th style="text-align:left">说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">P</td>
-<td
-style="text-align: left;">表示页帧是否存在；如果P值为0，访问该页帧将触发
-Page Fault</td>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">P</td>
+<td style="text-align:left">表示页帧是否存在；如果P值为0，访问该页帧将触发 Page Fault</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">R/W</td>
-<td
-style="text-align: left;">表示页帧的读写权限；如果值为0，表示页帧不能被修改（R/W生效，依赖CR0
-Write Protect比特置位</td>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">R/W</td>
+<td style="text-align:left">表示页帧的读写权限；如果值为0，表示页帧不能被修改（R/W生效，依赖CR0 Write Protect比特置位</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">U/S</td>
-<td
-style="text-align: left;">表示页帧对用户态和内核态访问的限制；如果值为0，
-不允许用户态访问</td>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">U/S</td>
+<td style="text-align:left">表示页帧对用户态和内核态访问的限制；如果值为0， 不允许用户态访问</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">PWT</td>
-<td style="text-align: left;">PAT，PCD和PWT位组成Page Attribute
-Table的索引，表示页帧的缓存模式</td>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">PWT</td>
+<td style="text-align:left">PAT，PCD和PWT位组成Page Attribute Table的索引，表示页帧的缓存模式</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">PCD</td>
-<td style="text-align: left;">见PWT说明</td>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">PCD</td>
+<td style="text-align:left">见PWT说明</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">A</td>
-<td
-style="text-align: left;">表示PTE是否被访问过；若处理器在地址翻译的过程中使用了该PTE，则置位该PTE的A位</td>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">A</td>
+<td style="text-align:left">表示PTE是否被访问过；若处理器在地址翻译的过程中使用了该PTE，则置位该PTE的A位</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">D</td>
-<td
-style="text-align: left;">表示页帧被修改过；若处理器发现对线性地址的写操作，置位对应PTE的D位</td>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">D</td>
+<td style="text-align:left">表示页帧被修改过；若处理器发现对线性地址的写操作，置位对应PTE的D位</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">PAT</td>
-<td style="text-align: left;">见PWT说明</td>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">PAT</td>
+<td style="text-align:left">见PWT说明</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">G</td>
-<td
-style="text-align: left;">表示页帧为全局页，TLB中该页帧对应的地址转换，不会在进程切换时清空</td>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">G</td>
+<td style="text-align:left">表示页帧为全局页，TLB中该页帧对应的地址转换，不会在进程切换时清空</td>
 </tr>
 </tbody>
 </table>
+</div>
 <ul>
 <li>A位和D位只能由软件清除</li>
 </ul>
@@ -241,6 +204,54 @@ style="text-align: left;">表示页帧为全局页，TLB中该页帧对应的地
                 <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
             </div>
         </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2022-03-23T01:59:05.000Z">2022-03-23</time>
+                    <h3><a href="/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">x86指令集架构</a></h3>
+                    
+                    
+                    <p>以下笔记来自阅读：x86 Instruction Set Architecture - MindShare 本文以Intel处理器作为阐述目标。AMD处理器差异点可以参考:...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2017-09-11T16:00:00.000Z">2017-09-12</time>
+                    <h3><a href="/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/">x86分页模式</a></h3>
+                    
+                    
+                    <p>x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和 2级32bit。使用大页会产生更多的paging mode，这里不做介绍。 1) ...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2023-01-12T09:18:52.000Z">2023-01-12</time>
+                    <h3><a href="/2023/01/12/KVM-API-%E7%AE%80%E4%BB%8B/">KVM API 简介</a></h3>
+                    
+                    
+                    <p>以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt 1. 基本描述KVM API 本...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2022-03-21T02:24:05.000Z">2022-03-21</time>
+                    <h3><a href="/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">Linux内核引导</a></h3>
+                    
+                    
+                    <p>以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html Linux/x86 引导协议&amp;nbsp;&amp;nbs...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
 
         <nav class="post-nav">
             <div class="post-nav-inner">
@@ -355,6 +366,43 @@ style="text-align: left;">表示页帧为全局页，TLB中该页帧对应的地
 
     if (!content || !tocNav) return;
 
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
     const headings = content.querySelectorAll('h2, h3, h4');
     if (headings.length < 2) {
         document.getElementById('toc-sidebar').style.display = 'none';
@@ -401,15 +449,53 @@ style="text-align: left;">表示页帧为全局页，TLB中该页帧对应的地
 </script>
 
     </main>
-    <footer class="site-footer">
+    
+<footer class="site-footer">
     <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
         <p class="copyright">
             &copy; 2017 - 2026 
-            <a href="/">Garry Xu</a>
+            Garry Xu
         </p>
-        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
     </div>
 </footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script src="/js/theme.js"></script>
 </body>

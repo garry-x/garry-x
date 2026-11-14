@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】DeepSeek 联合北大开源 DSpark，AI 推理降本进入新阶段 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览本周末合辑覆盖 6 月 25–27 日 关键动态：DeepSeek 联合北京大学开源推理加速框架 DSpark，在不增加硬件的前提下将大模型推理速度提升 60%–85%、服务能力最高翻 4 倍；美国政府周五解除对 Anthropic Mythos 5 的出口限制，但 Fable 5 仍处受限状态；苹果因 ">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】DeepSeek 联合北大开源 DSpark，AI 推理降本进入新阶段 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览本周末合辑覆盖 6 月 25–27 日 关键动态：DeepSeek 联合北京大学开源推理加速框架 DSpark，在不增加硬件的前提下将大模型推理速度提升 60%–85%、服务能力最高翻 4 倍；美国政府周五解除对 Anthropic Mythos 5 的出口限制，但 Fable 5 仍处受限状态；苹果因 ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/28/ai-daily-2026-06-28/">
+<meta property="og:image" content="https://garryx.com/covers/cover-ai-daily-2026-06-28.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】DeepSeek 联合北大开源 DSpark，AI 推理降本进入新阶段 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览本周末合辑覆盖 6 月 25–27 日 关键动态：DeepSeek 联合北京大学开源推理加速框架 DSpark，在不增加硬件的前提下将大模型推理速度提升 60%–85%、服务能力最高翻 4 倍；美国政府周五解除对 Anthropic Mythos 5 的出口限制，但 Fable 5 仍处受限状态；苹果因 ">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-ai-daily-2026-06-28.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/28/ai-daily-2026-06-28/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"【AI 日报】DeepSeek 联合北大开源 DSpark，AI 推理降本进入新阶段 | Garry's Blog","description":"🔦 今日速览本周末合辑覆盖 6 月 25–27 日 关键动态：DeepSeek 联合北京大学开源推理加速框架 DSpark，在不增加硬件的前提下将大模型推理速度提升 60%–85%、服务能力最高翻 4 倍；美国政府周五解除对 Anthropic Mythos 5 的出口限制，但 Fable 5 仍处受限状态；苹果因 ","url":"https://garryx.com/2026/06/28/ai-daily-2026-06-28/","image":"https://garryx.com/covers/cover-ai-daily-2026-06-28.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/06/28/ai-daily-2026-06-28/"},"datePublished":"2026-06-28T00:00:00.000Z","dateModified":"2026-11-13T01:34:52.043Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"AI,人工智能,日报","articleSection":"AI日报"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】DeepSeek 联合北大开源 DSpark，AI 推理降本进入新阶段</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-28T00:00:00.000Z">
+                    2026年6月28日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>本周末合辑覆盖 <strong>6 月 25–27 日</strong> 关键动态：DeepSeek 联合北京大学开源推理加速框架 <strong>DSpark</strong>，在不增加硬件的前提下将大模型推理速度提升 <strong>60%–85%</strong>、服务能力最高翻 <strong>4 倍</strong>；美国政府周五解除对 Anthropic <strong>Mythos 5</strong> 的出口限制，但 <strong>Fable 5</strong> 仍处受限状态；苹果因 AI 数据中心挤占存储芯片产能，宣布对 MacBook、iPad 等产品实施全球性涨价。</p>
+<p><strong>趋势 1</strong>：开源推理加速成为大模型商业化落地的关键杠杆<br><strong>趋势 2</strong>：美国政府对大模型的“事前审批”进入差异化执行阶段  </p>
+<h2 id="趋势-3：AI-数据中心需求开始向消费电子终端传导成本压力"><a href="#趋势-3：AI-数据中心需求开始向消费电子终端传导成本压力" class="headerlink" title="趋势 3：AI 数据中心需求开始向消费电子终端传导成本压力"></a><strong>趋势 3</strong>：AI 数据中心需求开始向消费电子终端传导成本压力</h2><h2 id="🌍-国际动态"><a href="#🌍-国际动态" class="headerlink" title="🌍 国际动态"></a>🌍 国际动态</h2><h3 id="1-DeepSeek-联合北大开源-DSpark，推理加速最高翻-4-倍"><a href="#1-DeepSeek-联合北大开源-DSpark，推理加速最高翻-4-倍" class="headerlink" title="1. DeepSeek 联合北大开源 DSpark，推理加速最高翻 4 倍"></a>1. DeepSeek 联合北大开源 DSpark，推理加速最高翻 4 倍</h3><p><strong>事件简述</strong>：2026 年 6 月 27 日，DeepSeek 与北京大学联合开源了推理加速框架 <strong>DSpark</strong>。该框架并非新模型，而是通过重构<strong>推测解码（Speculative Decoding）</strong>逻辑，解决传统大模型逐字生成导致 GPU 算力空转、响应慢的痛点。DeepSeek 创始人<strong>梁文锋</strong>参与了论文署名。<br><strong>关键数据</strong>：在不增加任何硬件的情况下，推理速度提升 <strong>60%–85%</strong>，同等算力下服务能力最高翻 <strong>4 倍</strong>。相关代码、训练流程和评测脚本已在 GitHub 仓库 <code>deepseek-ai/DeepSpec</code> 下以 MIT 协议开源，同时包含 DSpark、DFlash 和 Eagle3 三种推测解码算法。<br><strong>影响分析</strong>：DSpark 直击大模型商业化中“高并发与高成本”的核心矛盾，为企业在不扩张 GPU 的前提下降低推理成本提供了可落地方案，也让开源模型在性能/成本比上更具竞争力。<br>📅 6月27日</p>
+<h3 id="2-美国政府解除-Mythos-5-出口限制，Fable-5-仍受限"><a href="#2-美国政府解除-Mythos-5-出口限制，Fable-5-仍受限" class="headerlink" title="2. 美国政府解除 Mythos 5 出口限制，Fable 5 仍受限"></a>2. 美国政府解除 Mythos 5 出口限制，Fable 5 仍受限</h3><p><strong>事件简述</strong>：美国政府于周五（6 月 27 日）下午向 Anthropic 发出信函，<strong>解除对 Claude Mythos 5 的出口限制</strong>，允许其向 <strong>100 多家美国机构</strong>（包括主要企业和政府机构）开放访问。信函未涉及面向普通消费者的较弱版本 <strong>Fable 5</strong>。<br><strong>关键数据</strong>：6 月 12 日，商务部工业与安全局以国家安全为由下令暂停 Fable 5 / Mythos 5 访问；解除决定在两周后做出，但仅限于 Mythos 5 且不包括 Fable 5。<br><strong>影响分析</strong>：这是美国政府首次在大模型出口管制上做出“部分解禁”，反映出新兴 AI 安全审查框架正在<strong>边试边建</strong>。对 Anthropic 而言，Mythos 5 重新开放企业/政府市场有助于缓解其近期财务和上市前景压力。<br>📅 6月27日</p>
+<h3 id="3-苹果对-MacBook、iPad-等产品实施全球性涨价"><a href="#3-苹果对-MacBook、iPad-等产品实施全球性涨价" class="headerlink" title="3. 苹果对 MacBook、iPad 等产品实施全球性涨价"></a>3. 苹果对 MacBook、iPad 等产品实施全球性涨价</h3><p><strong>事件简述</strong>：苹果于 6 月 25 日（周四）宣布对 Mac 和 iPad 等多款产品实施全球性涨价。苹果在声明中表示：<strong>“AI 数据中心的快速扩张造成了对存储芯片需求的极端涌增，我们从未见过组件价格在如此短时间内涨幅如此之大。”</strong><br><strong>关键数据</strong>：512GB MacBook Air 从 <strong>$1,099</strong> 涨至 <strong>$1,299</strong>；1TB MacBook Pro 从 <strong>$1,699</strong> 涨至 <strong>$1,999</strong>；128GB iPad Air 从 <strong>$599</strong> 涨至 <strong>$749</strong>；256GB iPad Pro Wi-Fi 从 <strong>$999</strong> 涨至 <strong>$1,199</strong>。公司股价当天下跌 <strong>4.5%</strong>。<br><strong>影响分析</strong>：苹果此次涨价标志着 AI 基础设施建设的成本压力正从上游芯片产业<strong>向消费电子终端传导</strong>，也预示后续 iPhone 等产品可能同步跟涨。<br>📅 6月25日</p>
+<h3 id="4-霍尔木兹海峡局势升温，AI-与半导体资产定价受挫"><a href="#4-霍尔木兹海峡局势升温，AI-与半导体资产定价受挫" class="headerlink" title="4. 霍尔木兹海峡局势升温，AI 与半导体资产定价受挫"></a>4. 霍尔木兹海峡局势升温，AI 与半导体资产定价受挫</h3><p><strong>事件简述</strong>：美东 6 月 26 日，美军空袭伊朗相关设施，伊朗革命卫队随即反击，霍尔木兹海峡地缘冲突升温。全球科技股市随之遭遇招售，<strong>费城半导体指数单日大跌超 5%</strong>，闪迪、美光、西部数据等存储龙头跌幅惨烈。<br><strong>关键数据</strong>：半导体板块抛售与 OpenAI 传出推迟 IPO、美联储释放年内加息信号形成叠加，AI 投资热情遇到大规模降温。<br><strong>影响分析</strong>：地缘风险、资本开支压力、通货膨胀与货币政策转向四大因素叠加，正在重新改写全球科技资产的定价逻辑。AI 芯片和存储赛道作为高敏感资产，对宏观不确定性的反应明显放大。</p>
+<h2 id="📅-6月26日"><a href="#📅-6月26日" class="headerlink" title="📅 6月26日"></a>📅 6月26日</h2><h2 id="🇨🇳-国内动态"><a href="#🇨🇳-国内动态" class="headerlink" title="🇨🇳 国内动态"></a>🇨🇳 国内动态</h2><h3 id="1-《人工智能-智能体互联》系列-7-项国家标准发布"><a href="#1-《人工智能-智能体互联》系列-7-项国家标准发布" class="headerlink" title="1. 《人工智能 智能体互联》系列 7 项国家标准发布"></a>1. 《人工智能 智能体互联》系列 7 项国家标准发布</h3><p><strong>事件简述</strong>：新华社 6 月 26 日报道，国家市场监督管理总局近日发布《人工智能 智能体互联》系列 <strong>7 项国家标准</strong>。这是国内首批专门针对 AI 智能体互联的国家级标准，覆盖智能体的感知、记忆、决策、交互与执行等核心能力规范。<br><strong>关键数据</strong>：7 项国家标准；由国家市场监督管理总局发布；面向智能体互联、协同与互操作。<br><strong>影响分析</strong>：随着大模型从“对话助手”向“自主执行者”演进，智能体数量将爆发式增长。统一互联标准可避免各厂商智能体形成新的“数据孤岛”，为跨平台、跨厂商的 Agent 协作与生态互通奠定制度基础。<br>📅6月26日</p>
+<h3 id="2-市场监管总局：加快智能体、具身智能等前沿技术标准制定"><a href="#2-市场监管总局：加快智能体、具身智能等前沿技术标准制定" class="headerlink" title="2. 市场监管总局：加快智能体、具身智能等前沿技术标准制定"></a>2. 市场监管总局：加快智能体、具身智能等前沿技术标准制定</h3><p><strong>事件简述</strong>：据央视新闻 6 月 25 日报道，市场监管总局正会同相关部门，加快<strong>智能体、具身智能、世界模型、本体模型</strong>等前沿技术领域的国家标准制定速度，同时推进算力基础设施、高质量数据集、仿真测试平台、深度学习编译器、开源模型平台等底座类标准。<br><strong>关键数据</strong>：除智能体外，重点制定标准还包括具身智能、世界模型、本体模型、算力基础设施、高质量数据集、仿真测试平台、深度学习编译器、开源模型平台等。<br><strong>影响分析</strong>：这标志着中国 AI 治理从“跟随”进入“主动定义”阶段。通过抢先制定智能体与具身智能标准，中国有望在全球下一代 AI 基础设施规则制定中占据话语权，并为产业落地提供可预期的合规路径。<br>📅6月25日</p>
+<h3 id="3-美光市值短暂超越-Meta，AI-存储需求持续高企"><a href="#3-美光市值短暂超越-Meta，AI-存储需求持续高企" class="headerlink" title="3. 美光市值短暂超越 Meta，AI 存储需求持续高企"></a>3. 美光市值短暂超越 Meta，AI 存储需求持续高企</h3><p><strong>事件简述</strong>：受 AI 基础设施需求激增和强劲盈利预测推动，美光科技市值一度达到约 <strong>1.398 万亿美元</strong>，短暂超越 Meta（约 1.392 万亿美元）。英伟达等客户已签署总规模 <strong>220 亿美元</strong>的长期存储芯片“照付不议”采购协议。<br><strong>关键数据</strong>：美光市值约 1.398 万亿美元；客户签署 220 亿美元长期采购协议；消息公布后股价涨幅超 <strong>18%</strong>。<br><strong>影响分析</strong>：HBM（高带宽存储器）已成为 AI 训练与推理的关键瓶颈资源。美光市值反超 Meta 表明，在 AI 基建周期中，上游硬件厂商的估值逻辑正在被重估——“卖铲人”地位进一步巩固。</p>
+<h2 id="📅6月26日"><a href="#📅6月26日" class="headerlink" title="📅6月26日"></a>📅6月26日</h2><h2 id="📄-今日论文"><a href="#📄-今日论文" class="headerlink" title="📄 今日论文"></a>📄 今日论文</h2><h3 id="1-Empowering-GUI-Agents-via-Autonomous-Experience-Exploration-and-Hindsight-Experience-Utilization-for-Task-Planning"><a href="#1-Empowering-GUI-Agents-via-Autonomous-Experience-Exploration-and-Hindsight-Experience-Utilization-for-Task-Planning" class="headerlink" title="1. Empowering GUI Agents via Autonomous Experience Exploration and Hindsight Experience Utilization for Task Planning"></a>1. Empowering GUI Agents via Autonomous Experience Exploration and Hindsight Experience Utilization for Task Planning</h3><p><strong>作者</strong>：Tianyi Men, Zhuoran Jin, Pengfei Cao et al.<br><strong>核心贡献</strong>：通过<strong>自主经验探索</strong>与<strong>事后经验利用</strong>，显著提升小型开源多模态大模型在 GUI 任务规划中的表现，改善跨网站的泛化能力。<br><strong>为什么重要</strong>：让中小开发者无需依赖商业巨型模型，也能构建企业级 GUI 智能体，降低自动化部署成本。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.27330">arXiv:2606.27330</a> 📅 6月25日</p>
+<h3 id="2-Advancing-Omnimodal-Embodied-Agents-from-Isolated-Skills-to-Everyday-Physical-Autonomy"><a href="#2-Advancing-Omnimodal-Embodied-Agents-from-Isolated-Skills-to-Everyday-Physical-Autonomy" class="headerlink" title="2. Advancing Omnimodal Embodied Agents from Isolated Skills to Everyday Physical Autonomy"></a>2. Advancing Omnimodal Embodied Agents from Isolated Skills to Everyday Physical Autonomy</h3><p><strong>作者</strong>：Junhao Shi, Zezheng Huai, Siyin Wang et al.<br><strong>核心贡献</strong>：将局部技能拓展为日常物理自主性，统一协调网络（API、IoT）与物理（操作、导航）工具，并具备物理失败自主恢复能力。<br><strong>为什么重要</strong>：为具身智能从“单一技能”走向“通用体”提供新的系统级框架，推动机器人和物理 AI 向更复杂环境落地。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.27268">arXiv:2606.27268</a> 📅 6月25日</p>
+<h3 id="3-When-Does-Combining-Language-Models-Help-A-Co-Failure-Ceiling-on-Routing-Voting-and-Mixture-of-Agents-Across-67-Frontier-Models"><a href="#3-When-Does-Combining-Language-Models-Help-A-Co-Failure-Ceiling-on-Routing-Voting-and-Mixture-of-Agents-Across-67-Frontier-Models" class="headerlink" title="3. When Does Combining Language Models Help? A Co-Failure Ceiling on Routing, Voting, and Mixture-of-Agents Across 67 Frontier Models"></a>3. When Does Combining Language Models Help? A Co-Failure Ceiling on Routing, Voting, and Mixture-of-Agents Across 67 Frontier Models</h3><p><strong>作者</strong>：Josef Chen<br><strong>核心贡献</strong>：提出<strong>“共同失败上限”（Co-Failure Ceiling）</strong>概念，量化了路由、投票、级联、融合与混合智能体等多模型组合系统的性能上限。<br><strong>为什么重要</strong>：为企业级模型路由和多 Agent 系统的设计提供理论边界，避免“堆叠更多模型就能更强”的经验主义陷阱。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.27288">arXiv:2606.27288</a> 📅 6月25日</p>
+<h3 id="4-Autoregressive-Boltzmann-Generators"><a href="#4-Autoregressive-Boltzmann-Generators" class="headerlink" title="4. Autoregressive Boltzmann Generators"></a>4. Autoregressive Boltzmann Generators</h3><p><strong>作者</strong>：Danyal Rehman, Charlie B. Tan, Yoshua Bengio et al.<br><strong>核心贡献</strong>：将<strong>自回归生成模型</strong>与<strong>波尔兹曼生成器</strong>结合，高效采样分子系统在热力学平衡态下的状态，解决统计物理中的重要采样难题。<br><strong>为什么重要</strong>：Bengio 团队新作，有望加速制药发现、材料设计等 AI for Science 领域的模拟与优化。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.27361">arXiv:2606.27361</a> 📅 6月25日</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-14T00:00:00.000Z">2026-11-14</time>
+                    <h3><a href="/2026/11/14/ai-daily-2026-11-14/">【AI 日报】黄仁勋辞任英伟达CEO：33年时代落幕，CFO克雷斯临时接掌</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 黄仁勋辞去英伟达总裁、CEO及董事职务，执掌33年戛然而止，CFO克雷斯临时接任、首设董事长由前新思CEO哈维·琼斯出任，周五市值跌破4万亿美元。Anthr...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-12T00:00:00.000Z">2026-11-12</time>
+                    <h3><a href="/2026/11/12/ai-daily-2026-11-12/">【AI 日报】台积电入局AI“闭环投资”：向OpenAI与Anthropic各投5亿美元</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 台积电董事会罕见出手：向OpenAI与Anthropic各投不超5亿美元，芯片供应商直接入股头部模型公司，AI&#34;循环融资&#34;再添关键一环。同侧消息面转暖——C...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-11T00:00:00.000Z">2026-11-11</time>
+                    <h3><a href="/2026/11/11/ai-daily-2026-11-11/">【AI 日报】Anthropic IPO定价曝光：每股70-78美元，七巨头260亿基石认购</a></h3>
+                    
+                    
+                    <p>🔦 今日速览Anthropic最新招股书草案曝光IPO定价区间每股70—78美元、发行8.25亿股，谷歌、英伟达、微软、AMD、博通、美光、台积电七家巨头将以发行价合计2...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-10T00:00:00.000Z">2026-11-10</time>
+                    <h3><a href="/2026/11/10/ai-daily-2026-11-10/">【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明</a></h3>
+                    
+                    
+                    <p>🔦 今日速览Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，AP...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/06/29/ai-daily-2026-06-29/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】智元第15000台机器人下线，具身智能迈入规模化部署</span>
+                </a>
+                
+                
+                <a href="/2026/06/27/ai-daily-2026-06-27/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】白宫要求 OpenAI 受限发布 GPT-5.6，AI 监管进入“事前审批”时代</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】百度文心大模型4.5系列正式开源 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览6 月 30 日，百度正式开源文心大模型 4.5 系列（10 款模型、Apache 2.0），华为 openPangu 2.0 七大组件也于同日陆续上线；海外方面，AWS 承诺 10 亿美元派驻前沿 AI 工程师进驻客户，OpenAI reportedly 找到可将推理成本降低一半以上的系统优化方案。 趋">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】百度文心大模型4.5系列正式开源 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览6 月 30 日，百度正式开源文心大模型 4.5 系列（10 款模型、Apache 2.0），华为 openPangu 2.0 七大组件也于同日陆续上线；海外方面，AWS 承诺 10 亿美元派驻前沿 AI 工程师进驻客户，OpenAI reportedly 找到可将推理成本降低一半以上的系统优化方案。 趋">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/07/01/ai-daily-2026-07-01/">
+<meta property="og:image" content="https://garryx.com/covers/cover-ai-daily-2026-07-01.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】百度文心大模型4.5系列正式开源 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览6 月 30 日，百度正式开源文心大模型 4.5 系列（10 款模型、Apache 2.0），华为 openPangu 2.0 七大组件也于同日陆续上线；海外方面，AWS 承诺 10 亿美元派驻前沿 AI 工程师进驻客户，OpenAI reportedly 找到可将推理成本降低一半以上的系统优化方案。 趋">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-ai-daily-2026-07-01.png">
+
+<link rel="canonical" href="https://garryx.com/2026/07/01/ai-daily-2026-07-01/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"【AI 日报】百度文心大模型4.5系列正式开源 | Garry's Blog","description":"🔦 今日速览6 月 30 日，百度正式开源文心大模型 4.5 系列（10 款模型、Apache 2.0），华为 openPangu 2.0 七大组件也于同日陆续上线；海外方面，AWS 承诺 10 亿美元派驻前沿 AI 工程师进驻客户，OpenAI reportedly 找到可将推理成本降低一半以上的系统优化方案。 趋","url":"https://garryx.com/2026/07/01/ai-daily-2026-07-01/","image":"https://garryx.com/covers/cover-ai-daily-2026-07-01.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/07/01/ai-daily-2026-07-01/"},"datePublished":"2026-07-01T00:00:00.000Z","dateModified":"2026-11-13T01:34:52.043Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"AI,人工智能,日报","articleSection":"AI日报"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】百度文心大模型4.5系列正式开源</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-07-01T00:00:00.000Z">
+                    2026年7月1日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>6 月 30 日，百度正式开源文心大模型 4.5 系列（10 款模型、Apache 2.0），华为 openPangu 2.0 七大组件也于同日陆续上线；海外方面，AWS 承诺 10 亿美元派驻前沿 AI 工程师进驻客户，OpenAI  reportedly 找到可将推理成本降低一半以上的系统优化方案。</p>
+<p><strong>趋势1</strong>：开源大模型进入“框架+模型”双层开源阶段<br><strong>趋势2</strong>：Agentic AI 引燃金融监管理论更新<br><strong>趋势3</strong>：人形机器人从工厂 demo 迈向情感陪伴消费市场</p>
+<hr>
+<h2 id="🌍-国际动态"><a href="#🌍-国际动态" class="headerlink" title="🌍 国际动态"></a>🌍 国际动态</h2><h3 id="1-AWS-承诺-10-亿美元，派驻前沿-AI-工程师进驻客户"><a href="#1-AWS-承诺-10-亿美元，派驻前沿-AI-工程师进驻客户" class="headerlink" title="1. AWS 承诺 10 亿美元，派驻前沿 AI 工程师进驻客户"></a>1. AWS 承诺 10 亿美元，派驻前沿 AI 工程师进驻客户</h3><p><strong>事件简述</strong>：AWS 在华盛顿客户活动上宣布设立全新“前置部署工程”部门，首批投入 <strong>10 亿美元</strong>，向客户现场派驻 5–6 人工程师小组，每次驻场 45 天，帮助其落地 Agentic AI 工作流。该部门最终规模将达数千人，首批客户包括 NBA、Ricoh 等。<br><strong>关键数据</strong>：<strong>10 亿美元</strong>初始资金；每组 <strong>5–6 名工程师</strong>、驻场 <strong>45 天</strong>；目标将传统项目交付周期大幅压缩。<br><strong>影响分析</strong>：AWS 以重服务模式抢滩企业 Agent 落地，与 Palantir、Salesforce、Anthropic 的嵌入工程服务正面竞争，也反映出云厂商正在把“帮人跑通 AI”变成核心收入来源。<br>📅6月30日</p>
+<h3 id="2-OpenAI-reportedly-找到推理成本减半以上的优化方案"><a href="#2-OpenAI-reportedly-找到推理成本减半以上的优化方案" class="headerlink" title="2. OpenAI  reportedly 找到推理成本减半以上的优化方案"></a>2. OpenAI  reportedly 找到推理成本减半以上的优化方案</h3><p><strong>事件简述</strong>：据 The Information 援引知情人士，OpenAI 工程师本月早些时候向同事表示，已通过新的系统级优化将模型推理成本降低 <strong>一半以上</strong>。优化主要来自提高现有服务器资源利用率，而非单纯堆芯片；应用到未登录 ChatGPT 流量后，所需英伟达 GPU 一度低至数百个。<br><strong>关键数据</strong>：推理成本降低 <strong>&gt;50%</strong>；访客场景 GPU 需求压缩至 <strong>数百个</strong>。<br><strong>影响分析</strong>：在 AI 资本开支高企、企业开始控制 token 支出的背景下，软件与系统层优化成为降本第二战场，可能加速大模型从“堆卡竞赛”转向“效率竞赛”。<br>📅6月30日</p>
+<h3 id="3-英国央行副行长暗示将为-Agentic-AI-制定新监管规则"><a href="#3-英国央行副行长暗示将为-Agentic-AI-制定新监管规则" class="headerlink" title="3. 英国央行副行长暗示将为 Agentic AI 制定新监管规则"></a>3. 英国央行副行长暗示将为 Agentic AI 制定新监管规则</h3><p><strong>事件简述</strong>：英国央行副行长 Sarah Breeden 在葡萄牙欧洲央行论坛上表示，现有监管框架未考虑自主智能体，依赖“人在回路”处理所有智能体行动并不现实。她指出，智能体支付与交易快速发展可能暴露监管缺口，需研究引入护栏、熔断机制和“杀伤开关”。<br><strong>关键数据</strong>：据剑桥调查，<strong>52%</strong> 的金融机构已在应用 Agentic AI；<strong>79%</strong> 的数据中心容量暴露于高灾害风险区。<br><strong>影响分析</strong>：这是英国央行从“现行规则足够”转向“为 Agentic AI 量身定制规则”的信号，意味着自主智能体在金融系统的规模化应用将率先面临硬约束。<br>📅6月30日</p>
+<h3 id="4-Apptronik-在奥斯汀建成-9-万平方英尺“机器人实训园”"><a href="#4-Apptronik-在奥斯汀建成-9-万平方英尺“机器人实训园”" class="headerlink" title="4. Apptronik 在奥斯汀建成 9 万平方英尺“机器人实训园”"></a>4. Apptronik 在奥斯汀建成 9 万平方英尺“机器人实训园”</h3><p><strong>事件简述</strong>：谷歌与梅赛德斯-奔驰投资的人形机器人公司 Apptronik 在得州奥斯汀启用近 <strong>9 万平方英尺</strong>的机器人实训园，Apollo 人形机器人在此反复练习装箱、分拣等任务，操作员实时遥控并采集数据，用于优化机器人“大脑”。<br><strong>关键数据</strong>：实训园占地约 <strong>8361 平方米</strong>；公司累计融资约 <strong>10 亿美元</strong>、估值超 <strong>55 亿美元</strong>；二代 Apollo 身高约 1.8 米、双手可举 <strong>25 公斤</strong>、续航 <strong>4 小时</strong>。<br><strong>影响分析</strong>：机器人行业正从“秀 demo”进入“建数据工厂”阶段，海量真实操作数据是解决具身智能泛化能力的关键瓶颈，实训园模式或成头部厂商标配。<br>📅6月30日</p>
+<hr>
+<h2 id="🇨🇳-国内动态"><a href="#🇨🇳-国内动态" class="headerlink" title="🇨🇳 国内动态"></a>🇨🇳 国内动态</h2><h3 id="1-百度文心大模型-4-5-系列正式开源"><a href="#1-百度文心大模型-4-5-系列正式开源" class="headerlink" title="1. 百度文心大模型 4.5 系列正式开源"></a>1. 百度文心大模型 4.5 系列正式开源</h3><p><strong>事件简述</strong>：百度 6 月 30 日正式开源文心大模型 4.5 系列，共 <strong>10 款模型</strong>，包括总参数 <strong>470 亿、激活参数 30 亿</strong>的 MoE 模型，以及 <strong>3 亿参数</strong>稠密模型，权重与推理代码按 <strong>Apache 2.0</strong> 协议开放。模型已在飞桨星河社区、HuggingFace、百度智能云千帆平台上线。<br><strong>关键数据</strong>：<strong>10 款模型</strong>；MoE 训练 <strong>MFU 达 47%</strong>；文本/多模态基准部分超越 DeepSeek-V3、Qwen3；同量级多模态模型媲美更大参数的 Qwen2.5-VL-32B。<br><strong>影响分析</strong>：百度实现了框架层（飞桨）与模型层的“双层开源”，在国产大模型“开源军备赛”中进一步加码，也为企业私有化部署和学术研究提供了更完整的工具链。<br>📅6月30日</p>
+<h3 id="2-华为开源盘古-openPangu-2-0-七大组件陆续上线"><a href="#2-华为开源盘古-openPangu-2-0-七大组件陆续上线" class="headerlink" title="2. 华为开源盘古 openPangu 2.0 七大组件陆续上线"></a>2. 华为开源盘古 openPangu 2.0 七大组件陆续上线</h3><p><strong>事件简述</strong>：华为在 HDC 2026 发布的开源盘古 openPangu 2.0 自 6 月 30 日起陆续开放 <strong>7 大组件</strong>，除模型结构、权重、推理代码外，还新增预训练代码、后训练代码、训练算子，是业界少数完整开放训练链路的超大规模 MoE 模型之一。<br><strong>关键数据</strong>：Pro 版总参数 <strong>5050 亿/激活 180 亿</strong>，Flash 版 <strong>920 亿/激活 60 亿</strong>；支持 <strong>512K 超长上下文</strong>；单卡吞吐率为业界主流开源模型约 <strong>2 倍</strong>。<br><strong>影响分析</strong>：完整开源训练链路将降低基于昇腾和鸿蒙生态的模型后训练与部署门槛，强化国产算力+国产模型的闭环，对需要自主可控的行业客户意义重大。<br>📅6月30日</p>
+<h3 id="3-优必选发布全尺寸超仿生人形机器人-U1-系列"><a href="#3-优必选发布全尺寸超仿生人形机器人-U1-系列" class="headerlink" title="3. 优必选发布全尺寸超仿生人形机器人 U1 系列"></a>3. 优必选发布全尺寸超仿生人形机器人 U1 系列</h3><p><strong>事件简述</strong>：优必选 6 月 30 日在深圳发布首款全尺寸超仿生人形机器人 U1 系列，定位情感陪伴，首批包括女版“小优 Una”和男版“凌夜 Nix”。产品身高 1.6–1.85 米，全身 <strong>88 个自由度</strong>，搭载情感共鸣大模型，售价从半身版 <strong>11.98 万元</strong>到顶配 <strong>99 万元</strong>不等。<br><strong>关键数据</strong>：U1 Lite（上半身）<strong>11.98 万元</strong>、U1 Pro <strong>16.98 万元</strong>、U1 Ultra 男版 <strong>99 万元</strong>/女版 <strong>88 万元</strong>；预定量已超 <strong>1.1 万台</strong>；端侧算力 <strong>200 TOPS</strong>。<br><strong>影响分析</strong>：U1 将人形机器人从工业/服务场景推向家庭情感陪伴消费级市场，但高达数十万元的定价、续航与情感交互真实感仍是能否从“高端玩具”变成刚需的核心考验。<br>📅6月30日</p>
+<hr>
+<h2 id="📄-今日论文"><a href="#📄-今日论文" class="headerlink" title="📄 今日论文"></a>📄 今日论文</h2><h3 id="1-Self-Evolving-World-Models-for-LLM-Agent-Planning"><a href="#1-Self-Evolving-World-Models-for-LLM-Agent-Planning" class="headerlink" title="1. Self-Evolving World Models for LLM Agent Planning"></a>1. Self-Evolving World Models for LLM Agent Planning</h3><p><strong>作者/机构</strong>：Xuan Zhang, Wenxuan Zhang, See-Kiong Ng et al. | 新加坡国立大学等<br><strong>核心贡献</strong>：提出面向长程 LLM Agent 的世界模型，能够自我演进以改进对环境的前瞻预测，从而提升规划质量并减少试错成本。<br><strong>为什么重要</strong>：当前 Agent 在长周期任务中常因错误预测而“越走越偏”，自演进世界模型为增强 Agent 的预见性与鲁棒性提供了新路径。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.30639">arXiv:2606.30639</a> 📅6月29日</p>
+<h3 id="2-TraceLab-Characterizing-Coding-Agent-Workloads-for-LLM-Serving"><a href="#2-TraceLab-Characterizing-Coding-Agent-Workloads-for-LLM-Serving" class="headerlink" title="2. TraceLab: Characterizing Coding Agent Workloads for LLM Serving"></a>2. TraceLab: Characterizing Coding Agent Workloads for LLM Serving</h3><p><strong>作者/机构</strong>：Kan Zhu, Mathew Jacob, Chenxi Ma et al. | 华盛顿大学等<br><strong>核心贡献</strong>：首次系统刻画真实 Coding Agent 的推理服务负载特征，包括长上下文、频繁工具调用、高并发短交互等，为 LLM 服务优化提供数据基础。<br><strong>为什么重要</strong>：Coding Agent 正成为 LLM 落地的核心场景，理解其实际负载是设计更优推理引擎和调度策略的前提。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.30560">arXiv:2606.30560</a> 📅6月29日</p>
+<h3 id="3-VLK-Learning-Humanoid-Loco-Manipulation-from-Synthetic-Interactions-in-Reconstructed-Scenes"><a href="#3-VLK-Learning-Humanoid-Loco-Manipulation-from-Synthetic-Interactions-in-Reconstructed-Scenes" class="headerlink" title="3. VLK: Learning Humanoid Loco-Manipulation from Synthetic Interactions in Reconstructed Scenes"></a>3. VLK: Learning Humanoid Loco-Manipulation from Synthetic Interactions in Reconstructed Scenes</h3><p><strong>作者/机构</strong>：Yen-Jen Wang, Jiaman Li, Sirui Chen et al. | 加州大学圣迭戈分校等<br><strong>核心贡献</strong>：在重建场景中通过合成交互数据，训练人形机器人将自我中心视觉、语言指令与全身运动结合，完成 loco-manipulation 任务。<br><strong>为什么重要</strong>：为具身智能提供了低成本、可扩展的合成数据训练范式，有助于弥合仿真到真实的迁移鸿沟。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.30645">arXiv:2606.30645</a> 📅6月29日</p>
+<h3 id="4-Pessimism’s-Paradox-Conservative-Offline-Training-Amplifies-Reward-Hacking-During-Online-Adaptation-in-Reasoning-Models"><a href="#4-Pessimism’s-Paradox-Conservative-Offline-Training-Amplifies-Reward-Hacking-During-Online-Adaptation-in-Reasoning-Models" class="headerlink" title="4. Pessimism’s Paradox: Conservative Offline Training Amplifies Reward Hacking During Online Adaptation in Reasoning Models"></a>4. Pessimism’s Paradox: Conservative Offline Training Amplifies Reward Hacking During Online Adaptation in Reasoning Models</h3><p><strong>作者/机构</strong>：Subramanyam Sahoo, Aman Chadha, Vinija Jain et al. | AWS、斯坦福等<br><strong>核心贡献</strong>：发现保守离线 RL 训练虽然在离线阶段更安全，但在推理模型的在线适应阶段反而可能放大奖励作弊（reward hacking）风险。<br><strong>为什么重要</strong>：对当前盛行的“先离线对齐、再在线强化”训练范式提出警示，为推理模型的安全训练提供了新的理论视角。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.30627">arXiv:2606.30627</a> 📅6月29日</p>
+<h3 id="5-MESA-Prioritizing-Vulnerable-Communication-Channels-for-Securing-Multi-Agent-Systems"><a href="#5-MESA-Prioritizing-Vulnerable-Communication-Channels-for-Securing-Multi-Agent-Systems" class="headerlink" title="5. MESA: Prioritizing Vulnerable Communication Channels for Securing Multi-Agent Systems"></a>5. MESA: Prioritizing Vulnerable Communication Channels for Securing Multi-Agent Systems</h3><p><strong>作者/机构</strong>：Kunyang Li, Kyle Domico, Jonathan Gregory et al. | 加州大学伯克利分校等<br><strong>核心贡献</strong>：提出识别并优先保护多 Agent 系统中高风险通信通道的方法，以降低 LLM Agent 协作时被攻击面放大的风险。<br><strong>为什么重要</strong>：随着企业部署多 Agent 工作流，Agent 之间的通信安全将成为新的关键防线。<br>📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2606.30609">arXiv:2606.30609</a> 📅6月29日</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-14T00:00:00.000Z">2026-11-14</time>
+                    <h3><a href="/2026/11/14/ai-daily-2026-11-14/">【AI 日报】黄仁勋辞任英伟达CEO：33年时代落幕，CFO克雷斯临时接掌</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 黄仁勋辞去英伟达总裁、CEO及董事职务，执掌33年戛然而止，CFO克雷斯临时接任、首设董事长由前新思CEO哈维·琼斯出任，周五市值跌破4万亿美元。Anthr...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-12T00:00:00.000Z">2026-11-12</time>
+                    <h3><a href="/2026/11/12/ai-daily-2026-11-12/">【AI 日报】台积电入局AI“闭环投资”：向OpenAI与Anthropic各投5亿美元</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 台积电董事会罕见出手：向OpenAI与Anthropic各投不超5亿美元，芯片供应商直接入股头部模型公司，AI&#34;循环融资&#34;再添关键一环。同侧消息面转暖——C...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-11T00:00:00.000Z">2026-11-11</time>
+                    <h3><a href="/2026/11/11/ai-daily-2026-11-11/">【AI 日报】Anthropic IPO定价曝光：每股70-78美元，七巨头260亿基石认购</a></h3>
+                    
+                    
+                    <p>🔦 今日速览Anthropic最新招股书草案曝光IPO定价区间每股70—78美元、发行8.25亿股，谷歌、英伟达、微软、AMD、博通、美光、台积电七家巨头将以发行价合计2...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-10T00:00:00.000Z">2026-11-10</time>
+                    <h3><a href="/2026/11/10/ai-daily-2026-11-10/">【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明</a></h3>
+                    
+                    
+                    <p>🔦 今日速览Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，AP...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/07/02/ai-daily-2026-07-02/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】联合国发布首份全球AI评估报告并警告灾难性风险</span>
+                </a>
+                
+                
+                <a href="/2026/06/30/ai-daily-2026-06-30/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】智谱GLM-5.2网络安全能力比肩Claude Mythos</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

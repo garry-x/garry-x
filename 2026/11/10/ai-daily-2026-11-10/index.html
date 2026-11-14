@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明 | Garry&#39;s Blog</title>
+<meta name="description" content="🔦 今日速览Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，API同步降价20%——IPO路演最快今日启动。同一天，谷歌宣布两款新TPU正面挑战英伟达，Meta推出每百万输入token仅10美分的智能体执行模型M">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,人工智能,日报">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明 | Garry&#39;s Blog">
+<meta property="og:description" content="🔦 今日速览Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，API同步降价20%——IPO路演最快今日启动。同一天，谷歌宣布两款新TPU正面挑战英伟达，Meta推出每百万输入token仅10美分的智能体执行模型M">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/11/10/ai-daily-2026-11-10/">
+<meta property="og:image" content="https://garryx.com/covers/cover-ai-daily-2026-11-10.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明 | Garry&#39;s Blog">
+<meta name="twitter:description" content="🔦 今日速览Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，API同步降价20%——IPO路演最快今日启动。同一天，谷歌宣布两款新TPU正面挑战英伟达，Meta推出每百万输入token仅10美分的智能体执行模型M">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-ai-daily-2026-11-10.png">
+
+<link rel="canonical" href="https://garryx.com/2026/11/10/ai-daily-2026-11-10/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明 | Garry's Blog","description":"🔦 今日速览Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，API同步降价20%——IPO路演最快今日启动。同一天，谷歌宣布两款新TPU正面挑战英伟达，Meta推出每百万输入token仅10美分的智能体执行模型M","url":"https://garryx.com/2026/11/10/ai-daily-2026-11-10/","image":"https://garryx.com/covers/cover-ai-daily-2026-11-10.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/11/10/ai-daily-2026-11-10/"},"datePublished":"2026-11-10T00:00:00.000Z","dateModified":"2026-11-14T00:27:59.301Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"AI,人工智能,日报","articleSection":"AI日报"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/AI%E6%97%A5%E6%8A%A5/">AI日报</a>
+                
+            </div>
+            
+            <h1 class="post-title">【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-11-10T00:00:00.000Z">
+                    2026年11月10日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">#人工智能</a>
+                    
+                        <a href="/tags/%E6%97%A5%E6%8A%A5/">#日报</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，API同步降价20%——IPO路演最快今日启动。同一天，谷歌宣布两款新TPU正面挑战英伟达，Meta推出每百万输入token仅10美分的智能体执行模型Muse Ember。国内，京东双11人形机器人销量同比暴增700%。</p>
+<p><strong>趋势1</strong>：前沿模型竞赛进入”智能体集群”时代 <strong>趋势2</strong>：AI芯片战转向细分场景特化 <strong>趋势3</strong>：智能体工具链安全债集中暴露</p>
+<hr>
+<h2 id="🌍-国际动态"><a href="#🌍-国际动态" class="headerlink" title="🌍 国际动态"></a>🌍 国际动态</h2><h3 id="1-Anthropic发布Fable-5-2-Mythos-5-2：千智能体30小时证明费马大定理，IPO路演最快今启动"><a href="#1-Anthropic发布Fable-5-2-Mythos-5-2：千智能体30小时证明费马大定理，IPO路演最快今启动" class="headerlink" title="1. Anthropic发布Fable 5.2/Mythos 5.2：千智能体30小时证明费马大定理，IPO路演最快今启动"></a>1. Anthropic发布Fable 5.2/Mythos 5.2：千智能体30小时证明费马大定理，IPO路演最快今启动</h3><p><strong>事件简述</strong>：11月9日，Anthropic官方发布新一代旗舰Claude Fable 5.2与受限开放的Mythos 5.2。最震撼的演示：由<strong>1000个Fable 5.2智能体</strong>组成的团队仅用<strong>30小时</strong>完成费马大定理的完整Lean形式化证明，行动Token仅为此前方案的1/3、证明长度缩短至1/7（此前用未发布研究版本需11天加人工指导；同配置Opus 5.5跑18小时只完成26%）。基准测试上Fable 5.2在FrontierCode 2.0得分<strong>49.1%</strong>（GPT-6 Astra 42.8%、Opus 5.5 45.5%），Humanity’s Last Exam <strong>74.2%</strong>（Astra 57.2%），机器人基准RoboDojo <strong>64.9%</strong>（Astra 29.8%）。Mythos 5.2则找到预测整个AAV病毒衣壳结构的新方法，34种衣壳准确预测<strong>28种</strong>。API价格降<strong>20%</strong>至$8/$40每百万token。同日消息：Anthropic IPO路演<strong>最快11月10日</strong>启动，力争感恩节前登陆纳斯达克（代码ANT），但AI抛售潮后潜在投资者讨论估值已降至<strong>1.1万亿—1.3万亿美元</strong>（此前预期1.4-1.5万亿），高盛、摩根士丹利牵头承销。 <strong>关键数据</strong>：FrontierCode 49.1% | 费马大定理形式化<strong>30小时/1000智能体</strong> | API降价20% | 估值预期下调至1.1-1.3万亿美元 <strong>影响分析</strong>：这是”智能体集群做科研”第一次给出可复现的规模演示；发布卡IPO路演启动前夜，模型能力就是定价谈判的核心筹码，而估值下调与能力跃升的赛跑将检验AI资产抛售潮后的真实风险偏好。 📅11月9日</p>
+<h3 id="2-谷歌新增TPU-8tx与8i-Max：搭配AMD-EPYC做机密计算，一年四款芯片围攻英伟达"><a href="#2-谷歌新增TPU-8tx与8i-Max：搭配AMD-EPYC做机密计算，一年四款芯片围攻英伟达" class="headerlink" title="2. 谷歌新增TPU 8tx与8i Max：搭配AMD EPYC做机密计算，一年四款芯片围攻英伟达"></a>2. 谷歌新增TPU 8tx与8i Max：搭配AMD EPYC做机密计算，一年四款芯片围攻英伟达</h3><p><strong>事件简述</strong>：11月9日谷歌宣布扩展第八代TPU阵容：<strong>TPU 8tx</strong>与TPU 8t同硅、搭配AMD<strong>第五代EPYC</strong>处理器实现硬件级芯片加密机密计算，面向政府与受监管行业，延迟较8t降低最高2倍；<strong>TPU 8i Max</strong>将两颗8i封装一体，算力、SRAM与HBM带宽翻倍，专攻长上下文推理。两款均明年上市，谷歌由此成为<strong>一年内推出四款TPU</strong>的首创者——其芯片迭代节奏已从”两年一款”跳到”一年四款”。彭博分析师Mandeep Singh估算TPU成本较英伟达GPU低约<strong>30%</strong>，TPU相关销售额将从今年约<strong>120亿美元</strong>增至2028年超<strong>1350亿美元</strong>；客户已近100家，甲骨文明年起将在云端首次提供TPU，Anthropic握有2028-2031年最多1500亿美元芯片采购选择权。 <strong>关键数据</strong>：一年内4款TPU | TPU成本较GPU低~30% | 2028年TPU销售额预期1350亿美元 | AMD EPYC跨界配套 <strong>影响分析</strong>：”谷歌TPU+AMD CPU”的组合意味着AI芯片竞争从通用算力转向场景特化，英伟达面临的不再是单一对标产品，而是一整条按需求切分的自研生态。 📅11月9日</p>
+<h3 id="3-Meta发布Muse-Ember：每百万输入token仅10美分的智能体”执行工兵”"><a href="#3-Meta发布Muse-Ember：每百万输入token仅10美分的智能体”执行工兵”" class="headerlink" title="3. Meta发布Muse Ember：每百万输入token仅10美分的智能体”执行工兵”"></a>3. Meta发布Muse Ember：每百万输入token仅10美分的智能体”执行工兵”</h3><p><strong>事件简述</strong>：Meta超级智能实验室11月9日推出<strong>Muse Ember</strong>，迄今其最轻、最省钱的模型，专为智能体重复性执行设计：工具调用、编码子任务、路由、抽取、长文档解析。输入价格<strong>每百万token仅10美分</strong>，Meta用Artificial Analysis综合分对比称其比Anthropic Haiku、OpenAI Luna更便宜更聪明，成本可与DeepSeek V4.1 Flash、GLM 5.3 Flash等开源模型竞争。架构定位是” Wonder计划、Ember执行”——大模型定规则，Ember在数万案例中批量执行；支持文本、图像、音频多模态输入。这是Muse品牌下继Spark、Glimmer、Wonder后的第四款模型。 <strong>关键数据</strong>：输入<strong>$0.10/百万token</strong> | Muse系列第4款 | 主打高音量重复执行场景 <strong>影响分析</strong>：智能体经济学正在成型——当”执行token”价格压到开源同级，大模型+小工兵的分级架构将成为Agent规模化部署的默认选项。 📅11月9日</p>
+<h3 id="4-Claude-Code配置泄露数千条密钥：10万-settings文件流入GitHub公开仓库"><a href="#4-Claude-Code配置泄露数千条密钥：10万-settings文件流入GitHub公开仓库" class="headerlink" title="4. Claude Code配置泄露数千条密钥：10万+settings文件流入GitHub公开仓库"></a>4. Claude Code配置泄露数千条密钥：10万+settings文件流入GitHub公开仓库</h3><p><strong>事件简述</strong>：AI安全公司Apiiro 11月9日披露，Claude Code的本地配置文件<code>.claude/settings.local.json</code>存在系统性泄露风险：用户在批准自动执行命令时选择”Yes, and don’t ask again”，命令会<strong>原文</strong>（含内嵌的数据库密码、API token、root登录凭据）写入该文件。Anthropic虽将其加入全局.gitignore，但<strong>仓库级不生效</strong>——克隆到新机器或文件夹后来才init成repo时，Claude Code还会自行提交该文件。研究者在GitHub公开仓库发现<strong>超过10万个</strong>此类配置文件，其中约<strong>1100个</strong>（来自63家组织）含真实密钥；即使原仓库删除，fork中依然存续。 <strong>关键数据</strong>：<strong>10万+</strong>泄露文件 | <strong>~1100</strong>个含真实密钥 | <strong>63家</strong>组织受影响 <strong>影响分析</strong>：这是智能体工具链”便利默认值”酿成的首例大规模密钥事故——审批记忆机制把敏感命令写进版本控制视野，AI编码工具的权限模型与git工作流的冲突开始付出真实代价。 📅11月9日（美东）</p>
+<h3 id="5-软银联手Grab进军马来西亚：首期18-5亿美元，目标5吉瓦AI算力"><a href="#5-软银联手Grab进军马来西亚：首期18-5亿美元，目标5吉瓦AI算力" class="headerlink" title="5. 软银联手Grab进军马来西亚：首期18.5亿美元，目标5吉瓦AI算力"></a>5. 软银联手Grab进军马来西亚：首期18.5亿美元，目标5吉瓦AI算力</h3><p><strong>事件简述</strong>：财联社11月9日消息，软银集团与东南亚超级应用Grab签署联合开发协议，在马来西亚开发AI基础设施：软银投资<strong>10亿美元</strong>、Grab投资<strong>7.5亿美元</strong>、马来西亚能源公司Petros投资<strong>1亿美元</strong>；三方将联合全球投资者与超大规模云服务商，目标实现<strong>5吉瓦</strong>AI算力容量。 <strong>关键数据</strong>：首期<strong>18.5亿美元</strong> | 目标<strong>5GW</strong>算力 | 软银AI基础设施版图再扩一国 <strong>影响分析</strong>：东南亚正成为中美之外AI算力扩张的第三战场，主权资本+消费平台+软银资金的三角模式，复制着”算力园区绑定国家产业”的新叙事。 📅11月9日</p>
+<hr>
+<h2 id="🇨🇳-国内动态"><a href="#🇨🇳-国内动态" class="headerlink" title="🇨🇳 国内动态"></a>🇨🇳 国内动态</h2><h3 id="1-京东双11智能人形机器人销量同比增700-：机械臂、灵巧手成交额涨超10倍"><a href="#1-京东双11智能人形机器人销量同比增700-：机械臂、灵巧手成交额涨超10倍" class="headerlink" title="1. 京东双11智能人形机器人销量同比增700%：机械臂、灵巧手成交额涨超10倍"></a>1. 京东双11智能人形机器人销量同比增700%：机械臂、灵巧手成交额涨超10倍</h3><p><strong>事件简述</strong>：《每日经济新闻》11月9日报道，京东”双11”数据显示，10月12日至30日<strong>智能人形机器人销量同比增长700%</strong>，机械臂、灵巧手等机器人趋势品类<strong>成交额同比增长超10倍</strong>。记者实探珞石机器人邹城工厂：产线午后依然繁忙，机械臂一排排下线，工业机械臂负载220公斤载重块反复起落测试；但销量爆发不等于量产能力一夜长成，供应链”补课”仍在进行。 <strong>关键数据</strong>：人形机器人销量<strong>+700%</strong> | 机械臂/灵巧手成交额<strong>+10倍+</strong>（10月12日—30日） <strong>影响分析</strong>：消费级渠道第一次给出人形机器人的真实成交弹性——需求端已从”展演采购”扩展到消费购买，产能与供应链爬坡速度成为下一轮淘汰赛的硬指标。 📅11月9日</p>
+<h3 id="2-具身智能”泡沫之辩”走到灵巧手：投资回报率与标准是两道关"><a href="#2-具身智能”泡沫之辩”走到灵巧手：投资回报率与标准是两道关" class="headerlink" title="2. 具身智能”泡沫之辩”走到灵巧手：投资回报率与标准是两道关"></a>2. 具身智能”泡沫之辩”走到灵巧手：投资回报率与标准是两道关</h3><p><strong>事件简述</strong>：在北京首钢园举行的”机器人产业链共创论坛及因时新品体验会”上，北航具身智能研究院院长魏洪兴直言，过去两年具身智能行业”<strong>发展过快，积累了不少泡沫</strong>“；凌云光高级副总裁杨艺则认为这是面向未来的”最美的泡沫”，能赋能传统自动化产业升级。行业焦点正从demo转向真实ROI：灵巧手规模化量产需同时跨过单工位投资回报与行业标准缺失两道关。 <strong>关键数据</strong>：双11品类成交额+10倍与”泡沫”警示同日出现——资本热度与产业化进度的落差是当前核心矛盾 <strong>影响分析</strong>：继万台量产（启元）、销量爆发（京东数据）之后，行业内部公开谈”泡沫”标志着具身智能从讲故事阶段进入以ROI验收的下半场。 📅11月9日</p>
+<hr>
+<h2 id="📄-今日论文"><a href="#📄-今日论文" class="headerlink" title="📄 今日论文"></a>📄 今日论文</h2><h3 id="1-On-Agentic-Manipulation-Policies：通用大模型直接操控机械臂，反超VLA专家策略"><a href="#1-On-Agentic-Manipulation-Policies：通用大模型直接操控机械臂，反超VLA专家策略" class="headerlink" title="1. On Agentic Manipulation Policies：通用大模型直接操控机械臂，反超VLA专家策略"></a>1. On Agentic Manipulation Policies：通用大模型直接操控机械臂，反超VLA专家策略</h3><p><strong>作者/机构</strong>：Chen Chen, Omid Bagherieh, N. N. Appiah Balaji et al. <strong>核心贡献</strong>：系统性提出并评测”智能体式操控策略”（AMP）——不做示教训练，直接让通用AI模型在任务推进中实时指挥机械臂。给出跨单臂、双臂、移动操控三种形态无需改动即可运行的参考框架AMP1，并在基准上取得SOTA，<strong>全面超过VLA（视觉-语言-动作模型）与WAM（世界-动作模型）等专家策略</strong>。 <strong>为什么重要</strong>：如果”通用模型+智能体外壳”胜过专门训练的机器人策略，具身智能的技术路线可能重演语言模型的”通用化碾压专用化”，机器人公司自训大模型的成本逻辑将被动摇。 📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2611.09892">arXiv:2611.09892</a> 📅11月6日</p>
+<h3 id="2-BitDecoding-FP4：算法-系统协同设计，原生FP4-KV缓存解码不再掉精度"><a href="#2-BitDecoding-FP4：算法-系统协同设计，原生FP4-KV缓存解码不再掉精度" class="headerlink" title="2. BitDecoding-FP4：算法-系统协同设计，原生FP4 KV缓存解码不再掉精度"></a>2. BitDecoding-FP4：算法-系统协同设计，原生FP4 KV缓存解码不再掉精度</h3><p><strong>作者/机构</strong>：Dayou Du, Woon Yee Ng, Guangming Sheng et al. <strong>核心贡献</strong>：长上下文推理的显存瓶颈在KV缓存。现有FP4方案两难：朴素量化掉精度严重，精度导向的4-bit算法依赖向量码本、查表开销拖垮解码吞吐。BitDecoding-FP4做<strong>算法-系统协同设计</strong>，在NVFP4/MXFP4微缩放格式上实现兼顾精度与吞吐的原生FP4 KV解码。 <strong>为什么重要</strong>：KV缓存量化直接决定单卡能服务多长的上下文、多少并发。FP4路线走通意味着长上下文推理成本还有下一个数量级下探空间。 📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2611.09825">arXiv:2611.09825</a> 📅11月6日</p>
+<h3 id="3-并行智能体团队：测试时算力的最优花法是”多小队并行”而非巨型团队"><a href="#3-并行智能体团队：测试时算力的最优花法是”多小队并行”而非巨型团队" class="headerlink" title="3. 并行智能体团队：测试时算力的最优花法是”多小队并行”而非巨型团队"></a>3. 并行智能体团队：测试时算力的最优花法是”多小队并行”而非巨型团队</h3><p><strong>作者/机构</strong>：Junlin Wang, Haozhe Chen, Ang Li et al. <strong>核心贡献</strong>：测试时扩展有两条路：Best-of-N独立采样快速饱和，单一大型协作团队分数更高但规模一大即停滞。本文提出<strong>并行智能体团队</strong>——同时采样多个小团队、保留最优团队结果，在GPU内核编写、形式证明等<strong>12个长程任务</strong>上取得两者之长。 <strong>为什么重要</strong>：为Agent系统的test-time compute分配给出直接可工程化的结论：预算一定时，”多个小队竞赛”优于”一个大团队开会”，这与Anthropic今日1000智能体证明费马大定理的演示形成互证。 📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2611.09798">arXiv:2611.09798</a> 📅11月6日</p>
+<h3 id="4-AI自动发现形式化验证的量子程序：量子算法研发进入自动发现循环"><a href="#4-AI自动发现形式化验证的量子程序：量子算法研发进入自动发现循环" class="headerlink" title="4. AI自动发现形式化验证的量子程序：量子算法研发进入自动发现循环"></a>4. AI自动发现形式化验证的量子程序：量子算法研发进入自动发现循环</h3><p><strong>作者/机构</strong>：Sergey Shirobokov, Ben Jaderberg, Katerina Hristova et al.（Google Quantum AI团队） <strong>核心贡献</strong>：量子算法无法在经典计算机上大规模验证，历来依赖专家多年协作。本文将LLM自动发现循环扩展到量子领域，<strong>自动发现包含数量级改进的量子程序，且带形式化验证</strong>，突破经典模拟器只能评估小规模实例的限制。 <strong>为什么重要</strong>：量子计算的实用时间表取决于算法进步速度；”AI提出+形式化验证背书”闭环让量子算法从手工业进入自动发现时代，与Fable 5.2的数学证明能力同属一条”AI做科学”主线。 📄 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2611.09822">arXiv:2611.09822</a> 📅11月6日</p>
+<hr>
+<h2 id="💡-值得关注"><a href="#💡-值得关注" class="headerlink" title="💡 值得关注"></a>💡 值得关注</h2><p><strong>智能体集群是今天的主线</strong>：Anthropic用1000个智能体30小时证明费马大定理，Meta用10美分token的Ember给智能体集群配”执行工兵”，arXiv同日给出”多小队并行优于巨型团队”的算力分配结论——模型能力、执行成本、编排方法三块拼图在同一天到位，Agent规模化部署的工程学正在成形。</p>
+<p><strong>芯片战从”对标英伟达”变成”切分场景”</strong>：谷歌一年四款TPU（训练/推理/机密计算/长上下文）+ AMD EPYC配套，英伟达同日仍被调查事件拖累（周一逆势跌4.7%）。算力市场的碎片化对英伟达是慢性失血，对AMD是CPU侧生态位扩张。</p>
+<p><strong>Claude Code密钥泄露是智能体工具链的第一记警钟</strong>：审批记忆、自动提交这类”便利默认值”正在系统性地制造安全债。给所有Agent产品的可执行清单：不要把工具的运行状态文件放进版本控制视野，权限审批记录要脱敏存储。</p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-14T00:00:00.000Z">2026-11-14</time>
+                    <h3><a href="/2026/11/14/ai-daily-2026-11-14/">【AI 日报】黄仁勋辞任英伟达CEO：33年时代落幕，CFO克雷斯临时接掌</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 黄仁勋辞去英伟达总裁、CEO及董事职务，执掌33年戛然而止，CFO克雷斯临时接任、首设董事长由前新思CEO哈维·琼斯出任，周五市值跌破4万亿美元。Anthr...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-12T00:00:00.000Z">2026-11-12</time>
+                    <h3><a href="/2026/11/12/ai-daily-2026-11-12/">【AI 日报】台积电入局AI“闭环投资”：向OpenAI与Anthropic各投5亿美元</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 台积电董事会罕见出手：向OpenAI与Anthropic各投不超5亿美元，芯片供应商直接入股头部模型公司，AI&#34;循环融资&#34;再添关键一环。同侧消息面转暖——C...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-11T00:00:00.000Z">2026-11-11</time>
+                    <h3><a href="/2026/11/11/ai-daily-2026-11-11/">【AI 日报】Anthropic IPO定价曝光：每股70-78美元，七巨头260亿基石认购</a></h3>
+                    
+                    
+                    <p>🔦 今日速览Anthropic最新招股书草案曝光IPO定价区间每股70—78美元、发行8.25亿股，谷歌、英伟达、微软、AMD、博通、美光、台积电七家巨头将以发行价合计2...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-09T00:00:00.000Z">2026-11-09</time>
+                    <h3><a href="/2026/11/09/ai-daily-2026-11-09/">【AI 日报】黄仁勋承认婚外情，英伟达董事会启动”外国情报目标”独立调查</a></h3>
+                    
+                    
+                    <p>🔦 今日速览英伟达董事会周日（美东11月8日）宣布对黄仁勋”成为外国情报行动目标”启动独立调查，黄仁勋同日致信员工承认婚外情；苹果被曝加速Siri智能体化追赶OpenAI...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/11/11/ai-daily-2026-11-11/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】Anthropic IPO定价曝光：每股70-78美元，七巨头260亿基石认购</span>
+                </a>
+                
+                
+                <a href="/2026/11/09/ai-daily-2026-11-09/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】黄仁勋承认婚外情，英伟达董事会启动”外国情报目标”独立调查</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>服务器 CPU 供应紧张深度分析 | Garry&#39;s Blog</title>
+<meta name="description" content="生成日期：20260703聚焦范围：服务器 CPU，包括 Intel Xeon、AMD EPYC、Arm server CPU、自研云端 CPU，以及 AI 服务器中的主控 CPU（host CPU）。不讨论 PC CPU 的供需，除非它影响服务器产能分配。 0. 结论2026 年服务器 CPU 确实更难买了，这不是短">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="AI,CPU,server,semiconductor,data-center,supply-chain">
+
+<!-- Open Graph -->
+<meta property="og:title" content="服务器 CPU 供应紧张深度分析 | Garry&#39;s Blog">
+<meta property="og:description" content="生成日期：20260703聚焦范围：服务器 CPU，包括 Intel Xeon、AMD EPYC、Arm server CPU、自研云端 CPU，以及 AI 服务器中的主控 CPU（host CPU）。不讨论 PC CPU 的供需，除非它影响服务器产能分配。 0. 结论2026 年服务器 CPU 确实更难买了，这不是短">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/07/03/global-cpu-supply-shortage/">
+<meta property="og:image" content="https://garryx.com/covers/cover-global-cpu-supply-shortage.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="服务器 CPU 供应紧张深度分析 | Garry&#39;s Blog">
+<meta name="twitter:description" content="生成日期：20260703聚焦范围：服务器 CPU，包括 Intel Xeon、AMD EPYC、Arm server CPU、自研云端 CPU，以及 AI 服务器中的主控 CPU（host CPU）。不讨论 PC CPU 的供需，除非它影响服务器产能分配。 0. 结论2026 年服务器 CPU 确实更难买了，这不是短">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-global-cpu-supply-shortage.png">
+
+<link rel="canonical" href="https://garryx.com/2026/07/03/global-cpu-supply-shortage/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"服务器 CPU 供应紧张深度分析 | Garry's Blog","description":"生成日期：20260703聚焦范围：服务器 CPU，包括 Intel Xeon、AMD EPYC、Arm server CPU、自研云端 CPU，以及 AI 服务器中的主控 CPU（host CPU）。不讨论 PC CPU 的供需，除非它影响服务器产能分配。 0. 结论2026 年服务器 CPU 确实更难买了，这不是短","url":"https://garryx.com/2026/07/03/global-cpu-supply-shortage/","image":"https://garryx.com/covers/cover-global-cpu-supply-shortage.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/07/03/global-cpu-supply-shortage/"},"datePublished":"2026-07-03T03:00:00.000Z","dateModified":"2026-11-13T01:34:52.045Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"AI,CPU,server,semiconductor,data-center,supply-chain","articleSection":"技术"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+                
+            </div>
+            
+            <h1 class="post-title">服务器 CPU 供应紧张深度分析</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-07-03T03:00:00.000Z">
+                    2026年7月3日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/AI/">#AI</a>
+                    
+                        <a href="/tags/CPU/">#CPU</a>
+                    
+                        <a href="/tags/server/">#server</a>
+                    
+                        <a href="/tags/semiconductor/">#semiconductor</a>
+                    
+                        <a href="/tags/data-center/">#data-center</a>
+                    
+                        <a href="/tags/supply-chain/">#supply-chain</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <blockquote>
+<p>生成日期：2026-07-03<br>聚焦范围：服务器 CPU，包括 Intel Xeon、AMD EPYC、Arm server CPU、自研云端 CPU，<br>以及 AI 服务器中的主控 CPU（host CPU）。不讨论 PC CPU 的供需，除非它影响服务器产能分配。</p>
+</blockquote>
+<hr>
+<h2 id="0-结论"><a href="#0-结论" class="headerlink" title="0. 结论"></a>0. 结论</h2><p>2026 年服务器 CPU 确实更难买了，这不是短期噪声。</p>
+<p>但它不是“所有服务器 CPU 全面断货”。实际更像是<strong>特定服务器 CPU 更难买</strong>：<br>高端型号、AI 服务器用的主控 CPU、云厂商已经认证过的平台最紧。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>判断</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否真的紧</td>
+<td>是。高端服务器 CPU、AI 服务器里的主控 CPU、云厂商认证过的平台最紧。</td>
+</tr>
+<tr>
+<td>紧张性质</td>
+<td>不是所有型号都缺，而是“热门型号、确定交期、大批量采购”更难。</td>
+</tr>
+<tr>
+<td>主要原因</td>
+<td>AI 推理，以及能调用工具、能拆任务的 AI 应用（agentic AI），增加了服务器 CPU 需求。</td>
+</tr>
+<tr>
+<td>卡点在哪里</td>
+<td>不只是 CPU 芯片本身，还包括 DDR5/HBM、BMC、PMIC、基板、封装、测试和整机认证。</td>
+</tr>
+<tr>
+<td>2026 年能否明显缓解</td>
+<td>难。厂商会交出更多货，但热门型号很难马上变得好买，部分订单大概率拖到 2027。</td>
+</tr>
+<tr>
+<td>谁最受影响</td>
+<td>企业 IT、中小云、渠道商、非头部 OEM。大型云厂商更容易提前锁定产能。</td>
+</tr>
+<tr>
+<td>最大不确定性</td>
+<td>如果 AI 资本开支突然下修，短缺会缓解；否则服务器 CPU 仍会难买。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">问题不在于 CPU 厂商突然不会造了。</span><br><span class="line">AI 数据中心把服务器 CPU、内存、管理芯片、封装和整机交付一起拉紧了。</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="1-证据链总览"><a href="#1-证据链总览" class="headerlink" title="1. 证据链总览"></a>1. 证据链总览</h2><p>先把证据摆出来。后面每一节都围绕这些证据展开。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>证据</th>
+<th style="text-align:right">数据或事实</th>
+<th>能说明什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>服务器支出高增长</td>
+<td style="text-align:right">Gartner 预计 2026 年服务器支出 4660 亿美元，其中 AI 占 76%</td>
+<td>数据中心需求仍在上行</td>
+</tr>
+<tr>
+<td>AI 服务器支出高增长</td>
+<td style="text-align:right">Gartner 预计 2026 年 AI 服务器支出 3530 亿美元，同比 +26.2%</td>
+<td>AI 服务器继续占用 CPU、内存和整机资源</td>
+</tr>
+<tr>
+<td>销售额大涨，但出货台数只小幅增长</td>
+<td style="text-align:right">IDC：2026 Q1 服务器支出 +30.7%，出货台数 +3.3%</td>
+<td>钱主要花在更贵、更高配的服务器上，不是每类服务器都大量增加</td>
+</tr>
+<tr>
+<td>需求有，但零件限制了交付</td>
+<td style="text-align:right">IDC 明确提到非加速服务器受 DRAM/NAND 供应限制</td>
+<td>客户想买，不代表厂商能按时交整机</td>
+</tr>
+<tr>
+<td>AI 服务器出货继续增加</td>
+<td style="text-align:right">TrendForce：2026 年 AI 服务器出货约 +28%</td>
+<td>AI 服务器里的主控 CPU 需求继续增长</td>
+</tr>
+<tr>
+<td>普通服务器也被配套芯片拖慢</td>
+<td style="text-align:right">TrendForce：BMC 交期 11-16 周变 21-26 周；PMIC 21-26 周变 35-40 周</td>
+<td>CPU 即使有货，整机也可能因为配套芯片不齐而交不出去</td>
+</tr>
+<tr>
+<td>Intel 服务器业务回暖</td>
+<td style="text-align:right">Intel Q1 2026 DCAI 收入 51 亿美元，同比 +22%</td>
+<td>Xeon 需求明显恢复</td>
+</tr>
+<tr>
+<td>AMD 数据中心高速增长</td>
+<td style="text-align:right">AMD Q1 2026 数据中心业务收入 58 亿美元，同比 +57%，由 EPYC 和 Instinct 驱动</td>
+<td>EPYC 处在强需求周期</td>
+</tr>
+<tr>
+<td>服务器 CPU 出货增长</td>
+<td style="text-align:right">Mercury Research：Q1 2026 服务器 CPU 出货量同比 +10% 以上，AMD 服务器 CPU 份额约 33.2%</td>
+<td>服务器 CPU 是 x86 市场里更强的部分</td>
+</tr>
+<tr>
+<td>CPU/GPU 配比变化</td>
+<td style="text-align:right">市场报道引述 Intel：AI 场景 CPU:GPU 可从 1:8、1:4 走向 1:1</td>
+<td>推理和更复杂的 AI 应用让每组 GPU 需要更多 CPU 配合</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>几个容易误解的词先说清楚：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>原说法</th>
+<th>通俗理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI 服务器（AI-optimized server）</td>
+<td>面向 AI 训练或推理配置过的服务器，通常会搭配 GPU/AI 加速器、高速网络和更强供电散热</td>
+</tr>
+<tr>
+<td>主控 CPU（host CPU）</td>
+<td>AI 服务器里负责管理 GPU、网络、存储和系统任务的 CPU</td>
+</tr>
+<tr>
+<td>能调用工具的 AI 应用（agentic AI）</td>
+<td>不只是生成文本，还会拆任务、查数据库、调用工具、触发业务流程的 AI 应用</td>
+</tr>
+<tr>
+<td>结构性紧张</td>
+<td>不是所有型号都缺，而是热门型号、认证平台和大批量订单更难拿货</td>
+</tr>
+<tr>
+<td>云厂商认证平台</td>
+<td>云厂商测试通过、可以稳定上线的服务器配置，不能随便换型号</td>
+</tr>
+<tr>
+<td>BMC / PMIC</td>
+<td>服务器管理芯片和电源管理芯片，单价不一定高，但缺了整机就交不了</td>
+</tr>
+<tr>
+<td>AI 资本开支</td>
+<td>云厂商、互联网公司、企业为 AI 数据中心花的钱</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="2-这次紧张到底紧在哪里"><a href="#2-这次紧张到底紧在哪里" class="headerlink" title="2. 这次紧张到底紧在哪里"></a>2. 这次紧张到底紧在哪里</h2><p>服务器 CPU 供应紧张，不等于“任何服务器 CPU 都买不到”。分开看会更清楚：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>细分</th>
+<th>紧张程度</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI 服务器主控 CPU</td>
+<td>高</td>
+<td>GPU/ASIC 集群仍需要 CPU 做调度、I/O、网络、存储和安全</td>
+</tr>
+<tr>
+<td>高核心数 Xeon / EPYC</td>
+<td>高</td>
+<td>云厂商和企业虚拟化、数据库、HPC、AI 推理平台同时拉动</td>
+</tr>
+<tr>
+<td>云厂商已经认证过的具体型号</td>
+<td>高</td>
+<td>大客户需要稳定平台，不会随意换型号</td>
+</tr>
+<tr>
+<td>通用双路服务器 CPU</td>
+<td>中到高</td>
+<td>非加速服务器需求仍在，但受内存和配套芯片限制</td>
+</tr>
+<tr>
+<td>老平台服务器 CPU</td>
+<td>分化</td>
+<td>企业生命周期长，旧平台仍有需求；但渠道价格可能很不稳定</td>
+</tr>
+<tr>
+<td>非主流、库存型或二手服务器 CPU</td>
+<td>分化</td>
+<td>可能局部便宜，不代表企业采购已经变容易</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下面说的“紧张”，指的是这个场景：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">紧张 = 企业和云厂商想按确定型号、确定交期、大批量采购服务器 CPU 时，难度明显上升。</span><br></pre></td></tr></table></figure>
+<p>它不等于电商平台或二手市场永远没有现货。</p>
+<hr>
+<h2 id="3-需求侧：AI-服务器把-CPU-重新拉回核心位置"><a href="#3-需求侧：AI-服务器把-CPU-重新拉回核心位置" class="headerlink" title="3. 需求侧：AI 服务器把 CPU 重新拉回核心位置"></a>3. 需求侧：AI 服务器把 CPU 重新拉回核心位置</h2><p>过去两年市场讨论集中在 GPU、HBM 和 CoWoS，但 AI 服务器离不开 CPU。<br>GPU 负责大规模计算，CPU 负责把整台机器管起来。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>CPU 在 AI 服务器中的作用</th>
+<th>为什么不可替代</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统启动和资源管理</td>
+<td>管理 GPU/ASIC、内存、存储、网络和操作系统</td>
+</tr>
+<tr>
+<td>PCIe / CXL / NVMe I/O</td>
+<td>负责加速器、网卡、SSD 之间的数据通路协调</td>
+</tr>
+<tr>
+<td>推理服务调度</td>
+<td>请求路由、batching、队列、日志、监控都在 CPU 侧发生</td>
+</tr>
+<tr>
+<td>数据预处理</td>
+<td>解压、tokenization、特征处理、缓存管理</td>
+</tr>
+<tr>
+<td>复杂 AI 应用的控制任务</td>
+<td>支撑 AI 调用工具、拆任务、查数据库、做检索和处理业务逻辑</td>
+</tr>
+<tr>
+<td>安全和虚拟化</td>
+<td>多租户隔离、可信执行、容器和 VM 编排</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>AI 训练时代，一个 CPU 可以带多张 GPU；到了推理和更复杂的 AI 应用阶段，CPU 要处理更多调度和业务逻辑。<br>市场报道引述 Intel 财报会议信息称，CPU:GPU 部署比例可能从 1:8、1:4 走向部分场景的 1:1。</p>
+<p>这个比例一变，CPU 需求会被放大：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">CPU:GPU 配比</th>
+<th style="text-align:right">同样 8 张 GPU 需要的 CPU 数</th>
+<th style="text-align:right">CPU 需求变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1:8</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">训练集群常见思路</td>
+</tr>
+<tr>
+<td style="text-align:right">1:4</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">CPU 需求翻倍</td>
+</tr>
+<tr>
+<td style="text-align:right">1:1</td>
+<td style="text-align:right">8</td>
+<td style="text-align:right">CPU 需求变成 8 倍</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>即使不是所有 AI 集群都会走到 1:1，只要一部分推理负载需要更多 CPU，<br>服务器 CPU 需求就会被放大。</p>
+<hr>
+<h2 id="4-市场规模：服务器支出仍在快速扩张"><a href="#4-市场规模：服务器支出仍在快速扩张" class="headerlink" title="4. 市场规模：服务器支出仍在快速扩张"></a>4. 市场规模：服务器支出仍在快速扩张</h2><p>Gartner 对 2026 年服务器市场的预测给出了一个大方向：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align:right">2025</th>
+<th style="text-align:right">2026 预测</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全球服务器支出</td>
+<td style="text-align:right">3820 亿美元</td>
+<td style="text-align:right">4660 亿美元</td>
+<td>同比约 +22%</td>
+</tr>
+<tr>
+<td>AI 在服务器支出中的占比</td>
+<td style="text-align:right">未列出</td>
+<td style="text-align:right">76%</td>
+<td>服务器支出的主体已经转向 AI</td>
+</tr>
+<tr>
+<td>AI 服务器支出</td>
+<td style="text-align:right">2800 亿美元</td>
+<td style="text-align:right">3530 亿美元</td>
+<td>同比 +26.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>IDC 的 2026 Q1 数据也能看出这个变化：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align:right">2026 Q1 同比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全球服务器支出</td>
+<td style="text-align:right">+30.7%</td>
+</tr>
+<tr>
+<td>全球服务器单位出货</td>
+<td style="text-align:right">+3.3%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这组数字可以直接这么理解：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务器市场这轮增长，主要不是“卖出了很多台便宜服务器”，</span><br><span class="line">而是“卖出了更多高配、昂贵、面向 AI 的服务器”。</span><br></pre></td></tr></table></figure>
+<p>高配服务器通常需要更多 CPU 核心、更大内存、更强网络，也要走更复杂的验证流程。<br>所以缺口会先落在高端平台和热门型号上，不会平均落到所有 CPU 型号上。</p>
+<hr>
+<h2 id="5-厂商财报：Intel-和-AMD-的服务器业务都在回升"><a href="#5-厂商财报：Intel-和-AMD-的服务器业务都在回升" class="headerlink" title="5. 厂商财报：Intel 和 AMD 的服务器业务都在回升"></a>5. 厂商财报：Intel 和 AMD 的服务器业务都在回升</h2><h3 id="5-1-Intel：DCAI-增长说明-Xeon-需求恢复"><a href="#5-1-Intel：DCAI-增长说明-Xeon-需求恢复" class="headerlink" title="5.1 Intel：DCAI 增长说明 Xeon 需求恢复"></a>5.1 Intel：DCAI 增长说明 Xeon 需求恢复</h3><p>Intel Q1 2026 财报显示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Intel 指标</th>
+<th style="text-align:right">Q1 2026</th>
+<th style="text-align:right">同比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>总收入</td>
+<td style="text-align:right">136 亿美元</td>
+<td style="text-align:right">+7%</td>
+</tr>
+<tr>
+<td>数据中心和 AI 业务（Data Center and AI）</td>
+<td style="text-align:right">51 亿美元</td>
+<td style="text-align:right">+22%</td>
+</tr>
+<tr>
+<td>Intel 代工业务（Intel Foundry）</td>
+<td style="text-align:right">54 亿美元</td>
+<td style="text-align:right">+16%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Intel 管理层在财报中提到，CPU 在 AI 时代的作用上升了，<br>公司也在增加可交付的货，满足客户需求。</p>
+<p>Intel 面对的不是“没人买”，而是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">客户需求恢复得更快，Intel 能交给客户的货增加得没那么快。</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-AMD：EPYC-需求和-AI-加速器共同推高数据中心业务"><a href="#5-2-AMD：EPYC-需求和-AI-加速器共同推高数据中心业务" class="headerlink" title="5.2 AMD：EPYC 需求和 AI 加速器共同推高数据中心业务"></a>5.2 AMD：EPYC 需求和 AI 加速器共同推高数据中心业务</h3><p>AMD Q1 2026 财报显示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>AMD 指标</th>
+<th style="text-align:right">Q1 2026</th>
+<th style="text-align:right">同比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>总收入</td>
+<td style="text-align:right">102.53 亿美元</td>
+<td style="text-align:right">+38%</td>
+</tr>
+<tr>
+<td>数据中心业务（Data Center segment）</td>
+<td style="text-align:right">57.75 亿美元</td>
+<td style="text-align:right">+57%</td>
+</tr>
+<tr>
+<td>客户端和游戏业务（Client and Gaming）</td>
+<td style="text-align:right">36 亿美元</td>
+<td style="text-align:right">+23%</td>
+</tr>
+<tr>
+<td>嵌入式业务（Embedded）</td>
+<td style="text-align:right">8.73 亿美元</td>
+<td style="text-align:right">+6%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>AMD 明确说，数据中心业务增长由 EPYC 处理器强需求和 Instinct GPU 出货爬坡共同驱动。<br>这点不能忽略：AMD 的数据中心增长不只是 GPU，EPYC 服务器 CPU 也是主要原因之一。</p>
+<p>AMD 还在 2026 年 5 月宣布 6th Gen EPYC “Venice” 在 TSMC 2nm 上进入生产爬坡，<br>并把能调用工具、能拆任务的 AI 应用、云、企业、HPC 和 AI 数据中心作为下一代 EPYC 的需求背景。</p>
+<hr>
+<h2 id="6-供应侧：服务器-CPU-缺货不能随便换产线解决"><a href="#6-供应侧：服务器-CPU-缺货不能随便换产线解决" class="headerlink" title="6. 供应侧：服务器 CPU 缺货不能随便换产线解决"></a>6. 供应侧：服务器 CPU 缺货不能随便换产线解决</h2><p>服务器 CPU 从生产到交付，比消费 CPU 麻烦得多。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>约束</th>
+<th>服务器 CPU 为什么更难</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>制程节点</td>
+<td>Intel 7、Intel 10、TSMC N5/N4/N3/N2 不能随意互换</td>
+</tr>
+<tr>
+<td>大尺寸芯片和多芯片封装</td>
+<td>高核心数 CPU 对良率、封装、测试都更敏感</td>
+</tr>
+<tr>
+<td>平台认证</td>
+<td>云厂商和 OEM 需要长期验证，不会随意换具体型号</td>
+</tr>
+<tr>
+<td>内存通道</td>
+<td>DDR5 容量、频率、RDIMM/MRDIMM 支持影响整机交付</td>
+</tr>
+<tr>
+<td>I/O 能力</td>
+<td>PCIe、CXL、网卡、NVMe 拓扑要和平台绑定</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>服务器 CPU 需要更严格的验证、老化测试和供货周期</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这带来一个直接后果：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">就算全行业晶圆产能增加，也不等于某个 Xeon 或 EPYC 具体型号马上好买。</span><br></pre></td></tr></table></figure>
+<p>云厂商已经认证过的平台，能替换的型号很少。二手市场或渠道市场里某些 EPYC、Xeon<br>价格波动，并不能说明企业批量采购已经变容易。</p>
+<hr>
+<h2 id="7-系统级瓶颈：CPU-有货也不等于服务器能交付"><a href="#7-系统级瓶颈：CPU-有货也不等于服务器能交付" class="headerlink" title="7. 系统级瓶颈：CPU 有货也不等于服务器能交付"></a>7. 系统级瓶颈：CPU 有货也不等于服务器能交付</h2><p>服务器 CPU 不是单独交付给最终业务使用。它要进入整机：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CPU</span><br><span class="line">+ DDR5 / MRDIMM</span><br><span class="line">+ SSD / NAND</span><br><span class="line">+ BMC</span><br><span class="line">+ PMIC</span><br><span class="line">+ NIC / DPU</span><br><span class="line">+ 主板 / 基板</span><br><span class="line">+ 电源 / 散热</span><br><span class="line">+ BIOS / BMC firmware</span><br><span class="line">+ 云厂商或企业认证</span><br><span class="line">= 可交付服务器</span><br></pre></td></tr></table></figure>
+<p>TrendForce 对 2026 年服务器供应链的判断，能解释为什么“CPU 有货”也不够：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th style="text-align:right">交期变化</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BMC</td>
+<td style="text-align:right">11-16 周 -&gt; 21-26 周</td>
+<td>成熟节点也被 AI 订单挤压</td>
+</tr>
+<tr>
+<td>PMIC</td>
+<td style="text-align:right">21-26 周 -&gt; 35-40 周</td>
+<td>AI 服务器功耗高、优先级高，普通服务器更难拿货</td>
+</tr>
+<tr>
+<td>AI 服务器出货</td>
+<td style="text-align:right">2026 年约 +28%</td>
+<td>AI 服务器继续优先吸收资源</td>
+</tr>
+<tr>
+<td>整体服务器出货</td>
+<td style="text-align:right">2026 年约 +13%</td>
+<td>低于 AI 服务器，说明普通服务器受约束</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>IDC 也提到，非加速服务器仍有需求，但 DRAM 和 NAND 供应限制了近期出货。</p>
+<p>所以判断服务器 CPU 供应，不能只问“CPU 芯片本身够不够”，还要问：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>如果答案是否定的，会发生什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DDR5 是否够</td>
+<td>CPU 到货也装不了高配服务器</td>
+</tr>
+<tr>
+<td>BMC 是否够</td>
+<td>服务器无法做远程管理，整机无法交付</td>
+</tr>
+<tr>
+<td>PMIC 是否够</td>
+<td>高功耗平台无法稳定供电</td>
+</tr>
+<tr>
+<td>基板和封装是否够</td>
+<td>CPU 无法完成封装或平台装配</td>
+</tr>
+<tr>
+<td>客户认证是否完成</td>
+<td>有芯片也不能进入云厂商生产环境</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以服务器 CPU 紧张，经常表现为整机交期拉长，而不只是 CPU 报价上涨。</p>
+<hr>
+<h2 id="8-分配逻辑：大客户先拿货，中小客户感受更紧"><a href="#8-分配逻辑：大客户先拿货，中小客户感受更紧" class="headerlink" title="8. 分配逻辑：大客户先拿货，中小客户感受更紧"></a>8. 分配逻辑：大客户先拿货，中小客户感受更紧</h2><p>服务器 CPU 不是完全按公开市场分配。货紧的时候，通常会先给这些客户：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">优先级</th>
+<th>客户类型</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>大型云厂商 / 云服务商（CSP）</td>
+<td>订单大、预测明确、长期合作、战略价值高</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>AI 集群和主权云项目</td>
+<td>单价高、毛利高、预算确定性强</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>大型品牌厂 / 代工厂（OEM / ODM）</td>
+<td>与 CPU 厂商、内存厂、主板厂绑定深</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>企业 IT</td>
+<td>项目制采购，议价和提前锁定货源的能力弱于云厂商</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td>渠道和现货市场</td>
+<td>最容易感受到缺货和涨价</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>厂商财报里收入增长，不代表所有客户都容易拿货。常见情况是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">头部客户提前锁定货源</span><br><span class="line">-&gt; 厂商收入增长</span><br><span class="line">-&gt; 渠道可分配货源减少</span><br><span class="line">-&gt; 中小客户交期拉长</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="9-为什么不是-GPU-短缺的简单外溢"><a href="#9-为什么不是-GPU-短缺的简单外溢" class="headerlink" title="9. 为什么不是 GPU 短缺的简单外溢"></a>9. 为什么不是 GPU 短缺的简单外溢</h2><p>服务器 CPU 紧张和 GPU 紧张有关，但不是同一件事。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>GPU / AI 加速器</th>
+<th>服务器 CPU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主要瓶颈</td>
+<td>HBM、CoWoS、先进封装、先进节点</td>
+<td>产线分配、认证平台、内存、BMC、PMIC、整机交付</td>
+</tr>
+<tr>
+<td>需求来源</td>
+<td>AI 训练和推理算力</td>
+<td>主控 CPU、通用计算、虚拟化、数据库、I/O、控制面</td>
+</tr>
+<tr>
+<td>替代性</td>
+<td>同代 GPU 替代难度高</td>
+<td>x86/Arm/自研可部分替代，但认证成本高</td>
+</tr>
+<tr>
+<td>缺货表现</td>
+<td>高端加速卡排队</td>
+<td>服务器平台交期拉长、特定型号可分配数量少</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>关系更像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GPU 需求把 AI 服务器拉起来；</span><br><span class="line">AI 服务器又把 CPU、内存和整机组件一起拉紧。</span><br></pre></td></tr></table></figure>
+<p>CPU 不是 GPU 的附属品。AI 数据中心扩张时，控制、调度、I/O 和通用计算也要一起增加。</p>
+<hr>
+<h2 id="10-为什么旧平台和通用服务器也会受影响"><a href="#10-为什么旧平台和通用服务器也会受影响" class="headerlink" title="10. 为什么旧平台和通用服务器也会受影响"></a>10. 为什么旧平台和通用服务器也会受影响</h2><p>不只是最新 AI 服务器会紧。普通服务器和旧平台也会被带上。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>企业平台生命周期长</td>
+<td>企业不会因为新 CPU 发布就立刻换平台</td>
+</tr>
+<tr>
+<td>云厂商重视稳定性</td>
+<td>认证过的平台会持续采购</td>
+</tr>
+<tr>
+<td>通用服务器仍有需求</td>
+<td>数据库、虚拟化、存储、网络、安全、备份都需要 CPU</td>
+</tr>
+<tr>
+<td>成熟节点也紧</td>
+<td>BMC、PMIC、电源管理和部分旧平台芯片使用成熟制程</td>
+</tr>
+<tr>
+<td>产能分配倾斜</td>
+<td>厂商会把有限资源优先给高毛利服务器和 AI 项目</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以会出现这种情况：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AI 服务器最热，</span><br><span class="line">但普通服务器也会因为配套零件和供应分配而变紧。</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="11-反证和边界：哪些现象不能说明“不缺”"><a href="#11-反证和边界：哪些现象不能说明“不缺”" class="headerlink" title="11. 反证和边界：哪些现象不能说明“不缺”"></a>11. 反证和边界：哪些现象不能说明“不缺”</h2><p>先把边界划清楚。下面这些现象，不能直接证明“服务器 CPU 不缺”。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>为什么不能直接反驳短缺</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>某些二手 EPYC 价格下跌</td>
+<td>可能是拆机、OEM 锁定、兼容性限制或局部库存，不等于企业批量采购变容易</td>
+</tr>
+<tr>
+<td>某些低端服务器 CPU 有现货</td>
+<td>紧张集中在高端、认证平台和批量交付，不是所有型号同时短缺</td>
+</tr>
+<tr>
+<td>厂商收入增长</td>
+<td>收入增长可能来自单价上升、产品组合变高端和大客户优先分配，不代表现货市场好买</td>
+</tr>
+<tr>
+<td>PC CPU 需求走弱</td>
+<td>PC 和服务器不是完全同一产能池，服务器验证和平台约束更强</td>
+</tr>
+<tr>
+<td>GPU 比 CPU 更缺</td>
+<td>GPU 更缺不代表 CPU 不缺，两个瓶颈可以同时存在</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>本文的结论不是“服务器 CPU 永远买不到”。本文判断的是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">企业想按认证平台、确定交期、大批量采购服务器 CPU，2026 年明显更难。</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="12-未来-6-18-个月怎么判断"><a href="#12-未来-6-18-个月怎么判断" class="headerlink" title="12. 未来 6-18 个月怎么判断"></a>12. 未来 6-18 个月怎么判断</h2><h3 id="12-1-基本判断"><a href="#12-1-基本判断" class="headerlink" title="12.1 基本判断"></a>12.1 基本判断</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026 Q3-Q4</td>
+<td>高端服务器 CPU 和 AI 服务器主控 CPU 仍然难买，价格和交期压力维持</td>
+</tr>
+<tr>
+<td>2027 H1</td>
+<td>供应链逐步改善，但 DDR5/NAND/BMC/PMIC 仍可能限制通用服务器出货</td>
+</tr>
+<tr>
+<td>2027 H2 以后</td>
+<td>若新增产能和内存供应释放，紧张有望缓和；但 AI 需求若继续上修，好买的时间会推迟</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="12-2-最可能发生的情景"><a href="#12-2-最可能发生的情景" class="headerlink" title="12.2 最可能发生的情景"></a>12.2 最可能发生的情景</h3><p>最可能出现的情况是：<strong>热门型号继续紧，但不会全面断供</strong>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>当前证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI 服务器继续增长</td>
+<td>Gartner、IDC、TrendForce 均给出高增长预测</td>
+</tr>
+<tr>
+<td>AI 推理更依赖 CPU</td>
+<td>Intel、AMD、市场分析都强调更复杂的 AI 应用会增加 CPU 需求</td>
+</tr>
+<tr>
+<td>整机配套仍卡</td>
+<td>IDC 提到 DRAM/NAND 限制；TrendForce 提到 BMC/PMIC 交期拉长</td>
+</tr>
+<tr>
+<td>大客户继续锁定供应</td>
+<td>大型云厂商的 AI 资本开支和机柜级部署仍在推进</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="12-3-什么情况下会缓解"><a href="#12-3-什么情况下会缓解" class="headerlink" title="12.3 什么情况下会缓解"></a>12.3 什么情况下会缓解</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>缓解条件</th>
+<th>可能性</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI 资本开支明显降温</td>
+<td>中低</td>
+<td>CPU 需求回落最快</td>
+</tr>
+<tr>
+<td>内存价格和供应改善</td>
+<td>中</td>
+<td>整机交付压力下降</td>
+</tr>
+<tr>
+<td>Intel/AMD 新平台产能爬坡顺利</td>
+<td>中</td>
+<td>高端型号可用性改善</td>
+</tr>
+<tr>
+<td>BMC/PMIC 交期恢复</td>
+<td>中低</td>
+<td>通用服务器出货改善</td>
+</tr>
+<tr>
+<td>云厂商取消或延后大订单</td>
+<td>中低</td>
+<td>渠道货源释放，但也可能引发库存波动</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="13-判断图"><a href="#13-判断图" class="headerlink" title="13. 判断图"></a>13. 判断图</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">AI 训练、推理和复杂 AI 应用扩张</span><br><span class="line">        |</span><br><span class="line">        v</span><br><span class="line">AI 服务器和普通服务器同时增长</span><br><span class="line">        |</span><br><span class="line">        v</span><br><span class="line">主控 CPU、DDR5、BMC、PMIC、SSD、网卡需求同步上升</span><br><span class="line">        |</span><br><span class="line">        v</span><br><span class="line">晶圆、封装、成熟制程、内存、整机认证一起受限</span><br><span class="line">        |</span><br><span class="line">        v</span><br><span class="line">头部云厂商提前锁定货源，中小客户和渠道交期拉长</span><br><span class="line">        |</span><br><span class="line">        v</span><br><span class="line">2026 年服务器 CPU 仍会“热门型号紧、批量采购难”，部分需求延后到 2027</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="14-不同角色该关注什么"><a href="#14-不同角色该关注什么" class="headerlink" title="14. 不同角色该关注什么"></a>14. 不同角色该关注什么</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>读者</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>企业 IT 采购</td>
+<td>不要只谈 CPU 价格，要同时确认 DDR5、SSD、BMC/PMIC、整机交期和替代平台</td>
+</tr>
+<tr>
+<td>云厂商</td>
+<td>提前锁定 CPU、内存和整机产能仍有必要，尤其是推理集群和复杂 AI 应用集群</td>
+</tr>
+<tr>
+<td>品牌厂 / 代工厂（OEM / ODM）</td>
+<td>最大风险不是单一 CPU，而是组件不齐导致整机无法按期交付</td>
+</tr>
+<tr>
+<td>渠道商</td>
+<td>高端服务器 CPU 和认证平台的可分配货源会继续有限，二手和现货价格波动会加大</td>
+</tr>
+<tr>
+<td>投资研究</td>
+<td>服务器 CPU 重新成为 AI 数据中心建设里的重要变量，不能只看 GPU/HBM</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="15-参考资料"><a href="#15-参考资料" class="headerlink" title="15. 参考资料"></a>15. 参考资料</h2><h3 id="市场规模和服务器需求"><a href="#市场规模和服务器需求" class="headerlink" title="市场规模和服务器需求"></a>市场规模和服务器需求</h3><ul>
+<li>Gartner：<br><a target="_blank" rel="noopener" href="https://www.gartner.com/en/documents/6998366">Forecast: Servers, Worldwide, 2023-2029, 3Q25 Update</a></li>
+<li>Gartner：<br><a target="_blank" rel="noopener" href="https://www.gartner.com/en/documents/7078298">Forecast: AI-Optimized Servers, 2023-2029, Worldwide, 3Q25 Update</a></li>
+<li>IDC：<br><a target="_blank" rel="noopener" href="https://www.idc.com/promo/servers/">Servers Market Insights</a></li>
+<li>TrendForce：<br><a target="_blank" rel="noopener" href="https://www.trendforce.com/presscenter/news/20260415-13013.html">Extended Component Lead Times Weigh on General Server Growth</a></li>
+</ul>
+<h3 id="厂商财报和产品路线"><a href="#厂商财报和产品路线" class="headerlink" title="厂商财报和产品路线"></a>厂商财报和产品路线</h3><ul>
+<li>Intel：<br><a target="_blank" rel="noopener" href="https://www.intc.com/news-events/press-releases/detail/1767/intel-reports-first-quarter-2026-financial-results">Intel Reports First-Quarter 2026 Financial Results</a></li>
+<li>AMD：<br><a target="_blank" rel="noopener" href="https://ir.amd.com/news-events/press-releases/detail/1284/amd-reports-first-quarter-2026-financial-results">AMD Reports First Quarter 2026 Financial Results</a></li>
+<li>AMD：<br><a target="_blank" rel="noopener" href="https://www.amd.com/en/newsroom/press-releases/2026-5-20-amd-announces-production-ramp-of-next-generation-a.html">AMD Announces Production Ramp of Next-Generation AMD EPYC Processor Venice</a></li>
+</ul>
+<h3 id="市场分析和渠道观察"><a href="#市场分析和渠道观察" class="headerlink" title="市场分析和渠道观察"></a>市场分析和渠道观察</h3><ul>
+<li>The Register：<br><a target="_blank" rel="noopener" href="https://www.theregister.com/systems/2026/06/04/amd-takes-a-third-of-server-cpu-market-as-shipments-grow/5251283">AMD takes a third of server CPU market as shipments grow</a></li>
+<li>TrendForce News：<br><a target="_blank" rel="noopener" href="https://www.trendforce.com/news/2026/05/06/news-amd-lifts-server-cpu-outlook-to-35-cagr-120b-by-2030-warns-on-memory-driven-pc-gaming-weakness-in-2h26/">AMD Lifts Server CPU Outlook to 35%+ CAGR, $120B by 2030</a></li>
+<li>Tom’s Hardware：<br><a target="_blank" rel="noopener" href="https://www.tomshardware.com/pc-components/cpus/shifting-need-for-cpus-in-ai-workloads-drives-intensifying-shortages-price-hikes">CPU requirements for AI workloads are multiplying</a></li>
+<li>Network World：<br><a target="_blank" rel="noopener" href="https://www.networkworld.com/article/4147841/idc-dell-leads-server-market-driven-by-ai-infrastructure-needs.html">IDC: Dell leads server market driven by AI infrastructure needs</a></li>
+</ul>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-14T00:00:00.000Z">2026-11-14</time>
+                    <h3><a href="/2026/11/14/ai-daily-2026-11-14/">【AI 日报】黄仁勋辞任英伟达CEO：33年时代落幕，CFO克雷斯临时接掌</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 黄仁勋辞去英伟达总裁、CEO及董事职务，执掌33年戛然而止，CFO克雷斯临时接任、首设董事长由前新思CEO哈维·琼斯出任，周五市值跌破4万亿美元。Anthr...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-12T00:00:00.000Z">2026-11-12</time>
+                    <h3><a href="/2026/11/12/ai-daily-2026-11-12/">【AI 日报】台积电入局AI“闭环投资”：向OpenAI与Anthropic各投5亿美元</a></h3>
+                    
+                    
+                    <p>🔦 今日速览 台积电董事会罕见出手：向OpenAI与Anthropic各投不超5亿美元，芯片供应商直接入股头部模型公司，AI&#34;循环融资&#34;再添关键一环。同侧消息面转暖——C...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-11T00:00:00.000Z">2026-11-11</time>
+                    <h3><a href="/2026/11/11/ai-daily-2026-11-11/">【AI 日报】Anthropic IPO定价曝光：每股70-78美元，七巨头260亿基石认购</a></h3>
+                    
+                    
+                    <p>🔦 今日速览Anthropic最新招股书草案曝光IPO定价区间每股70—78美元、发行8.25亿股，谷歌、英伟达、微软、AMD、博通、美光、台积电七家巨头将以发行价合计2...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-11-10T00:00:00.000Z">2026-11-10</time>
+                    <h3><a href="/2026/11/10/ai-daily-2026-11-10/">【AI 日报】Anthropic发布Fable 5.2，千个智能体30小时完成费马大定理形式化证明</a></h3>
+                    
+                    
+                    <p>🔦 今日速览Anthropic周一发布旗舰模型Claude Fable 5.2与Mythos 5.2，1000个智能体仅用30小时完成费马大定理的Lean形式化证明，AP...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/07/06/ai-daily-2026-07-06/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】企业AI成本焦虑全面爆发：特斯拉限支出、Meta Agent遇阻、阿里封禁Claude Code</span>
+                </a>
+                
+                
+                <a href="/2026/07/03/token-id-to-embedding/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">Token ID 到 Embedding 机制详解</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

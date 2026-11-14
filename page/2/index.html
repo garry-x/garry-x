@@ -32,27 +32,13 @@
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "headline": "Garry&#39;s Blog",
-  "description": "Garry&#39;s Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析",
-  "url": "https://garryx.com/page/2/index.html",
-  
-  "name": "Garry&#39;s Blog",
-  "author": {
-    "@type": "Person",
-    "name": "Garry Xu"
-  },
-  
-  "image": "https://garryx.com/images/og-default.png"
-}
+{"@context":"https://schema.org","@type":"WebSite","headline":"Garry's Blog","description":"Garry's Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析","url":"https://garryx.com/page/2/index.html","image":"https://garryx.com/images/og-default.png","name":"Garry's Blog","author":{"@type":"Person","name":"Garry Xu"}}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=17">
+<link rel="stylesheet" href="/css/style.css?v=28">
 
 <link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
 
@@ -73,6 +59,8 @@
             
                 <a class="nav-link " href="/">Home</a>
             
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
                 <a class="nav-link " href="/archives">Archives</a>
             
                 <a class="nav-link " href="/tags">Tags</a>
@@ -92,189 +80,104 @@
 
 <section class="hero">
     <div class="container">
-        <div class="hero-inner">
-            <div class="hero-avatar">
-                <img src="/images/avatar.png" alt="Garry&#39;s Blog">
-            </div>
-            <div class="hero-content">
-                <h1 class="hero-title">Thoughts &amp; Notes</h1>
-                
-                <p class="hero-subtitle">记录技术与生活的碎片</p>
-                
-                
-                <div class="hero-social">
+        <h1 class="hero-title">Thoughts &amp; Notes</h1>
+        
+        <p class="hero-subtitle">记录技术与生活的碎片</p>
+        
+        
+        <div class="hero-social">
+            
+                <a href="https://github.com/garry-x" class="social-link" target="_blank" rel="noopener" title="GitHub">
                     
-                        <a href="https://github.com/garry-x" class="social-link" target="_blank" rel="noopener" title="GitHub">
-                            
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                            
-                            <span>GitHub</span>
-                        </a>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     
-                        <a href="mailto:garry.x@outlook.com" class="social-link" target="_blank" rel="noopener" title="Email">
-                            
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            
-                            <span>Email</span>
-                        </a>
+                    <span>GitHub</span>
+                </a>
+            
+                <a href="mailto:garry.x@outlook.com" class="social-link" target="_blank" rel="noopener" title="Email">
                     
-                        <a href="/atom.xml" class="social-link" target="_blank" rel="noopener" title="RSS">
-                            
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
-                            
-                            <span>RSS</span>
-                        </a>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     
-                </div>
-                
-            </div>
+                    <span>Email</span>
+                </a>
+            
+                <a href="/atom.xml" class="social-link" target="_blank" rel="noopener" title="RSS">
+                    
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                    
+                    <span>RSS</span>
+                </a>
+            
         </div>
+        
     </div>
 </section>
 
 <div class="home-layout">
     <div class="container home-grid">
-        <!-- Left: Archive Index -->
-        <aside class="archive-sidebar">
-            <div class="archive-sidebar-inner">
-                <div class="archive-header">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <span>归档</span>
-                </div>
-                <div class="archive-tree" id="archive-tree">
-                    
-                    <div class="archive-year">
-                        <button class="year-toggle" data-year="2026">
-                            <span class="toggle-icon">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </span>
-                            <span class="year-label">2026</span>
-                            <span class="year-count">6</span>
-                        </button>
-                        <div class="year-content">
-                            
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2026/06/" class="month-link">
-                                    <span class="month-name">6月</span>
-                                    <span class="month-count">6</span>
-                                </a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="archive-year">
-                        <button class="year-toggle" data-year="2023">
-                            <span class="toggle-icon">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </span>
-                            <span class="year-label">2023</span>
-                            <span class="year-count">1</span>
-                        </button>
-                        <div class="year-content">
-                            
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2023/01/" class="month-link">
-                                    <span class="month-name">1月</span>
-                                    <span class="month-count">1</span>
-                                </a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="archive-year">
-                        <button class="year-toggle" data-year="2022">
-                            <span class="toggle-icon">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </span>
-                            <span class="year-label">2022</span>
-                            <span class="year-count">7</span>
-                        </button>
-                        <div class="year-content">
-                            
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2022/08/" class="month-link">
-                                    <span class="month-name">8月</span>
-                                    <span class="month-count">1</span>
-                                </a>
-                            </div>
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2022/03/" class="month-link">
-                                    <span class="month-name">3月</span>
-                                    <span class="month-count">4</span>
-                                </a>
-                            </div>
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2022/02/" class="month-link">
-                                    <span class="month-name">2月</span>
-                                    <span class="month-count">2</span>
-                                </a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="archive-year">
-                        <button class="year-toggle" data-year="2020">
-                            <span class="toggle-icon">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </span>
-                            <span class="year-label">2020</span>
-                            <span class="year-count">1</span>
-                        </button>
-                        <div class="year-content">
-                            
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2020/02/" class="month-link">
-                                    <span class="month-name">2月</span>
-                                    <span class="month-count">1</span>
-                                </a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="archive-year">
-                        <button class="year-toggle" data-year="2017">
-                            <span class="toggle-icon">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </span>
-                            <span class="year-label">2017</span>
-                            <span class="year-count">2</span>
-                        </button>
-                        <div class="year-content">
-                            
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2017/10/" class="month-link">
-                                    <span class="month-name">10月</span>
-                                    <span class="month-count">1</span>
-                                </a>
-                            </div>
-                            
-                            <div class="archive-month">
-                                <a href="/archives/2017/09/" class="month-link">
-                                    <span class="month-name">9月</span>
-                                    <span class="month-count">1</span>
-                                </a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>
+        <!-- Horizontal Archive Strip -->
+        <div class="archive-strip">
+            <div class="archive-strip-inner">
+                
+                
+                <a href="/archives/2026/08/" class="archive-chip">
+                    <span>2026-08</span>
+                    <span class="chip-count">1</span>
+                </a>
+                
+                <a href="/archives/2026/07/" class="archive-chip">
+                    <span>2026-07</span>
+                    <span class="chip-count">4</span>
+                </a>
+                
+                <a href="/archives/2026/06/" class="archive-chip">
+                    <span>2026-06</span>
+                    <span class="chip-count">5</span>
+                </a>
+                
+                <a href="/archives/2023/01/" class="archive-chip">
+                    <span>2023-01</span>
+                    <span class="chip-count">1</span>
+                </a>
+                
+                <a href="/archives/2022/08/" class="archive-chip">
+                    <span>2022-08</span>
+                    <span class="chip-count">1</span>
+                </a>
+                
+                <a href="/archives/2022/03/" class="archive-chip">
+                    <span>2022-03</span>
+                    <span class="chip-count">4</span>
+                </a>
+                
+                <a href="/archives/" class="archive-strip-more">全部 →</a>
             </div>
-        </aside>
+        </div>
 
-        <!-- Right: Content -->
+        <!-- Main Content -->
         <div class="home-main">
+            
+            <section class="daily-entry-section">
+                <article class="daily-entry-card">
+                    <div class="daily-entry-meta">
+                        <span class="daily-entry-kicker">AI Daily</span>
+                        <time datetime="2026-11-14T00:00:00.000Z">2026-11-14</time>
+                    </div>
+                    <h2 class="daily-entry-title">
+                        <a href="/2026/11/14/ai-daily-2026-11-14/">【AI 日报】黄仁勋辞任英伟达CEO：33年时代落幕，CFO克雷斯临时接掌</a>
+                    </h2>
+                    
+                    
+                    <p class="daily-entry-excerpt">🔦 今日速览 黄仁勋辞去英伟达总裁、CEO及董事职务，执掌33年戛然而止，CFO克雷斯临时接任、首设董事长由前新思CEO哈维·琼斯出任，周五市值跌破4万亿美元。Anthropic IPO获六倍超额认购并拒绝中国大陆及香港投资者认购；SpaceX宣布740亿美元投建超级计算中心；DeepSeek晚间…</p>
+                    
+                    <div class="daily-entry-actions">
+                        <a href="/2026/11/14/ai-daily-2026-11-14/">阅读全文</a>
+                        <a href="/ai-daily/">全部 130 篇</a>
+                    </div>
+                </article>
+            </section>
+            
+
             
             <section class="featured-section">
                 <div class="section-header">
@@ -283,19 +186,22 @@
                 </div>
                 <article class="featured-card">
                     <div class="featured-meta">
-                        <time datetime="2022-03-14T03:57:01.000Z">2022-03-14</time>
+                        <time datetime="2023-01-12T09:18:52.000Z">2023-01-12</time>
                         <span class="featured-arrow">→</span>
                     </div>
                     <h3 class="featured-title">
-                        <a href="/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">指令集架构</a>
+                        <a href="/2023/01/12/KVM-API-%E7%AE%80%E4%BB%8B/">KVM API 简介</a>
                     </h3>
                     
-                    <p class="featured-excerpt">以下笔记 来自阅读：Hennessy J L, Patterson D A.
-Computer Architecture: A Quantitative Approach 6th Edition. 2019.
-指令集架构指代程序可见的指令集，也是软件和硬件的分界线。下面以实际的例子说明指令集架构的具体7个方面：
--
-指...</p>
                     
+                    <p class="featured-excerpt">以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt 1. 基本描述 KVM API 本质上是为了控制虚拟机的方方面面而下发的一组ioctl，这些ioctl可以划分为四类： system ioc…</p>
+                    
+                    
+                    <div class="featured-tags">
+                        
+                            <a href="/tags/KVM/" class="tag">#KVM</a>
+                        
+                    </div>
                     
                 </article>
             </section>
@@ -308,6 +214,94 @@ Computer Architecture: A Quantitative Approach 6th Edition. 2019.
                 
                 <article class="post-card">
                     <div class="post-meta">
+                        <time datetime="2022-08-31T07:30:09.000Z">2022-08-31</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E4%BC%9A%E8%AE%AE%E8%AE%BA%E6%96%87/">会议论文</a>
+                                
+                            </span>
+                        
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 11 分钟</span>
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/08/31/%E9%98%BF%E9%87%8C%E4%BA%91SIGCOMM22/">阿里云SIGCOMM22论文阅读</a>
+                    </h2>
+                    
+                    <p class="post-excerpt">阿里云在今年的网络顶会SIGCOMM上发表了一篇论文：”From Luna to Solar: The Evolutions of the Compute-to-Storage Networks in Alibaba C…</p>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-03-23T01:59:05.000Z">2022-03-23</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a>
+                                
+                            </span>
+                        
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 28 分钟</span>
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/03/23/x86%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">x86指令集架构</a>
+                    </h2>
+                    
+                    <p class="post-excerpt">以下笔记来自阅读：x86 Instruction Set Architecture - MindShare 本文以Intel处理器作为阐述目标。AMD处理器差异点可以参考: Agner Fog Microarchitec…</p>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-03-21T02:24:05.000Z">2022-03-21</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+                                
+                            </span>
+                        
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 18 分钟</span>
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">Linux内核引导</a>
+                    </h2>
+                    
+                    <p class="post-excerpt">以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html Linux/x86 引导协议 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在x86平台上，L…</p>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <time datetime="2022-03-14T03:57:01.000Z">2022-03-14</time>
+                        
+                            <span class="sep">·</span>
+                            <span class="post-cat">
+                                
+                                    <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a>
+                                
+                            </span>
+                        
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 8 分钟</span>
+                    </div>
+                    <h2 class="post-title">
+                        <a href="/2022/03/14/%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84/">指令集架构</a>
+                    </h2>
+                    
+                    <p class="post-excerpt">| 以下笔记 来自阅读：Hennessy J L, Patterson D A. Computer Architecture: A Quantitative Approach 6th Edition. 2019. 指令集…</p>
+                    
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
                         <time datetime="2022-03-07T07:38:42.000Z">2022-03-07</time>
                         
                             <span class="sep">·</span>
@@ -317,18 +311,14 @@ Computer Architecture: A Quantitative Approach 6th Edition. 2019.
                                 
                             </span>
                         
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 17 分钟</span>
                     </div>
                     <h2 class="post-title">
                         <a href="/2022/03/07/KMP%E7%AE%97%E6%B3%95/">KMP算法</a>
                     </h2>
                     
-                    <div class="post-excerpt">
-以下笔记来自阅读：Knuth D E , Morris J H , Pratt V R . Fast Pattern
-Matching in Strings[J]. Siam Journal on Computing, 1977,
-6(2):323-350.
-
-    文本编辑器软件经常需要在一串字符中查找以匹配特定的模式，这些模式也是一串字符，我们有时需要查找到所有匹配的位置，也有时候，仅仅需...</div>
-                    
+                    <p class="post-excerpt">以下笔记来自阅读：Knuth D E , Morris J H , Pratt V R . Fast Pattern Matching in Strings[J]. Siam Journal on Computing, …</p>
                     
                 </article>
                 
@@ -343,26 +333,14 @@ Matching in Strings[J]. Siam Journal on Computing, 1977,
                                 
                             </span>
                         
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 5 分钟</span>
                     </div>
                     <h2 class="post-title">
                         <a href="/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/">硬件虚拟化</a>
                     </h2>
                     
-                    <div class="post-excerpt">在“虚拟化技术概念及分类
-”一文中，从应用程序的角度，将虚拟化技术分为：
-硬件虚拟化、操作系统级虚拟化和程序库级虚拟化三类。本文将对硬件虚拟化的概念、发展历史做展开描述。
-硬件虚拟化是对计算机硬件环境的虚拟，其上支持多种操作系统并发执行。在描述硬件虚拟化之前，先来了解一下计算机的硬件环境。
-
-计算机硬件环境
-当前服务器均基于Modified Harvard架构，其简化结构如下：
-中央处理器：执行特...</div>
-                    
-                    
-                    <div class="post-tags">
-                        
-                            <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%AE%80%E4%BB%8B/" class="tag">#虚拟化简介</a>
-                        
-                    </div>
+                    <p class="post-excerpt">在“虚拟化技术概念及分类 ”一文中，从应用程序的角度，将虚拟化技术分为： 硬件虚拟化、操作系统级虚拟化和程序库级虚拟化三类。本文将对硬件虚拟化的概念、发展历史做展开描述。 硬件虚拟化是对计算机硬件环境的虚拟，其上支持多种…</p>
                     
                 </article>
                 
@@ -377,23 +355,14 @@ Matching in Strings[J]. Siam Journal on Computing, 1977,
                                 
                             </span>
                         
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 3 分钟</span>
                     </div>
                     <h2 class="post-title">
                         <a href="/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/">虚拟化技术概念及分类</a>
                     </h2>
                     
-                    <div class="post-excerpt">虚拟化是一种让人着迷的技术，其知识背景贯穿底层硬件到上层应用，也是目前云计算服务的基础。本文及后续文章，期望通过“虚拟化简介”这一系列，管中窥豹，将虚拟化技术的魅力阐述一二，也算是对自己多年工作的一个总结。
-在展开描述虚拟化之前，有必要对虚拟化的概念和技术分类做通盘的介绍：
-
-什么是虚拟化?
-虚拟化，即是创建真实事物的虚拟版本，在计算机世界里，这些真实事物可以是计算机硬件平台、存储设备和网络资源等...</div>
-                    
-                    
-                    <div class="post-tags">
-                        
-                            <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%AE%80%E4%BB%8B/" class="tag">#虚拟化简介</a>
-                        
-                    </div>
+                    <p class="post-excerpt">虚拟化是一种让人着迷的技术，其知识背景贯穿底层硬件到上层应用，也是目前云计算服务的基础。本文及后续文章，期望通过“虚拟化简介”这一系列，管中窥豹，将虚拟化技术的魅力阐述一二，也算是对自己多年工作的一个总结。 在展开描述虚…</p>
                     
                 </article>
                 
@@ -408,28 +377,14 @@ Matching in Strings[J]. Siam Journal on Computing, 1977,
                                 
                             </span>
                         
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 3 分钟</span>
                     </div>
                     <h2 class="post-title">
                         <a href="/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/">在线迁移后虚拟机CPU利用率飙升问题分析</a>
                     </h2>
                     
-                    <div class="post-excerpt">提供虚拟机服务的过程中，遇到了如下问题：
-
-现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。
-
-现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。
-
-现象3：冷启动虚拟后，启动程序，问题消失。
-
-该问题多次出现，升级宿主机到高版本内核问题消失，最终通过缩小范围，发现打入如下内核Patch后问题解决。
-1...</div>
-                    
-                    
-                    <div class="post-tags">
-                        
-                            <a href="/tags/%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D/" class="tag">#问题定位</a>
-                        
-                    </div>
+                    <p class="post-excerpt">提供虚拟机服务的过程中，遇到了如下问题： 现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。 现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启…</p>
                     
                 </article>
                 
@@ -444,64 +399,21 @@ Matching in Strings[J]. Siam Journal on Computing, 1977,
                                 
                             </span>
                         
+                        <span class="sep">·</span>
+                        <span class="reading-time">约 2 分钟</span>
                     </div>
                     <h2 class="post-title">
                         <a href="/2017/10/26/%E9%A1%B5%E8%A1%A8%E9%A1%B9%E8%AF%A6%E8%A7%A3/">页表项详解</a>
                     </h2>
                     
-                    <div class="post-excerpt">
-以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures
-Software Developer’s Manual”
-
-页表是实现地址翻译的重要结构，其中，Page Table Entry
-(PTE)存储了页帧的物理地址和控制标记，了解PTE的详细结构对理解访存过程中的权限控制、缺页处理等机制都有着重要的意义。
-PTE的内部结构如下图所...</div>
-                    
-                    
-                    <div class="post-tags">
-                        
-                            <a href="/tags/x86/" class="tag">#x86</a>
-                        
-                    </div>
-                    
-                </article>
-                
-                <article class="post-card">
-                    <div class="post-meta">
-                        <time datetime="2017-09-11T16:00:00.000Z">2017-09-12</time>
-                        
-                            <span class="sep">·</span>
-                            <span class="post-cat">
-                                
-                                    <a href="/categories/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a>
-                                
-                            </span>
-                        
-                    </div>
-                    <h2 class="post-title">
-                        <a href="/2017/09/12/x86%E5%B9%B3%E5%8F%B0%E5%88%86%E9%A1%B5%E6%A8%A1%E5%BC%8F/">x86分页模式</a>
-                    </h2>
-                    
-                    <div class="post-excerpt">x86体系结构下对于4K Page支持三种分页模式：4级64-bit，3级64bit 和
-2级32bit。使用大页会产生更多的paging mode，这里不做介绍。
-1) 4级64-bit：IA-32e （long mode) 模式下使用该paging
-mode * 每级页表项均为64bit，CR3存储PML4 Table基地址
-
-2) 3级64-bit：IA-32模式下，开启PAE 关闭PSE，...</div>
-                    
-                    
-                    <div class="post-tags">
-                        
-                            <a href="/tags/x86/" class="tag">#x86</a>
-                        
-                    </div>
+                    <p class="post-excerpt">以下介绍基于IA-32e (x86_64)，参考 “Intel® 64 and IA-32 Architectures Software Developer’s Manual” 页表是实现地址翻译的重要结构，其中，Pag…</p>
                     
                 </article>
                 
 
                 
 <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">← Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">← Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next →</a>
 </nav>
 
 
@@ -510,42 +422,54 @@ mode * 每级页表项均为64bit，CR3存储PML4 Table基地址
     </div>
 </div>
 
-<script>
-(function() {
-    var tree = document.getElementById('archive-tree');
-    if (!tree) return;
-    var toggles = tree.querySelectorAll('.year-toggle');
-    // Collapse all except first year by default
-    toggles.forEach(function(btn, idx) {
-        var content = btn.nextElementSibling;
-        if (idx > 0) {
-            content.style.display = 'none';
-            btn.classList.add('collapsed');
-        }
-        btn.addEventListener('click', function() {
-            var isCollapsed = btn.classList.contains('collapsed');
-            if (isCollapsed) {
-                content.style.display = 'block';
-                btn.classList.remove('collapsed');
-            } else {
-                content.style.display = 'none';
-                btn.classList.add('collapsed');
-            }
-        });
-    });
-})();
-</script>
-
     </main>
-    <footer class="site-footer">
+    
+<footer class="site-footer">
     <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
         <p class="copyright">
             &copy; 2017 - 2026 
-            <a href="/">Garry Xu</a>
+            Garry Xu
         </p>
-        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
     </div>
 </footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script src="/js/theme.js"></script>
 </body>

@@ -32,36 +32,13 @@
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "在线迁移后虚拟机CPU利用率飙升问题分析 | Garry&#39;s Blog",
-  "description": "提供虚拟机服务的过程中，遇到了如下问题： 现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。 现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。 现象3：冷启动虚拟后，启动程序，问题消失。 该问题多次出现，升级宿主机到高版本内",
-  "url": "https://garryx.com/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/",
-  
-  "datePublished": "2020-02-19T16:00:00.000Z",
-  "dateModified": "2026-06-05T07:09:54.249Z",
-  "author": {
-    "@type": "Person",
-    "name": "Garry Xu"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Garry&#39;s Blog",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://garryx.com/images/avatar.png"
-    }
-  },
-  
-  "image": "https://garryx.com/covers/cover-%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90.png"
-}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"在线迁移后虚拟机CPU利用率飙升问题分析 | Garry's Blog","description":"提供虚拟机服务的过程中，遇到了如下问题： 现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。 现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。 现象3：冷启动虚拟后，启动程序，问题消失。 该问题多次出现，升级宿主机到高版本内","url":"https://garryx.com/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/","image":"https://garryx.com/covers/cover-%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2020/02/20/%E5%9C%A8%E7%BA%BF%E8%BF%81%E7%A7%BB%E5%90%8E%E8%99%9A%E6%8B%9F%E6%9C%BACPU%E5%88%A9%E7%94%A8%E7%8E%87%E9%A3%99%E5%8D%87%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/"},"datePublished":"2020-02-19T16:00:00.000Z","dateModified":"2026-06-05T07:09:54.000Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"问题定位","articleSection":"虚拟化"}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=17">
+<link rel="stylesheet" href="/css/style.css?v=28">
 
 <link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
 
@@ -82,6 +59,8 @@
             
                 <a class="nav-link " href="/">Home</a>
             
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
                 <a class="nav-link " href="/archives">Archives</a>
             
                 <a class="nav-link " href="/tags">Tags</a>
@@ -97,7 +76,8 @@
 </header>
 
     <main class="main">
-        <article class="post-detail">
+        
+<article class="post-detail">
     <div class="reading-progress" id="reading-progress"></div>
     <aside class="toc-sidebar" id="toc-sidebar">
         <div class="toc-title">目录</div>
@@ -129,21 +109,19 @@
         </header>
 
         <div class="post-content" id="post-content">
-            <p>提供虚拟机服务的过程中，遇到了如下问题：</p>
+            <p>提供虚拟机服务的过程中，遇到了如下问题：  </p>
 <ul>
-<li>现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。<br />
-</li>
-<li>现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。<br />
-</li>
-<li>现象3：冷启动虚拟后，启动程序，问题消失。</li>
+<li>现象1：在线迁移前，虚拟机运行正常，迁移之后，虚拟机内用户态程序CPU占用飙升，甚至打满整个虚拟机。  </li>
+<li>现象2：虚拟机内CPU占用集中在用户态，关闭程序后虚拟机CPU使用率下降，启动程序可复现问题。  </li>
+<li>现象3：冷启动虚拟后，启动程序，问题消失。  </li>
 </ul>
-<p>该问题多次出现，升级宿主机到高版本内核问题消失，最终通过缩小范围，发现打入如下内核Patch后问题解决。</p>
+<p>该问题多次出现，升级宿主机到高版本内核问题消失，最终通过缩小范围，发现打入如下内核Patch后问题解决。  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d1fe9219551e914f26219afaca1063b280f25963 KVM: x86: reintroduce kvm_is_mmio_pfn</span><br></pre></td></tr></table></figure>
-<p>该Patch修复了在设置EPT 页表项时，将 "Zero Page" 当做MMIO
-Page处理导致页面无法缓存的问题：</p>
+<p>该Patch修复了在设置EPT 页表项时，将 “Zero Page” 当做MMIO Page处理导致页面无法缓存的问题：</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>Zero PFN</th>
 <th>EPT PTE</th>
@@ -152,14 +130,14 @@ Page处理导致页面无法缓存的问题：</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>修复前</td>
 <td>0x1c2a</td>
 <td>0x1c2a105</td>
 <td>UC</td>
 <td>uncacheable</td>
 </tr>
-<tr class="even">
+<tr>
 <td>修复后</td>
 <td>0x1c2a</td>
 <td>0x1c2a075</td>
@@ -168,44 +146,34 @@ Page处理导致页面无法缓存的问题：</p>
 </tr>
 </tbody>
 </table>
+</div>
 <ul>
-<li>注意不同内核”Zero Page”的PFN可能不同，上表中仅为示例</li>
+<li>注意不同内核”Zero Page”的PFN可能不同，上表中仅为示例  </li>
 </ul>
-<p>可以看到未修复前，"Zero Page"
-不能被缓存，为何这会导致迁移场景的问题，下面进行详细的分析。</p>
-<h3 id="什么是-zero-page">什么是 "Zero Page"</h3>
-<p>"Zero Page" 是内容全部为0的特殊只读页面。在x86体系结构下，"Zero Page"
-存储在内核BSS段中并在内核启动时清零。"Zero PFN" 是 "Zero Page"
-对应的物理页帧号。</p>
+<p>可以看到未修复前，”Zero Page” 不能被缓存，为何这会导致迁移场景的问题，下面进行详细的分析。</p>
+<h3 id="什么是-“Zero-Page”"><a href="#什么是-“Zero-Page”" class="headerlink" title="什么是 “Zero Page”"></a>什么是 “Zero Page”</h3><p>“Zero Page” 是内容全部为0的特殊只读页面。在x86体系结构下，”Zero Page” 存储在内核BSS段中并在内核启动时清零。”Zero PFN” 是 “Zero Page” 对应的物理页帧号。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__PAGE_ALIGNED_BSS NEXT_PAGE(empty_zero_page) .skip PAGE_SIZE EXPORT_SYMBOL(empty_zero_page)</span><br></pre></td></tr></table></figure>
-<h3 id="什么场景下会使用-zero-page">什么场景下会使用 "Zero Page"</h3>
-<p>最典型的场景：当读取未分配的匿名页时，会映射 "Zero Page"
-到访问地址，如下图所示：</p>
-<p><img src="/images/alloc_zero.png" /></p>
-<p>如果写入映射 "Zero Page" 的虚拟地址，会触发COW，分配新的页面。</p>
-<h3 id="虚拟机在线迁移和-zero-page-有什么关联">虚拟机在线迁移和 "Zero
-Page" 有什么关联？</h3>
-<p>虚拟机在线迁移过程中，会持续传输内存修改数据至目的端虚拟机，其中有如下判断。</p>
-<p><img src="/images/mig_zero.png" /></p>
-<p>在线迁移过程中，不传输内容为0的内存页。这可能造成 "Zero Page"
-变多，如下所示: * 在线迁移前，虚拟机存在内容为0的内存页。</p>
-<p><img src="/images/zero_before_mig.png" /></p>
+<h3 id="什么场景下会使用-“Zero-Page”"><a href="#什么场景下会使用-“Zero-Page”" class="headerlink" title="什么场景下会使用 “Zero Page”"></a>什么场景下会使用 “Zero Page”</h3><p>最典型的场景：当读取未分配的匿名页时，会映射 “Zero Page” 到访问地址，如下图所示：</p>
+<p><img src="/images/alloc_zero.png" alt=""></p>
+<p>如果写入映射 “Zero Page” 的虚拟地址，会触发COW，分配新的页面。</p>
+<h3 id="虚拟机在线迁移和-“Zero-Page”-有什么关联？"><a href="#虚拟机在线迁移和-“Zero-Page”-有什么关联？" class="headerlink" title="虚拟机在线迁移和 “Zero Page” 有什么关联？"></a>虚拟机在线迁移和 “Zero Page” 有什么关联？</h3><p>虚拟机在线迁移过程中，会持续传输内存修改数据至目的端虚拟机，其中有如下判断。</p>
+<p><img src="/images/mig_zero.png" alt=""></p>
+<p>在线迁移过程中，不传输内容为0的内存页。这可能造成 “Zero Page” 变多，如下所示:</p>
 <ul>
-<li>在线迁移后，由于未传输内容为0的内存页，对这些页面的读访问将映射到
-"Zero Page"</li>
+<li>在线迁移前，虚拟机存在内容为0的内存页。</li>
 </ul>
-<p><img src="/images/zero_after_mig.png" /></p>
+<p><img src="/images/zero_before_mig.png" alt=""></p>
 <ul>
-<li>如果 "Zero Page"
-无法缓存，对其的读访问会有较大开销，实际测试结果(仅供参考)。</li>
+<li>在线迁移后，由于未传输内容为0的内存页，对这些页面的读访问将映射到 “Zero Page”</li>
 </ul>
-<p><img src="/images/read_test.png" /></p>
+<p><img src="/images/zero_after_mig.png" alt=""></p>
+<ul>
+<li>如果 “Zero Page” 无法缓存，对其的读访问会有较大开销，实际测试结果(仅供参考)。</li>
+</ul>
+<p><img src="/images/read_test.png" alt=""></p>
 <p>（分配6GB内存空间并清零，顺序遍历读取整个6GB空间并统计完成时间）</p>
-<h3 id="总结">总结</h3>
-<p>该问题出现的根本原因是在线迁移之后，对 "Zero Page"
-的缓存类型设置有误，导致用户态程序访存能力下降，从而导致问题。</p>
-<p>需要注意的是，如果开启了透明大页，该问题的出现概率将大幅降低，具体原因和THP的
-"Zero Page" 实现有关，这里不做分析了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>该问题出现的根本原因是在线迁移之后，对 “Zero Page” 的缓存类型设置有误，导致用户态程序访存能力下降，从而导致问题。</p>
+<p>需要注意的是，如果开启了透明大页，该问题的出现概率将大幅降低，具体原因和THP的 “Zero Page” 实现有关，这里不做分析了。</p>
 
         </div>
 
@@ -235,6 +203,54 @@ Page" 有什么关联？</h3>
                 <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
             </div>
         </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2023-01-12T09:18:52.000Z">2023-01-12</time>
+                    <h3><a href="/2023/01/12/KVM-API-%E7%AE%80%E4%BB%8B/">KVM API 简介</a></h3>
+                    
+                    
+                    <p>以下笔记来自阅读：https://www.kernel.org/doc/Documentation/virtual/kvm/api.txt 1. 基本描述KVM API 本...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2022-03-21T02:24:05.000Z">2022-03-21</time>
+                    <h3><a href="/2022/03/21/Linux%E5%86%85%E6%A0%B8%E5%BC%95%E5%AF%BC/">Linux内核引导</a></h3>
+                    
+                    
+                    <p>以下笔记来自阅读：https://www.kernel.org/doc/html/latest/x86/boot.html Linux/x86 引导协议&amp;nbsp;&amp;nbs...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2022-02-22T03:52:17.000Z">2022-02-22</time>
+                    <h3><a href="/2022/02/22/%E7%A1%AC%E4%BB%B6%E8%99%9A%E6%8B%9F%E5%8C%96/">硬件虚拟化</a></h3>
+                    
+                    
+                    <p>在“虚拟化技术概念及分类 ”一文中，从应用程序的角度，将虚拟化技术分为： 硬件虚拟化、操作系统级虚拟化和程序库级虚拟化三类。本文将对硬件虚拟化的概念、发展历史做展开描述。 ...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2022-02-07T11:51:17.000Z">2022-02-07</time>
+                    <h3><a href="/2022/02/07/%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%88%86%E7%B1%BB/">虚拟化技术概念及分类</a></h3>
+                    
+                    
+                    <p>虚拟化是一种让人着迷的技术，其知识背景贯穿底层硬件到上层应用，也是目前云计算服务的基础。本文及后续文章，期望通过“虚拟化简介”这一系列，管中窥豹，将虚拟化技术的魅力阐述一二...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
 
         <nav class="post-nav">
             <div class="post-nav-inner">
@@ -349,6 +365,43 @@ Page" 有什么关联？</h3>
 
     if (!content || !tocNav) return;
 
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
     const headings = content.querySelectorAll('h2, h3, h4');
     if (headings.length < 2) {
         document.getElementById('toc-sidebar').style.display = 'none';
@@ -395,15 +448,53 @@ Page" 有什么关联？</h3>
 </script>
 
     </main>
-    <footer class="site-footer">
+    
+<footer class="site-footer">
     <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
         <p class="copyright">
             &copy; 2017 - 2026 
-            <a href="/">Garry Xu</a>
+            Garry Xu
         </p>
-        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
     </div>
 </footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script src="/js/theme.js"></script>
 </body>

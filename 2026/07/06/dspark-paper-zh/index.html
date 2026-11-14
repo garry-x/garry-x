@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>【论文翻译】DSpark：基于置信度调度的半自回归推测解码 | Garry&#39;s Blog</title>
+<meta name="description" content="原文标题：DSpark: ConfidenceScheduled Speculative Decoding with SemiAutoregressive Generation作者：Xin Cheng, Xingkai Yu, Chenze Shao, Jiashi Li, Yunfan Xiong 等（北京大学 &amp;a">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="论文翻译,推测解码,LLM推理,DeepSeek,投机采样">
+
+<!-- Open Graph -->
+<meta property="og:title" content="【论文翻译】DSpark：基于置信度调度的半自回归推测解码 | Garry&#39;s Blog">
+<meta property="og:description" content="原文标题：DSpark: ConfidenceScheduled Speculative Decoding with SemiAutoregressive Generation作者：Xin Cheng, Xingkai Yu, Chenze Shao, Jiashi Li, Yunfan Xiong 等（北京大学 &amp;a">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/07/06/dspark-paper-zh/">
+<meta property="og:image" content="https://garryx.com/covers/cover-dspark-paper-zh.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="【论文翻译】DSpark：基于置信度调度的半自回归推测解码 | Garry&#39;s Blog">
+<meta name="twitter:description" content="原文标题：DSpark: ConfidenceScheduled Speculative Decoding with SemiAutoregressive Generation作者：Xin Cheng, Xingkai Yu, Chenze Shao, Jiashi Li, Yunfan Xiong 等（北京大学 &amp;a">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-dspark-paper-zh.png">
+
+<link rel="canonical" href="https://garryx.com/2026/07/06/dspark-paper-zh/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"【论文翻译】DSpark：基于置信度调度的半自回归推测解码 | Garry's Blog","description":"原文标题：DSpark: ConfidenceScheduled Speculative Decoding with SemiAutoregressive Generation作者：Xin Cheng, Xingkai Yu, Chenze Shao, Jiashi Li, Yunfan Xiong 等（北京大学 &a","url":"https://garryx.com/2026/07/06/dspark-paper-zh/","image":"https://garryx.com/covers/cover-dspark-paper-zh.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/07/06/dspark-paper-zh/"},"datePublished":"2026-07-06T06:30:00.000Z","dateModified":"2026-11-13T01:34:52.045Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"论文翻译,推测解码,LLM推理,DeepSeek,投机采样","articleSection":"论文"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/%E8%AE%BA%E6%96%87/">论文</a>
+                
+            </div>
+            
+            <h1 class="post-title">【论文翻译】DSpark：基于置信度调度的半自回归推测解码</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-07-06T06:30:00.000Z">
+                    2026年7月6日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/%E8%AE%BA%E6%96%87%E7%BF%BB%E8%AF%91/">#论文翻译</a>
+                    
+                        <a href="/tags/%E6%8E%A8%E6%B5%8B%E8%A7%A3%E7%A0%81/">#推测解码</a>
+                    
+                        <a href="/tags/LLM%E6%8E%A8%E7%90%86/">#LLM推理</a>
+                    
+                        <a href="/tags/DeepSeek/">#DeepSeek</a>
+                    
+                        <a href="/tags/%E6%8A%95%E6%9C%BA%E9%87%87%E6%A0%B7/">#投机采样</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <blockquote>
+<p><strong>原文标题</strong>：DSpark: Confidence-Scheduled Speculative Decoding with Semi-Autoregressive Generation<br><strong>作者</strong>：Xin Cheng, Xingkai Yu, Chenze Shao, Jiashi Li, Yunfan Xiong 等（北京大学 &amp; DeepSeek-AI）<br><strong>发布时间</strong>：2026年7月<br><strong>原文链接</strong>：<a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/DeepSpec/blob/main/DSpark_paper.pdf">https://github.com/deepseek-ai/DeepSpec/blob/main/DSpark_paper.pdf</a></p>
+<p><strong>版权声明</strong>：本文为学术论文的中文翻译，仅供学习研究使用。原文版权归属原作者及所属机构所有。如有疑问请联系译者。</p>
+</blockquote>
+<hr>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>推测解码（Speculative Decoding）通过将草稿生成与目标验证解耦来加速大语言模型推理。虽然近期的并行草稿模型能在单次前向传播中高效生成长序列候选 token，但由于缺乏 token 间依赖关系，其接受率随位置快速衰减。此外，不加区分地验证这些长草稿块会浪费宝贵的批处理容量，在高并发服务系统中严重降低吞吐量。</p>
+<p>我们提出 <strong>DSpark</strong>——一个统一高吞吐并行生成与自适应负载感知验证的推测解码框架。为保持草稿质量，DSpark 采用<strong>半自回归架构</strong>：将并行骨干网络与轻量级序列模块耦合，引入块内依赖建模以缓解尾部衰减。为优化系统效率，DSpark 使用<strong>置信度调度验证</strong>：根据估计的前缀存活概率和引擎吞吐量曲线，动态调整每个请求的验证长度。</p>
+<p>在离线基准测试中，DSpark 在多个领域大幅超越最先进的自回归和并行草稿模型。在 DeepSeek-V4 服务系统中部署后，DSpark 成功缓解了验证浪费。与生产基线 MTP-1 相比，DSpark 在匹配的吞吐量水平下将每用户生成速度提升 <strong>60%–85%</strong>。更重要的是，通过在严格交互性约束下防止吞吐量严重退化，DSpark 解锁了此前无法达到的性能层级，推动了服务系统帕累托前沿的外移。我们开源了 DSpark 检查点及 DeepSpec 训练仓库。</p>
+<hr>
+<h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h2><p>大语言模型（LLM）以自回归方式生成文本：每个新 token 需要一次完整的前向传播，推理延迟与输出长度成正比。由此导致的低 GPU 利用率和用户感知的高等待时间，成为生产环境中 LLM 服务的主要瓶颈。</p>
+<p>推测解码提供了原则性的解决方案：一个轻量级草稿模型提出候选 token 块，全尺寸目标模型通过拒绝采样在单次前向传播中验证整个块，接受与目标分布一致的最长前缀并附加一个奖励 token。由于验证是并行的且接受规则精确保持目标分布，推测解码在无质量损失的情况下加速生成。</p>
+<p>草稿模型的设计决定了草稿延迟与接受率之间的权衡。早期草稿模型是自回归的，但草稿延迟随块大小线性增长。为突破这一瓶颈，<strong>并行草稿模型</strong>出现——所有草稿位置在单次前向传播中生成，草稿延迟几乎与块大小无关。</p>
+<p>然而，充分发挥大并行草稿块的潜力面临两个关键瓶颈：</p>
+<ul>
+<li><strong>生成质量</strong>：并行草稿模型独立预测每个位置，无法建模块内 token 间依赖，导致多模态冲突和后期位置接受率快速衰减。</li>
+<li><strong>系统效率</strong>：并行生成容易产生长草稿块，但不加区分地验证所有 token 会降低系统吞吐量，尤其在高并发下。</li>
+</ul>
+<p>为应对这些瓶颈，DSpark 通过两个互补机制设计：</p>
+<ul>
+<li><strong>半自回归架构</strong>：保持计算密集的草稿骨干完全并行，仅附加轻量级串行输出头注入局部转移信息，保留并行速度的同时显著缓解尾部衰减。</li>
+<li><strong>置信度调度验证</strong>：通过置信度头估计每位置前缀存活概率，配合硬件感知调度器，根据实时引擎吞吐量曲线将验证预算分配给预期回报最高的 token。</li>
+</ul>
+<h2 id="2-背景"><a href="#2-背景" class="headerlink" title="2. 背景"></a>2. 背景</h2><h3 id="2-1-推测解码"><a href="#2-1-推测解码" class="headerlink" title="2.1 推测解码"></a>2.1 推测解码</h3><p>自回归语言模型每次前向传播生成一个 token，推理延迟与输出长度成正比。推测解码使用轻量级草稿模型 $M<em>d$ 加速目标模型 $M_t$ 的推理。每个解码周期，草稿模型提出 $\gamma$ 个候选 token $x_1, \ldots, x</em>\gamma$，目标模型在单次前向传播中验证所有候选，接受与自身分布一致的最长前缀。</p>
+<p>具体地，在每个草稿位置 $k$，目标模型计算自身分布 $p_t^k$ 并与草稿分布 $p_d^k$ 比较。token $x_k$ 以概率 $\min(1, p_t^k(x_k)/p_d^k(x_k))$ 被接受。验证从左到右进行：位置 $k$ 的首次拒绝会丢弃所有后续 token。</p>
+<p>令 $\tau$ 表示每周期接受的 token 数，$T<em>\text{draft}$ 和 $T</em>\text{verify}$ 分别为草稿和验证的墙钟时间。每生成 token 的平均延迟为：</p>
+<script type="math/tex; mode=display">L = \frac{T_\text{draft} + T_\text{verify}}{\tau}</script><p>加速因此归结为三个杠杆：降低 $T<em>\text{draft}$（更快草稿）、提高 $\tau$（更好草稿）、或减少有效 $T</em>\text{verify}$（更智能验证）。</p>
+<h3 id="2-2-草稿模型架构"><a href="#2-2-草稿模型架构" class="headerlink" title="2.2 草稿模型架构"></a>2.2 草稿模型架构</h3><p><strong>自回归草稿模型</strong>按顺序生成草稿 token，每个位置以前序采样 token 为条件。这种显式依赖提供强建模能力，但草稿成本随块大小线性增长（$T_\text{draft} \propto \gamma$），迫使其使用小块和浅架构。</p>
+<p><strong>并行草稿模型</strong>在单次前向传播中生成所有 $\gamma$ 个草稿 token，$T_\text{draft}$ 几乎与块大小无关，允许更大的块（如 $\gamma = 16$）。</p>
+<p>其中 <strong>DFlash</strong> 是最先进的并行草稿模型，通过从目标模型提取的丰富上下文特征（KV 注入）来条件化草稿模型。预填充期间，目标模型一组层的隐藏状态被拼接并投影到草稿隐藏空间：</p>
+<script type="math/tex; mode=display">H_\text{ctx} = \text{RMSNorm}\left(W_c[H^{(l_1)}; \ldots; H^{(l_m)}]\right)</script><p>其中 $W_c \in \mathbb{R}^{d \times md}$ 是共享投影。这些上下文特征被注入每个草稿层：</p>
+<script type="math/tex; mode=display">K_i = [W_i^K H_\text{ctx}; W_i^K H_d], \quad V_i = [W_i^V H_\text{ctx}; W_i^V H_d]</script><p>块内所有位置双向互相关注，并与注入的目标上下文交互。草稿模型共享目标模型的嵌入层和语言建模头（均冻结）。</p>
+<hr>
+<h2 id="3-架构"><a href="#3-架构" class="headerlink" title="3. 架构"></a>3. 架构</h2><p>DSpark 的概述如图 1 所示。自回归草稿模型实现高 $\tau$ 但付出 $T<em>\text{draft} \propto \gamma$ 的代价；并行草稿模型将 $T</em>\text{draft}$ 压缩为单次传递但牺牲 $\tau$。同时，固定长度验证在低置信度尾部 token 上浪费 $T_\text{verify}$。DSpark 通过两个互补组件解决这些限制：</p>
+<ul>
+<li><strong>半自回归生成</strong>（§3.1）：并行骨干处理草稿计算主体，保持 $T_\text{draft}$ 几乎独立于 $\gamma$；轻量级序列块注入 token 间依赖，以最小额外延迟提高 $\tau$。</li>
+<li><strong>置信度调度验证</strong>（§3.2）：置信度头估计每位置接受概率，硬件感知调度器利用这些估计剪枝低置信度尾部 token，削减不必要的验证计算。</li>
+</ul>
+<h3 id="3-1-半自回归生成"><a href="#3-1-半自回归生成" class="headerlink" title="3.1 半自回归生成"></a>3.1 半自回归生成</h3><p>并行草稿模型在单次前向传播中产生所有 $\gamma$ 个草稿 logits，每个预测无法以块内其他位置的采样 token 为条件。当上下文允许多种合理续写时（如 “of course” 和 “no problem”），并行草稿模型可能产生不连贯组合（如 “of problem” 或 “no course”）。接受率因此沿块快速衰减。</p>
+<p>我们采用半自回归结构，将草稿生成分为两个阶段：</p>
+<p><strong>并行阶段</strong>：并行骨干（我们实例化为 DFlash）在整块上运行单次前向传播，产生隐藏状态 $h<em>1, \ldots, h</em>\gamma$ 和基础 logits $U<em>1, \ldots, U</em>\gamma$。</p>
+<p><strong>序列阶段</strong>：序列阶段用前缀依赖的转移偏置 $B<em>k(x_0, x</em>{&lt;k}, x_k)$ 补充基础 logits，允许每个草稿位置以块内前序采样 token 为条件。通过自回归分解引入因果块分布：</p>
+<script type="math/tex; mode=display">P(X | x_0) = \prod_{k=1}^\gamma p_k(x_k | x_0, x_{<k})</script><script type="math/tex; mode=display">p_k(v | x_0, x_{<k}) = \frac{\exp(U_k(v) + B_k(x_0, x_{<k}, v))}{\sum_{u \in \mathcal{V}} \exp(U_k(u) + B_k(x_0, x_{<k}, u))}</script><p>我们描述了序列块的两种实例化：</p>
+<p><strong>Markov 头</strong>：最简单的实例化将 $B<em>k$ 限制为仅依赖前一个 token，简化为 $B(x</em>{k-1}, x_k)$。用低秩分解 $B = W_1 W_2$ 近似（$W_1 \in \mathbb{R}^{V \times r}$，$W_2 \in \mathbb{R}^{r \times V}$，默认 $r=256$），保持存储和每步计算量很小。</p>
+<p><strong>RNN 头</strong>：Markov 头无记忆超过一步。RNN 头维护循环状态 $s<em>k$ 累积块内完整前缀历史。每步拼接当前状态 $s</em>{k-1}$、前 token 嵌入 $W<em>1[x</em>{k-1}]$ 和骨干隐藏 $h_k$，应用门控更新：</p>
+<script type="math/tex; mode=display">s_k = \sigma(W_g z_k) \odot s_{k-1} + (1 - \sigma(W_g z_k)) \odot \tanh(W_c z_k)</script><script type="math/tex; mode=display">B_k(x_{<k}, \cdot) = W_2^\top \tanh(W_o z_k)</script><h3 id="3-2-置信度调度验证"><a href="#3-2-置信度调度验证" class="headerlink" title="3.2 置信度调度验证"></a>3.2 置信度调度验证</h3><p>半自回归架构使 DSpark 能高效生成大草稿块，但验证所有草稿 token 可能降低系统吞吐量，尤其在高并发场景。性能瓶颈来自两个交互因素：</p>
+<ul>
+<li><strong>数据侧</strong>：草稿接受率因领域而异（代码天然高接受，开放聊天显著更低）。</li>
+<li><strong>系统侧</strong>：验证额外 token 的实际成本严格依赖引擎负载。</li>
+</ul>
+<p>因此，释放大草稿块潜力需要统一机制，将目标模型计算仅分配给有正期望回报的 token。DSpark 通过置信度头（§3.2.1）和硬件感知前缀调度器（§3.2.2）实现。</p>
+<h4 id="3-2-1-置信度头"><a href="#3-2-1-置信度头" class="headerlink" title="3.2.1 置信度头"></a>3.2.1 置信度头</h4><p>置信度头为每个草稿位置 $k$ 输出标量估计 $c_k \in (0, 1)$，建模草稿 token 在位置 $k$ 通过目标验证的<strong>条件概率</strong>（给定块内所有前序 token 已被接受）。架构使用轻量级线性投影后接 sigmoid：</p>
+<script type="math/tex; mode=display">c_k = \sigma\left(w^\top [h_k; W_1[x_{k-1}]]\right)</script><p>其中 $h<em>k$ 是骨干隐藏状态，$W_1[x</em>{k-1}]$ 是 Markov 嵌入。用每步解析接受率 $c_k^*$ 监督：</p>
+<script type="math/tex; mode=display">c_k^* = 1 - \frac{1}{2} \|p_k^d - p_t^k\|_1</script><p><strong>后校准</strong>：由于神经置信度估计常过度自信，直接使用原始分数会扭曲吞吐量估计。我们引入<strong>序列温度缩放（STS）</strong>——在保留验证集上从左到右校准联合概率 $\prod_{i \le k} c_i$，通过 1D 网格搜索找到最小化期望校准误差（ECE）的最优温度标量。温度缩放是保序变换，纠正预测概率以匹配经验接受率，不破坏置信度头学到的相对排序。</p>
+<h4 id="3-2-2-硬件感知前缀调度器"><a href="#3-2-2-硬件感知前缀调度器" class="headerlink" title="3.2.2 硬件感知前缀调度器"></a>3.2.2 硬件感知前缀调度器</h4><p>我们将验证长度选择形式化为全局吞吐量最大化问题（算法 1）。考虑 $R$ 个活跃请求的批次。对请求 $r$，令 $c<em>{r,1}, \ldots, c</em>{r,\gamma}$ 为每位置置信度估计，$\ell<em>r$ 为调度验证长度。token 在位置 $j$ 的存活概率为累积乘积 $a</em>{r,j} = \prod<em>{i \le j} c</em>{r,i}$。</p>
+<p>单次验证中，发送给目标模型的总批次大小 $B = \sum<em>{r=1}^R (1 + \ell_r)$，期望接受 token 数 $\tau = \sum</em>{r=1}^R (1 + \sum<em>{j=1}^{\ell_r} a</em>{r,j})$。令 $\text{SPS}(B)$ 表示引擎吞吐量（steps/second），调度器目标为最大化系统级 token 吞吐量 $\Theta = \tau \cdot \text{SPS}(B)$。</p>
+<p>由于 $a<em>{r,j}$ 关于 $j$ 单调非增，扩展请求 $r$ 验证长度从 $j-1$ 到 $j$ 的边际收益恰好是 $a</em>{r,j}$。这保证了全局按 $a_{r,j}$ 排序候选 token 自然尊重块内前缀依赖。我们全局排序所有有效前缀扩展，按存活概率降序，逐步接纳 token 并更新期望吞吐量 $\Theta$。</p>
+<p>调度器采用<strong>早停机制</strong>（当 $\Theta \le \Theta_\text{best}$ 时立即中断）强制执行严格因果性，确保无损推测解码的非预期性质。</p>
+<h3 id="3-3-训练"><a href="#3-3-训练" class="headerlink" title="3.3 训练"></a>3.3 训练</h3><p>训练时从每个目标序列随机采样多个锚点位置形成 $\gamma$-token 块作为训练数据。目标模型全程冻结；草稿模型共享其嵌入层和 LM 头并保持冻结，仅更新骨干草稿模型、序列块和置信度头。</p>
+<p>训练目标包含三项损失，均按位置加权 $w_k = \exp(-(k-1)/\gamma)$：</p>
+<ul>
+<li><strong>交叉熵损失</strong> $\mathcal{L}<em>\text{ce} = -\sum</em>{k=1}^\gamma w_k \log p_k^d(x_k^*)$</li>
+<li><strong>分布匹配损失</strong> $\mathcal{L}<em>\text{tv} = \sum</em>{k=1}^\gamma w_k |p_k^d - p_t^k|_1$</li>
+<li><strong>置信度损失</strong> $\mathcal{L}<em>\text{conf} = -\sum</em>{k=1}^\gamma w_k [c_k^<em> \log c_k + (1 - c_k^</em>) \log(1 - c_k)]$</li>
+</ul>
+<p>总目标：$\mathcal{L} = \alpha<em>\text{ce} \mathcal{L}</em>\text{ce} + \alpha<em>\text{tv} \mathcal{L}</em>\text{tv} + \alpha<em>\text{conf} \mathcal{L}</em>\text{conf}$（默认权重 0.1, 0.9, 1.0）。</p>
+<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4. 实验"></a>4. 实验</h2><p>我们在离线基准上验证 DSpark 的草稿质量，在第 5 节报告在线生产流量下的置信度调度器效果。</p>
+<h3 id="4-1-实验设置"><a href="#4-1-实验设置" class="headerlink" title="4.1 实验设置"></a>4.1 实验设置</h3><p><strong>目标与草稿模型</strong>：在四个不同规模的目标模型上评估——Qwen3-{4B, 8B, 14B} 和 Gemma4-12B。对比两个代表性草稿模型：DFlash（并行）和 Eagle3（自回归，基于 TTT）。为公平比较，所有草稿模型在同一框架和相同数据上重新训练。DSpark 默认使用 Markov 头变体。</p>
+<p><strong>训练数据</strong>：使用 Open-PerfectBlend（130 万样本），包含聊天（17.6%）、数学（39.4%）、代码（38.9%）和指令遵循（4.1%）。每个草稿模型训练 10 个 epoch。</p>
+<p><strong>评估协议</strong>：在三个领域评估——数学推理（GSM8K、MATH500、AIME25）、代码生成（MBPP、HumanEval、Live-CodeBench）、日常聊天（MT-Bench、Alpaca、Arena-Hard）。使用标准推测解码，温度 1.0，报告每轮接受长度 $\tau$。</p>
+<h3 id="4-2-主要结果"><a href="#4-2-主要结果" class="headerlink" title="4.2 主要结果"></a>4.2 主要结果</h3><p>DSpark 在所有目标模型和基准领域上持续超越自回归基线（Eagle3）和并行基线（DFlash）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>目标模型</th>
+<th>vs Eagle3 提升</th>
+<th>vs DFlash 提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qwen3-4B</td>
+<td><strong>+30.9%</strong></td>
+<td>+16.3%</td>
+</tr>
+<tr>
+<td>Qwen3-8B</td>
+<td><strong>+26.7%</strong></td>
+<td>+18.4%</td>
+</tr>
+<tr>
+<td>Qwen3-14B</td>
+<td><strong>+30.0%</strong></td>
+<td>+18.3%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>关键发现：接受长度在结构化任务上天然更高（数学 5.57、代码 5.12），而开放聊天显著更低（3.49）。这种数据可预测性的内在差异意味着静态验证长度常在尾部低质量 token 上浪费计算，直接驱动了置信度调度验证的设计。</p>
+<h3 id="4-3-实验分析"><a href="#4-3-实验分析" class="headerlink" title="4.3 实验分析"></a>4.3 实验分析</h3><h4 id="4-3-1-为什么并行生成能超越自回归？"><a href="#4-3-1-为什么并行生成能超越自回归？" class="headerlink" title="4.3.1 为什么并行生成能超越自回归？"></a>4.3.1 为什么并行生成能超越自回归？</h4><p>表 1 揭示了一个反直觉现象：并行草稿模型（DFlash）和半自回归草稿模型（DSpark）常产生比全自回归草稿模型（Eagle3）更长的接受长度。</p>
+<p>细粒度逐位置条件接受分析揭示了不同草稿模型的独特生成特征：自回归模型在首 token 上接受率高，但后续位置的优势急剧衰减；并行模型在早期位置就表现出更强的接受率。DSpark 成功结合了两者优势——继承了并行模型的高初始 token 容量，同时通过序列头维持尾部连贯性。</p>
+<h4 id="4-3-2-序列头消融"><a href="#4-3-2-序列头消融" class="headerlink" title="4.3.2 序列头消融"></a>4.3.2 序列头消融</h4><p>Markov 头和 RNN 头均持续改善 DFlash 基线。Markov 头以最小计算开销提供大部分增益，RNN 头在数学推理任务上提供额外改进，因为数学推理需要更深的前缀依赖。</p>
+<h4 id="4-3-3-置信度头分析"><a href="#4-3-3-置信度头分析" class="headerlink" title="4.3.3 置信度头分析"></a>4.3.3 置信度头分析</h4><p>置信度头表现出强大的预测区分能力（ROC-AUC 0.81-0.90），但原始模型过度自信（ECE 3%-8%）。应用 STS 后将平均 ECE 降至约 1%，产生可靠的存活概率估计。</p>
+<h2 id="5-真实部署"><a href="#5-真实部署" class="headerlink" title="5. 真实部署"></a>5. 真实部署</h2><p>在 DeepSeek-V4 旁部署 DSpark 引入了训练和推理两方面的额外系统级挑战。本节呈现端到端生产流水线。</p>
+<h3 id="5-1-可扩展灵活训练"><a href="#5-1-可扩展灵活训练" class="headerlink" title="5.1 可扩展灵活训练"></a>5.1 可扩展灵活训练</h3><p>DSpark 草稿模型与 DeepSeek-V4-Flash 和 DeepSeek-V4-Pro 预览版协同部署。并行骨干由三层 MoE 与 mHC 和 128 滑动窗口注意力组成。最大块大小 $\gamma = 5$，使用 Markov 头。置信度头与草稿模型端到端训练，后经 STS 校准。</p>
+<p>两项系统级优化：</p>
+<ul>
+<li><p><strong>隐藏状态通信</strong>：传输目标模型全词汇 logits（$V \approx 10^5$）跨并行 worker 产生显著带宽瓶颈。改为临时缓存目标模型前向激活，仅通信 LM 头之前的隐藏状态，LM 头投影在草稿模型 worker 本地执行。将每 token 通信复杂度降至 $O(d)$。</p>
+</li>
+<li><p><strong>锚点边界序列打包</strong>：采样固定数量的草稿锚点，将隔离的预测块打包为密集训练批次。通过 token 级注意力索引管理打包，保持精确因果掩码，避免标准填充的计算和内存开销。</p>
+</li>
+</ul>
+<h3 id="5-2-硬件感知前缀调度器的实践适配"><a href="#5-2-硬件感知前缀调度器的实践适配" class="headerlink" title="5.2 硬件感知前缀调度器的实践适配"></a>5.2 硬件感知前缀调度器的实践适配</h3><p>算法 1 提供理论上正确的无损调度机制，但直接部署面临两个冲突：</p>
+<ul>
+<li>真实硬件容量 $\text{SPS}(B)$ 本质上是离散的，呈现锯齿状阶梯退化。</li>
+<li>动态每步调度与连续 CUDA Graph 回放和零开销调度（ZOS）冲突。</li>
+</ul>
+<p><strong>异步适配</strong>：调度器异步运行，用两步前的置信度头输出来近似即将到来的验证容量。候选 token 严格按实际最新累积置信度分数排序；两步前的历史预测仅用于确定动态截断长度（批次容量限制 $K$）。这有效地将接纳过程转化为动态 top-$K$ 选择。</p>
+<p>通过移除早停 break 实现无约束全局搜索，异步设计自然形成因果屏障——截断决策仅依赖两步前的信息，与当前 token 的实现隔离，在最大化物理吞吐量的同时保持精确目标分布。</p>
+<h3 id="5-3-高吞吐低延迟推理"><a href="#5-3-高吞吐低延迟推理" class="headerlink" title="5.3 高吞吐低延迟推理"></a>5.3 高吞吐低延迟推理</h3><p>生产服务系统需同时优化两个竞争目标：每请求延迟和聚合吞吐量。由于推测解码不可避免地产生浪费的验证计算，它在额外系统计算与更快每请求生成之间进行权衡。</p>
+<p>在部署场景中，每步处理的请求数常受资源限制（如固定 KV 缓存容量）和可用用户流量池约束。有效批次大小持续远低于 GPU 计算饱和阈值。在此体制下，给定固定并发限制，最大化每 GPU token 总吞吐量与最大化每用户生成速度（tok/s/user）成为高度相关的目标。</p>
+<p>为实现最大吞吐量，异步调度器主动将空闲计算路由到最有前景的草稿 token。我们通过将物理执行与逻辑序列跟踪解耦来解决可变长度查询挑战——所有 token 被展平并作为独立元素处理，复杂的序列内依赖通过稀疏注意力实现中的标记张量严格传达。</p>
+<h3 id="5-4-在线流量下的性能"><a href="#5-4-在线流量下的性能" class="headerlink" title="5.4 在线流量下的性能"></a>5.4 在线流量下的性能</h3><p>我们在 DeepSeek-V4-Flash 和 V4-Pro 的生产服务引擎中评估 DSpark-5（最大草稿长度 $\gamma = 5$）对比 MTP-1 基线。MTP-1 代表此前的生产设置（DSpark 在 V4-preview 发布两周后取代了它）。</p>
+<p><strong>服务帕累托前沿</strong>：图 7 展示了聚合系统吞吐量与每用户生成速度之间的权衡。</p>
+<ul>
+<li><p><strong>V4-Flash 引擎</strong>：在中等 80 tok/s/user SLA 下，DSpark 将聚合吞吐量提升 <strong>51%</strong>。在更严格的 120 tok/s/user SLA 下，DSpark 在匹配实用吞吐量水平下将每用户生成速度提升 <strong>60%–85%</strong>。</p>
+</li>
+<li><p><strong>V4-Pro 引擎</strong>：在 50 tok/s/user SLA 下，DSpark 将吞吐量提升 <strong>52%</strong>，每用户生成速度提升 <strong>57%–78%</strong>。</p>
+</li>
+</ul>
+<p><strong>调度器行为分析</strong>：</p>
+<ul>
+<li>轻负载下，调度器动态扩展验证预算，从 MTP-1 的静态 2 token 扩展到约 4-6 token。</li>
+<li>随并发扩展和目标容量饱和，调度器动态限制预算，平均验证长度随负载平滑下降，确保低置信度草稿 token 在消耗关键批次容量前被剪枝。</li>
+</ul>
+<h3 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h3><p>尽管前缀调度器最小化了浪费的目标模型验证，DSpark 仍需为通过并行骨干生成初始 $\gamma$-token 块付出固定草稿端成本。对于接受率天然低的复杂查询，前期草稿计算不可回收。未来优化可引入难度感知的草稿模型提前退出。</p>
+<hr>
+<h2 id="6-相关工作"><a href="#6-相关工作" class="headerlink" title="6. 相关工作"></a>6. 相关工作</h2><p>推测解码研究广泛覆盖了草稿模型架构优化和系统感知调度两个方向。</p>
+<p><strong>草稿架构</strong>：从独立小语言模型到多 token 头、特征外推器、自推测、动态词汇压缩、提示查找、后缀自动机和检索增强等。为消除草稿本身的序列瓶颈，P-EAGLE、PARD、DART、DFlash 等方法提出并行或块级生成，DDTree 将其扩展为可验证草稿树。Domino 引入与本文 RNN 头概念相似的 CausalEncoder，DFlare 通过逐层融合解决条件化瓶颈。</p>
+<p><strong>系统感知调度</strong>：自适应调整草稿长度的方法包括置信度启发式、学习型接受预测器、bandit 策略，以及根据实时系统负载和请求优先级优化总体吞吐量和延迟的调度。</p>
+<p><strong>并行生成</strong>：非自回归 Transformer（NAT）开创了并行生成方向，但独立预测导致多模态混合输出。解决方案包括引入潜变量条件化、放松训练目标、迭代重新预测、块级自回归和结构化输出层（CRF、CTC、HMM、PCFG）。DSpark 通过将序列修正保持为局部的，使每 token 概率保持精确 softmax 评估，绕过了这些方法在推测解码中的限制。</p>
+<hr>
+<h2 id="7-结论"><a href="#7-结论" class="headerlink" title="7. 结论"></a>7. 结论</h2><p>本文提出 DSpark——一个为解决高并发生产环境中大语言模型推理的结构性和系统性瓶颈而设计的推测解码框架。</p>
+<p><strong>算法层面</strong>，DSpark 引入半自回归生成范式——将计算密集的并行骨干与轻量级序列头耦合——缓解独立并行草稿模型的快速尾部衰减。</p>
+<p><strong>系统层面</strong>，将验证长度选择形式化为全局吞吐量最大化问题，使用硬件感知前缀调度器基于校准存活概率和实时引擎负载动态调整验证预算。</p>
+<p>大量离线评估证明 DSpark 在多个领域大幅超越最先进的自回归和并行基线。在 DeepSeek-V4 中的真实部署验证了其生产实用价值：通过智能管理验证开销，DSpark 在重负载下维持稳健并发，持续加速每用户生成速度，有效推动 LLM 服务帕累托前沿外移。</p>
+<hr>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>（共 40+ 篇引用，包括 Chen et al. 2023, Leviathan et al. 2023, DFlash, Eagle3, Medusa, DeepSeek-V3/V4 等关键工作。完整列表见原文。）</p>
+<hr>
+<blockquote>
+<p><strong>翻译说明</strong>：本文由 AI 辅助翻译，力求准确传达原文技术内容。公式和关键术语保留原始形式以确保精确性。如有翻译不当之处，欢迎指正。</p>
+<p><strong>版权声明</strong>：原文版权归属原作者（Xin Cheng, Xingkai Yu, Chenze Shao, Jiashi Li, Yunfan Xiong 等）及所属机构（北京大学、DeepSeek-AI）所有。本翻译仅供学术研究和学习交流使用，未经原作者许可不得用于商业用途。</p>
+</blockquote>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-13T06:00:00.000Z">2026-07-13</time>
+                    <h3><a href="/2026/07/13/paper-global-workspace-llm/">AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」</a></h3>
+                    
+                    
+                    <p>原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthrop...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/07/07/ai-daily-2026-07-07/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】联合国AI治理全球对话在日内瓦开幕：169国共商前沿AI管控规则</span>
+                </a>
+                
+                
+                <a href="/2026/07/06/ai-daily-2026-07-06/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】企业AI成本焦虑全面爆发：特斯拉限支出、Meta Agent遇阻、阿里封禁Claude Code</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>

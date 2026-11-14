@@ -32,27 +32,13 @@
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "headline": "Archives: 2017/10 | Garry&#39;s Blog",
-  "description": "Garry&#39;s Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析",
-  "url": "https://garryx.com/archives/2017/10/index.html",
-  
-  "name": "Garry&#39;s Blog",
-  "author": {
-    "@type": "Person",
-    "name": "Garry Xu"
-  },
-  
-  "image": "https://garryx.com/images/og-default.png"
-}
+{"@context":"https://schema.org","@type":"WebSite","headline":"Archives: 2017/10 | Garry's Blog","description":"Garry's Blog - 记录技术与生活的碎片，焦点包括AI、云计算、虚拟化与投资分析","url":"https://garryx.com/archives/2017/10/index.html","image":"https://garryx.com/images/og-default.png","name":"Garry's Blog","author":{"@type":"Person","name":"Garry Xu"}}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css?v=17">
+<link rel="stylesheet" href="/css/style.css?v=28">
 
 <link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
 
@@ -72,6 +58,8 @@
         <nav class="site-nav">
             
                 <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
             
                 <a class="nav-link active" href="/archives">Archives</a>
             
@@ -107,15 +95,53 @@
 </section>
 
     </main>
-    <footer class="site-footer">
+    
+<footer class="site-footer">
     <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
         <p class="copyright">
             &copy; 2017 - 2026 
-            <a href="/">Garry Xu</a>
+            Garry Xu
         </p>
-        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/garry-x" target="_blank" rel="noopener">Modern</a></p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
     </div>
 </footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <script src="/js/theme.js"></script>
 </body>

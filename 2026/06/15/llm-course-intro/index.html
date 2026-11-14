@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry&#39;s Blog</title>
+<meta name="description" content="课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位">
+<meta name="author" content="Garry Xu">
+<meta name="keywords" content="LLM,大模型,课程,PyTorch,深度学习">
+
+<!-- Open Graph -->
+<meta property="og:title" content="《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry&#39;s Blog">
+<meta property="og:description" content="课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garryx.com/2026/06/15/llm-course-intro/">
+<meta property="og:image" content="https://garryx.com/covers/cover-llm-course-intro.png">
+<meta property="og:site_name" content="Garry&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry&#39;s Blog">
+<meta name="twitter:description" content="课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位">
+<meta name="twitter:image" content="https://garryx.com/covers/cover-llm-course-intro.png">
+
+<link rel="canonical" href="https://garryx.com/2026/06/15/llm-course-intro/">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程 | Garry's Blog","description":"课程仓库: https://github.com/garryx/llmcourse 本地阅读: clone 后 ./serve.sh serve 启动，默认 http://localhost:8080 状态: 持续更新中，本文基于 20260615 的 commit e3e2b08（345 commits） 一句话定位","url":"https://garryx.com/2026/06/15/llm-course-intro/","image":"https://garryx.com/covers/cover-llm-course-intro.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://garryx.com/2026/06/15/llm-course-intro/"},"datePublished":"2026-06-15T03:00:00.000Z","dateModified":"2026-11-13T01:34:52.045Z","author":{"@type":"Person","name":"Garry Xu"},"publisher":{"@type":"Organization","name":"Garry's Blog","logo":{"@type":"ImageObject","url":"https://garryx.com/images/avatar.png"}},"keywords":"LLM,大模型,课程,PyTorch,深度学习","articleSection":"技术"}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css?v=28">
+
+<link rel="alternate" type="application/atom+xml" title="Garry&#39;s Blog" href="/atom.xml">
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams'
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="/js/vendor/mathjax-tex-svg.js?v=1"></script>
+
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <header class="site-header">
+    <div class="container header-inner">
+        <a href="/" class="site-brand">
+            <span class="brand-text">Garry&#39;s Blog</span>
+        </a>
+        <nav class="site-nav">
+            
+                <a class="nav-link " href="/">Home</a>
+            
+                <a class="nav-link " href="/ai-daily">Daily</a>
+            
+                <a class="nav-link " href="/archives">Archives</a>
+            
+                <a class="nav-link " href="/tags">Tags</a>
+            
+                <a class="nav-link " href="/about">About</a>
+            
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+    </div>
+</header>
+
+    <main class="main">
+        
+<article class="post-detail">
+    <div class="reading-progress" id="reading-progress"></div>
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-title">目录</div>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </aside>
+    <div class="container narrow">
+        <header class="post-header">
+            
+            <div class="post-header-category">
+                
+                    <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+                
+            </div>
+            
+            <h1 class="post-title">《LLM Deep Learning》—— 从零写代码，搭一套工业级大语言模型工程</h1>
+            <div class="post-header-meta">
+                <time datetime="2026-06-15T03:00:00.000Z">
+                    2026年6月15日
+                </time>
+                
+                <span class="sep"></span>
+                <div class="post-header-tags">
+                    
+                        <a href="/tags/LLM/">#LLM</a>
+                    
+                        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">#大模型</a>
+                    
+                        <a href="/tags/%E8%AF%BE%E7%A8%8B/">#课程</a>
+                    
+                        <a href="/tags/PyTorch/">#PyTorch</a>
+                    
+                        <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">#深度学习</a>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <div class="post-content" id="post-content">
+            <p><strong>课程仓库</strong>: <a target="_blank" rel="noopener" href="https://github.com/garry-x/llm-course">https://github.com/garry-x/llm-course</a></p>
+<p><strong>本地阅读</strong>: clone 后 <code>./serve.sh serve</code> 启动，默认 <a target="_blank" rel="noopener" href="http://localhost:8080">http://localhost:8080</a></p>
+<p><strong>状态</strong>: 持续更新中，本文基于 2026-06-15 的 commit <code>e3e2b08</code>（345 commits）</p>
+<hr>
+<h2 id="一句话定位"><a href="#一句话定位" class="headerlink" title="一句话定位"></a>一句话定位</h2><p>这是一门 <strong>code-first</strong> 的 LLM 实战课：不用调 API、不追新版本，而是用 <strong>Python + PyTorch</strong> 一行行写出 Tokenizer、Attention、Transformer Block、GPT、Training Loop、Inference Optimization，最终拼成一套能训、能生成、能对齐、能部署的完整工程系统。</p>
+<p><img src="/images/llm-course-home.jpg" alt="课程主页：11 章导航 + 章节索引"></p>
+<h2 id="这课为什么值得看"><a href="#这课为什么值得看" class="headerlink" title="这课为什么值得看"></a>这课为什么值得看</h2><p>市面上讲 LLM 的资料不少，但大多分两类：一类是”读论文看公式”的理论课，一类是”调包跑 demo”的项目课。这门课卡在中间，做了件少见的事——<strong>把公式翻译成 PyTorch 张量，把论文里的架构改写成工业级代码</strong>。</p>
+<p>具体一点：</p>
+<ul>
+<li><strong>11 章 / 251 个 section</strong>，从 BPE 到 vLLM 级推理优化全覆盖</li>
+<li><strong>每章都有编程作业</strong>：<code>starter.py</code> + <code>reference_solution.py</code> + <code>tests.py</code>，写完能跑测试验证</li>
+<li><strong>工业级架构案例</strong>：MLA、MoE、FP8、GRPO/DAPO/GSPO、稀疏/压缩 Attention、Linear Attention、SSM/Mamba、Learnable Residual——不是列名词，而是用代码理解它们解决什么瓶颈</li>
+<li><strong>9 份工程附录</strong>：符号约定、PyTorch 速查、ML 基础桥接、经典 NLP 衔接、扩展阅读清单</li>
+</ul>
+<p>课程的副标题很直白：</p>
+<blockquote>
+<p><strong>Starting from code, 11 chapters to build a complete large language model engineering system.</strong></p>
+</blockquote>
+<h2 id="11-章地图"><a href="#11-章地图" class="headerlink" title="11 章地图"></a>11 章地图</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>章节</th>
+<th>核心问题</th>
+<th>sections</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ch01 Environment Setup &amp; Tokenization</td>
+<td>文本怎么变成 token ID（BPE）</td>
+<td>19</td>
+</tr>
+<tr>
+<td>Ch02 Embedding Layer &amp; Positional Encoding</td>
+<td>token 怎么变成向量，位置怎么编码</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Ch03 Single-Head Self-Attention</td>
+<td>单头注意力的张量流</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Ch04 Multi-Head Attention &amp; MLA</td>
+<td>多头、KV 复用、MLA</td>
+<td>18</td>
+</tr>
+<tr>
+<td>Ch05 Transformer Block</td>
+<td>残差、Norm、FFN、Block 组合</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Ch06 Assembling a Complete GPT Model</td>
+<td>把上面拼成一个能 forward 的 GPT</td>
+<td>18</td>
+</tr>
+<tr>
+<td>Ch07 Training Loop</td>
+<td>next-token prediction = MLE，loss / PPL / 优化器 / checkpoint</td>
+<td>26</td>
+</tr>
+<tr>
+<td>Ch08 Text Generation</td>
+<td>采样策略、KV Cache、解码</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Ch09 Fine-Tuning &amp; Alignment</td>
+<td>SFT / LoRA / DPO / GRPO / RFT，行为改写</td>
+<td>27</td>
+</tr>
+<tr>
+<td>Ch10 Inference Optimization &amp; Frontiers</td>
+<td>KV Cache、稀疏/线性 Attention、量化、RAG、Agent</td>
+<td>38</td>
+</tr>
+<tr>
+<td>Ch11 Classical Neural NLP &amp; Evaluation</td>
+<td>RNN / LSTM / seq2seq / BERT，与现代 LLM 的联系</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Ch10 是目前最厚的一章（38 个 section，约 235 分钟阅读），信息密度很高：</p>
+<p><img src="/images/llm-course-ch10.jpg" alt="Chapter 10 首屏：Inference Optimization &amp; Frontiers"></p>
+<p>这一章的核心不是”罗列 KV Cache / FlashAttention / 量化 / RAG”这些名词，而是<strong>教你按瓶颈（计算、内存、IO、调度、检索、部署）给优化技术分类</strong>，看完能判断一个慢/贵的推理问题卡在哪个环节。</p>
+<h2 id="四个值得关注的细节"><a href="#四个值得关注的细节" class="headerlink" title="四个值得关注的细节"></a>四个值得关注的细节</h2><h3 id="1-每章都有”完成标准”"><a href="#1-每章都有”完成标准”" class="headerlink" title="1. 每章都有”完成标准”"></a>1. 每章都有”完成标准”</h3><p>不是看完视频就算学完。每章开头给出 <strong>Prerequisites → In-Chapter Internalization → Validation Signal</strong> 三段，结尾给出 <strong>Completion Criteria</strong>。比如 Ch01 BPE 的标准是：”你能解释一段文本如何变成 token ID，token ID 如何还原成文本”——能用自己的话复述，才算过。</p>
+<h3 id="2-数学和代码不拆成两门课"><a href="#2-数学和代码不拆成两门课" class="headerlink" title="2. 数学和代码不拆成两门课"></a>2. 数学和代码不拆成两门课</h3><p>需要矩阵乘法、链式法则、softmax 求导时，就在当下章节展开，不另开”数学先导课”。附录 <code>docs/math-prerequisites.html</code> 统一整理了符号约定（B/T/S/V/d_model/H/H_kv/D/N/M 等十几个张量符号的语义和 shape），遇到 confusion 再翻，不必先修。</p>
+<p><img src="/images/llm-course-math.jpg" alt="数学前置附录的符号约定表"></p>
+<h3 id="3-三阶段学习路径（官方建议）"><a href="#3-三阶段学习路径（官方建议）" class="headerlink" title="3. 三阶段学习路径（官方建议）"></a>3. 三阶段学习路径（官方建议）</h3><p>课程体量大，第一次学不要全修。官方建议三遍走：</p>
+<ul>
+<li><strong>第一遍（主干必修）</strong>：Ch01-Ch06，搭一个能 forward 的 GPT——<strong>必须写代码作业</strong></li>
+<li><strong>第二遍（让它跑起来）</strong>：Ch07-Ch08，训练一个小模型并让它生成文本——重点看 loss / optimizer / sampling 的输入输出 shape</li>
+<li><strong>第三遍（进阶选读）</strong>：Ch09-Ch10，微调、对齐、推理优化——先建概念地图，再回头补公式</li>
+</ul>
+<h3 id="4-知识地图可视化"><a href="#4-知识地图可视化" class="headerlink" title="4. 知识地图可视化"></a>4. 知识地图可视化</h3><p>每章顶部都有 SVG 知识地图，标出”学这章前需要知道什么 / 这章解决什么 / 学完后接着读什么”。前后章通过张量流强关联，不跳章效果更好。</p>
+<p><img src="/images/llm-course-ch01.jpg" alt="Chapter 1 首屏：导览 + 知识地图 + 概念对比表"></p>
+<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><p><strong>方式一：本地起服务（推荐）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/garry-x/llm-course</span><br><span class="line"><span class="built_in">cd</span> llm-course</span><br><span class="line">./serve.sh serve           <span class="comment"># 默认 0.0.0.0:8080</span></span><br><span class="line"><span class="comment"># 自定义端口: ./serve.sh serve -p 3000</span></span><br></pre></td></tr></table></figure>
+<p>然后打开 <a target="_blank" rel="noopener" href="http://localhost:8080">http://localhost:8080</a>。<code>serve.sh</code> 会自动检测端口占用并询问是否终止占用进程。</p>
+<p><strong>方式二：跑作业</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<p><code>requirements.txt</code> 只有 4 个核心包：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">torch&gt;=2.0.0</span><br><span class="line">numpy&gt;=1.24.0</span><br><span class="line">tqdm&gt;=4.65.0</span><br><span class="line">transformers&gt;=4.36.0</span><br></pre></td></tr></table></figure>
+<p>每个作业目录（<code>assignments/chXX_xxx/</code>）包含 4 个文件：</p>
+<ul>
+<li><code>README.md</code> — 任务说明</li>
+<li><code>starter.py</code> — 你的代码起点</li>
+<li><code>reference_solution.py</code> — 参考实现</li>
+<li><code>tests.py</code> — 验证脚本</li>
+</ul>
+<p>跑测试统一用仓库根的 <code>run_assignment_tests.py</code>。</p>
+<h2 id="适合谁"><a href="#适合谁" class="headerlink" title="适合谁"></a>适合谁</h2><ul>
+<li>懂 Python + 基础线性代数，想从代码层真正”造一个 LLM”</li>
+<li>已经会用 transformers / LangChain，但想搞清里面到底怎么算的</li>
+<li>做训练 / 推理工程，需要把 MLA、MoE、KV Cache、FlashAttention、GRPO 从”听过”变成”能写能调”</li>
+<li><strong>不适合</strong>：只想调 API 调 prompt 的纯应用层；完全没写过 Python 的纯数学背景</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这门课的稀缺之处在于<strong>“代码深度 + 工程视野”同时拉满</strong>。251 个 section + 11 个编程作业 + 9 份附录，每个知识点都回答三件事：数学上解决什么问题、代码上怎么落到 PyTorch 张量、工程上引入了什么 cost/speed/quality 的取舍。</p>
+<p>如果你认真想搞懂 LLM 全链路，推荐从 Ch01 BPE 开始，把 <code>assignments/ch01_bpe/starter.py</code> 写完，跑通 <code>tests.py</code>，然后决定要不要继续往下走。</p>
+<blockquote>
+<p>Star / 提 Issue / 提 PR 都在 <a target="_blank" rel="noopener" href="https://github.com/garry-x/llm-course">https://github.com/garry-x/llm-course</a>，作者维护活跃。</p>
+</blockquote>
+<hr>
+<p><em>本文配图来自课程仓库 README 与各 chapter / docs 页面截图，版权归属课程作者 <a target="_blank" rel="noopener" href="https://github.com/garry-x">garry-x</a>。</em></p>
+
+        </div>
+
+        <div class="post-share">
+            <span class="post-share-label">分享到</span>
+            <button class="share-btn share-wechat" id="share-wechat" aria-label="微信分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <span>微信</span>
+            </button>
+            <a class="share-btn share-weibo" id="share-weibo" href="#" target="_blank" rel="noopener" aria-label="微博分享">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM9.05 17.219c-.384.616-1.208.884-1.829.602-.612-.279-.793-.991-.406-1.593.379-.595 1.176-.861 1.793-.601.622.263.82.972.442 1.592zm1.27-1.627c-.141.237-.449.353-.689.253-.236-.09-.313-.361-.177-.586.138-.227.436-.346.672-.24.239.09.315.36.194.573zm.176-2.719c-1.893-.493-4.033.45-4.857 2.118-.836 1.704-.026 3.591 1.886 4.21 1.983.64 4.318-.341 5.132-2.179.8-1.793-.201-3.642-2.161-4.149zm7.563-1.224c-.346-.105-.579-.18-.405-.649.389-1.061.428-1.978.008-2.635-.793-1.242-2.964-1.175-5.458-.034 0 0-.783.343-.583-.279.383-1.215.324-2.229-.27-2.816-1.35-1.334-4.947.047-8.028 3.084C1.199 10.49 0 12.598 0 14.403c0 3.459 4.438 5.558 8.783 5.558 5.693 0 9.482-3.307 9.482-5.933 0-1.588-1.339-2.488-2.206-2.779zm1.719-5.615c-.077.203-.255.34-.46.36l-.349.031c-.22.019-.287-.104-.162-.271l.137-.183c.106-.141.149-.306.122-.466-.026-.157-.124-.291-.267-.366l-.331-.176c-.22-.116-.28-.298-.146-.46.133-.163.361-.22.574-.128l.331.176c.355.188.588.53.641.923.025.182.004.368-.09.56zm2.024-2.187c-.182.477-.603.8-1.087.843l-.824.073c-.518.045-.675-.244-.38-.641l.323-.431c.252-.335.357-.728.295-1.095-.06-.368-.29-.68-.63-.86l-.782-.416c-.517-.276-.659-.699-.344-1.081.314-.383.853-.517 1.354-.252l.781.416c.889.473 1.468 1.325 1.602 2.309.06.454.01.917-.308 1.135z"/></svg>
+                <span>微博</span>
+            </a>
+            <button class="share-btn share-link" id="share-link" aria-label="复制链接">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span>复制链接</span>
+            </button>
+        </div>
+
+        <div class="share-qr-modal" id="share-qr-modal">
+            <div class="share-qr-content">
+                <button class="share-qr-close" id="share-qr-close" aria-label="关闭">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <p class="share-qr-title">微信扫码分享</p>
+                <img id="share-qr-img" src="" alt="二维码">
+                <p class="share-qr-tip">打开微信扫一扫，分享给好友</p>
+            </div>
+        </div>
+
+        
+        <section class="related-posts" aria-labelledby="related-posts-title">
+            <div class="related-posts-header">
+                <span class="related-posts-kicker">Related</span>
+                <h2 id="related-posts-title">推荐阅读</h2>
+            </div>
+            <div class="related-posts-grid">
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-13T06:00:00.000Z">2026-07-13</time>
+                    <h3><a href="/2026/07/13/paper-global-workspace-llm/">AI 的内心独白：Anthropic 揭示语言模型如何用词语「思考」</a></h3>
+                    
+                    
+                    <p>原文标题：Verbalizable Representations Form a Global Workspace in Language Models作者：Anthrop...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-07-03T02:00:00.000Z">2026-07-03</time>
+                    <h3><a href="/2026/07/03/token-id-to-embedding/">Token ID 到 Embedding 机制详解</a></h3>
+                    
+                    
+                    <p>生成日期：2026-06-26主题：token id 如何变成 embedding、embedding table 的内部机制、位置编码、训练更新，以及它在 LLM 整体流...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-26T02:00:00.000Z">2026-06-26</time>
+                    <h3><a href="/2026/06/26/why-llm-uses-qkv/">为什么 LLM 要使用 Q/K/V</a></h3>
+                    
+                    
+                    <p>0. 先看结论LLM 使用 Q/K/V，不是因为三个字母神秘，而是因为 attention 本质上在做一次“可微的内容检索”： 123Query 负责提问Key 负责匹配V...</p>
+                    
+                </article>
+                
+                <article class="related-post-card">
+                    <time datetime="2026-06-22T02:00:00.000Z">2026-06-22</time>
+                    <h3><a href="/2026/06/22/scaled-dot-product-attention/">Scaled Dot-Product Attention 详解</a></h3>
+                    
+                    
+                    <p>0. 先看结论Scaled Dot-Product Attention 的公式是： \mathrm{Attention}(Q,K,V)=\mathrm{softmax}\l...</p>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+
+        <nav class="post-nav">
+            <div class="post-nav-inner">
+                
+                <a href="/2026/06/16/ai-daily-2026-06-16/" class="post-nav-link post-nav-prev">
+                    <span class="nav-dir">← 上一篇</span>
+                    <span class="nav-title">【AI 日报】美国政府强制下架 Anthropic 最强模型 Fable 5，Claude API 大规模退役</span>
+                </a>
+                
+                
+                <a href="/2026/06/15/ai-daily-2026-06-15/" class="post-nav-link post-nav-next">
+                    <span class="nav-dir">下一篇 →</span>
+                    <span class="nav-title">【AI 日报】Anthropic最强模型上线72小时即被美国强制全球下线</span>
+                </a>
+                
+            </div>
+        </nav>
+    </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+</article>
+
+<script>
+(function() {
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Share buttons
+    var pageUrl = encodeURIComponent(location.href);
+    var pageTitle = encodeURIComponent(document.title);
+
+    var weiboBtn = document.getElementById('share-weibo');
+    if (weiboBtn) {
+        weiboBtn.href = 'https://service.weibo.com/share/share.php?url=' + pageUrl + '&title=' + pageTitle;
+    }
+
+    var wechatBtn = document.getElementById('share-wechat');
+    var qrModal = document.getElementById('share-qr-modal');
+    var qrClose = document.getElementById('share-qr-close');
+    var qrImg = document.getElementById('share-qr-img');
+    if (wechatBtn && qrModal && qrImg) {
+        wechatBtn.addEventListener('click', function() {
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(location.href);
+            qrModal.classList.add('active');
+        });
+        qrClose.addEventListener('click', function() {
+            qrModal.classList.remove('active');
+        });
+        qrModal.addEventListener('click', function(e) {
+            if (e.target === qrModal) qrModal.classList.remove('active');
+        });
+    }
+
+    var linkBtn = document.getElementById('share-link');
+    if (linkBtn) {
+        linkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(location.href).then(function() {
+                var span = linkBtn.querySelector('span');
+                var orig = span.textContent;
+                span.textContent = '已复制';
+                linkBtn.classList.add('copied');
+                setTimeout(function() {
+                    span.textContent = orig;
+                    linkBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
+
+    // TOC generation & highlight
+    const content = document.getElementById('post-content');
+    const tocNav = document.getElementById('toc-nav');
+
+    // Label-pill: 给"<p><strong>事件简述：</strong>……" 这种段首短标签型 strong 加 class
+    // 仅当：strong 是 p 的首个节点 + 后面紧跟冒号 + strong 内容 ≤ 8 字
+    if (content) {
+        content.querySelectorAll('p > strong:first-child').forEach(function(s) {
+            if (s.previousSibling) return;
+            var next = s.nextSibling;
+            if (!next || next.nodeType !== 3) return;
+            if (!/^\s*[:：]/.test(next.nodeValue)) return;
+            var txt = s.textContent.replace(/\s+/g, '').trim();
+            if (txt.length > 6) return;  // 长标题（如"1. 记忆即护城河"）不药丸化
+            s.classList.add('inline-label');
+        });
+    }
+
+    if (!content || !tocNav) return;
+
+    const mermaidPattern = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|stateDiagram-v2|erDiagram|gantt|pie|journey|timeline|mindmap|quadrantChart|gitGraph|C4Context)\b/;
+    const mermaidBlocks = Array.prototype.slice.call(content.querySelectorAll('pre > code.language-mermaid, pre > code.lang-mermaid, pre > code.mermaid'));
+    content.querySelectorAll('figure.highlight.plaintext, figure.highlight.text').forEach(function(figure) {
+        var codePre = figure.querySelector('td.code pre');
+        if (!codePre) return;
+        var source = Array.prototype.map.call(codePre.querySelectorAll('.line'), function(line) {
+            return line.textContent;
+        }).join('\n').trim();
+        if (mermaidPattern.test(source)) {
+            mermaidBlocks.push({ textContent: source, parentNode: figure.parentNode, replaceTarget: figure });
+        }
+    });
+
+    if (mermaidBlocks.length) {
+        mermaidBlocks.forEach(function(code, i) {
+            var diagram = document.createElement('div');
+            diagram.className = 'mermaid';
+            diagram.textContent = code.textContent;
+            diagram.id = 'mermaid-diagram-' + i;
+            (code.replaceTarget || code.parentNode).replaceWith(diagram);
+        });
+
+        var script = document.createElement('script');
+        script.src = '/js/vendor/mermaid.min.js?v=1';
+        script.onload = function() {
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'strict',
+                theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+            });
+            mermaid.run({ querySelector: '.mermaid' }).catch(function(err) {
+                console.error('Mermaid render failed:', err);
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    const headings = content.querySelectorAll('h2, h3, h4');
+    if (headings.length < 2) {
+        document.getElementById('toc-sidebar').style.display = 'none';
+        return;
+    }
+
+    const tocItems = [];
+    headings.forEach(function(h, i) {
+        if (!h.id) h.id = 'toc-h-' + i;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'toc-link toc-' + h.tagName.toLowerCase();
+        a.dataset.target = h.id;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById(h.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, '#' + h.id);
+        });
+        tocNav.appendChild(a);
+        tocItems.push({ el: a, target: h });
+    });
+
+    // Highlight current heading
+    var currentActive = null;
+    function updateActive() {
+        var scrollPos = window.scrollY + 120;
+        var active = null;
+        for (var i = tocItems.length - 1; i >= 0; i--) {
+            if (tocItems[i].target.offsetTop <= scrollPos) {
+                active = tocItems[i].el;
+                break;
+            }
+        }
+        if (!active && tocItems.length) active = tocItems[0].el;
+        if (currentActive === active) return;
+        if (currentActive) currentActive.classList.remove('active');
+        if (active) active.classList.add('active');
+        currentActive = active;
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+})();
+</script>
+
+    </main>
+    
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-stats" aria-label="Site statistics">
+            <span class="footer-stat">
+                <span class="footer-stat-label">访问量</span>
+                <strong id="busuanzi_value_site_pv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">访客</span>
+                <strong id="busuanzi_value_site_uv">--</strong>
+            </span>
+            <span class="footer-stat">
+                <span class="footer-stat-label">文章</span>
+                <strong>151</strong>
+            </span>
+            <span class="footer-stat" title="sitemap.xml 中可索引 URL 数">
+                <span class="footer-stat-label">索引页</span>
+                <strong id="site-index-count">--</strong>
+            </span>
+        </div>
+        <p class="copyright">
+            &copy; 2017 - 2026 
+            Garry Xu
+        </p>
+        <p class="powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> & Modern</p>
+    </div>
+</footer>
+<script>
+(function() {
+    var el = document.getElementById('site-index-count');
+    if (!el || !window.fetch) return;
+    fetch('/sitemap.xml', { cache: 'no-store' })
+        .then(function(res) {
+            if (!res.ok) throw new Error('sitemap unavailable');
+            return res.text();
+        })
+        .then(function(xml) {
+            var count = (xml.match(/<url>/g) || []).length;
+            el.textContent = count ? String(count) : '--';
+        })
+        .catch(function() {
+            el.textContent = '--';
+        });
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <script src="/js/theme.js"></script>
+</body>
+</html>
