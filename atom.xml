@@ -11,7 +11,25 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-11-14T00:47:49.608Z</updated>
+  <updated>2026-11-15T00:26:21.428Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/11/15/ai-daily-2026-11-15/</id>
+    <link href="https://garryx.com/2026/11/15/ai-daily-2026-11-15/"/>
+    <published>2026-11-15T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦 今日速览</h2>
+<p>华为诺亚团队以HiPhys-RSI方案登顶BEHAVIOR-1K]]>
+    </summary>
+    <title>【AI 日报】华为诺亚夺冠李飞飞BEHAVIOR具身挑战赛，中国包揽前三</title>
+    <updated>2026-11-15T00:26:21.428Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -334,22 +352,5 @@
     </summary>
     <title>【AI 日报】孙正义拟投500亿美元落地马来西亚，软银东南亚最大AI基建押注</title>
     <updated>2026-11-14T00:27:58.750Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/10/25/ai-daily-2026-10-25/</id>
-    <link href="https://garryx.com/2026/10/25/ai-daily-2026-10-25/"/>
-    <published>2026-10-25T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦]]>
-    </summary>
-    <title>【AI 日报】AWS容量卖到2027年，贾西：完全可以投更多</title>
-    <updated>2026-11-14T00:27:58.713Z</updated>
   </entry>
 </feed>
