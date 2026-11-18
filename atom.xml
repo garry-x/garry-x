@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-11-17T00:21:28.074Z</updated>
+  <updated>2026-11-18T00:23:54.189Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/11/18/ai-daily-2026-11-18/</id>
+    <link href="https://garryx.com/2026/11/18/ai-daily-2026-11-18/"/>
+    <published>2026-11-18T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】英伟达财报营收1158亿美元暴增103%，董事会明确拒绝黄仁勋回归</title>
+    <updated>2026-11-18T00:23:54.189Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -335,22 +352,5 @@
     </summary>
     <title>【AI 日报】SK海力士Q3营业利润暴涨632%，警告内存供应紧张将持续至2030年</title>
     <updated>2026-11-14T00:27:58.862Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/10/28/ai-daily-2026-10-28/</id>
-    <link href="https://garryx.com/2026/10/28/ai-daily-2026-10-28/"/>
-    <published>2026-10-28T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦 今日速览</h2><p>谷歌DeepMind周二发布迄今最强世界模型<strong>Genie]]>
-    </summary>
-    <title>【AI 日报】谷歌发布世界模型Genie 4：模拟时长翻倍至2分钟、首次音视频同步生成</title>
-    <updated>2026-11-14T00:27:58.825Z</updated>
   </entry>
 </feed>
