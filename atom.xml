@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-11-18T00:23:54.189Z</updated>
+  <updated>2026-11-19T00:24:41.197Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/11/19/ai-daily-2026-11-19/</id>
+    <link href="https://garryx.com/2026/11/19/ai-daily-2026-11-19/"/>
+    <published>2026-11-19T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】Anthropic IPO定价83美元超区间，史上最大发行今日挂牌</title>
+    <updated>2026-11-19T00:24:41.197Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -335,22 +352,5 @@
     </summary>
     <title>【AI 日报】亚马逊AWS增速创五年新高，773亿资本开支吓退市场：盘后一度暴跌12%</title>
     <updated>2026-11-14T00:27:58.899Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/10/29/ai-daily-2026-10-29/</id>
-    <link href="https://garryx.com/2026/10/29/ai-daily-2026-10-29/"/>
-    <published>2026-10-29T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦]]>
-    </summary>
-    <title>【AI 日报】SK海力士Q3营业利润暴涨632%，警告内存供应紧张将持续至2030年</title>
-    <updated>2026-11-14T00:27:58.862Z</updated>
   </entry>
 </feed>
