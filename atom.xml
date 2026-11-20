@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-11-19T00:24:41.197Z</updated>
+  <updated>2026-11-20T00:24:14.506Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/11/20/ai-daily-2026-11-20/</id>
+    <link href="https://garryx.com/2026/11/20/ai-daily-2026-11-20/"/>
+    <published>2026-11-20T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】Anthropic首日冲高回落收涨17%，同日道指六年来首破5万点</title>
+    <updated>2026-11-20T00:24:14.506Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -335,22 +352,5 @@
     </summary>
     <title>【AI 日报】苹果反超英伟达重回全球市值第一：纳指创6月来最差单日，英特尔财报后暴跌28%</title>
     <updated>2026-11-14T00:27:58.936Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/10/30/ai-daily-2026-10-30/</id>
-    <link href="https://garryx.com/2026/10/30/ai-daily-2026-10-30/"/>
-    <published>2026-10-30T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a><a href="#🔦-今日速览" title="🔦 今日速览"></a>🔦]]>
-    </summary>
-    <title>【AI 日报】亚马逊AWS增速创五年新高，773亿资本开支吓退市场：盘后一度暴跌12%</title>
-    <updated>2026-11-14T00:27:58.899Z</updated>
   </entry>
 </feed>
