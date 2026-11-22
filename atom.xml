@@ -11,7 +11,24 @@
   <rights>All rights reserved 2026, Garry Xu</rights>
   <subtitle>Recording Life</subtitle>
   <title>Garry's Blog</title>
-  <updated>2026-11-21T00:17:13.682Z</updated>
+  <updated>2026-11-22T00:34:01.261Z</updated>
+  <entry>
+    <author>
+      <name>Garry Xu</name>
+    </author>
+    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
+    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
+    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
+    <id>https://garryx.com/2026/11/22/ai-daily-2026-11-22/</id>
+    <link href="https://garryx.com/2026/11/22/ai-daily-2026-11-22/"/>
+    <published>2026-11-22T00:00:00.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="今日速览">🔦]]>
+    </summary>
+    <title>【AI 日报】128国同意两年内制定致命自主武器国际规则</title>
+    <updated>2026-11-22T00:34:01.261Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Garry Xu</name>
@@ -335,22 +352,5 @@
     </summary>
     <title>【AI 日报】OpenAI拟中期选举后公关攻势：数据中心改名”AI算力园区”</title>
     <updated>2026-11-14T00:27:59.008Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Garry Xu</name>
-    </author>
-    <category term="AI日报" scheme="https://garryx.com/categories/AI%E6%97%A5%E6%8A%A5/"/>
-    <category term="AI" scheme="https://garryx.com/tags/AI/"/>
-    <category term="人工智能" scheme="https://garryx.com/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    <category term="日报" scheme="https://garryx.com/tags/%E6%97%A5%E6%8A%A5/"/>
-    <id>https://garryx.com/2026/11/01/ai-daily-2026-11-01/</id>
-    <link href="https://garryx.com/2026/11/01/ai-daily-2026-11-01/"/>
-    <published>2026-11-01T00:00:00.000Z</published>
-    <summary>
-      <![CDATA[<h2 id="🔦-今日速览"><a href="#🔦-今日速览" class="headerlink" title="🔦 今日速览"></a>🔦]]>
-    </summary>
-    <title>【AI 日报】OpenAI融资目标砍至200亿美元、估值下调至1.25万亿</title>
-    <updated>2026-11-14T00:27:58.971Z</updated>
   </entry>
 </feed>
